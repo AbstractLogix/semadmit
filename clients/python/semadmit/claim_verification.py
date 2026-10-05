@@ -33,6 +33,27 @@ _MAX_INTEGER = 2**53 - 1
 _MIN_INTEGER = -_MAX_INTEGER
 _DIGEST_PREFIX = "sha256:"
 _HEX = frozenset("0123456789abcdef")
+_SUPPORTED_EVIDENCE_FAMILIES = frozenset(("deterministic-execution/0.1",))
+
+_TEXT_SCHEMA = {"type": "string", "minLength": 1, "maxLength": 1024}
+_INTEGER_SCHEMA = {"type": "integer", "minimum": _MIN_INTEGER, "maximum": _MAX_INTEGER}
+_DIGEST_INPUT_SCHEMA = {"type": "string", "pattern": r"^sha256:[0-9a-f]{64}$"}
+_TEXT_LIST_SCHEMA = {
+    "type": "array",
+    "items": _TEXT_SCHEMA,
+    "maxItems": 256,
+    "uniqueItems": True,
+}
+_NULLABLE_TEXT_SCHEMA = {"type": ["string", "null"], "minLength": 1, "maxLength": 1024}
+
+
+def _object_schema(properties: dict[str, object]) -> dict[str, object]:
+    return {
+        "type": "object",
+        "properties": properties,
+        "required": list(properties),
+        "additionalProperties": False,
+    }
 
 
 def _input_error(code: str, pointer: str) -> PackInputError:
@@ -47,7 +68,7 @@ def _closed_object(value: object, fields: tuple[str, ...], pointer: str) -> dict
     if extra:
         escaped = extra[0].replace("~", "~0").replace("/", "~1")
         raise _input_error("input.unknown_field", f"{pointer}/{escaped}")
-    missing = sorted(set(fields) - actual)
+    missing = [field for field in fields if field not in actual]
     if missing:
         raise _input_error("input.missing_field", f"{pointer}/{missing[0]}")
     return value
@@ -111,17 +132,101 @@ _OPERATION = OperationDescriptor(
         "contract.unsupported": ("/subjects/context/contract_id",),
         "evidence.incomplete": ("/evidence/0/observations", "/subjects/claim/domain/complete"),
         "evidence.missing": ("/evidence",),
-        "evidence.non_commensurable": ("/evidence/0/family", "/evidence/0/subject_digest"),
+        "evidence.non_commensurable": (
+            "/subjects/claim/expected_evidence_family",
+            "/evidence/0/family",
+            "/evidence/0/subject_digest",
+        ),
         "verifier.unsupported": ("/subjects/claim/predicate/id", "/subjects/claim/required_verifier"),
     },
-    input_schemas={"policy": {}, "subjects": {}, "evidence": {}},
+    input_schemas={
+        "policy": _object_schema({
+            "admission_profile": {"type": "string", "const": "strict/0.1"},
+        }),
+        "subjects": _object_schema({
+            "claim": _object_schema({
+                "id": _TEXT_SCHEMA,
+                "subject": _object_schema({
+                    "function_id": _TEXT_SCHEMA,
+                    "version": _TEXT_SCHEMA,
+                    "artifact_digest": _DIGEST_INPUT_SCHEMA,
+                }),
+                "predicate": _object_schema({
+                    "id": _TEXT_SCHEMA,
+                    "lower_bound": _INTEGER_SCHEMA,
+                }),
+                "domain": _object_schema({
+                    "inputs": {
+                        "type": "array",
+                        "items": _INTEGER_SCHEMA,
+                        "minItems": 1,
+                        "maxItems": _MAX_DOMAIN,
+                        "uniqueItems": True,
+                    },
+                    "complete": {"type": "boolean"},
+                }),
+                "assumptions": _TEXT_LIST_SCHEMA,
+                "expected_evidence_family": _TEXT_SCHEMA,
+                "required_verifier": _TEXT_SCHEMA,
+            }),
+            "context": _object_schema({
+                "contract_id": _TEXT_SCHEMA,
+                "scope": _TEXT_SCHEMA,
+                "assumptions": _TEXT_LIST_SCHEMA,
+            }),
+        }),
+        "evidence": {
+            "type": "array",
+            "maxItems": 1,
+            "items": _object_schema({
+                "id": _TEXT_SCHEMA,
+                "source": _TEXT_SCHEMA,
+                "collection_method": _TEXT_SCHEMA,
+                "captured_version": _TEXT_SCHEMA,
+                "family": _TEXT_SCHEMA,
+                "subject_digest": _DIGEST_INPUT_SCHEMA,
+                "uncertainty": _NULLABLE_TEXT_SCHEMA,
+                "upstream_dependencies": _TEXT_LIST_SCHEMA,
+                "artifact_references": _TEXT_LIST_SCHEMA,
+                "correlation_group": _NULLABLE_TEXT_SCHEMA,
+                "observations": {
+                    "type": "array",
+                    "maxItems": _MAX_DOMAIN,
+                    "x-uniqueBy": "input",
+                    "items": _object_schema({
+                        "input": _INTEGER_SCHEMA,
+                        "output": _INTEGER_SCHEMA,
+                    }),
+                },
+            }),
+        },
+    },
     validation_order={
         "policy": ("admission_profile",),
-        "claim": ("id", "subject", "predicate", "domain", "assumptions"),
-        "context": ("contract_id", "scope", "assumptions"),
-        "evidence": ("id", "family", "subject_digest", "observations"),
+        "/subjects": ("claim", "context"),
+        "/subjects/claim": (
+            "id", "subject", "predicate", "domain", "assumptions",
+            "expected_evidence_family", "required_verifier",
+        ),
+        "/subjects/claim/subject": ("function_id", "version", "artifact_digest"),
+        "/subjects/claim/predicate": ("id", "lower_bound"),
+        "/subjects/claim/domain": ("inputs", "complete"),
+        "/subjects/context": ("contract_id", "scope", "assumptions"),
+        "/evidence/*": (
+            "id", "source", "collection_method", "captured_version", "family", "subject_digest",
+            "uncertainty", "upstream_dependencies", "artifact_references", "correlation_group", "observations",
+        ),
+        "/evidence/*/observations/*": ("input", "output"),
     },
-    array_order={"/subjects/claim/domain/inputs": "ascending-integer", "/evidence/0/observations": "input"},
+    array_order={
+        "/evidence": "set:id",
+        "/subjects/claim/assumptions": "sequence",
+        "/subjects/claim/domain/inputs": "set:ascending-integer",
+        "/subjects/context/assumptions": "sequence",
+        "/evidence/*/upstream_dependencies": "sequence",
+        "/evidence/*/artifact_references": "sequence",
+        "/evidence/*/observations": "set:ascending-input",
+    },
     resource_limits={"evidence_items": 1, "domain_inputs": _MAX_DOMAIN, "observations": _MAX_DOMAIN},
 )
 
@@ -217,6 +322,20 @@ class FiniteInvariantPack:
             ),
             base,
         )
+        evidence_id = _text(fields["id"], f"{base}/id")
+        source = _text(fields["source"], f"{base}/source")
+        collection_method = _text(fields["collection_method"], f"{base}/collection_method")
+        captured_version = _text(fields["captured_version"], f"{base}/captured_version")
+        family = _text(fields["family"], f"{base}/family")
+        subject_digest = _valid_digest(fields["subject_digest"], f"{base}/subject_digest")
+        uncertainty = fields["uncertainty"]
+        if uncertainty is not None:
+            uncertainty = _text(uncertainty, f"{base}/uncertainty")
+        upstream_dependencies = _text_list(fields["upstream_dependencies"], f"{base}/upstream_dependencies")
+        artifact_references = _text_list(fields["artifact_references"], f"{base}/artifact_references")
+        correlation_group = fields["correlation_group"]
+        if correlation_group is not None:
+            correlation_group = _text(correlation_group, f"{base}/correlation_group")
         observations = fields["observations"]
         if type(observations) is not list:
             raise _input_error("input.invalid_type", f"{base}/observations")
@@ -235,22 +354,16 @@ class FiniteInvariantPack:
             observed_inputs.add(input_value)
             normalized_observations.append({"input": input_value, "output": output_value})
         normalized_observations.sort(key=lambda item: item["input"])
-        uncertainty = fields["uncertainty"]
-        if uncertainty is not None:
-            uncertainty = _text(uncertainty, f"{base}/uncertainty")
-        correlation_group = fields["correlation_group"]
-        if correlation_group is not None:
-            correlation_group = _text(correlation_group, f"{base}/correlation_group")
         return {
-            "id": _text(fields["id"], f"{base}/id"),
-            "source": _text(fields["source"], f"{base}/source"),
-            "collection_method": _text(fields["collection_method"], f"{base}/collection_method"),
-            "captured_version": _text(fields["captured_version"], f"{base}/captured_version"),
-            "family": _text(fields["family"], f"{base}/family"),
-            "subject_digest": _valid_digest(fields["subject_digest"], f"{base}/subject_digest"),
+            "id": evidence_id,
+            "source": source,
+            "collection_method": collection_method,
+            "captured_version": captured_version,
+            "family": family,
+            "subject_digest": subject_digest,
             "uncertainty": uncertainty,
-            "upstream_dependencies": _text_list(fields["upstream_dependencies"], f"{base}/upstream_dependencies"),
-            "artifact_references": _text_list(fields["artifact_references"], f"{base}/artifact_references"),
+            "upstream_dependencies": upstream_dependencies,
+            "artifact_references": artifact_references,
             "correlation_group": correlation_group,
             "observations": normalized_observations,
         }
@@ -308,12 +421,18 @@ def _verify(
         contracts_evaluated.extend(("evidence-subject-binding/0.1", "evidence-family-compatibility/0.1"))
         subject = claim["subject"]
         evidence_matches = (
-            evidence_item["family"] == expected_family
+            expected_family in _SUPPORTED_EVIDENCE_FAMILIES
+            and evidence_item["family"] == expected_family
             and evidence_item["subject_digest"] == subject["artifact_digest"]
         )
         if not evidence_matches:
             commensurability = "NON_COMMENSURABLE"
-            pointer = "/evidence/0/family" if evidence_item["family"] != expected_family else "/evidence/0/subject_digest"
+            if expected_family not in _SUPPORTED_EVIDENCE_FAMILIES:
+                pointer = "/subjects/claim/expected_evidence_family"
+            elif evidence_item["family"] != expected_family:
+                pointer = "/evidence/0/family"
+            else:
+                pointer = "/evidence/0/subject_digest"
             diagnostics.append(Diagnostic("claim.verification", pointer, "evidence.non_commensurable"))
         else:
             commensurability = "COMPARABLE"

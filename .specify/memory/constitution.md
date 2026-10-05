@@ -12,7 +12,7 @@ Every supported core request, result, obligation, diagnostic, and error shape MU
 
 ### III. Independent conformance evidence
 
-The maintained Haskell reference and Python implementation MUST independently implement the shared core contract and maintained first-party packs. Normative fixtures and canonicalization vectors define expected behavior. A downstream pack MUST provide fixtures for its declared contract; it MUST NOT claim independent cross-implementation conformance unless a second independent evaluator has been checked. Agreement is evidence over tested cases, not proof of correctness; independent contract review and targeted mutation checks remain required.
+The maintained Haskell reference and Python implementation MUST independently implement the shared Core contract. Each maintained first-party pack MUST declare its implementation scope. A pack designated for both languages MUST have independent evaluators in both languages and shared normative fixtures. A single-language pack MUST provide normative fixtures and MUST NOT claim independent cross-implementation conformance unless a second evaluator has been checked. Normative fixtures and canonicalization vectors define expected behavior. Agreement is evidence over tested cases, not proof of correctness; independent contract review and targeted mutation checks remain required.
 
 ### IV. Fail-closed, snapshot-bound admission
 
@@ -50,7 +50,7 @@ A claim verification status and an admission status MUST remain separate. `VALID
 
 This constitution is authoritative for all specifications and implementation work in this repository. A change to a principle requires a documented amendment and an impact review against existing specs and fixtures. Feature specs may tighten these rules but may not weaken them without an explicit constitution amendment.
 
-**Version**: 1.3.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-05
+**Version**: 1.4.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-05
 
 ### Amendment 1.1.0
 
@@ -67,3 +67,9 @@ Impact: README and reader guides now use shorter sentences. Templates and docume
 Clarified Semadmit's product role as reusable claim verification and admission. Added the rule that verification and admission statuses remain distinct, and that new pack-specific results bind to the generic Core decision. The existing `semantic-oracle/0.1` envelope remains unchanged. Provenance and suspected dependencies remain data; they do not authenticate sources or establish independence.
 
 Impact: Feature 002 adds an explicitly versioned Python claim pack and result wrapper. It does not alter the approved v0.1 request, decision, or identity contract. Haskell remains the independent reference for the existing shared Core and Isoprax pack; Feature 002 makes no Haskell conformance claim for the new domain rule.
+
+### Amendment 1.4.0
+
+Clarified Principle III. Haskell and Python must both implement the shared Core contract. Each pack spec must state its implementation scope. A pack may be single-language; it needs normative fixtures and must not claim cross-implementation conformance without a second evaluator.
+
+Impact: Existing shared Core and Isoprax requirements remain in force. Feature 002's finite-observation claim pack remains Python-only. This amendment does not claim Haskell parity for that rule.

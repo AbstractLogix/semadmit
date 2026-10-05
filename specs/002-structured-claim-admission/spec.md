@@ -1,8 +1,8 @@
 # Feature Specification: Structured Claim Verification v0.1
 
-**Feature Branch**: main
+**Feature Branch**: codex/structured-claim-admission
 **Created**: 2026-10-05
-**Status**: Implemented locally; release and hosted checks remain open.
+**Status**: Implementation and pull request checks in progress; release gates remain open.
 
 ## Purpose
 
@@ -67,7 +67,7 @@ The public request uses protocol `semadmit/claim/0.1`:
 }
 ```
 
-The evidence list accepts zero or one trace. A trace has `id`, `source`, `collection_method`, `captured_version`, `family`, `subject_digest`, `uncertainty`, `upstream_dependencies`, `artifact_references`, `correlation_group`, and `observations`. Each observation has a safe JSON integer `input` and `output` in the RFC 8785 range, `-(2^53-1)` through `2^53-1`. Booleans are not integers in this contract. Both subject digest fields must use the SHA-256 syntax. A mismatch makes the evidence non-commensurable and the status `UNKNOWN`. The pack binds the digest; it does not authenticate the function source.
+The evidence list accepts zero or one trace. A trace has `id`, `source`, `collection_method`, `captured_version`, `family`, `subject_digest`, `uncertainty`, `upstream_dependencies`, `artifact_references`, `correlation_group`, and `observations`. Each observation has a safe JSON integer `input` and `output` in the RFC 8785 range, `-(2^53-1)` through `2^53-1`. Booleans are not integers in this contract. Both subject digest fields must use the SHA-256 syntax. A mismatch makes the evidence non-commensurable and the status `UNKNOWN`. The v0.1 verifier supports only `deterministic-execution/0.1`; equal caller-supplied labels for another family do not make that family supported or commensurable. The pack binds the digest; it does not authenticate the function source.
 
 The policy schema accepts only `{"admission_profile":"strict/0.1"}`. The claim domain and trace are bounded to 256 integer values. Duplicate domain values, duplicate observation inputs, and observations outside the declared domain are input errors.
 
@@ -163,4 +163,4 @@ For the new claim pack, use Python as the primary implementation because its sup
 
 The normative positive, negative, unknown, incompatible-family, and missing-evidence cases are in `conformance/fixtures/claim-verification-cases.json`. Python tests exhaustively check every two-input output combination in `{-1, 0, 1}` and each coverage mask. They also check determinism, canonical ordering, result/artifact binding, provenance retention, malformed input, and JSONL framing.
 
-Focused claim tests passed: 9 tests. The repository coverage gate passed: 38 Python tests, 100% executable-line coverage in all 8 Python modules (1,183 lines), 5,312/5,861 Haskell expressions (90.63%), and 88/193 Haskell booleans (45.60%). The Python source and wheel build passed. A local `semantic-oracle --jsonl` process returned the expected `admissible` result for the `admissible-ece-equality` Isoprax fixture. Hosted CI was not run.
+Focused claim tests passed: 10 tests. The repository coverage gate passed locally: 39 Python tests, 100% executable-line coverage in all 8 Python modules (1,276 lines), 5,312/5,861 Haskell expressions (90.63%), and 88/193 Haskell booleans (45.60%). The Python source and wheel build passed. A local `semantic-oracle --jsonl` process returned the expected `admissible` result for the `admissible-ece-equality` Isoprax fixture. Hosted pull request CI is pending.

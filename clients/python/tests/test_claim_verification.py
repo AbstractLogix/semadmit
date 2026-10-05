@@ -164,6 +164,24 @@ class ClaimVerificationChecks(unittest.TestCase):
         del request["context"]
         self.assertEqual(self.engine.evaluate(request)["pointer"], "/context")
 
+    def test_descriptor_declares_closed_input_schemas_and_field_order(self) -> None:
+        operation = FiniteInvariantPack().descriptor.operations["verify"]
+        self.assertEqual(set(operation.input_schemas), {"policy", "subjects", "evidence"})
+        self.assertFalse(operation.input_schemas["policy"]["additionalProperties"])
+        claim_schema = operation.input_schemas["subjects"]["properties"]["claim"]
+        self.assertFalse(claim_schema["additionalProperties"])
+        self.assertEqual(
+            tuple(claim_schema["required"]),
+            ("id", "subject", "predicate", "domain", "assumptions", "expected_evidence_family", "required_verifier"),
+        )
+        self.assertEqual(
+            operation.validation_order["/evidence/*"],
+            (
+                "id", "source", "collection_method", "captured_version", "family", "subject_digest",
+                "uncertainty", "upstream_dependencies", "artifact_references", "correlation_group", "observations",
+            ),
+        )
+
     def test_unsupported_and_open_domain_results_stay_unknown(self) -> None:
         request = valid_request()
         request["claim"]["required_verifier"] = "model-checker/0.1"
@@ -192,6 +210,18 @@ class ClaimVerificationChecks(unittest.TestCase):
             ["/evidence/0/observations", "/subjects/claim/domain/complete"],
         )
 
+        request = valid_request()
+        request["claim"]["expected_evidence_family"] = "future-observation/0.1"
+        request["evidence"][0]["family"] = "future-observation/0.1"
+        result = self.engine.evaluate(request)
+        self.assertEqual(result["verification_status"], "UNKNOWN")
+        self.assertEqual(result["admission_status"], "REQUIRES_SEPARATE_TREATMENT")
+        self.assertEqual(result["verification"]["commensurability_result"], "NON_COMMENSURABLE")
+        self.assertEqual(
+            [item["pointer"] for item in result["verification"]["diagnostics"]],
+            ["/subjects/claim/expected_evidence_family"],
+        )
+
     def test_subject_binding_mismatch_is_not_used_as_a_counterexample(self) -> None:
         request = valid_request()
         request["evidence"][0]["subject_digest"] = "sha256:" + "1" * 64
@@ -201,8 +231,9 @@ class ClaimVerificationChecks(unittest.TestCase):
         self.assertIsNone(result["verification"]["counterexample"])
 
     def test_missing_and_incompatible_evidence_are_distinct_unknowns(self) -> None:
-        missing = self.engine.evaluate(cases()[4]["request"])
-        incompatible = self.engine.evaluate(cases()[3]["request"])
+        by_id = {case["id"]: case["request"] for case in cases()}
+        missing = self.engine.evaluate(by_id["missing-evidence-unknown"])
+        incompatible = self.engine.evaluate(by_id["family-mismatch-unknown"])
         self.assertEqual(missing["verification_status"], "UNKNOWN")
         self.assertEqual(missing["verification"]["commensurability_result"], "UNKNOWN")
         self.assertEqual(incompatible["verification_status"], "UNKNOWN")

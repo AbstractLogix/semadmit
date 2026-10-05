@@ -10,9 +10,11 @@ Run `python3 scripts/check_coverage.py` to use the coverage gate. Local pre-comm
 | Haskell | HPC expression points across production modules | 89% |
 | Haskell | HPC boolean outcomes across production modules | 34% |
 
-## Recorded Baseline
+## Recorded Runs
 
-The latest gate run was measured on 2026-10-04 with the pinned toolchain. All 29 Python tests passed. They covered 792 of 792 executable lines across 7 modules. All 7 Haskell test suites passed, including `Core.CLI` framing and exit-code cases, every Isoprax pool fixture through the first-party application runner, subject parsing and identity sidecars, exact calibration calculations, and legacy number conversion. HPC measured 5,312 of 5,861 expression points (90.63%) and 88 of 193 boolean outcomes (45.60%). Alternative coverage is reported for review but is not a gate.
+The first M1 Core baseline was measured on 2026-10-04 with the pinned toolchain. All 29 Python tests passed. They covered 792 of 792 executable lines across 7 modules. All 7 Haskell test suites passed, including `Core.CLI` framing and exit-code cases, every Isoprax pool fixture through the first-party application runner, subject parsing and identity sidecars, exact calibration calculations, and legacy number conversion. HPC measured 5,312 of 5,861 expression points (90.63%) and 88 of 193 boolean outcomes (45.60%). Alternative coverage is reported for review but is not a gate.
+
+The structured claim admission gate passed locally on 2026-10-05 with the pinned toolchain. All 39 Python tests passed. They covered 1,276 of 1,276 executable lines across 8 modules. All 7 Haskell test suites passed. HPC measured 5,312 of 5,861 expression points (90.63%) and 88 of 193 boolean outcomes (45.60%). The hosted pull request check is recorded separately from this local run.
 
 Python uses the Python 3.13 standard-library `trace` module. This metric covers executable lines, not branches. Haskell uses GHC HPC expression and boolean coverage. It excludes test entrypoint modules and measures the first-party application entry module through the Isoprax CLI suite. These metrics are separate and are not comparable.
 
