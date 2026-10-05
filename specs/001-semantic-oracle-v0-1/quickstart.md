@@ -1,6 +1,6 @@
 # Quickstart and Validation Guide
 
-**Status**: M0 is approved. The generic Python API and Haskell Core evaluator produce decisions for explicitly registered packs. Shared positive and negative vectors pass through both evaluators. The registry-injected Haskell `Core.CLI` runner has fixture-backed framing and exit-code checks. The maintained-pack executable and first-party packs remain open.
+**Status**: M0 is approved. The generic Python API and Haskell Core evaluator produce decisions for explicitly registered packs. Shared positive and negative vectors pass through both evaluators. The Haskell CLI registers the maintained Isoprax pack and passes its pool fixtures. Later pack, guarded-use, conformance, and release work remains open.
 
 ## Current Local Checks
 
@@ -11,7 +11,7 @@ python3 scripts/check_coverage.py
 uv build --out-dir /tmp/semadmit-build clients/python
 ```
 
-The coverage gate runs all Python tests and declared Haskell suites, including shared evaluator vectors and fixture-backed `Core.CLI` checks. It does not establish maintained-pack executable, guarded-use, or release conformance. See `docs/release-readiness.md` and the package manifests for exact toolchain and dependency pins.
+The coverage gate runs all Python tests and declared Haskell suites, including shared evaluator vectors and Isoprax CLI fixture checks. It does not establish guarded-use or release conformance. See `docs/release-readiness.md` and the package manifests for exact toolchain and dependency pins.
 
 ## M0 Contract Review
 
@@ -24,7 +24,7 @@ The coverage gate runs all Python tests and declared Haskell suites, including s
 
 ## M1 Shared Core Acceptance
 
-The shared vertical-slice vectors now show positive and negative offline requests through both evaluators. They compare complete decisions, including request and decision digests, bindings, obligations, and diagnostics. The injected Haskell runner also checks all three decision exit codes, line-local errors, CRLF, final unterminated lines, size-limit recovery, and internal-failure stop behavior. The first-party executable, maintained-pack requests, and CLI cases for duplicate keys and forged digests remain open.
+The shared vertical-slice vectors show positive and negative offline requests through both evaluators. They compare complete decisions, including request and decision digests, bindings, obligations, and diagnostics. The Haskell CLI checks Isoprax decisions and exit codes through the first-party executable. Explicit CLI cases for duplicate keys and forged digests remain open.
 
 ## M2–M3 First-Party Packs
 

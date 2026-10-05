@@ -31,6 +31,9 @@ Apache-2.0 permits reuse and redistribution under its conditions. It also includ
 
 ## Open Gates
 
-- M2–M5: Implement and check the Measurement pack, guarded Isoprax consumption, the downstream extension path, and conformance evidence.
+- M2: Complete snapshot-bound verification, guarded consumption, independent Python Isoprax parity, and substitution checks.
+- M3: Implement and check the Haskell and Python Measurement packs.
+- M4: Complete the downstream extension example and its guarded-use checks.
+- M5–M6: Add broader conformance tests, close license and dependency-provenance checks, record release evidence, and obtain independent final review.
 - T043–T045: Inventory each redistributed direct and transitive dependency. Verify package license metadata and included notices. Record clean build/test commands and exact source SHAs. Obtain final independent review.
 - Publishing remains a separate decision.

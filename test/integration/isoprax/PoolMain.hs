@@ -34,6 +34,40 @@ main = do
     Just (Array values) -> pure (Vector.toList values)
     _ -> fail "Isoprax fixture cases are missing"
   forM_ cases (checkCase registry)
+  assertThresholdPermutation registry cases
+
+assertThresholdPermutation :: PackRegistry -> [Value] -> IO ()
+assertThresholdPermutation registry cases = do
+  fixture <- case [value | value <- cases, field "id" value == Just (String "admissible-threshold-multiset-permutation")] of
+    [value] -> pure value
+    _ -> fail "the threshold multiset permutation fixture is missing or duplicated"
+  request <- requiredField "request" fixture
+  permuted <- updateObjectPath ["subjects", "left", "definition", "thresholds"] reverseArray request
+  originalResult <- evaluateRequestValue registry request
+  permutedResult <- evaluateRequestValue registry permuted
+  unless (originalResult == permutedResult) $
+    fail "threshold array permutation changed the Isoprax request or decision digest"
+
+evaluateRequestValue :: PackRegistry -> Value -> IO Value
+evaluateRequestValue registry request = do
+  requestBytes <- case canonicalBytes request of
+    Left errorValue -> fail ("could not encode threshold permutation request: " <> show errorValue)
+    Right bytes -> pure (LazyByteString.toStrict bytes)
+  evaluateRequest registry requestBytes
+
+updateObjectPath :: [Text.Text] -> (Value -> IO Value) -> Value -> IO Value
+updateObjectPath [] update value = update value
+updateObjectPath (name : rest) update (Object fields) = do
+  let key = Key.fromText name
+  current <- maybe (fail ("missing Isoprax request field: " <> Text.unpack name)) pure (KeyMap.lookup key fields)
+  replacement <- updateObjectPath rest update current
+  pure (Object (KeyMap.insert key replacement fields))
+updateObjectPath (name : _) _ _ = fail ("non-object in Isoprax request path: " <> Text.unpack name)
+
+reverseArray :: Value -> IO Value
+reverseArray (Array values)
+  | Vector.length values > 1 = pure (Array (Vector.reverse values))
+reverseArray _ = fail "threshold permutation fixture needs at least two thresholds"
 
 checkCase :: PackRegistry -> Value -> IO ()
 checkCase registry vector = do

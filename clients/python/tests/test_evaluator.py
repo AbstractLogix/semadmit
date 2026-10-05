@@ -176,19 +176,44 @@ class EvaluatorChecks(unittest.TestCase):
     def test_jsonl_runner_recovers_per_line_and_after_oversize(self) -> None:
         valid_line = json.dumps(request(), separators=(",", ":")).encode("utf-8")
         sink = BytesIO()
-        count = JsonlRunner(self.evaluator).run(BytesIO(valid_line + b"\n{"), sink)
-        self.assertEqual(count, 2)
+        status = JsonlRunner(self.evaluator).run(BytesIO(valid_line + b"\n{"), sink)
+        self.assertEqual(status, 3)
         records = [json.loads(line) for line in sink.getvalue().splitlines()]
+        self.assertEqual(len(records), 2)
         self.assertEqual(records[0]["kind"], "decision")
         self.assertEqual(records[1]["code"], "input.invalid_json")
 
         sink = BytesIO()
         oversized = b"x" * (10 * 1024 * 1024 + 2) + b"\n"
-        count = JsonlRunner(self.evaluator).run(BytesIO(oversized + valid_line + b"\n"), sink)
-        self.assertEqual(count, 2)
+        status = JsonlRunner(self.evaluator).run(BytesIO(oversized + valid_line + b"\n"), sink)
+        self.assertEqual(status, 3)
         records = [json.loads(line) for line in sink.getvalue().splitlines()]
+        self.assertEqual(len(records), 2)
         self.assertEqual(records[0]["code"], "limit.exceeded")
         self.assertEqual(records[1]["kind"], "decision")
+
+    def test_jsonl_runner_returns_highest_decision_severity(self) -> None:
+        requests = [request("pass"), request("fail"), request("missing")]
+        source = b"\n".join(
+            json.dumps(item, separators=(",", ":")).encode("utf-8") for item in requests
+        )
+        sink = BytesIO()
+        status = JsonlRunner(self.evaluator).run(BytesIO(source), sink)
+        self.assertEqual(status, 2)
+        records = [json.loads(line) for line in sink.getvalue().splitlines()]
+        self.assertEqual(
+            [record["payload"]["state"] for record in records],
+            ["admissible", "inadmissible", "indeterminate"],
+        )
+
+    def test_jsonl_runner_fails_closed_on_invalid_status_resolver(self) -> None:
+        valid_line = json.dumps(request(), separators=(",", ":")).encode("utf-8")
+        sink = BytesIO()
+        runner = JsonlRunner(self.evaluator, lambda _result: 5)
+        self.assertEqual(runner.run(BytesIO(valid_line + b"\n" + valid_line), sink), 4)
+        records = [json.loads(line) for line in sink.getvalue().splitlines()]
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["code"], "internal.failure")
 
 
 if __name__ == "__main__":

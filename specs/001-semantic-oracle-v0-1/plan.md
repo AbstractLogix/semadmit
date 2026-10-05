@@ -12,7 +12,7 @@ Explicitly registered, versioned packs define domain semantics. Isoprax is the f
 
 Maintain independent Haskell and Python implementations of the shared core and first-party packs. The public JSONL protocol is language-neutral. It serves callers of packs that a host has registered. It does not let non-Python callers load or register pack code. The Python API is the v0.1 interface for in-process pack authoring and use. A downstream pack is trusted application code that its host registers. A request never loads code. This plan does not add a hosted service, dynamic plugin ABI, or caller-supplied rule language.
 
-The checkout has partial Core evaluators, package manifests, and an Apache-2.0 license. A shared positive/negative registered-pack slice passes through both implementations. The injected Haskell `Core.CLI` runner has fixture-backed protocol tests; the maintained-pack executable, first-party packs, complete domain evaluation, and release remain open. M0 approved the normative contract and fixture corpus on 2026-09-30. Implementation conformance remains an M1–M5 gate. Dependency redistribution and package review remain open before release.
+The checkout has the shared Core evaluators, a maintained Haskell Isoprax pack and executable, package manifests, and an Apache-2.0 license. Shared positive/negative registered-pack fixtures pass through both evaluators, and Isoprax pool fixtures pass through the executable. M0 approved the normative contract and fixture corpus on 2026-09-30. Independent Python Isoprax parity, guarded consumption, the Measurement pack, downstream integration, broader conformance, and release remain open. Dependency redistribution and package review remain open before release.
 
 ## Technical Context
 
@@ -97,7 +97,7 @@ Planned implementation layout under the approved M0 contract:
     docs/                             pack-author guide, usage, threat model, release evidence
     test/                             Haskell, Python, property, and integration checks
 
-The package names and initial toolchain versions are pinned for M1; parser strategy, executable distribution, and the complete host registration behavior remain implementation work. Apache-2.0 is selected; T043 checks redistribution details. The host composition boundary is fixed: Haskell CLI for maintained first-party packs; Python `JsonlRunner` for the explicit registry supplied by its host. A pack author must use Core's public identity and result facilities; packs supply only typed domain validation and evaluation behavior. No runtime code loader is introduced.
+The package names and initial toolchain versions are pinned for M1. The parser, Haskell Isoprax executable, and explicit host registration behavior are implemented. Apache-2.0 is selected; T043 checks redistribution details. The host composition boundary is fixed: Haskell CLI for maintained first-party packs; Python `JsonlRunner` for the explicit registry supplied by its host. A pack author must use Core's public identity and result facilities; packs supply only typed domain validation and evaluation behavior. No runtime code loader is introduced. See [release readiness](../../docs/release-readiness.md) for remaining work.
 
 ## Complexity Tracking
 

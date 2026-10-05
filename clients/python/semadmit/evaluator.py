@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from types import MappingProxyType
 from typing import BinaryIO, Protocol
 
@@ -209,20 +209,44 @@ class RequestEvaluator(Protocol):
     def evaluate(self, request: object) -> dict[str, object]: ...
 
 
+def _result_exit_status(result: object) -> int:
+    if type(result) is not dict:
+        return 4
+    if result.get("kind") == "error":
+        return 4 if result.get("code") == "internal.failure" else 3
+    if result.get("kind") != "decision":
+        return 4
+    payload = result.get("payload")
+    if type(payload) is not dict:
+        return 4
+    return {"admissible": 0, "inadmissible": 1, "indeterminate": 2}.get(
+        payload.get("state"), 4
+    )
+
+
 class JsonlRunner:
     """Process one request per line with an evaluator supplied by the host."""
 
-    def __init__(self, evaluator: RequestEvaluator) -> None:
+    def __init__(
+        self,
+        evaluator: RequestEvaluator,
+        status_resolver: Callable[[object], int] | None = None,
+    ) -> None:
         if not callable(getattr(evaluator, "evaluate", None)):
             raise TypeError("JsonlRunner requires an evaluator with evaluate(request)")
+        if status_resolver is not None and not callable(status_resolver):
+            raise TypeError("JsonlRunner status_resolver must be callable")
         self._evaluator = evaluator
+        self._status_resolver = (
+            _result_exit_status if status_resolver is None else status_resolver
+        )
 
     def run(self, source: BinaryIO, sink: BinaryIO) -> int:
-        processed = 0
+        maximum_status = 0
         while True:
             raw = source.readline(_MAX_LINE_BYTES + 2)
             if not raw:
-                return processed
+                return maximum_status
             has_newline = raw.endswith(b"\n")
             line = raw[:-1] if has_newline else raw
             oversized = len(line) > _MAX_LINE_BYTES
@@ -240,12 +264,28 @@ class JsonlRunner:
                 except Exception:
                     result = dict(_INTERNAL_FAILURE)
             try:
+                status = self._status_resolver(result)
+                if type(status) is not int or status not in range(5):
+                    raise ValueError("status_resolver returned an invalid exit status")
+            except Exception:
+                result = dict(_INTERNAL_FAILURE)
+                status = 4
+            if status == 4 and not (
+                type(result) is dict
+                and result.get("kind") == "error"
+                and result.get("code") == "internal.failure"
+            ):
+                result = dict(_INTERNAL_FAILURE)
+            try:
                 encoded = canonical_bytes(result)
             except Exception:
                 encoded = canonical_bytes(_INTERNAL_FAILURE)
+                status = 4
             sink.write(encoded)
             sink.write(b"\n")
-            processed += 1
+            maximum_status = max(maximum_status, status)
+            if status == 4:
+                return maximum_status
 
 
 def _component_bindings(

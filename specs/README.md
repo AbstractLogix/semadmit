@@ -6,7 +6,7 @@ This feature has five user stories. M0 approved the contract and fixtures. M1 bu
 
 M0 defines extension behavior with a neutral fixture. M4 defines the exact Ducky evidence contract against the approved interface. The example does not change Ducky's application or data sources. It checks the Python-hosted extension path, not pack loading across languages.
 
-The project has an approved M0 contract and fixtures, partial M1 Core evaluators, and shared positive/negative registered-pack vectors. The feature's fixture guide and review record document independent canonicalization checks and adversarial contract review. The injectable Haskell `Core.CLI` runner has neutral-pack tests; its maintained-pack executable, maintained first-party packs, complete domain evaluation, and release remain open.
+The repository contains the approved M0 contract and fixtures, the M1 Core evaluator, a maintained Isoprax pack and Haskell executable, and the structured claim verifier in Feature 002. Shared fixtures check the generic evaluator and Isoprax behavior. Independent Python Isoprax parity, guarded consumption, the Measurement pack, the downstream extension example, broader conformance, and release remain open. See [release readiness](../docs/release-readiness.md) for current gates.
 
 See the [feature specification](001-semantic-oracle-v0-1/spec.md), [plan](001-semantic-oracle-v0-1/plan.md), and [task list](001-semantic-oracle-v0-1/tasks.md).
 

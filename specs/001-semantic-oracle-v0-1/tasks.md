@@ -4,7 +4,7 @@
 
 **Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md
 
-**Status**: M0 written contract and fixtures approved after independent review on 2026-09-30. T012–T019, T021–T024, and T046 are complete. Haskell/Python Core evaluators, Python verification/JSONL APIs, generic bindings, shared positive/negative registered-pack vectors, Isoprax subject types, component identities, and exact calibration exist. The registry-injected Haskell `Core.CLI` runner has neutral-pack tests. First-party executable wiring, Isoprax pooling/admission, measurement packs, guarded consumption, and broader generated and mutation conformance remain open.
+**Status**: M0 written contract and fixtures were approved after independent review on 2026-09-30. T012–T019, T021–T025, and T046 are complete. The Haskell/Python Core evaluators, Python verification/JSONL APIs, generic bindings, shared positive/negative vectors, Isoprax subject types, identities, calibration, pooling evaluator, and first-party Haskell executable are implemented. Feature 002 adds structured claim verification. Guarded consumption, independent Python Isoprax parity, Measurement packs, the downstream extension, and broader generated and mutation conformance remain open.
 
 ## Format
 

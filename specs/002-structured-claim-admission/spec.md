@@ -113,7 +113,7 @@ runner = claim_jsonl_runner(ClaimEngine())
 runner.run(bouleusis_input, bouleusis_output)
 ```
 
-The adapter stays local. It writes one canonical JSON result per input line. A host can store the returned verification artifact by `verification_digest` and record `result_id` in its own epistemic ledger. Semadmit does not change that ledger.
+The adapter stays local. It writes one canonical JSON result per input line and returns the greatest Core exit severity encountered. A host can store the returned verification artifact by `verification_digest` and record `result_id` in its own epistemic ledger. Semadmit does not change that ledger.
 
 For an Isoprax decision, Bouleusis can send the `semantic-oracle/0.1` request to the local `semantic-oracle --jsonl` process. The process returns one decision line and uses its exit status to distinguish admission, rejection, indeterminate results, and input errors. The `isoprax-pool` integration suite checks the first-party application entry point against every Isoprax pool fixture.
 
@@ -163,4 +163,4 @@ For the new claim pack, use Python as the primary implementation because its sup
 
 The normative positive, negative, unknown, incompatible-family, and missing-evidence cases are in `conformance/fixtures/claim-verification-cases.json`. Python tests exhaustively check every two-input output combination in `{-1, 0, 1}` and each coverage mask. They also check determinism, canonical ordering, result/artifact binding, provenance retention, malformed input, and JSONL framing.
 
-Focused claim tests passed: 10 tests. The repository coverage gate passed locally: 39 Python tests, 100% executable-line coverage in all 8 Python modules (1,276 lines), 5,312/5,861 Haskell expressions (90.63%), and 88/193 Haskell booleans (45.60%). The Python source and wheel build passed. A local `semantic-oracle --jsonl` process returned the expected `admissible` result for the `admissible-ece-equality` Isoprax fixture. Hosted CI status is tracked separately on the pull request.
+Focused claim tests passed: 10 tests. The repository coverage gate passed locally on 2026-10-05: 41 Python tests, 100% executable-line coverage in all 8 Python modules (1,341 lines), 5,310/5,859 Haskell expressions (90.63%), and 88/193 Haskell booleans (45.60%). The Haskell gate also checked threshold-permutation digests. The Python source and wheel build passed. A local `semantic-oracle --jsonl` process returned the expected `admissible` result for the `admissible-ece-equality` Isoprax fixture. Hosted CI status is tracked separately on the pull request.

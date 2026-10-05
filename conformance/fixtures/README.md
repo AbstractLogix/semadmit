@@ -1,6 +1,6 @@
 # M0 Conformance Fixtures
 
-These Semadmit contract fixtures are normative for v0.1. Independent M0 review approved them on 2026-09-30. They define expected behavior. No product implementation has passed them yet.
+These Semadmit contract fixtures are normative for v0.1. Independent M0 review approved them on 2026-09-30. The Haskell Isoprax executable passes its pool fixtures. Full cross-pack conformance and release checks remain open.
 
 - `m0-identity-vectors.json` contains shared and first-party identity examples. It includes a property-order case where Unicode scalar ordering differs from RFC 8785 UTF-16 ordering.
 - `isoprax-cases.json` records the Isoprax decision matrix. Cases include ASCII-normalized semantic equivalence with different display/raw metadata, exact non-ASCII comparison, populated threshold multiset permutations, duplicate-threshold mismatch, unknown threshold values, observation-process parameter mismatch, and valid window mismatch. The `artifacts_files` list points to size-bounded canonical artifact shards. The `calculations_file` points to reduced exact ECE values for every defined calibration calculation. Generated cases specify deterministic mutations, such as the sample-pair limit.

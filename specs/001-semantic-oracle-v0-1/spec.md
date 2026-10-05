@@ -18,7 +18,7 @@ The intended deliverable is open-source software. A Python-hosted application ca
 
 Shared identity, verification, and evidence-state handling may reduce duplicated correctness logic for adopters. The Ducky-style example will record whether this reuse works and where the interface creates friction. The example does not prove broader demand. The decision path stays local/offline. Packs are trusted application code that the host registers. Caller-supplied policies are data; the core never executes them. Version 0.1 does not include a server, dynamic plugin ABI, general rule language, or production Isoprax behavior.
 
-This repository contains the approved M0 contract and fixtures, partial M1 Core evaluators, a shared positive/negative registered-pack slice, and a fixture-tested registry-injected Haskell `Core.CLI` runner. It has no maintained first-party packs or wired Haskell CLI executable, complete domain evaluator, package release, or downstream integration.
+This repository contains the approved M0 contract and fixtures, the M1 Core evaluator, a maintained Isoprax pack, its Haskell CLI executable, and shared positive/negative evaluator fixtures. The structured claim verifier is defined in Feature 002. Independent Python Isoprax parity, guarded consumption, the Measurement pack, the downstream extension example, broader conformance, and release remain open. See [release readiness](../../docs/release-readiness.md) for current gates.
 
 ## User Scenarios & Testing
 
@@ -164,7 +164,7 @@ As a maintainer, I need reproducible fixtures, generated cases, mutation checks,
 - The handoff is proposed input, not evidence that any review, implementation, or historical finding is complete.
 - The Isoprax implementation mapping is a historical candidate baseline only. It does not establish Semadmit protocol, pack-interface, or measurement conformance.
 - The Haskell reference CLI registers only maintained first-party packs. Python hosts register trusted Python packs explicitly and may expose them through `JsonlRunner` or call the evaluator directly. JSONL does not load code, and non-Python pack registration requires a separately reviewed interface.
-- The current Semadmit checkout has an approved contract, package manifests, partial Core evaluators, shared generic positive/negative vectors, and a fixture-tested registry-injected Haskell `Core.CLI` runner. Maintained first-party packs and the wired Haskell CLI executable, complete domain evaluation, and release remain open. Apache-2.0 has been selected; package, dependency, provenance, and conformance checks remain release gates.
+- The current Semadmit checkout has an approved contract, package manifests, the shared Core evaluators, a maintained Haskell Isoprax pack and executable, and shared generic positive/negative vectors. Independent Python Isoprax parity, guarded consumption, the Measurement pack, downstream integration, broader conformance, and release remain open. Apache-2.0 has been selected; package, dependency, provenance, and conformance checks remain release gates.
 - The Ducky-style example tests the extension path against one realistic use case; it does not establish general adopter demand or that every project benefits from Semadmit.
 - Isoprax production code remains independent; the adapter exercises the oracle only in tests/CI.
 - Hashes provide content identity, not authenticity. Samples, coverage, and downstream Ducky evidence may be fabricated; v0.1 does not make real-world truth claims.

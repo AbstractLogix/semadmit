@@ -2728,7 +2728,7 @@
       },
       "expected": {
         "state": "admissible",
-        "request_digest": "sha256:950ca544d848646530a1de991f0de16113fcc245c1b68cb99918c090e696971d",
+        "request_digest": "sha256:c25439f74e99c60b2ca005426a3e726f413504455a8a07fca99db20bff87463b",
         "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
         "subject_digests": {
           "left": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c",
@@ -2756,7 +2756,7 @@
           }
         ],
         "diagnostics": [],
-        "decision_digest": "sha256:445a1851ba83eae7e3e5ab8236a887ace2c8d670ef3a2c367f40c601181fe1a0",
+        "decision_digest": "sha256:f77ddddae6a5359b7c7c5343b43af0303aa435e2a9ea3a87da6f98b75bb03652",
         "verification": "admitted"
       }
     },
@@ -2895,7 +2895,7 @@
       },
       "expected": {
         "state": "inadmissible",
-        "request_digest": "sha256:d8aa9cbf04501f2364a00d993ef89274e677a7d62d1a081efbb226faaa602664",
+        "request_digest": "sha256:5bf8084927a03e934c8a083179cfd8d13da8897eb0cbef694be50069fc41da0a",
         "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
         "subject_digests": {
           "left": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c",
@@ -2929,7 +2929,7 @@
             "code": "definition.thresholds_mismatch"
           }
         ],
-        "decision_digest": "sha256:8f9549ed9447f93e3526ac725700e6c8e2e1ab232e064d71756f1d6211c3cbac",
+        "decision_digest": "sha256:1b1a191ce259986813ea788e9e4206e39607b0a121a6f17ebd1292d24391c3e0",
         "verification": "verified-without-admission"
       }
     },

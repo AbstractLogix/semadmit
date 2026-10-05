@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from semadmit.evaluator import Evaluator, JsonlRunner
+from semadmit.evaluator import Evaluator, JsonlRunner, _result_exit_status
 from semadmit.json_input import InputProblem, copy_json_tree
 from semadmit.pack import (
     ArtifactSpec,
@@ -60,7 +60,9 @@ def _input_error(code: str, pointer: str) -> PackInputError:
     return PackInputError(code, pointer)
 
 
-def _closed_object(value: object, fields: tuple[str, ...], pointer: str) -> dict[str, object]:
+def _object_with_known_fields(
+    value: object, fields: tuple[str, ...], pointer: str
+) -> dict[str, object]:
     if type(value) is not dict:
         raise _input_error("input.invalid_type", pointer)
     actual = set(value)
@@ -68,10 +70,21 @@ def _closed_object(value: object, fields: tuple[str, ...], pointer: str) -> dict
     if extra:
         escaped = extra[0].replace("~", "~0").replace("/", "~1")
         raise _input_error("input.unknown_field", f"{pointer}/{escaped}")
-    missing = [field for field in fields if field not in actual]
+    return value
+
+
+def _required_field(fields: dict[str, object], name: str, pointer: str) -> object:
+    if name not in fields:
+        raise _input_error("input.missing_field", f"{pointer}/{name}")
+    return fields[name]
+
+
+def _closed_object(value: object, fields: tuple[str, ...], pointer: str) -> dict[str, object]:
+    result = _object_with_known_fields(value, fields, pointer)
+    missing = [field for field in fields if field not in result]
     if missing:
         raise _input_error("input.missing_field", f"{pointer}/{missing[0]}")
-    return value
+    return result
 
 
 def _text(value: object, pointer: str) -> str:
@@ -252,9 +265,9 @@ class FiniteInvariantPack:
         policy_fields = _closed_object(policy, ("admission_profile",), "/policy")
         if policy_fields["admission_profile"] != "strict/0.1":
             raise _input_error("policy.unsupported", "/policy/admission_profile")
-        subject_fields = _closed_object(subjects, ("claim", "context"), "/subjects")
-        claim = self._validate_claim(subject_fields["claim"])
-        context = self._validate_context(subject_fields["context"])
+        subject_fields = _object_with_known_fields(subjects, ("claim", "context"), "/subjects")
+        claim = self._validate_claim(_required_field(subject_fields, "claim", "/subjects"))
+        context = self._validate_context(_required_field(subject_fields, "context", "/subjects"))
         if type(evidence) is not list:
             raise _input_error("input.invalid_type", "/evidence")
         if len(evidence) > 1:
@@ -268,53 +281,78 @@ class FiniteInvariantPack:
 
     def _validate_claim(self, value: object) -> dict[str, object]:
         base = "/subjects/claim"
-        fields = _closed_object(
+        fields = _object_with_known_fields(
             value,
             ("id", "subject", "predicate", "domain", "assumptions", "expected_evidence_family", "required_verifier"),
             base,
         )
-        subject = _closed_object(fields["subject"], ("function_id", "version", "artifact_digest"), f"{base}/subject")
-        predicate = _closed_object(fields["predicate"], ("id", "lower_bound"), f"{base}/predicate")
-        domain = _closed_object(fields["domain"], ("inputs", "complete"), f"{base}/domain")
-        inputs = domain["inputs"]
+        claim_id = _text(_required_field(fields, "id", base), f"{base}/id")
+        subject_path = f"{base}/subject"
+        subject = _object_with_known_fields(
+            _required_field(fields, "subject", base),
+            ("function_id", "version", "artifact_digest"),
+            subject_path,
+        )
+        normalized_subject = {
+            "function_id": _text(_required_field(subject, "function_id", subject_path), f"{subject_path}/function_id"),
+            "version": _text(_required_field(subject, "version", subject_path), f"{subject_path}/version"),
+            "artifact_digest": _valid_digest(_required_field(subject, "artifact_digest", subject_path), f"{subject_path}/artifact_digest"),
+        }
+        predicate_path = f"{base}/predicate"
+        predicate = _object_with_known_fields(
+            _required_field(fields, "predicate", base),
+            ("id", "lower_bound"),
+            predicate_path,
+        )
+        normalized_predicate = {
+            "id": _text(_required_field(predicate, "id", predicate_path), f"{predicate_path}/id"),
+            "lower_bound": _integer(_required_field(predicate, "lower_bound", predicate_path), f"{predicate_path}/lower_bound"),
+        }
+        domain_path = f"{base}/domain"
+        domain = _object_with_known_fields(
+            _required_field(fields, "domain", base),
+            ("inputs", "complete"),
+            domain_path,
+        )
+        inputs = _required_field(domain, "inputs", domain_path)
         if type(inputs) is not list:
-            raise _input_error("input.invalid_type", f"{base}/domain/inputs")
+            raise _input_error("input.invalid_type", f"{domain_path}/inputs")
         if not inputs or len(inputs) > _MAX_DOMAIN:
-            raise _input_error("limit.exceeded" if len(inputs) > _MAX_DOMAIN else "input.invalid_value", f"{base}/domain/inputs")
-        normalized_inputs = sorted(_integer(item, f"{base}/domain/inputs/{index}") for index, item in enumerate(inputs))
+            raise _input_error("limit.exceeded" if len(inputs) > _MAX_DOMAIN else "input.invalid_value", f"{domain_path}/inputs")
+        normalized_inputs = sorted(_integer(item, f"{domain_path}/inputs/{index}") for index, item in enumerate(inputs))
         if len(set(normalized_inputs)) != len(normalized_inputs):
-            raise _input_error("input.invalid_value", f"{base}/domain/inputs")
-        if type(domain["complete"]) is not bool:
-            raise _input_error("input.invalid_type", f"{base}/domain/complete")
+            raise _input_error("input.invalid_value", f"{domain_path}/inputs")
+        complete = _required_field(domain, "complete", domain_path)
+        if type(complete) is not bool:
+            raise _input_error("input.invalid_type", f"{domain_path}/complete")
+        assumptions = _text_list(_required_field(fields, "assumptions", base), f"{base}/assumptions")
+        expected_family = _text(_required_field(fields, "expected_evidence_family", base), f"{base}/expected_evidence_family")
+        required_verifier = _text(_required_field(fields, "required_verifier", base), f"{base}/required_verifier")
         return {
-            "id": _text(fields["id"], f"{base}/id"),
-            "subject": {
-                "function_id": _text(subject["function_id"], f"{base}/subject/function_id"),
-                "version": _text(subject["version"], f"{base}/subject/version"),
-                "artifact_digest": _valid_digest(subject["artifact_digest"], f"{base}/subject/artifact_digest"),
-            },
-            "predicate": {
-                "id": _text(predicate["id"], f"{base}/predicate/id"),
-                "lower_bound": _integer(predicate["lower_bound"], f"{base}/predicate/lower_bound"),
-            },
-            "domain": {"inputs": normalized_inputs, "complete": domain["complete"]},
-            "assumptions": _text_list(fields["assumptions"], f"{base}/assumptions"),
-            "expected_evidence_family": _text(fields["expected_evidence_family"], f"{base}/expected_evidence_family"),
-            "required_verifier": _text(fields["required_verifier"], f"{base}/required_verifier"),
+            "id": claim_id,
+            "subject": normalized_subject,
+            "predicate": normalized_predicate,
+            "domain": {"inputs": normalized_inputs, "complete": complete},
+            "assumptions": assumptions,
+            "expected_evidence_family": expected_family,
+            "required_verifier": required_verifier,
         }
 
     def _validate_context(self, value: object) -> dict[str, object]:
         base = "/subjects/context"
-        fields = _closed_object(value, ("contract_id", "scope", "assumptions"), base)
+        fields = _object_with_known_fields(value, ("contract_id", "scope", "assumptions"), base)
+        contract_id = _text(_required_field(fields, "contract_id", base), f"{base}/contract_id")
+        scope = _text(_required_field(fields, "scope", base), f"{base}/scope")
+        assumptions = _text_list(_required_field(fields, "assumptions", base), f"{base}/assumptions")
         return {
-            "contract_id": _text(fields["contract_id"], f"{base}/contract_id"),
-            "scope": _text(fields["scope"], f"{base}/scope"),
-            "assumptions": _text_list(fields["assumptions"], f"{base}/assumptions"),
+            "contract_id": contract_id,
+            "scope": scope,
+            "assumptions": assumptions,
         }
 
     def _validate_evidence(self, value: object, claim: dict[str, object], index: int) -> dict[str, object]:
         base = f"/evidence/{index}"
-        fields = _closed_object(
+        fields = _object_with_known_fields(
             value,
             (
                 "id", "source", "collection_method", "captured_version", "family", "subject_digest",
@@ -322,21 +360,21 @@ class FiniteInvariantPack:
             ),
             base,
         )
-        evidence_id = _text(fields["id"], f"{base}/id")
-        source = _text(fields["source"], f"{base}/source")
-        collection_method = _text(fields["collection_method"], f"{base}/collection_method")
-        captured_version = _text(fields["captured_version"], f"{base}/captured_version")
-        family = _text(fields["family"], f"{base}/family")
-        subject_digest = _valid_digest(fields["subject_digest"], f"{base}/subject_digest")
-        uncertainty = fields["uncertainty"]
+        evidence_id = _text(_required_field(fields, "id", base), f"{base}/id")
+        source = _text(_required_field(fields, "source", base), f"{base}/source")
+        collection_method = _text(_required_field(fields, "collection_method", base), f"{base}/collection_method")
+        captured_version = _text(_required_field(fields, "captured_version", base), f"{base}/captured_version")
+        family = _text(_required_field(fields, "family", base), f"{base}/family")
+        subject_digest = _valid_digest(_required_field(fields, "subject_digest", base), f"{base}/subject_digest")
+        uncertainty = _required_field(fields, "uncertainty", base)
         if uncertainty is not None:
             uncertainty = _text(uncertainty, f"{base}/uncertainty")
-        upstream_dependencies = _text_list(fields["upstream_dependencies"], f"{base}/upstream_dependencies")
-        artifact_references = _text_list(fields["artifact_references"], f"{base}/artifact_references")
-        correlation_group = fields["correlation_group"]
+        upstream_dependencies = _text_list(_required_field(fields, "upstream_dependencies", base), f"{base}/upstream_dependencies")
+        artifact_references = _text_list(_required_field(fields, "artifact_references", base), f"{base}/artifact_references")
+        correlation_group = _required_field(fields, "correlation_group", base)
         if correlation_group is not None:
             correlation_group = _text(correlation_group, f"{base}/correlation_group")
-        observations = fields["observations"]
+        observations = _required_field(fields, "observations", base)
         if type(observations) is not list:
             raise _input_error("input.invalid_type", f"{base}/observations")
         if len(observations) > _MAX_DOMAIN:
@@ -346,12 +384,12 @@ class FiniteInvariantPack:
         observed_inputs: set[int] = set()
         for item_index, item in enumerate(observations):
             pointer = f"{base}/observations/{item_index}"
-            observation = _closed_object(item, ("input", "output"), pointer)
-            input_value = _integer(observation["input"], f"{pointer}/input")
-            output_value = _integer(observation["output"], f"{pointer}/output")
+            observation = _object_with_known_fields(item, ("input", "output"), pointer)
+            input_value = _integer(_required_field(observation, "input", pointer), f"{pointer}/input")
             if input_value not in domain_inputs or input_value in observed_inputs:
                 raise _input_error("input.invalid_value", f"{pointer}/input")
             observed_inputs.add(input_value)
+            output_value = _integer(_required_field(observation, "output", pointer), f"{pointer}/output")
             normalized_observations.append({"input": input_value, "output": output_value})
         normalized_observations.sort(key=lambda item: item["input"])
         return {
@@ -618,4 +656,9 @@ class ClaimEngine:
 
 def claim_jsonl_runner(engine: ClaimEngine | None = None) -> JsonlRunner:
     """Return the bounded local JSONL adapter used by Bouleusis-style hosts."""
-    return JsonlRunner(engine or ClaimEngine())
+    def claim_status(result: object) -> int:
+        if type(result) is dict and result.get("kind") == "claim-result":
+            return _result_exit_status(result.get("core_decision"))
+        return _result_exit_status(result)
+
+    return JsonlRunner(engine or ClaimEngine(), claim_status)

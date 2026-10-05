@@ -304,8 +304,7 @@ parseDefinition path value = do
     Nothing -> Right []
     Just (Array items) -> mapM (uncurry (parseThreshold (childPointer path "thresholds"))) (zip [0 :: Int ..] (Vector.toList items))
     _ -> invalidType (childPointer path "thresholds")
-  _ <- sortThresholds (childPointer path "thresholds") thresholdValues
-  let thresholds = thresholdValues
+  thresholds <- sortThresholds (childPointer path "thresholds") thresholdValues
   description <- optionalDescription path fields
   Right (OutcomeDefinition identifier event process window thresholds description)
 

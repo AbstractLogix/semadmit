@@ -104,6 +104,66 @@ class ClaimVerificationChecks(unittest.TestCase):
         self.assertEqual(error["pointer"], "/claim/domain/inputs/0")
 
         request = valid_request()
+        request["claim"]["id"] = True
+        del request["claim"]["subject"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/claim/id")
+
+        request = valid_request()
+        request["claim"]["subject"]["function_id"] = 7
+        request["claim"]["domain"]["inputs"] = "bad"
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/claim/subject/function_id")
+
+        request = valid_request()
+        request["claim"]["subject"]["function_id"] = None
+        del request["claim"]["subject"]["version"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/claim/subject/function_id")
+
+        request = valid_request()
+        del request["claim"]["subject"]["version"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.missing_field")
+        self.assertEqual(error["pointer"], "/claim/subject/version")
+
+        request = valid_request()
+        request["claim"]["id"] = False
+        with self.assertRaises(PackInputError) as caught:
+            FiniteInvariantPack().validate(
+                "verify",
+                {"admission_profile": "strict/0.1"},
+                {"claim": request["claim"]},
+                request["evidence"],
+            )
+        self.assertEqual(caught.exception.code, "input.invalid_type")
+        self.assertEqual(caught.exception.pointer, "/subjects/claim/id")
+
+        request = valid_request()
+        request["context"]["contract_id"] = None
+        del request["context"]["scope"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/context/contract_id")
+
+        request = valid_request()
+        request["evidence"][0]["id"] = True
+        del request["evidence"][0]["source"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/evidence/0/id")
+
+        request = valid_request()
+        request["evidence"][0]["observations"][0]["input"] = None
+        del request["evidence"][0]["observations"][0]["output"]
+        error = self.engine.evaluate(request)
+        self.assertEqual(error["code"], "input.invalid_type")
+        self.assertEqual(error["pointer"], "/evidence/0/observations/0/input")
+
+        request = valid_request()
         request["claim"]["extra"] = "rejected"
         self.assertEqual(self.engine.evaluate(request)["code"], "input.unknown_field")
 
@@ -244,7 +304,7 @@ class ClaimVerificationChecks(unittest.TestCase):
         request = valid_request()
         source = BytesIO((json.dumps(request) + "\n{" ).encode("utf-8"))
         sink = BytesIO()
-        self.assertEqual(claim_jsonl_runner(self.engine).run(source, sink), 2)
+        self.assertEqual(claim_jsonl_runner(self.engine).run(source, sink), 3)
         results = [json.loads(line) for line in sink.getvalue().splitlines()]
         self.assertEqual(results[0]["verification_status"], "VALID")
         self.assertEqual(results[1]["code"], "input.invalid_json")
