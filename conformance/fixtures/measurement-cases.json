@@ -1,0 +1,2348 @@
+{
+  "format": "semadmit-measurement-decision-cases/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "identity_rules": {
+    "policy": "kind policy, schema measurement/0.1/policy, complete normalized policy payload",
+    "subject": "kind subject, schema measurement/0.1/subject, complete normalized subject payload",
+    "evidence": "kind evidence, schema measurement/0.1/coverage, complete normalized coverage payload",
+    "request": "kind request, schema semantic-oracle/0.1/request, complete normalized request after evidence sorting"
+  },
+  "cases": [
+    {
+      "id": "admissible-standard",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "admissible-safe-integer-boundaries",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": -9007199254740991,
+              "end": 9007199254740991
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": -9007199254740991,
+              "end": 9007199254740991
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:4e34e2a4bf9111e62fa85e4d5cbef35d3b02a8fe0def0954491ea9b9d61449c5",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": -9007199254740991,
+              "end": 9007199254740991
+            },
+            "count": 9007199254740991
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:4e34e2a4bf9111e62fa85e4d5cbef35d3b02a8fe0def0954491ea9b9d61449c5",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": -9007199254740991,
+              "end": 9007199254740991
+            },
+            "count": 9007199254740991
+          }
+        ]
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:c392ba13ee6ce5d76d083d4d358291c059fde01c8ffff4402b66ba1af741db31",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:4e34e2a4bf9111e62fa85e4d5cbef35d3b02a8fe0def0954491ea9b9d61449c5",
+          "right": "sha256:4e34e2a4bf9111e62fa85e4d5cbef35d3b02a8fe0def0954491ea9b9d61449c5"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:8434e0a9ddfed2d794b9320afe0b53fbb5ef5d5baa81f70f4400c550c95247f0",
+          "coverage-right": "sha256:63b6d0d89f499694861ee78c06d22a5bc6ca3454574b77d7b738ec3619d7f1b0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:5752ac7eb61fef16a09cebd1d40e3925154333249689a1b848f74351cba3388e",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "inadmissible-window-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1001
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:8a155ebc1e55bc92005024baae9640cad389e87d1a81a3c1a777de42978d5df8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1001
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:b157c5d07d6c42d285c547da2405f49ac4a6f219e92ec33913ddaf55704a4a38",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:8a155ebc1e55bc92005024baae9640cad389e87d1a81a3c1a777de42978d5df8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+          "coverage-right": "sha256:eb01f188684801cf05bd5c3aa3bdfa8204663ab8f2c2d75b0c26133ee8633f4d"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "measurement.compatibility",
+            "pointer": "/subjects/right/window",
+            "code": "measurement.window_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:d65fbd5a5ecd5bbafb750f47346b5a9b1df58d178db1c27b400042ec818157f6",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-known-mismatch-with-unknown",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": null,
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "pressure",
+            "unit_id": "kelvin",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:8d31a664b840d55b04dca4f2bb222ab535e34b683868dceecbb28a533a843da8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:7b30b8b5e4230ed9b1e26576af53ff1342c7f68adcaaa155fa62f90617c6a3df",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:ccfd9cc8e1714611b65b5a8793aa1bdac53b1c35f7462ac7d481a16c9a73f7aa",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:8d31a664b840d55b04dca4f2bb222ab535e34b683868dceecbb28a533a843da8",
+          "right": "sha256:7b30b8b5e4230ed9b1e26576af53ff1342c7f68adcaaa155fa62f90617c6a3df"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:199312b01e6b336345b61929d3fc0f645f60a40eaa3b16f97f02f5f2878fd696",
+          "coverage-right": "sha256:52c1035750d00a18e8b1abd68b85e3baa0a77c20eaf174ef835696d9a673d70e"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "measurement.compatibility",
+            "pointer": "/subjects/left/quantity_id",
+            "code": "measurement.unknown"
+          },
+          {
+            "obligation_id": "measurement.compatibility",
+            "pointer": "/subjects/right/unit_id",
+            "code": "measurement.identifier_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:65bfb24350ce61ef3b7e820222f0bea62f8173f3345c591743ced3253bf40934",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-null-identifier",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": null,
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:8d31a664b840d55b04dca4f2bb222ab535e34b683868dceecbb28a533a843da8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:db8e1c7382f9d697e0f0f3a6b66a8c51375a89578166c875e682b7fae44bc799",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:8d31a664b840d55b04dca4f2bb222ab535e34b683868dceecbb28a533a843da8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:199312b01e6b336345b61929d3fc0f645f60a40eaa3b16f97f02f5f2878fd696",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "missing"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "measurement.compatibility",
+            "pointer": "/subjects/left/quantity_id",
+            "code": "measurement.unknown"
+          }
+        ],
+        "decision_digest": "sha256:59b4da6b989c46d4a2cdd5a7bbb2ac0e6bcdda358acd26db8d8d9c9c56f5be38",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-zero-count-left",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 0
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:de239b752f3b040df6f837fb62d9340fa8338a469c107fa0ba8a7bd53f405b42",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:d8a717a0732871f720786279a819ba2d19e6756611506e09706f25ecc601a0e2",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/count",
+            "code": "coverage.zero_count"
+          }
+        ],
+        "decision_digest": "sha256:d8f5430722abca098dcc223f1fa2d5fe01eb39c60721e89bb46bcf2506338877",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-zero-count-right",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 0
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:d98b7025a10af5c6870a35955c9707260756b3ca693276c45647661ab7525f84",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+          "coverage-right": "sha256:da7ded81dbab99bfc6e6bfc28b96907aba7050de178045a383ff3aad9a4ad022"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "fail"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.right",
+            "pointer": "/evidence/1/count",
+            "code": "coverage.zero_count"
+          }
+        ],
+        "decision_digest": "sha256:023fd86148d2d7e32f8d9685ec03f58c442c2d29ee59cee9da9144883e8ecbe7",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-left-coverage-absent",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:964fedaa095701620061c8cd5a79074eb76d012ad6b28dea653056bebcb7fc52",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "missing"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/subjects/left",
+            "code": "coverage.missing"
+          }
+        ],
+        "decision_digest": "sha256:dc2feb75323ac27f0be6de91d480c42ee8636cfb5a6176413f64bcbe36fa27dc",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-right-coverage-absent",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:3614003ea13e8a746d6b7b0e4a72142879f80ec4b302bc8893da0de70c7f2b10",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "missing"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.right",
+            "pointer": "/subjects/right",
+            "code": "coverage.missing"
+          }
+        ],
+        "decision_digest": "sha256:5a0c2c9c4ef3e090991e08e70a28bc32130dfdd881c9e755f8ce6ea7ceb9555c",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-substituted-subject",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:443a9afd9b36760c785e6cfffd962e19b6cfbb25eae4ea780e18c5b9eb4cab1e",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:b5e7a178e44a50584c2ac139b1449dadac00050e52d745b059de83bad67fca64",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/subject_digest",
+            "code": "coverage.subject_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:0d29a9386e42909113cfd805d955d071d2cbf09b49e3889a38808ef5a557c744",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-policy-digest-conflict",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:59106c4edbce30f0e14b1e7691637d39c423034f4b45da3eee97aa2255f0770f",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:821dae594ed694e15c830b20599a757de08e937cf5d32a19d9648584488cb990",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/policy_digest",
+            "code": "coverage.policy_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:07c0b68cb9aed2ce70fef84fd5ac5b69546fe88d48931d907bc5d8e0915e7cfa",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-coverage-window-conflict",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 999
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:0b062fbd5059f3dba6bdf109105c3309a828d23eee43505f804ec5d85dc090fd",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:b010619eb387a7d4077ba02da669b07645f6879ac1d67ba8cf8334428a299419",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/window",
+            "code": "coverage.window_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:98cb0ea945c81cd56f35dbf0e6bb81205f87cac5ee3d835a4a14e8fae789d381",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "permutation-valid-listed",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "permutation-valid-reversed",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "permutation-fail-listed",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 0
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:de239b752f3b040df6f837fb62d9340fa8338a469c107fa0ba8a7bd53f405b42",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:d8a717a0732871f720786279a819ba2d19e6756611506e09706f25ecc601a0e2",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/count",
+            "code": "coverage.zero_count"
+          }
+        ],
+        "decision_digest": "sha256:d8f5430722abca098dcc223f1fa2d5fe01eb39c60721e89bb46bcf2506338877",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "permutation-fail-reversed",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 0
+          }
+        ]
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:de239b752f3b040df6f837fb62d9340fa8338a469c107fa0ba8a7bd53f405b42",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "subject_digests": {
+          "left": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "right": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+        },
+        "component_digests": {},
+        "evidence_digests": {
+          "coverage-left": "sha256:d8a717a0732871f720786279a819ba2d19e6756611506e09706f25ecc601a0e2",
+          "coverage-right": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "coverage.left",
+            "pointer": "/evidence/0/count",
+            "code": "coverage.zero_count"
+          }
+        ],
+        "decision_digest": "sha256:d8f5430722abca098dcc223f1fa2d5fe01eb39c60721e89bb46bcf2506338877",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "malformed-subject-digest",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:bad",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/evidence/0/subject_digest"
+        }
+      }
+    },
+    {
+      "id": "malformed-negative-count",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": -1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/evidence/0/count"
+        }
+      }
+    },
+    {
+      "id": "malformed-boolean-count",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": true
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_type",
+          "pointer": "/evidence/0/count"
+        }
+      }
+    },
+    {
+      "id": "malformed-duplicate-role",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-left-copy",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "evidence.duplicate_role",
+          "pointer": "/evidence/2/subject_role"
+        }
+      }
+    },
+    {
+      "id": "malformed-duplicate-evidence-id",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "evidence.duplicate_id",
+          "pointer": "/evidence/2/id"
+        }
+      }
+    },
+    {
+      "id": "malformed-unknown-subject-field",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "unexpected": "x"
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.unknown_field",
+          "pointer": "/subjects/left/unexpected"
+        }
+      }
+    },
+    {
+      "id": "malformed-top-policy-digest",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:bad",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy_digest"
+        }
+      }
+    },
+    {
+      "id": "policy-digest-substitution",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "identity.digest_mismatch",
+          "pointer": "/policy_digest"
+        }
+      }
+    },
+    {
+      "id": "malformed-boolean-window-start",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "policy": {
+          "mode": "identical_window_positive_coverage"
+        },
+        "subjects": {
+          "left": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": true,
+              "end": 1000
+            }
+          },
+          "right": {
+            "quantity_id": "temperature",
+            "unit_id": "celsius",
+            "method_id": "probe-v1",
+            "reference_frame_id": "room-1",
+            "context_population_id": "batch-a",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            }
+          }
+        },
+        "evidence": [
+          {
+            "id": "coverage-left",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "left",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          },
+          {
+            "id": "coverage-right",
+            "kind": "coverage",
+            "schema": "measurement/0.1/coverage",
+            "subject_role": "right",
+            "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+            "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+            "window": {
+              "timescale": "unix-ms-utc-v1",
+              "start": 0,
+              "end": 1000
+            },
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_type",
+          "pointer": "/subjects/left/window/start"
+        }
+      }
+    }
+  ],
+  "artifacts_file": "measurement-artifacts.json"
+}

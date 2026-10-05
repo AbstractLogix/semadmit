@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools==84.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semadmit"
+version = "0.1.0.dev0"
+description = "Offline evidence-bound semantic decision core"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = []
+
+[tool.setuptools]
+packages = ["semadmit"]

@@ -1,0 +1,4 @@
+packages: .
+index-state: 2026-09-16T00:00:00Z
+with-compiler: ghc-9.14.1
+write-ghc-environment-files: never

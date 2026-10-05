@@ -1,0 +1,69 @@
+{
+  "cases": [
+    {
+      "id": "admissible",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {"mode": "pass"},
+        "subjects": {"item": {"name": "example"}},
+        "evidence": [{"id": "z", "present": true}, {"id": "a", "present": false}]
+      },
+      "expected": {
+        "kind": "decision",
+        "decision_digest": "sha256:7da17b0aaad9f4284193d6bfc15dc02cfb442c8966d4fa99327531f5fc05c2d2",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "state": "admissible",
+          "request_digest": "sha256:4daca826f8149eb7e5d885753b61cefa4174c126bb657db339cecbad4eb9661c",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "obligations": [{"id": "present", "outcome": "pass"}],
+          "diagnostics": [],
+          "bindings": {
+            "subjects": [{"role": "item", "kind": "subject", "schema": "fixture/0.1/subject", "digest": "sha256:e4ed1c5a01cdf86cda25769207a4e4cdaa43d294531c8e7ff3a58f12ddeb45e2"}],
+            "components": [{"subject_role": "item", "name": "name", "kind": "component", "schema": "fixture/0.1/component", "digest": "sha256:0d0e65100ce8aa455db148a3a2f121bae3a1e10987fb3265fa068442dd57d1ff"}],
+            "evidence": [
+              {"id": "a", "kind": "assertion", "schema": "fixture/0.1/assertion", "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"},
+              {"id": "z", "kind": "assertion", "schema": "fixture/0.1/assertion", "digest": "sha256:0a42e9b22d7ae0733091834e804385183a4f023c48149129e54c0525dbade5ef"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "inadmissible",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {"mode": "fail"},
+        "subjects": {"item": {"name": "example"}},
+        "evidence": [{"id": "no", "present": false}]
+      },
+      "expected": {
+        "kind": "decision",
+        "decision_digest": "sha256:90b297ff235adadd91871742c0ba769c57f7c8437f1519a8d28d6b9f64b13cfb",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "state": "inadmissible",
+          "request_digest": "sha256:6dda74058ac6b1501abd4d60c32a2f43d6a1283052381a584f7d06bd29654a74",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "obligations": [{"id": "present", "outcome": "fail"}],
+          "diagnostics": [{"obligation_id": "present", "pointer": "/subjects/item/name", "code": "domain.mismatch"}],
+          "bindings": {
+            "subjects": [{"role": "item", "kind": "subject", "schema": "fixture/0.1/subject", "digest": "sha256:e4ed1c5a01cdf86cda25769207a4e4cdaa43d294531c8e7ff3a58f12ddeb45e2"}],
+            "components": [{"subject_role": "item", "name": "name", "kind": "component", "schema": "fixture/0.1/component", "digest": "sha256:0d0e65100ce8aa455db148a3a2f121bae3a1e10987fb3265fa068442dd57d1ff"}],
+            "evidence": [{"id": "no", "kind": "assertion", "schema": "fixture/0.1/assertion", "digest": "sha256:0c5f6262dbcd73842c763ca8653cdf51bcacacc4b6b975eaee33e794916b5c86"}]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "format": "semadmit-isoprax-artifacts/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "artifacts": [
+    {
+      "id": "sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:cc5a34b5306677532e66e36ece259ec08ecd2eb9ecf698dd27761fa284343170\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed"
+    },
+    {
+      "id": "sha256:015a440fa7d6c5577236cc103f03107a8f32bee0bd220083d29a03086ba674d7",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[],\"scores\":[]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:015a440fa7d6c5577236cc103f03107a8f32bee0bd220083d29a03086ba674d7"
+    },
+    {
+      "id": "sha256:01bb3a88835ea51ac2365ee518ca51b3b5d2f934e5ca106ded78b3e13cb84b5e",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:c4fa34257db167640f12fef28c023f115faf2b5a9374a6bac37a237e9145da02\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:b5f3dbcd7573334a0aa3ab77fce31e7c64f633f74a22b940c1c1037452c8cb1c\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:4e1b48078132282af73c22655b1fd4c693a58c18f9373472a4f148d3b1ce197b\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:a12b761584bf4812a7f2955d8bdbdc2897000eabce39ba7a288cafdaf30abf17\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:1724f4e39e1f2610134d654c99ff3ba330c3192992d5190ac2486832e095e04e\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:2305e534ad1103cfa2565f80aad3df7bff2f16e3c7ae6ce2aaf89f82654f0fb0\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"definition.event_mismatch\",\"obligation_id\":\"definition.compatibility\",\"pointer\":\"/subjects/right/definition/event\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"fail\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:cb275b0975d93f3a0c0e80e1635a02bbcd8fd88ed58258fac3ba5addb03d2d3f\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:01bb3a88835ea51ac2365ee518ca51b3b5d2f934e5ca106ded78b3e13cb84b5e"
+    },
+    {
+      "id": "sha256:06eb7a3a1ac2878d0e70e8296b49755f830dd6266e1ce0eff3dca576649408b5",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:cdad3ccce28b4d176ce8a2882ff450a87538588473bcf615574ed9a954b7edaa\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:cdad3ccce28b4d176ce8a2882ff450a87538588473bcf615574ed9a954b7edaa\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:5ea2b68f7159a7e14ae380f2fdffac580e363ac333fbb3378b959de19920b392\",\"state\":\"admissible\"}",
+      "sha256": "sha256:06eb7a3a1ac2878d0e70e8296b49755f830dd6266e1ce0eff3dca576649408b5"
+    },
+    {
+      "id": "sha256:0a62ee377b34f8c2514754c6e3b2d695c678bec0d516c3fe5b63f89eb230797c",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:0a62ee377b34f8c2514754c6e3b2d695c678bec0d516c3fe5b63f89eb230797c"
+    },
+    {
+      "id": "sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"outcomes\":[0,1],\"scores\":[\"0.123456789012\",\"0.876543210988\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6"
+    },
+    {
+      "id": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+    },
+    {
+      "id": "sha256:1724f4e39e1f2610134d654c99ff3ba330c3192992d5190ac2486832e095e04e",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"Ä\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:1724f4e39e1f2610134d654c99ff3ba330c3192992d5190ac2486832e095e04e"
+    },
+    {
+      "id": "sha256:1768c433cfaad6249da37cfcf1de7fd8b29385a2f5d1807ceab9a927e5366507",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":null,\"event\":\"forecast\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":null,\"raw\":\"\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:1768c433cfaad6249da37cfcf1de7fd8b29385a2f5d1807ceab9a927e5366507"
+    },
+    {
+      "id": "sha256:18408ff2bd4c0174c2b17d796efdc865bfadc2218ea5918580abab30b8d51deb",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:ac0225c2598df85c39043e74373080150aa0d926f5ba58d94a5446bf9f0ce282\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:66b48357876e672970ec5dc62ad63abc4f284da0eff13ff405956b98070ffb5f\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"calibration.ece_exceeded\",\"obligation_id\":\"calibration.left\",\"pointer\":\"/subjects/left/sample\"},{\"code\":\"calibration.zero_score_variance\",\"obligation_id\":\"calibration.left\",\"pointer\":\"/subjects/left/sample\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"fail\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:a901dcd795188406d262665588935d8164f4221e2c604c7e34dd71e2e84f47c0\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:18408ff2bd4c0174c2b17d796efdc865bfadc2218ea5918580abab30b8d51deb"
+    },
+    {
+      "id": "sha256:18f10e15c3ba3e309043463d01f2c80dfb68cc0b90283bb386fbf8a5e9468b0b",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:ef7ad7f23f0e7b686a4a752450c1585f3ac2e84ba31848e489d0be080dde962f\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:383a991eac49961d48e1d4c24975b089b76570c9720316de53dbe53ab94747be\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"calibration.zero_score_variance\",\"obligation_id\":\"calibration.left\",\"pointer\":\"/subjects/left/sample\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"fail\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:f657dc97f6c5cc1a8b9c3f51a674b9f0072447b2c5816d184b14b2f2971b4ca2\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:18f10e15c3ba3e309043463d01f2c80dfb68cc0b90283bb386fbf8a5e9468b0b"
+    },
+    {
+      "id": "sha256:1935d03fc64a891623bfe7bae702b4577ff1f9c91d7feb82786f9888d2a6e46b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":\"right display\",\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\" forecast \",\"parameters\":{\"site\":\"north\"},\"raw\":\"online\"},\"thresholds\":[{\"metric\":\"humidity\",\"operator\":\">\",\"raw\":\"new label\",\"sustain\":\"2\",\"sustain_unit\":\"hours\",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}}],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"curated source\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:1935d03fc64a891623bfe7bae702b4577ff1f9c91d7feb82786f9888d2a6e46b"
+    },
+    {
+      "id": "sha256:1a2a42a5a5b9fc5b71034cd6dc8331eb04bf407faf851f01f36444c45a4f4397",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"forecast\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":null,\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:1a2a42a5a5b9fc5b71034cd6dc8331eb04bf407faf851f01f36444c45a4f4397"
+    },
+    {
+      "id": "sha256:1d8a047819cabc47332356338faf98c31d761be2979cc043fc05826dfac386d5",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:f92950ccb8b458f6e79d4b24c440e0264ea9c7dcfdf0bfb3e3096568c7be6cad\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:1d8a047819cabc47332356338faf98c31d761be2979cc043fc05826dfac386d5"
+    },
+    {
+      "id": "sha256:2305e534ad1103cfa2565f80aad3df7bff2f16e3c7ae6ce2aaf89f82654f0fb0",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"ä\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:2305e534ad1103cfa2565f80aad3df7bff2f16e3c7ae6ce2aaf89f82654f0fb0"
+    },
+    {
+      "id": "sha256:249c4c275976202a9337e6095d7c0a77c32d1955f2e8599bca58d467aaa94839",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":\"left display\",\"event\":\" Prediction \",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"FORECAST\",\"parameters\":{\"site\":\"north\"},\"raw\":\"Online \"},\"thresholds\":[{\"metric\":\"Humidity\",\"operator\":\" > \",\"raw\":\"legacy label\",\"sustain\":\"2\",\"sustain_unit\":\" HOURS \",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}}],\"window\":{\"anchor\":\"Study-Start\",\"duration\":\"1\",\"raw\":\"registry record\",\"unit\":\" Day \"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:249c4c275976202a9337e6095d7c0a77c32d1955f2e8599bca58d467aaa94839"
+    },
+    {
+      "id": "sha256:24b24b82cfc45d0bd9230426bdd805a04dc1160223b887f0774e2e9c62d077f2",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:922e298647fa5d55cdabd557b3d5262f5db4d4c156e7fa89577a88941e48169a\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:dbc329ad488007be3bb388091793f7e2d4bbec215de8a28591e26510530f276e\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:ba3647da2659d4760bf8defa254c1d80f407da8ffa95adecbe44ac7cb7a94187\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"definition.event_mismatch\",\"obligation_id\":\"definition.compatibility\",\"pointer\":\"/subjects/right/definition/event\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"fail\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:70c06ef2e812e5fb715d0dafc7e4ac50ea6c346c10cb01351ed361cf456dd95b\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:24b24b82cfc45d0bd9230426bdd805a04dc1160223b887f0774e2e9c62d077f2"
+    },
+    {
+      "id": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8"
+    },
+    {
+      "id": "sha256:3291f9704960de1947d37e7171d21ce099be6309e145b6c38ee5a679ef0aec08",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"forecast\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":null,\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:3291f9704960de1947d37e7171d21ce099be6309e145b6c38ee5a679ef0aec08"
+    },
+    {
+      "id": "sha256:372463b2a41a2a2a4260c3f419399c630187519cf1b8cddf841cc0a77b87aeec",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0\",\"min_events\":2,\"n_bins\":1000,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"schema\":\"isoprax/0.1/policy\"}",
+      "sha256": "sha256:372463b2a41a2a2a4260c3f419399c630187519cf1b8cddf841cc0a77b87aeec"
+    },
+    {
+      "id": "sha256:383a991eac49961d48e1d4c24975b089b76570c9720316de53dbe53ab94747be",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.5\",\"0.5\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:383a991eac49961d48e1d4c24975b089b76570c9720316de53dbe53ab94747be"
+    },
+    {
+      "id": "sha256:42a2a83b0609eaeac5a1969d89d41216efc45d087c1e09738a84849921ae1c30",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{\"instrument\":\"sensor-v1\",\"site\":\"north\"},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{\"instrument\":\"sensor-v1\",\"site\":\"south\"},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:42a2a83b0609eaeac5a1969d89d41216efc45d087c1e09738a84849921ae1c30"
+    },
+    {
+      "id": "sha256:43db6bd0573c1498651a51793c8950079c8c72465300ec3631132410319edade",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:db48e9470afb0103b7cf96956e55d27ae8988858e270fb9fb77bf9bbc5f14f3f\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:015a440fa7d6c5577236cc103f03107a8f32bee0bd220083d29a03086ba674d7\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"calibration.min_events\",\"obligation_id\":\"calibration.left\",\"pointer\":\"/subjects/left/sample\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"fail\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:bc06947e963a23bbdd7b959632f06cf058f8409e030dbcdbd4e1c8afc93f09dc\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:43db6bd0573c1498651a51793c8950079c8c72465300ec3631132410319edade"
+    },
+    {
+      "id": "sha256:4564227d088bff4864cdedd2c2aa3c4c91b86b8418e13109ab8fa0abddbcf3a6",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{\"instrument\":\"sensor-v1\",\"site\":\"north\"},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:4564227d088bff4864cdedd2c2aa3c4c91b86b8418e13109ab8fa0abddbcf3a6"
+    },
+    {
+      "id": "sha256:4809c41083bed251789dbab3514889ddcaf197827f9b19710daf0753e46d598b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":\"right display\",\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\" forecast \",\"parameters\":{\"site\":\"north\"},\"raw\":\"online\"},\"thresholds\":[{\"metric\":\"humidity\",\"operator\":\">\",\"raw\":\"new label\",\"sustain\":\"2\",\"sustain_unit\":\"hours\",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}}],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"curated source\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:4809c41083bed251789dbab3514889ddcaf197827f9b19710daf0753e46d598b"
+    },
+    {
+      "id": "sha256:48155dba03361e5d8af5bfd84b689d019de7ffef293fd4dce94a1dc1aeb289a5",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0\",\"min_events\":1,\"n_bins\":1,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"schema\":\"isoprax/0.1/policy\"}",
+      "sha256": "sha256:48155dba03361e5d8af5bfd84b689d019de7ffef293fd4dce94a1dc1aeb289a5"
+    },
+    {
+      "id": "sha256:48a79b5b438c804c7d01fb4016fe4bb1a79660b9a9a768d127553a2dc0443aa6",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{\"instrument\":\"sensor-v1\",\"site\":\"south\"},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:48a79b5b438c804c7d01fb4016fe4bb1a79660b9a9a768d127553a2dc0443aa6"
+    },
+    {
+      "id": "sha256:4b676c3d439af8c3874bde351fb67666e49efdab178bbbb8fb22aa21a5e0875a",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:48155dba03361e5d8af5bfd84b689d019de7ffef293fd4dce94a1dc1aeb289a5\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:a94e9ed9994680ccc2a9ae971d3c260dc18848e437860705d6cc560b35c35ce2\",\"state\":\"admissible\"}",
+      "sha256": "sha256:4b676c3d439af8c3874bde351fb67666e49efdab178bbbb8fb22aa21a5e0875a"
+    },
+    {
+      "id": "sha256:4b7d271a717fa4eba822f64776d1c322310bf95051e66029330fb4813109c1e8",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:bb45ac54b0fe4cc9a6034ba480ac9ea5fb9aa1d53589f0477a63c3de0173159e\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:4b7d271a717fa4eba822f64776d1c322310bf95051e66029330fb4813109c1e8"
+    },
+    {
+      "id": "sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"1\",\"min_events\":1,\"n_bins\":1000,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"schema\":\"isoprax/0.1/policy\"}",
+      "sha256": "sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233"
+    },
+    {
+      "id": "sha256:4e1b48078132282af73c22655b1fd4c693a58c18f9373472a4f148d3b1ce197b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":null,\"event\":\"ä\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:4e1b48078132282af73c22655b1fd4c693a58c18f9373472a4f148d3b1ce197b"
+    },
+    {
+      "id": "sha256:4fca5e0a5c3045d6b4ae75f86522417f6925669b81ed72fb61439194cb2a3fc4",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:1768c433cfaad6249da37cfcf1de7fd8b29385a2f5d1807ceab9a927e5366507\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:4fca5e0a5c3045d6b4ae75f86522417f6925669b81ed72fb61439194cb2a3fc4"
+    },
+    {
+      "id": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+    },
+    {
+      "id": "sha256:5977086a140b7bccfb193417d73ab7feef21320fb17769a82f03ef461da91ac5",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":null,\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:5977086a140b7bccfb193417d73ab7feef21320fb17769a82f03ef461da91ac5"
+    },
+    {
+      "id": "sha256:59abe3e6758c6576bf2878c899e9302e759feae5a70d850b466f3db7a84eac51",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:f8374c489c6063023db4d2f682a95b74855fb0e3de8d6c3a1282d55b4e7c232b\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"calibration.sample_missing\",\"obligation_id\":\"calibration.left\",\"pointer\":\"/subjects/left/sample\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"missing\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:79e2cc38899d9d8787f5fc75424b4e65ab60c4e6d836b26dbccba8e5b6578aac\",\"state\":\"indeterminate\"}",
+      "sha256": "sha256:59abe3e6758c6576bf2878c899e9302e759feae5a70d850b466f3db7a84eac51"
+    },
+    {
+      "id": "sha256:5a113488e93e356cb1a8f38d603118bb0becf3db0e49f79c6c0dcef949f1b115",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"1\",\"min_events\":1,\"n_bins\":1000,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0\",\"1\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0\",\"1\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:5a113488e93e356cb1a8f38d603118bb0becf3db0e49f79c6c0dcef949f1b115"
+    },
+    {
+      "id": "sha256:5add8e76821cc65d1ea43fee74aa4d1388620177d0ed8bc282373cdb7ef9e898",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":\"left display\",\"event\":\" Prediction \",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"FORECAST\",\"parameters\":{\"site\":\"north\"},\"raw\":\"Online \"},\"thresholds\":[{\"metric\":\"Humidity\",\"operator\":\" > \",\"raw\":\"legacy label\",\"sustain\":\"2\",\"sustain_unit\":\" HOURS \",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}}],\"window\":{\"anchor\":\"Study-Start\",\"duration\":\"1\",\"raw\":\"registry record\",\"unit\":\" Day \"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:5add8e76821cc65d1ea43fee74aa4d1388620177d0ed8bc282373cdb7ef9e898"
+    },
+    {
+      "id": "sha256:5cfd2347fd535a98f453c2e21221ccbfc7a4a29f96daedd8ef88d5756956923e",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":null,\"raw\":\"\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:5cfd2347fd535a98f453c2e21221ccbfc7a4a29f96daedd8ef88d5756956923e"
+    },
+    {
+      "id": "sha256:5ea2b68f7159a7e14ae380f2fdffac580e363ac333fbb3378b959de19920b392",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.123456789012\",\"0.876543210988\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.123456789012\",\"0.876543210988\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:5ea2b68f7159a7e14ae380f2fdffac580e363ac333fbb3378b959de19920b392"
+    },
+    {
+      "id": "sha256:6173e75882d539487d5f4aa3d0209b9ab93765fb98aeec8c889ee273353ff362",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:d796b5eeec770bb2ca442b28b25e7bc5e41c8c9e230371bbc8baaa3f58900ead\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:93023b78d1ae59281b147ba497525a0dc94d083c9a2f4284a161418a3e645752\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:71fb4c81bc904564e35c09c2947c257bccfaf64010ea9ec5499fe68d4aaa56c2\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"definition.window_mismatch\",\"obligation_id\":\"definition.compatibility\",\"pointer\":\"/subjects/right/definition/window\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"fail\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:e3463b02e668b859b465496b778b8c14a12fe0834fe0ea64eb8f6887672eff25\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:6173e75882d539487d5f4aa3d0209b9ab93765fb98aeec8c889ee273353ff362"
+    },
+    {
+      "id": "sha256:61cef299df6b36461ee3c9c20cada216982943d496a5480890320ddc9a44bb64",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:7da8b7dd0a788b88e3d09059f408046facb4e0275ef186147146138e8ade3cd0\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:61cef299df6b36461ee3c9c20cada216982943d496a5480890320ddc9a44bb64"
+    },
+    {
+      "id": "sha256:63a079db464eed22393724b5cbbc34938d743386d5e9768c5b7b6500d31edf0c",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:372463b2a41a2a2a4260c3f419399c630187519cf1b8cddf841cc0a77b87aeec\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:df6ed34d8e7fa4bbab9684a5400a646d4abe6b2fa7a851f5e0b733870e1ed1db\",\"state\":\"admissible\"}",
+      "sha256": "sha256:63a079db464eed22393724b5cbbc34938d743386d5e9768c5b7b6500d31edf0c"
+    },
+    {
+      "id": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[{\"metric\":\"Humidity\",\"operator\":\" > \",\"raw\":\"a-source\",\"sustain\":null,\"sustain_unit\":\" Hours \",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}},{\"metric\":\"Humidity\",\"operator\":\" > \",\"raw\":\"z-source\",\"sustain\":null,\"sustain_unit\":\" Hours \",\"value\":{\"type\":\"decimal\",\"value\":\"0.5\"}},{\"metric\":\"Temperature\",\"operator\":\">=\",\"raw\":\"sensor-note\",\"sustain\":\"2\",\"sustain_unit\":\" Day \",\"value\":{\"type\":\"text\",\"value\":\"warm\"}}],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c"
+    },
+    {
+      "id": "sha256:66b48357876e672970ec5dc62ad63abc4f284da0eff13ff405956b98070ffb5f",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0\",\"0\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:66b48357876e672970ec5dc62ad63abc4f284da0eff13ff405956b98070ffb5f"
+    },
+    {
+      "id": "sha256:68a0717d9502ea1b6d180d1dde45a997e137b6e9ee76c652741e625017954d48",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:4809c41083bed251789dbab3514889ddcaf197827f9b19710daf0753e46d598b\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:68a0717d9502ea1b6d180d1dde45a997e137b6e9ee76c652741e625017954d48"
+    },
+    {
+      "id": "sha256:6c72468b9fa140a9b977fe7a2ac3604b9c465d873dd4721268ecb32e383528b1",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"left-definition\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:6c72468b9fa140a9b977fe7a2ac3604b9c465d873dd4721268ecb32e383528b1"
+    },
+    {
+      "id": "sha256:70379e65b66d0498bca2a05e107fbbb6cdf1391debeb2871529dc8b2f16b9e82",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:5a113488e93e356cb1a8f38d603118bb0becf3db0e49f79c6c0dcef949f1b115\",\"state\":\"admissible\"}",
+      "sha256": "sha256:70379e65b66d0498bca2a05e107fbbb6cdf1391debeb2871529dc8b2f16b9e82"
+    },
+    {
+      "id": "sha256:70c06ef2e812e5fb715d0dafc7e4ac50ea6c346c10cb01351ed361cf456dd95b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"right\":{\"definition\":{\"description\":null,\"event\":\"forecast\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:70c06ef2e812e5fb715d0dafc7e4ac50ea6c346c10cb01351ed361cf456dd95b"
+    },
+    {
+      "id": "sha256:71fb4c81bc904564e35c09c2947c257bccfaf64010ea9ec5499fe68d4aaa56c2",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"2\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:71fb4c81bc904564e35c09c2947c257bccfaf64010ea9ec5499fe68d4aaa56c2"
+    },
+    {
+      "id": "sha256:7212c8fcf75479a6a13504b173e47cbfca90510ee62b4c5f77992b1c19777400",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:f15c5b60731c4334cbd0949e646d3c610285f94b96225fde08e5dc318b8a1613\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:7212c8fcf75479a6a13504b173e47cbfca90510ee62b4c5f77992b1c19777400"
+    },
+    {
+      "id": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0\",\"1\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9"
+    },
+    {
+      "id": "sha256:769745cf962a333236c58b0545c4aa0f8951199bf281d45b5b7d863459c4ca8a",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:cc5a34b5306677532e66e36ece259ec08ecd2eb9ecf698dd27761fa284343170\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:cc5a34b5306677532e66e36ece259ec08ecd2eb9ecf698dd27761fa284343170\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:c2bc2ba4c682d68016e6f5539afcb46f4ce9d4a5c51ef3bcd314aa1684d072e9\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:c2bc2ba4c682d68016e6f5539afcb46f4ce9d4a5c51ef3bcd314aa1684d072e9\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"definition.unknown\",\"obligation_id\":\"definition.compatibility\",\"pointer\":\"/subjects/left/definition/thresholds/0/value\"},{\"code\":\"definition.unknown\",\"obligation_id\":\"definition.compatibility\",\"pointer\":\"/subjects/right/definition/thresholds/0/value\"}],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"missing\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:959df83d91ecd1422958319677184ac7f445f46b8e4ed6052092c2c8331252b7\",\"state\":\"indeterminate\"}",
+      "sha256": "sha256:769745cf962a333236c58b0545c4aa0f8951199bf281d45b5b7d863459c4ca8a"
+    },
+    {
+      "id": "sha256:79e2cc38899d9d8787f5fc75424b4e65ab60c4e6d836b26dbccba8e5b6578aac",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":null},\"right\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:79e2cc38899d9d8787f5fc75424b4e65ab60c4e6d836b26dbccba8e5b6578aac"
+    },
+    {
+      "id": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"schema\":\"isoprax/0.1/policy\"}",
+      "sha256": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3"
+    },
+    {
+      "id": "sha256:7d5a0f40ce0c88d61bbd2d322aff03e8f57e629fe5ea6ed605aa072cf3eed4fa",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"definition\":{\"description\":null,\"event\":\"prediction\",\"id\":\"right-definition\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"sample\":{\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]}},\"schema\":\"isoprax/0.1/subject\"}",
+      "sha256": "sha256:7d5a0f40ce0c88d61bbd2d322aff03e8f57e629fe5ea6ed605aa072cf3eed4fa"
+    },
+    {
+      "id": "sha256:f77ddddae6a5359b7c7c5343b43af0303aa435e2a9ea3a87da6f98b75bb03652",
+      "form": "decision",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:c843cdebee9b100f7943a3ebdaa321025375665e4f88bdc42c887ae4584f1258\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"left\"},{\"digest\":\"sha256:a767c2052aa9e2df359e89a1854856fde6fea1491accabe328dd6bd3d3c36679\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"left\"},{\"digest\":\"sha256:c843cdebee9b100f7943a3ebdaa321025375665e4f88bdc42c887ae4584f1258\",\"kind\":\"definition\",\"name\":\"definition\",\"schema\":\"isoprax/0.1/definition\",\"subject_role\":\"right\"},{\"digest\":\"sha256:a767c2052aa9e2df359e89a1854856fde6fea1491accabe328dd6bd3d3c36679\",\"kind\":\"sample\",\"name\":\"sample\",\"schema\":\"isoprax/0.1/sample\",\"subject_role\":\"right\"}],\"evidence\":[],\"subjects\":[{\"digest\":\"sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"isoprax/0.1/subject\"},{\"digest\":\"sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"isoprax/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"calibration.left\",\"outcome\":\"pass\"},{\"id\":\"calibration.right\",\"outcome\":\"pass\"},{\"id\":\"definition.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"pool_predictions\",\"pack\":\"isoprax/0.1\",\"policy_digest\":\"sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:c25439f74e99c60b2ca005426a3e726f413504455a8a07fca99db20bff87463b\",\"state\":\"admissible\"}",
+      "sha256": "sha256:f77ddddae6a5359b7c7c5343b43af0303aa435e2a9ea3a87da6f98b75bb03652"
+    }
+  ]
+}

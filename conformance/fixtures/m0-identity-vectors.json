@@ -1,0 +1,315 @@
+{
+  "format": "semadmit-m0-identity-vectors/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "vectors": [
+    {
+      "id": "isoprax-policy",
+      "value": {
+        "kind": "policy",
+        "schema": "isoprax/0.1/policy",
+        "payload": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"definition_comparison\":\"normalized-key/0.1\",\"max_ece\":\"0.25\",\"min_events\":2,\"n_bins\":2,\"numeric_profile\":\"decimal-rational-12/0.1\"},\"schema\":\"isoprax/0.1/policy\"}",
+      "sha256": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+      "kind": "policy",
+      "schema": "isoprax/0.1/policy",
+      "digest_value": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3"
+    },
+    {
+      "id": "isoprax-definition",
+      "value": {
+        "kind": "definition",
+        "schema": "isoprax/0.1/definition",
+        "payload": {
+          "id": "definition-1",
+          "event": "prediction",
+          "observation_process": {
+            "kind": "forecast",
+            "parameters": {},
+            "raw": ""
+          },
+          "window": {
+            "duration": "1",
+            "unit": "day",
+            "anchor": "study-start",
+            "raw": ""
+          },
+          "thresholds": [],
+          "description": null
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"definition\",\"payload\":{\"description\":null,\"event\":\"prediction\",\"id\":\"definition-1\",\"observation_process\":{\"kind\":\"forecast\",\"parameters\":{},\"raw\":\"\"},\"thresholds\":[],\"window\":{\"anchor\":\"study-start\",\"duration\":\"1\",\"raw\":\"\",\"unit\":\"day\"}},\"schema\":\"isoprax/0.1/definition\"}",
+      "sha256": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+      "kind": "definition",
+      "schema": "isoprax/0.1/definition",
+      "digest_value": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+    },
+    {
+      "id": "isoprax-sample",
+      "value": {
+        "kind": "sample",
+        "schema": "isoprax/0.1/sample",
+        "payload": {
+          "definition_digest": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "scores": [
+            "0.25",
+            "0.75"
+          ],
+          "outcomes": [
+            0,
+            1
+          ]
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"sample\",\"payload\":{\"definition_digest\":\"sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c\",\"outcomes\":[0,1],\"scores\":[\"0.25\",\"0.75\"]},\"schema\":\"isoprax/0.1/sample\"}",
+      "sha256": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+      "kind": "sample",
+      "schema": "isoprax/0.1/sample",
+      "digest_value": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8"
+    },
+    {
+      "id": "measurement-policy",
+      "value": {
+        "kind": "policy",
+        "schema": "measurement/0.1/policy",
+        "payload": {
+          "mode": "identical_window_positive_coverage"
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"mode\":\"identical_window_positive_coverage\"},\"schema\":\"measurement/0.1/policy\"}",
+      "sha256": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+      "kind": "policy",
+      "schema": "measurement/0.1/policy",
+      "digest_value": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16"
+    },
+    {
+      "id": "measurement-subject",
+      "value": {
+        "kind": "subject",
+        "schema": "measurement/0.1/subject",
+        "payload": {
+          "quantity_id": "temperature",
+          "unit_id": "celsius",
+          "method_id": "probe-v1",
+          "reference_frame_id": "room-1",
+          "context_population_id": "batch-a",
+          "window": {
+            "timescale": "unix-ms-utc-v1",
+            "start": 0,
+            "end": 1000
+          }
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"context_population_id\":\"batch-a\",\"method_id\":\"probe-v1\",\"quantity_id\":\"temperature\",\"reference_frame_id\":\"room-1\",\"unit_id\":\"celsius\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}},\"schema\":\"measurement/0.1/subject\"}",
+      "sha256": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+      "kind": "subject",
+      "schema": "measurement/0.1/subject",
+      "digest_value": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+    },
+    {
+      "id": "measurement-coverage-evidence",
+      "value": {
+        "kind": "evidence",
+        "schema": "measurement/0.1/coverage",
+        "payload": {
+          "id": "coverage-left",
+          "kind": "coverage",
+          "schema": "measurement/0.1/coverage",
+          "subject_role": "left",
+          "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+          "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+          "window": {
+            "timescale": "unix-ms-utc-v1",
+            "start": 0,
+            "end": 1000
+          },
+          "count": 1
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"count\":1,\"id\":\"coverage-left\",\"kind\":\"coverage\",\"policy_digest\":\"sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16\",\"schema\":\"measurement/0.1/coverage\",\"subject_digest\":\"sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8\",\"subject_role\":\"left\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}},\"schema\":\"measurement/0.1/coverage\"}",
+      "sha256": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f",
+      "kind": "evidence",
+      "schema": "measurement/0.1/coverage",
+      "digest_value": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f"
+    },
+    {
+      "id": "measurement-valid-request",
+      "value": {
+        "kind": "request",
+        "schema": "semantic-oracle/0.1/request",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "measurement/0.1",
+          "operation": "aggregate_measurements",
+          "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+          "policy": {
+            "mode": "identical_window_positive_coverage"
+          },
+          "subjects": {
+            "left": {
+              "quantity_id": "temperature",
+              "unit_id": "celsius",
+              "method_id": "probe-v1",
+              "reference_frame_id": "room-1",
+              "context_population_id": "batch-a",
+              "window": {
+                "timescale": "unix-ms-utc-v1",
+                "start": 0,
+                "end": 1000
+              }
+            },
+            "right": {
+              "quantity_id": "temperature",
+              "unit_id": "celsius",
+              "method_id": "probe-v1",
+              "reference_frame_id": "room-1",
+              "context_population_id": "batch-a",
+              "window": {
+                "timescale": "unix-ms-utc-v1",
+                "start": 0,
+                "end": 1000
+              }
+            }
+          },
+          "evidence": [
+            {
+              "id": "coverage-left",
+              "kind": "coverage",
+              "schema": "measurement/0.1/coverage",
+              "subject_role": "left",
+              "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+              "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+              "window": {
+                "timescale": "unix-ms-utc-v1",
+                "start": 0,
+                "end": 1000
+              },
+              "count": 1
+            },
+            {
+              "id": "coverage-right",
+              "kind": "coverage",
+              "schema": "measurement/0.1/coverage",
+              "subject_role": "right",
+              "subject_digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8",
+              "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+              "window": {
+                "timescale": "unix-ms-utc-v1",
+                "start": 0,
+                "end": 1000
+              },
+              "count": 1
+            }
+          ]
+        }
+      },
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"count\":1,\"id\":\"coverage-left\",\"kind\":\"coverage\",\"policy_digest\":\"sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16\",\"schema\":\"measurement/0.1/coverage\",\"subject_digest\":\"sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8\",\"subject_role\":\"left\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}},{\"count\":1,\"id\":\"coverage-right\",\"kind\":\"coverage\",\"policy_digest\":\"sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16\",\"schema\":\"measurement/0.1/coverage\",\"subject_digest\":\"sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8\",\"subject_role\":\"right\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}}],\"operation\":\"aggregate_measurements\",\"pack\":\"measurement/0.1\",\"policy\":{\"mode\":\"identical_window_positive_coverage\"},\"policy_digest\":\"sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"left\":{\"context_population_id\":\"batch-a\",\"method_id\":\"probe-v1\",\"quantity_id\":\"temperature\",\"reference_frame_id\":\"room-1\",\"unit_id\":\"celsius\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}},\"right\":{\"context_population_id\":\"batch-a\",\"method_id\":\"probe-v1\",\"quantity_id\":\"temperature\",\"reference_frame_id\":\"room-1\",\"unit_id\":\"celsius\",\"window\":{\"end\":1000,\"start\":0,\"timescale\":\"unix-ms-utc-v1\"}}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37",
+      "kind": "request",
+      "schema": "semantic-oracle/0.1/request",
+      "digest_value": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37"
+    },
+    {
+      "id": "measurement-admissible-decision",
+      "value": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "measurement/0.1",
+        "operation": "aggregate_measurements",
+        "request_digest": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37",
+        "policy_digest": "sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16",
+        "state": "admissible",
+        "bindings": {
+          "subjects": [
+            {
+              "role": "left",
+              "kind": "subject",
+              "schema": "measurement/0.1/subject",
+              "digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+            },
+            {
+              "role": "right",
+              "kind": "subject",
+              "schema": "measurement/0.1/subject",
+              "digest": "sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8"
+            }
+          ],
+          "components": [],
+          "evidence": [
+            {
+              "id": "coverage-left",
+              "kind": "evidence",
+              "schema": "measurement/0.1/coverage",
+              "digest": "sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f"
+            },
+            {
+              "id": "coverage-right",
+              "kind": "evidence",
+              "schema": "measurement/0.1/coverage",
+              "digest": "sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0"
+            }
+          ]
+        },
+        "obligations": [
+          {
+            "id": "coverage.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "coverage.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "measurement.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": []
+      },
+      "canonical_utf8": "{\"bindings\":{\"components\":[],\"evidence\":[{\"digest\":\"sha256:26e64a78b336e0ba107cc190eba26cc219010e5ce0fb5abe46099df709937e3f\",\"id\":\"coverage-left\",\"kind\":\"evidence\",\"schema\":\"measurement/0.1/coverage\"},{\"digest\":\"sha256:3e66168ba975c2e39691a83b34a2a28249ca437048a2d5bca7036c5eb9b22fa0\",\"id\":\"coverage-right\",\"kind\":\"evidence\",\"schema\":\"measurement/0.1/coverage\"}],\"subjects\":[{\"digest\":\"sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8\",\"kind\":\"subject\",\"role\":\"left\",\"schema\":\"measurement/0.1/subject\"},{\"digest\":\"sha256:dc635a9628e63e5e199ad5490ce6be4adac76856d1f4ceb000a8aacdbcdda0b8\",\"kind\":\"subject\",\"role\":\"right\",\"schema\":\"measurement/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"coverage.left\",\"outcome\":\"pass\"},{\"id\":\"coverage.right\",\"outcome\":\"pass\"},{\"id\":\"measurement.compatibility\",\"outcome\":\"pass\"}],\"operation\":\"aggregate_measurements\",\"pack\":\"measurement/0.1\",\"policy_digest\":\"sha256:e51c9b5e46d989cd00454e070100373d740f9efbab37bf375a18fa823acf3e16\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37\",\"state\":\"admissible\"}",
+      "sha256": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f"
+    },
+    {
+      "id": "jcs-utf16-property-order",
+      "value": {
+        "": "bmp",
+        "𐀀": "supplementary"
+      },
+      "canonical_utf8": "{\"𐀀\":\"supplementary\",\"\":\"bmp\"}",
+      "sha256": "sha256:54e85161e2d6b6cf9d28fe69dc97632a62f8b83e650fe54959e2f504f3dd5d41"
+    }
+  ],
+  "normalization_cases": [
+    {
+      "id": "measurement-evidence-permutation",
+      "source_vector": "measurement-valid-request",
+      "input_cases": [
+        {
+          "id": "listed-order",
+          "evidence_ids": [
+            "coverage-left",
+            "coverage-right"
+          ]
+        },
+        {
+          "id": "reversed-order",
+          "evidence_ids": [
+            "coverage-right",
+            "coverage-left"
+          ]
+        }
+      ],
+      "expected_normalized_evidence_ids": [
+        "coverage-left",
+        "coverage-right"
+      ],
+      "expected_canonical_vector": "measurement-valid-request",
+      "expected_request_digest": "sha256:46a424ae8b6aaaf52e2c890a35356339f8f5d3f5fe286cb63e2b1cef75019d37"
+    }
+  ]
+}

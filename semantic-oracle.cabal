@@ -1,0 +1,138 @@
+cabal-version:      3.0
+name:               semantic-oracle
+version:            0.1.0.0
+synopsis:           Offline evidence-bound semantic decision core
+license:            Apache-2.0
+license-file:       LICENSE
+build-type:         Simple
+tested-with:        GHC ==9.14.1
+
+library
+  hs-source-dirs:   src
+  exposed-modules:  Core.Protocol, Core.Identity, Core.Decision, Core.Pack, Core.Evaluator, Core.CLI, Pack.Isoprax.Types, Pack.Isoprax.Calibration, Pack.Isoprax.PoolPredictions
+  other-modules:    Core.Identity.Internal, Core.Version
+  default-language: GHC2024
+  ghc-options:      -Wall -Wcompat
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , cryptohash-sha256 ==0.11.102.1
+    , scientific ==0.3.8.1
+    , text ==2.1.3
+    , vector ==0.13.2.0
+
+executable semantic-oracle
+  hs-source-dirs:   app
+  main-is:          Main.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , semantic-oracle
+
+test-suite identity-vectors
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/identity
+  main-is:          Main.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , semantic-oracle
+    , text ==2.1.3
+
+test-suite core-registry
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/core
+  main-is:          Main.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , semantic-oracle
+    , text ==2.1.3
+    , vector ==0.13.2.0
+
+test-suite protocol-contract
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/contract/protocol
+  main-is:          Main.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , containers ==0.8
+    , semantic-oracle
+    , text ==2.1.3
+
+test-suite vertical-slice
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/integration/vertical_slice
+  main-is:          Main.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , directory ==1.3.10.0
+    , semantic-oracle
+    , text ==2.1.3
+    , vector ==0.13.2.0
+
+test-suite isoprax-types
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/integration/vertical_slice
+  main-is:          IsopraxTypesTest.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , semantic-oracle
+    , text ==2.1.3
+    , vector ==0.13.2.0
+
+test-suite isoprax-calibration
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/integration/isoprax
+  main-is:          CalibrationMain.hs
+  default-language: GHC2024
+  ghc-options:      -Wall
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , semantic-oracle
+    , text ==2.1.3
+    , vector ==0.13.2.0
+
+test-suite isoprax-pool
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test/integration/isoprax, app
+  main-is:          PoolMain.hs
+  default-language: GHC2024
+  other-modules:    Main
+  ghc-options:      -Wall -main-is IsopraxPoolTest.main
+  build-depends:
+      base >=4.22 && <4.23
+    , aeson ==2.2.5.1
+    , bytestring ==0.12.2.0
+    , containers ==0.8
+    , directory ==1.3.10.0
+    , semantic-oracle
+    , text ==2.1.3
+    , vector ==0.13.2.0
