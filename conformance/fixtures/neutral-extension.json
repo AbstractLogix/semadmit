@@ -1,0 +1,1041 @@
+{
+  "format": "semadmit-neutral-extension-cases/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "pack_descriptor": {
+    "pack_id": "fixture/0.1",
+    "protocol_versions": [
+      "semantic-oracle/0.1"
+    ],
+    "operations": {
+      "check_evidence_pair": {
+        "policy_schema": {
+          "mode": {
+            "const": "assert_present"
+          }
+        },
+        "subject_roles": {
+          "alpha": 1,
+          "omega": 1
+        },
+        "evidence_schema": {
+          "id": "unique non-empty string",
+          "kind": "assertion",
+          "schema": "fixture/0.1/assertion",
+          "subject_role": [
+            "alpha",
+            "omega"
+          ],
+          "subject_digest": "sha256 digest",
+          "policy_digest": "sha256 digest",
+          "present": "boolean",
+          "max_records": 2,
+          "max_per_role": 1,
+          "duplicate_role_error": "evidence.duplicate_role"
+        },
+        "components": [
+          {
+            "subject_role": "alpha|omega",
+            "name": "snapshot",
+            "kind": "snapshot",
+            "schema": "fixture/0.1/snapshot",
+            "cardinality": "exactly-one"
+          }
+        ],
+        "obligations": [
+          "fixture.evidence.alpha",
+          "fixture.evidence.omega"
+        ],
+        "diagnostics": [
+          "fixture.evidence_missing",
+          "fixture.evidence_not_present",
+          "fixture.subject_binding_mismatch",
+          "fixture.policy_binding_mismatch"
+        ],
+        "rules": {
+          "evidence_absent": "missing",
+          "subject_or_policy_digest_contradiction": "fail",
+          "present_false": "fail",
+          "present_true_with_matching_bindings": "pass"
+        },
+        "subject_schema": {
+          "alpha": {
+            "asset_id": "required non-empty string",
+            "revision": "required non-empty string"
+          },
+          "omega": {
+            "asset_id": "required non-empty string",
+            "revision": "required non-empty string"
+          }
+        },
+        "identity_artifacts": {
+          "policy": {
+            "kind": "policy",
+            "schema": "fixture/0.1/policy",
+            "payload": "complete validated normalized policy"
+          },
+          "subject": {
+            "kind": "subject",
+            "schema": "fixture/0.1/subject",
+            "payload": "complete validated normalized subject for each role"
+          },
+          "evidence": {
+            "kind": "evidence",
+            "schema": "fixture/0.1/assertion",
+            "payload": "complete validated normalized evidence record including id"
+          },
+          "snapshot": {
+            "kind": "snapshot",
+            "schema": "fixture/0.1/snapshot",
+            "payload": "complete validated normalized subject for the component role"
+          }
+        },
+        "diagnostic_pointers": {
+          "fixture.evidence_missing": "/subjects/{role}",
+          "fixture.evidence_not_present": "/evidence/{canonical-index}/present",
+          "fixture.subject_binding_mismatch": "/evidence/{canonical-index}/subject_digest",
+          "fixture.policy_binding_mismatch": "/evidence/{canonical-index}/policy_digest"
+        },
+        "allowed_outcomes": [
+          "pass",
+          "fail",
+          "missing"
+        ],
+        "field_order": {
+          "policy": [
+            "mode"
+          ],
+          "subject": [
+            "asset_id",
+            "revision"
+          ],
+          "evidence": [
+            "id",
+            "kind",
+            "schema",
+            "subject_role",
+            "subject_digest",
+            "policy_digest",
+            "present"
+          ]
+        },
+        "set_arrays": {
+          "top_level_evidence": {
+            "key": "id",
+            "sort": "Unicode-scalar lexical"
+          }
+        },
+        "resource_limits": {
+          "evidence_items": 2,
+          "evidence_per_role": 1,
+          "subject_roles": 2
+        }
+      }
+    },
+    "validation_order": [
+      "policy.mode",
+      "subject roles alpha then omega; each asset_id then revision",
+      "evidence array in source order"
+    ],
+    "normalization": {
+      "top_level_evidence": "Core sorts by unique id after successful input validation"
+    },
+    "component_payload_rule": "one snapshot per role; payload is the complete normalized subject"
+  },
+  "cases": [
+    {
+      "id": "admissible-listed-order",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726",
+          "z-assertion": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7"
+        },
+        "state": "admissible",
+        "decision_digest": "sha256:01e03623a2c34adac74c6a0d27437cdd692ddc6c9fc38c11a869cd68516abdc4",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "admissible-reversed-order",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726",
+          "z-assertion": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7"
+        },
+        "state": "admissible",
+        "decision_digest": "sha256:01e03623a2c34adac74c6a0d27437cdd692ddc6c9fc38c11a869cd68516abdc4",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "inadmissible-listed-order",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:5ece47c9f5012af3b8b6875ce9762b7f43d862d0591cd7efd746dae43c2089fa",
+          "z-assertion": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7"
+        },
+        "state": "inadmissible",
+        "decision_digest": "sha256:661258b78d169b0659f92f3923231a39850715f7cc33d93759ffbc8a426c8c4b",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-reversed-order",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": false
+          },
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:5ece47c9f5012af3b8b6875ce9762b7f43d862d0591cd7efd746dae43c2089fa",
+          "z-assertion": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7"
+        },
+        "state": "inadmissible",
+        "decision_digest": "sha256:661258b78d169b0659f92f3923231a39850715f7cc33d93759ffbc8a426c8c4b",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-missing-omega",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:d158b5b8e1ffbe444366717213ebb7a3beb5102215efa8223f03ca869e93a72a",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726"
+        },
+        "state": "indeterminate",
+        "decision_digest": "sha256:f685c6363934c0360f5dcaf6256f45153c331b098b26d5400b23237d07518ce8",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "malformed-unknown-policy-field",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present",
+          "extra": true
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.unknown_field",
+          "pointer": "/policy/extra"
+        }
+      }
+    },
+    {
+      "id": "unregistered-pack",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "other/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "protocol.unsupported_pack",
+          "pointer": "/pack"
+        }
+      }
+    },
+    {
+      "id": "policy-digest-substitution",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "identity.digest_mismatch",
+          "pointer": "/policy_digest"
+        }
+      }
+    },
+    {
+      "id": "malformed-subject-binding",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "not-a-digest",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/evidence/0/subject_digest"
+        }
+      }
+    },
+    {
+      "id": "duplicate-subject-role",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-first",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "b-second",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "evidence.duplicate_role",
+          "pointer": "/evidence/1/subject_role"
+        }
+      }
+    },
+    {
+      "id": "neutral-subject-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:e0e7091b1334148330025e0821eef917087800a681b02b1e955815f2f5d0cd54",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:e73a0ff5deaf89ca470cba8e6b00ffc8744e369d8f84676906ce15a2e68b645f"
+        },
+        "state": "inadmissible",
+        "decision_digest": "sha256:0e340b6a25a53dc259ba0e0868dd2977dac771f45fbc366eec081eb00aadcb9c",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "invalid-pack-omits-obligation",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "internal.failure",
+          "pointer": ""
+        }
+      },
+      "host_fault": {
+        "omit_obligations": [
+          "fixture.evidence.omega"
+        ]
+      }
+    },
+    {
+      "id": "invalid-pack-omits-required-component",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "z-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "omega",
+            "subject_digest": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          },
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "internal.failure",
+          "pointer": ""
+        }
+      },
+      "host_fault": {
+        "omit_components": [
+          {
+            "subject_role": "omega",
+            "name": "snapshot"
+          }
+        ]
+      }
+    },
+    {
+      "id": "neutral-evidence-policy-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check_evidence_pair",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "policy": {
+          "mode": "assert_present"
+        },
+        "subjects": {
+          "alpha": {
+            "asset_id": "asset-a",
+            "revision": "rev-3"
+          },
+          "omega": {
+            "asset_id": "asset-z",
+            "revision": "rev-8"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a-assertion",
+            "kind": "assertion",
+            "schema": "fixture/0.1/assertion",
+            "subject_role": "alpha",
+            "subject_digest": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+            "policy_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "request_digest": "sha256:0c1e65f945b1d880519ea4dedfc41bf5a6028bbf29774eebfccae26833d4bc1c",
+        "policy_digest": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+        "subject_digests": {
+          "alpha": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+          "omega": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+        },
+        "component_digests": {
+          "alpha": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+          "omega": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+        },
+        "evidence_digests": {
+          "a-assertion": "sha256:4fa72c384b9cd8b8e3e448169e76e6beb443bc4544bfae6e4d5c933b6c61663b"
+        },
+        "state": "inadmissible",
+        "decision_digest": "sha256:4c6f7cba06722b434d1d838b6d9e2400e92812ae2ddcc7ed50eceef27c0a2290",
+        "verification": "verified-without-admission"
+      }
+    }
+  ],
+  "permutation_pairs": [
+    {
+      "id": "admissible-evidence-order",
+      "cases": [
+        "admissible-listed-order",
+        "admissible-reversed-order"
+      ],
+      "expected_same_request_digest": "sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3",
+      "expected_same_decision_digest": "sha256:01e03623a2c34adac74c6a0d27437cdd692ddc6c9fc38c11a869cd68516abdc4"
+    },
+    {
+      "id": "failing-evidence-order",
+      "cases": [
+        "inadmissible-listed-order",
+        "inadmissible-reversed-order"
+      ],
+      "expected_same_request_digest": "sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db",
+      "expected_same_decision_digest": "sha256:661258b78d169b0659f92f3923231a39850715f7cc33d93759ffbc8a426c8c4b",
+      "expected_diagnostic_pointers": [
+        "/evidence/0/present"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "sha256:01e03623a2c34adac74c6a0d27437cdd692ddc6c9fc38c11a869cd68516abdc4",
+      "form": "decision-payload",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"alpha\"},{\"digest\":\"sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"omega\"}],\"evidence\":[{\"digest\":\"sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726\",\"id\":\"a-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"},{\"digest\":\"sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7\",\"id\":\"z-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"}],\"subjects\":[{\"digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"kind\":\"subject\",\"role\":\"alpha\",\"schema\":\"fixture/0.1/subject\"},{\"digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"kind\":\"subject\",\"role\":\"omega\",\"schema\":\"fixture/0.1/subject\"}]},\"diagnostics\":[],\"obligations\":[{\"id\":\"fixture.evidence.alpha\",\"outcome\":\"pass\"},{\"id\":\"fixture.evidence.omega\",\"outcome\":\"pass\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3\",\"state\":\"admissible\"}",
+      "sha256": "sha256:01e03623a2c34adac74c6a0d27437cdd692ddc6c9fc38c11a869cd68516abdc4"
+    },
+    {
+      "id": "sha256:0c1e65f945b1d880519ea4dedfc41bf5a6028bbf29774eebfccae26833d4bc1c",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy\":{\"mode\":\"assert_present\"},\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"alpha\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"omega\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:0c1e65f945b1d880519ea4dedfc41bf5a6028bbf29774eebfccae26833d4bc1c"
+    },
+    {
+      "id": "sha256:0e340b6a25a53dc259ba0e0868dd2977dac771f45fbc366eec081eb00aadcb9c",
+      "form": "decision-payload",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"alpha\"},{\"digest\":\"sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"omega\"}],\"evidence\":[{\"digest\":\"sha256:e73a0ff5deaf89ca470cba8e6b00ffc8744e369d8f84676906ce15a2e68b645f\",\"id\":\"a-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"}],\"subjects\":[{\"digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"kind\":\"subject\",\"role\":\"alpha\",\"schema\":\"fixture/0.1/subject\"},{\"digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"kind\":\"subject\",\"role\":\"omega\",\"schema\":\"fixture/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"fixture.subject_binding_mismatch\",\"obligation_id\":\"fixture.evidence.alpha\",\"pointer\":\"/evidence/0/subject_digest\"},{\"code\":\"fixture.evidence_missing\",\"obligation_id\":\"fixture.evidence.omega\",\"pointer\":\"/subjects/omega\"}],\"obligations\":[{\"id\":\"fixture.evidence.alpha\",\"outcome\":\"fail\"},{\"id\":\"fixture.evidence.omega\",\"outcome\":\"missing\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:e0e7091b1334148330025e0821eef917087800a681b02b1e955815f2f5d0cd54\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:0e340b6a25a53dc259ba0e0868dd2977dac771f45fbc366eec081eb00aadcb9c"
+    },
+    {
+      "id": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"id\":\"z-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"subject_role\":\"omega\"},\"schema\":\"fixture/0.1/assertion\"}",
+      "sha256": "sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7"
+    },
+    {
+      "id": "sha256:4c6f7cba06722b434d1d838b6d9e2400e92812ae2ddcc7ed50eceef27c0a2290",
+      "form": "decision-payload",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"alpha\"},{\"digest\":\"sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"omega\"}],\"evidence\":[{\"digest\":\"sha256:4fa72c384b9cd8b8e3e448169e76e6beb443bc4544bfae6e4d5c933b6c61663b\",\"id\":\"a-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"}],\"subjects\":[{\"digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"kind\":\"subject\",\"role\":\"alpha\",\"schema\":\"fixture/0.1/subject\"},{\"digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"kind\":\"subject\",\"role\":\"omega\",\"schema\":\"fixture/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"fixture.policy_binding_mismatch\",\"obligation_id\":\"fixture.evidence.alpha\",\"pointer\":\"/evidence/0/policy_digest\"},{\"code\":\"fixture.evidence_missing\",\"obligation_id\":\"fixture.evidence.omega\",\"pointer\":\"/subjects/omega\"}],\"obligations\":[{\"id\":\"fixture.evidence.alpha\",\"outcome\":\"fail\"},{\"id\":\"fixture.evidence.omega\",\"outcome\":\"missing\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:0c1e65f945b1d880519ea4dedfc41bf5a6028bbf29774eebfccae26833d4bc1c\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:4c6f7cba06722b434d1d838b6d9e2400e92812ae2ddcc7ed50eceef27c0a2290"
+    },
+    {
+      "id": "sha256:4fa72c384b9cd8b8e3e448169e76e6beb443bc4544bfae6e4d5c933b6c61663b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"},\"schema\":\"fixture/0.1/assertion\"}",
+      "sha256": "sha256:4fa72c384b9cd8b8e3e448169e76e6beb443bc4544bfae6e4d5c933b6c61663b"
+    },
+    {
+      "id": "sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"},{\"id\":\"z-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"subject_role\":\"omega\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy\":{\"mode\":\"assert_present\"},\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"alpha\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"omega\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:561d3f6dd6ce7b9c263b52d67193522918350a0482682b50b3db97beb20cf7d3"
+    },
+    {
+      "id": "sha256:5ece47c9f5012af3b8b6875ce9762b7f43d862d0591cd7efd746dae43c2089fa",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":false,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"},\"schema\":\"fixture/0.1/assertion\"}",
+      "sha256": "sha256:5ece47c9f5012af3b8b6875ce9762b7f43d862d0591cd7efd746dae43c2089fa"
+    },
+    {
+      "id": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"snapshot\",\"payload\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"},\"schema\":\"fixture/0.1/snapshot\"}",
+      "sha256": "sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b"
+    },
+    {
+      "id": "sha256:661258b78d169b0659f92f3923231a39850715f7cc33d93759ffbc8a426c8c4b",
+      "form": "decision-payload",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"alpha\"},{\"digest\":\"sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"omega\"}],\"evidence\":[{\"digest\":\"sha256:5ece47c9f5012af3b8b6875ce9762b7f43d862d0591cd7efd746dae43c2089fa\",\"id\":\"a-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"},{\"digest\":\"sha256:219312b916fe916b5f8ebaf4b3721d84b42266f1b31ac1984481358ec6e7fda7\",\"id\":\"z-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"}],\"subjects\":[{\"digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"kind\":\"subject\",\"role\":\"alpha\",\"schema\":\"fixture/0.1/subject\"},{\"digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"kind\":\"subject\",\"role\":\"omega\",\"schema\":\"fixture/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"fixture.evidence_not_present\",\"obligation_id\":\"fixture.evidence.alpha\",\"pointer\":\"/evidence/0/present\"}],\"obligations\":[{\"id\":\"fixture.evidence.alpha\",\"outcome\":\"fail\"},{\"id\":\"fixture.evidence.omega\",\"outcome\":\"pass\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db\",\"state\":\"inadmissible\"}",
+      "sha256": "sha256:661258b78d169b0659f92f3923231a39850715f7cc33d93759ffbc8a426c8c4b"
+    },
+    {
+      "id": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"schema\":\"fixture/0.1/subject\"}",
+      "sha256": "sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb"
+    },
+    {
+      "id": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"subject\",\"payload\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"},\"schema\":\"fixture/0.1/subject\"}",
+      "sha256": "sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf"
+    },
+    {
+      "id": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"snapshot\",\"payload\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"schema\":\"fixture/0.1/snapshot\"}",
+      "sha256": "sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5"
+    },
+    {
+      "id": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"policy\",\"payload\":{\"mode\":\"assert_present\"},\"schema\":\"fixture/0.1/policy\"}",
+      "sha256": "sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25"
+    },
+    {
+      "id": "sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"},\"schema\":\"fixture/0.1/assertion\"}",
+      "sha256": "sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726"
+    },
+    {
+      "id": "sha256:d158b5b8e1ffbe444366717213ebb7a3beb5102215efa8223f03ca869e93a72a",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy\":{\"mode\":\"assert_present\"},\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"alpha\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"omega\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:d158b5b8e1ffbe444366717213ebb7a3beb5102215efa8223f03ca869e93a72a"
+    },
+    {
+      "id": "sha256:e0e7091b1334148330025e0821eef917087800a681b02b1e955815f2f5d0cd54",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"subject_role\":\"alpha\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy\":{\"mode\":\"assert_present\"},\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"alpha\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"omega\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:e0e7091b1334148330025e0821eef917087800a681b02b1e955815f2f5d0cd54"
+    },
+    {
+      "id": "sha256:e73a0ff5deaf89ca470cba8e6b00ffc8744e369d8f84676906ce15a2e68b645f",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"evidence\",\"payload\":{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"subject_role\":\"alpha\"},\"schema\":\"fixture/0.1/assertion\"}",
+      "sha256": "sha256:e73a0ff5deaf89ca470cba8e6b00ffc8744e369d8f84676906ce15a2e68b645f"
+    },
+    {
+      "id": "sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db",
+      "form": "identity-envelope",
+      "canonical_utf8": "{\"kind\":\"request\",\"payload\":{\"evidence\":[{\"id\":\"a-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":false,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"subject_role\":\"alpha\"},{\"id\":\"z-assertion\",\"kind\":\"assertion\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"present\":true,\"schema\":\"fixture/0.1/assertion\",\"subject_digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"subject_role\":\"omega\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy\":{\"mode\":\"assert_present\"},\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"subjects\":{\"alpha\":{\"asset_id\":\"asset-a\",\"revision\":\"rev-3\"},\"omega\":{\"asset_id\":\"asset-z\",\"revision\":\"rev-8\"}}},\"schema\":\"semantic-oracle/0.1/request\"}",
+      "sha256": "sha256:eafee73c6d24306d0e1c479abfcfda6edacdecfd930f5a0a7086ee2d5f2099db"
+    },
+    {
+      "id": "sha256:f685c6363934c0360f5dcaf6256f45153c331b098b26d5400b23237d07518ce8",
+      "form": "decision-payload",
+      "canonical_utf8": "{\"bindings\":{\"components\":[{\"digest\":\"sha256:b4570d0e7b05149131e7c00b8aaa982fd9943f3814d6929a2c0da868ca9d03d5\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"alpha\"},{\"digest\":\"sha256:64301350a0d97e611aeee3f734ad12e5a03c84156d01de67975d8545740dd07b\",\"kind\":\"snapshot\",\"name\":\"snapshot\",\"schema\":\"fixture/0.1/snapshot\",\"subject_role\":\"omega\"}],\"evidence\":[{\"digest\":\"sha256:b9c4483383f99961a38bd942798e61348f64359516bb5077a01b887882ba1726\",\"id\":\"a-assertion\",\"kind\":\"evidence\",\"schema\":\"fixture/0.1/assertion\"}],\"subjects\":[{\"digest\":\"sha256:a949b717ee9ec9bcadaabd1c7263a37df0f20f524037b1db75c7112504e4d9fb\",\"kind\":\"subject\",\"role\":\"alpha\",\"schema\":\"fixture/0.1/subject\"},{\"digest\":\"sha256:aea8c1d45b56fecf4a9fe0e795d0a29eecc0583792526a7e9247e587dfbfbabf\",\"kind\":\"subject\",\"role\":\"omega\",\"schema\":\"fixture/0.1/subject\"}]},\"diagnostics\":[{\"code\":\"fixture.evidence_missing\",\"obligation_id\":\"fixture.evidence.omega\",\"pointer\":\"/subjects/omega\"}],\"obligations\":[{\"id\":\"fixture.evidence.alpha\",\"outcome\":\"pass\"},{\"id\":\"fixture.evidence.omega\",\"outcome\":\"missing\"}],\"operation\":\"check_evidence_pair\",\"pack\":\"fixture/0.1\",\"policy_digest\":\"sha256:b47faaef093902618659a0c8fecea187443c0ba1c0d80ab745af87807ff5ab25\",\"protocol\":\"semantic-oracle/0.1\",\"request_digest\":\"sha256:d158b5b8e1ffbe444366717213ebb7a3beb5102215efa8223f03ca869e93a72a\",\"state\":\"indeterminate\"}",
+      "sha256": "sha256:f685c6363934c0360f5dcaf6256f45153c331b098b26d5400b23237d07518ce8"
+    }
+  ],
+  "artifact_representation": "Each artifact record stores exact canonical_utf8 bytes and their expected SHA-256. For identity-envelope entries those bytes encode kind/schema/payload; for decision-payload entries they encode the normative decision payload without an outer envelope.",
+  "harness_cases": {
+    "host_fault": "The harness injects malformed PackEvaluation or component_payloads output after evaluating the referenced valid request. Expected errors have no partial decision or digest.",
+    "verification": "For admissible decisions the expected label is admitted; for inadmissible/indeterminate decisions the candidate is verified without admission."
+  }
+}

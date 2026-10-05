@@ -1,0 +1,3610 @@
+{
+  "format": "semadmit-isoprax-decision-cases/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "identity_rules": {
+    "definition": "kind definition, schema isoprax/0.1/definition, complete normalized definition payload",
+    "sample": "kind sample, schema isoprax/0.1/sample, payload definition_digest/scores/outcomes",
+    "subject": "kind subject, schema isoprax/0.1/subject, payload complete normalized subject",
+    "request": "kind request, schema semantic-oracle/0.1/request"
+  },
+  "cases": [
+    {
+      "id": "admissible-ece-equality",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:0a62ee377b34f8c2514754c6e3b2d695c678bec0d516c3fe5b63f89eb230797c",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:90e4c7d10296fe508ecd250904139d8b8c0c492b361b1f59940afdf7b4faa0f5",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "admissible-different-definition-ids",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "left-definition",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "right-definition",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:fcf0e445d420b1a447b8fa3cc5eb7e06625b25ffd48d66932008b1b449e1b44f",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:6c72468b9fa140a9b977fe7a2ac3604b9c465d873dd4721268ecb32e383528b1",
+          "right": "sha256:7d5a0f40ce0c88d61bbd2d322aff03e8f57e629fe5ea6ed605aa072cf3eed4fa"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ea9c892a4866788a9d4862831032d21edc9497ffbde3161b25766be0270a2ef5",
+          "left/definition": "sha256:7d74b9789faccc8415cda93111d46ab0e18c1a215116195551f726af8390b067",
+          "right/sample": "sha256:61cef299df6b36461ee3c9c20cada216982943d496a5480890320ddc9a44bb64",
+          "right/definition": "sha256:7da8b7dd0a788b88e3d09059f408046facb4e0275ef186147146138e8ade3cd0"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:b6016c97787f3003ac674a89640fb922e74b3886b3bba4fad54390d3de4b15b5",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "admissible-score-boundaries-zero-one",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:372463b2a41a2a2a4260c3f419399c630187519cf1b8cddf841cc0a77b87aeec",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 1000,
+          "max_ece": "0",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:df6ed34d8e7fa4bbab9684a5400a646d4abe6b2fa7a851f5e0b733870e1ed1db",
+        "policy_digest": "sha256:372463b2a41a2a2a4260c3f419399c630187519cf1b8cddf841cc0a77b87aeec",
+        "subject_digests": {
+          "left": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9",
+          "right": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:63a079db464eed22393724b5cbbc34938d743386d5e9768c5b7b6500d31edf0c",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "inadmissible-event-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "forecast",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:70c06ef2e812e5fb715d0dafc7e4ac50ea6c346c10cb01351ed361cf456dd95b",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:ba3647da2659d4760bf8defa254c1d80f407da8ffa95adecbe44ac7cb7a94187"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:dbc329ad488007be3bb388091793f7e2d4bbec215de8a28591e26510530f276e",
+          "right/definition": "sha256:922e298647fa5d55cdabd557b3d5262f5db4d4c156e7fa89577a88941e48169a"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/event",
+            "code": "definition.event_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:24b24b82cfc45d0bd9230426bdd805a04dc1160223b887f0774e2e9c62d077f2",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-zero-variance",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.5",
+                "0.5"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:f657dc97f6c5cc1a8b9c3f51a674b9f0072447b2c5816d184b14b2f2971b4ca2",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:383a991eac49961d48e1d4c24975b089b76570c9720316de53dbe53ab94747be",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ef7ad7f23f0e7b686a4a752450c1585f3ac2e84ba31848e489d0be080dde962f",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.zero_score_variance"
+          }
+        ],
+        "decision_digest": "sha256:18f10e15c3ba3e309043463d01f2c80dfb68cc0b90283bb386fbf8a5e9468b0b",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-ece-exceeded",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "0"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:a901dcd795188406d262665588935d8164f4221e2c604c7e34dd71e2e84f47c0",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:66b48357876e672970ec5dc62ad63abc4f284da0eff13ff405956b98070ffb5f",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ac0225c2598df85c39043e74373080150aa0d926f5ba58d94a5446bf9f0ce282",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.ece_exceeded"
+          },
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.zero_score_variance"
+          }
+        ],
+        "decision_digest": "sha256:18408ff2bd4c0174c2b17d796efdc865bfadc2218ea5918580abab30b8d51deb",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-empty-sample",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [],
+              "outcomes": []
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:bc06947e963a23bbdd7b959632f06cf058f8409e030dbcdbd4e1c8afc93f09dc",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:015a440fa7d6c5577236cc103f03107a8f32bee0bd220083d29a03086ba674d7",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:db48e9470afb0103b7cf96956e55d27ae8988858e270fb9fb77bf9bbc5f14f3f",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.min_events"
+          }
+        ],
+        "decision_digest": "sha256:43db6bd0573c1498651a51793c8950079c8c72465300ec3631132410319edade",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-left-sample-absent",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": null
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:79e2cc38899d9d8787f5fc75424b4e65ab60c4e6d836b26dbccba8e5b6578aac",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:f8374c489c6063023db4d2f682a95b74855fb0e3de8d6c3a1282d55b4e7c232b",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "missing"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.sample_missing"
+          }
+        ],
+        "decision_digest": "sha256:59abe3e6758c6576bf2878c899e9302e759feae5a70d850b466f3db7a84eac51",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-definition-unknown",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": null,
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:5977086a140b7bccfb193417d73ab7feef21320fb17769a82f03ef461da91ac5",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:b071da1ef08e9da9ef1ce251cc9582c9c89a0c5c30e30225206d79f1c77a7d61"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:e02e465d3f85db390ee29d65f8988d741c5d3a6b7c6a2c735bba11bf4f750737",
+          "right/definition": "sha256:5cfd2347fd535a98f453c2e21221ccbfc7a4a29f96daedd8ef88d5756956923e"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "missing"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/window/duration",
+            "code": "definition.unknown"
+          }
+        ],
+        "decision_digest": "sha256:a410a6203e515ec59e070cd7f5510034a665dab3ee52b4219b9519ca0082fe99",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "malformed-boolean-outcome",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                true,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_type",
+          "pointer": "/subjects/left/sample/outcomes/0"
+        }
+      }
+    },
+    {
+      "id": "malformed-noncanonical-decimal",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.250",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/subjects/left/sample/scores/0"
+        }
+      }
+    },
+    {
+      "id": "unsupported-numeric-profile",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:6379fea24794bc27cd30f171d46f4b2aadf8d943fa27ede0db24d257c1e05470",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "policy.unsupported",
+          "pointer": "/policy/numeric_profile"
+        }
+      }
+    },
+    {
+      "id": "admissible-decimal-precision-12",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.123456789012",
+                "0.876543210988"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.123456789012",
+                "0.876543210988"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:5ea2b68f7159a7e14ae380f2fdffac580e363ac333fbb3378b959de19920b392",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:cdad3ccce28b4d176ce8a2882ff450a87538588473bcf615574ed9a954b7edaa",
+          "right": "sha256:cdad3ccce28b4d176ce8a2882ff450a87538588473bcf615574ed9a954b7edaa"
+        },
+        "component_digests": {
+          "left/sample": "sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:0eb2721fe1098f6dd1f97f4b2f4d866d8cadbfdca40169e010ed1d6e65711bd6",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:06eb7a3a1ac2878d0e70e8296b49755f830dd6266e1ce0eff3dca576649408b5",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "indeterminate-right-sample-absent",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": null
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:98d47b72d95bc3d82739668ef261ec4d18ca8122be2bcfdc7f5321c746d73154",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:f8374c489c6063023db4d2f682a95b74855fb0e3de8d6c3a1282d55b4e7c232b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "missing"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.right",
+            "pointer": "/subjects/right/sample",
+            "code": "calibration.sample_missing"
+          }
+        ],
+        "decision_digest": "sha256:ddb457502bbb60c3ee4e89c738c750b59a2719bcead2b2d524a8b6077292ad5e",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-event-mismatch-with-unknown",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "forecast",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": null,
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:1a2a42a5a5b9fc5b71034cd6dc8331eb04bf407faf851f01f36444c45a4f4397",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:3291f9704960de1947d37e7171d21ce099be6309e145b6c38ee5a679ef0aec08"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:4fca5e0a5c3045d6b4ae75f86522417f6925669b81ed72fb61439194cb2a3fc4",
+          "right/definition": "sha256:1768c433cfaad6249da37cfcf1de7fd8b29385a2f5d1807ceab9a927e5366507"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/event",
+            "code": "definition.event_mismatch"
+          },
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/window/duration",
+            "code": "definition.unknown"
+          }
+        ],
+        "decision_digest": "sha256:f0d2d684c039ce26b7e95391ef6fa54c879b8fe2b14bae539e8e96100dcf72ac",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-right-zero-score-variance",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.5",
+                "0.5"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:8fe1445a73652d97fd3b99a85c61651c86fdd2016fbba980ef3e2e4737c99e82",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:383a991eac49961d48e1d4c24975b089b76570c9720316de53dbe53ab94747be"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:ef7ad7f23f0e7b686a4a752450c1585f3ac2e84ba31848e489d0be080dde962f",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "fail"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.right",
+            "pointer": "/subjects/right/sample",
+            "code": "calibration.zero_score_variance"
+          }
+        ],
+        "decision_digest": "sha256:ffb1fe73c323620bb4689f90dd7b5a54ac8e6e58d40d796e2ab6abe76796e54e",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-left-single-observation",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.5"
+              ],
+              "outcomes": [
+                0
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:ad8cafe3152f0ad1fe65098487af291832c0cce6485215603b572896c7f60bc9",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:e6e9dd4ea969cb869039e13bd6a74fcebf163d162ef7c94d18534785f556babd",
+          "right": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:dc2e0a5fb1c64933f169bf09341440c1fdde7d0e2f712921608f9280fc1830d8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "fail"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.ece_exceeded"
+          },
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.min_events"
+          },
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.outcome_class_missing"
+          },
+          {
+            "obligation_id": "calibration.left",
+            "pointer": "/subjects/left/sample",
+            "code": "calibration.zero_score_variance"
+          }
+        ],
+        "decision_digest": "sha256:e6b146ed83c2f63d3c306ca411727cb95351ad7300151c25e448818857cc67fa",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "admissible-policy-lower-bounds",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:48155dba03361e5d8af5bfd84b689d019de7ffef293fd4dce94a1dc1aeb289a5",
+        "policy": {
+          "min_events": 1,
+          "n_bins": 1,
+          "max_ece": "0",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:a94e9ed9994680ccc2a9ae971d3c260dc18848e437860705d6cc560b35c35ce2",
+        "policy_digest": "sha256:48155dba03361e5d8af5bfd84b689d019de7ffef293fd4dce94a1dc1aeb289a5",
+        "subject_digests": {
+          "left": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9",
+          "right": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:4b676c3d439af8c3874bde351fb67666e49efdab178bbbb8fb22aa21a5e0875a",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "admissible-policy-upper-bounds",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233",
+        "policy": {
+          "min_events": 1,
+          "n_bins": 1000,
+          "max_ece": "1",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0",
+                "1"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:5a113488e93e356cb1a8f38d603118bb0becf3db0e49f79c6c0dcef949f1b115",
+        "policy_digest": "sha256:4c2d472f5f6a27a29c18497c8218252b8d003b6c6ca363aa9e7bc862a633d233",
+        "subject_digests": {
+          "left": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9",
+          "right": "sha256:752ff70071069070a273163322be6e39280795117990f35f553c004b8eae0ac9"
+        },
+        "component_digests": {
+          "left/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:ae02e718983f6326eb62290a0943f62aebca9a0ed691549fe65cd5ad82245a00",
+          "right/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:70379e65b66d0498bca2a05e107fbbb6cdf1391debeb2871529dc8b2f16b9e82",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "malformed-min-events-below-range",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:bd1272e4dceb0742a9a40b4d50f916b5bbb2f140eb39a5082117832dd9263071",
+        "policy": {
+          "min_events": 0,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy/min_events"
+        }
+      }
+    },
+    {
+      "id": "malformed-min-events-above-range",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:c1550e32ee25e5474460184c57bba44d6199e2cca11513a466ae1200186cdb9a",
+        "policy": {
+          "min_events": 100001,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy/min_events"
+        }
+      }
+    },
+    {
+      "id": "malformed-bin-count-below-range",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:d34232c13426ee7cdfed50405642c6617ba9eb5ea3d4fd9f0e6e9405d5242895",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 0,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy/n_bins"
+        }
+      }
+    },
+    {
+      "id": "malformed-bin-count-above-range",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:10ef210a615113eeeca79a6576d6017c9dbbda01f83a9dea51e002305f4bb162",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 1001,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy/n_bins"
+        }
+      }
+    },
+    {
+      "id": "malformed-ece-above-range",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:3f588afcc9a3f3f591e5b6dcc6d24fd7d568773e588f65d4a752dcfa92cf807f",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "1.000000000001",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_value",
+          "pointer": "/policy/max_ece"
+        }
+      }
+    },
+    {
+      "id": "malformed-unknown-policy-field",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:aee371b9a680e8443f37d935d2e2b132204eaa8869a44d26bb3d563d8124ce89",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1",
+          "unexpected": "x"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.unknown_field",
+          "pointer": "/policy/unexpected"
+        }
+      }
+    },
+    {
+      "id": "admissible-threshold-multiset-permutation",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "Temperature",
+                  "operator": ">=",
+                  "value": {
+                    "type": "text",
+                    "value": "warm"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": " Day ",
+                  "raw": "sensor-note"
+                },
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "z-source"
+                },
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "a-source"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "a-source"
+                },
+                {
+                  "metric": "Temperature",
+                  "operator": ">=",
+                  "value": {
+                    "type": "text",
+                    "value": "warm"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": " Day ",
+                  "raw": "sensor-note"
+                },
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "z-source"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:950ca544d848646530a1de991f0de16113fcc245c1b68cb99918c090e696971d",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c",
+          "right": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c"
+        },
+        "component_digests": {
+          "left/sample": "sha256:a767c2052aa9e2df359e89a1854856fde6fea1491accabe328dd6bd3d3c36679",
+          "left/definition": "sha256:c843cdebee9b100f7943a3ebdaa321025375665e4f88bdc42c887ae4584f1258",
+          "right/sample": "sha256:a767c2052aa9e2df359e89a1854856fde6fea1491accabe328dd6bd3d3c36679",
+          "right/definition": "sha256:c843cdebee9b100f7943a3ebdaa321025375665e4f88bdc42c887ae4584f1258"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:445a1851ba83eae7e3e5ab8236a887ace2c8d670ef3a2c367f40c601181fe1a0",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "inadmissible-threshold-multiplicity-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "z-source"
+                },
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "a-source"
+                },
+                {
+                  "metric": "Temperature",
+                  "operator": ">=",
+                  "value": {
+                    "type": "text",
+                    "value": "warm"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": " Day ",
+                  "raw": "sensor-note"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": null,
+                  "sustain_unit": " Hours ",
+                  "raw": "z-source"
+                },
+                {
+                  "metric": "Temperature",
+                  "operator": ">=",
+                  "value": {
+                    "type": "text",
+                    "value": "warm"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": " Day ",
+                  "raw": "sensor-note"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:d8aa9cbf04501f2364a00d993ef89274e677a7d62d1a081efbb226faaa602664",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:6662dd795498e1cc312b5e786898564b04e329d8885f46a1aeb13d678c60445c",
+          "right": "sha256:99578d419366ae281b6acfbabe2fcefa090be4527039eaa32ca5e29660b51cb6"
+        },
+        "component_digests": {
+          "left/sample": "sha256:a767c2052aa9e2df359e89a1854856fde6fea1491accabe328dd6bd3d3c36679",
+          "left/definition": "sha256:c843cdebee9b100f7943a3ebdaa321025375665e4f88bdc42c887ae4584f1258",
+          "right/sample": "sha256:7212c8fcf75479a6a13504b173e47cbfca90510ee62b4c5f77992b1c19777400",
+          "right/definition": "sha256:f15c5b60731c4334cbd0949e646d3c610285f94b96225fde08e5dc318b8a1613"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/thresholds",
+            "code": "definition.thresholds_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:8f9549ed9447f93e3526ac725700e6c8e2e1ab232e064d71756f1d6211c3cbac",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-observation-process-parameters-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {
+                  "instrument": "sensor-v1",
+                  "site": "north"
+                },
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {
+                  "instrument": "sensor-v1",
+                  "site": "south"
+                },
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:42a2a83b0609eaeac5a1969d89d41216efc45d087c1e09738a84849921ae1c30",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:4564227d088bff4864cdedd2c2aa3c4c91b86b8418e13109ab8fa0abddbcf3a6",
+          "right": "sha256:48a79b5b438c804c7d01fb4016fe4bb1a79660b9a9a768d127553a2dc0443aa6"
+        },
+        "component_digests": {
+          "left/sample": "sha256:1d8a047819cabc47332356338faf98c31d761be2979cc043fc05826dfac386d5",
+          "left/definition": "sha256:f92950ccb8b458f6e79d4b24c440e0264ea9c7dcfdf0bfb3e3096568c7be6cad",
+          "right/sample": "sha256:4b7d271a717fa4eba822f64776d1c322310bf95051e66029330fb4813109c1e8",
+          "right/definition": "sha256:bb45ac54b0fe4cc9a6034ba480ac9ea5fb9aa1d53589f0477a63c3de0173159e"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/observation_process",
+            "code": "definition.observation_process_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:eda7a612f86cb0bc5b64d751ee384a8933791fdcc4b5b2c06ef91776498151ea",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "inadmissible-window-duration-mismatch",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "2",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:e3463b02e668b859b465496b778b8c14a12fe0834fe0ea64eb8f6887672eff25",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:56d877009afc18d5ff42234e00d45494f6d6add40d68c837d43d68867eb4b82b",
+          "right": "sha256:71fb4c81bc904564e35c09c2947c257bccfaf64010ea9ec5499fe68d4aaa56c2"
+        },
+        "component_digests": {
+          "left/sample": "sha256:2eb86fb770344035f11e29c7846cdcfd4b65bff185af84eca361d611db524ac8",
+          "left/definition": "sha256:1189eb82b4f01818854378d39855e523f186bd6f3d34f35d8b58900b54595c6c",
+          "right/sample": "sha256:93023b78d1ae59281b147ba497525a0dc94d083c9a2f4284a161418a3e645752",
+          "right/definition": "sha256:d796b5eeec770bb2ca442b28b25e7bc5e41c8c9e230371bbc8baaa3f58900ead"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/window",
+            "code": "definition.window_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:6173e75882d539487d5f4aa3d0209b9ab93765fb98aeec8c889ee273353ff362",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "indeterminate-threshold-value-unknown",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "humidity",
+                  "operator": ">",
+                  "value": null,
+                  "sustain": null,
+                  "sustain_unit": "",
+                  "raw": "unreported"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [
+                {
+                  "metric": "humidity",
+                  "operator": ">",
+                  "value": null,
+                  "sustain": null,
+                  "sustain_unit": "",
+                  "raw": "unreported"
+                }
+              ],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "indeterminate",
+        "request_digest": "sha256:959df83d91ecd1422958319677184ac7f445f46b8e4ed6052092c2c8331252b7",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:c2bc2ba4c682d68016e6f5539afcb46f4ce9d4a5c51ef3bcd314aa1684d072e9",
+          "right": "sha256:c2bc2ba4c682d68016e6f5539afcb46f4ce9d4a5c51ef3bcd314aa1684d072e9"
+        },
+        "component_digests": {
+          "left/sample": "sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed",
+          "left/definition": "sha256:cc5a34b5306677532e66e36ece259ec08ecd2eb9ecf698dd27761fa284343170",
+          "right/sample": "sha256:00da218e13445f942d21759fb02eb91ad828589fa495dda6823de7c7000d62ed",
+          "right/definition": "sha256:cc5a34b5306677532e66e36ece259ec08ecd2eb9ecf698dd27761fa284343170"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "missing"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/left/definition/thresholds/0/value",
+            "code": "definition.unknown"
+          },
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/thresholds/0/value",
+            "code": "definition.unknown"
+          }
+        ],
+        "decision_digest": "sha256:769745cf962a333236c58b0545c4aa0f8951199bf281d45b5b7d863459c4ca8a",
+        "verification": "verified-without-admission"
+      }
+    },
+    {
+      "id": "admissible-normalized-key-ascii-and-raw-metadata",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": " Prediction ",
+              "observation_process": {
+                "kind": "FORECAST",
+                "parameters": {
+                  "site": "north"
+                },
+                "raw": "Online "
+              },
+              "window": {
+                "duration": "1",
+                "unit": " Day ",
+                "anchor": "Study-Start",
+                "raw": "registry record"
+              },
+              "thresholds": [
+                {
+                  "metric": "Humidity",
+                  "operator": " > ",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": " HOURS ",
+                  "raw": "legacy label"
+                }
+              ],
+              "description": "left display"
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "prediction",
+              "observation_process": {
+                "kind": " forecast ",
+                "parameters": {
+                  "site": "north"
+                },
+                "raw": "online"
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": "curated source"
+              },
+              "thresholds": [
+                {
+                  "metric": "humidity",
+                  "operator": ">",
+                  "value": {
+                    "type": "decimal",
+                    "value": "0.5"
+                  },
+                  "sustain": "2",
+                  "sustain_unit": "hours",
+                  "raw": "new label"
+                }
+              ],
+              "description": "right display"
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "admissible",
+        "request_digest": "sha256:fa2f308e148550347df8b42eda3409d8befd7202224408bc6a4fe76b54faed23",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:249c4c275976202a9337e6095d7c0a77c32d1955f2e8599bca58d467aaa94839",
+          "right": "sha256:1935d03fc64a891623bfe7bae702b4577ff1f9c91d7feb82786f9888d2a6e46b"
+        },
+        "component_digests": {
+          "left/sample": "sha256:d8ed7fc63dbf2972018369d65f62ab73c488c86f4fdcfe99f5d9f350faffff6c",
+          "left/definition": "sha256:5add8e76821cc65d1ea43fee74aa4d1388620177d0ed8bc282373cdb7ef9e898",
+          "right/sample": "sha256:68a0717d9502ea1b6d180d1dde45a997e137b6e9ee76c652741e625017954d48",
+          "right/definition": "sha256:4809c41083bed251789dbab3514889ddcaf197827f9b19710daf0753e46d598b"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "pass"
+          }
+        ],
+        "diagnostics": [],
+        "decision_digest": "sha256:dd85e3c1d53dfd2cbc7244ce43627cf3678018bf2bc75fc094ef1639d8335921",
+        "verification": "admitted"
+      }
+    },
+    {
+      "id": "inadmissible-non-ascii-event-case-difference",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "isoprax/0.1",
+        "operation": "pool_predictions",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "policy": {
+          "min_events": 2,
+          "n_bins": 2,
+          "max_ece": "0.25",
+          "definition_comparison": "normalized-key/0.1",
+          "numeric_profile": "decimal-rational-12/0.1"
+        },
+        "subjects": {
+          "left": {
+            "definition": {
+              "id": "definition-1",
+              "event": "Ä",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          },
+          "right": {
+            "definition": {
+              "id": "definition-1",
+              "event": "ä",
+              "observation_process": {
+                "kind": "forecast",
+                "parameters": {},
+                "raw": ""
+              },
+              "window": {
+                "duration": "1",
+                "unit": "day",
+                "anchor": "study-start",
+                "raw": ""
+              },
+              "thresholds": [],
+              "description": null
+            },
+            "sample": {
+              "scores": [
+                "0.25",
+                "0.75"
+              ],
+              "outcomes": [
+                0,
+                1
+              ]
+            }
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "state": "inadmissible",
+        "request_digest": "sha256:cb275b0975d93f3a0c0e80e1635a02bbcd8fd88ed58258fac3ba5addb03d2d3f",
+        "policy_digest": "sha256:7c46c5a9fcd85d6fa5f2a6d3617b53c65a33f73519d3c7e0c85e1ab4a22189f3",
+        "subject_digests": {
+          "left": "sha256:1724f4e39e1f2610134d654c99ff3ba330c3192992d5190ac2486832e095e04e",
+          "right": "sha256:2305e534ad1103cfa2565f80aad3df7bff2f16e3c7ae6ce2aaf89f82654f0fb0"
+        },
+        "component_digests": {
+          "left/sample": "sha256:b5f3dbcd7573334a0aa3ab77fce31e7c64f633f74a22b940c1c1037452c8cb1c",
+          "left/definition": "sha256:c4fa34257db167640f12fef28c023f115faf2b5a9374a6bac37a237e9145da02",
+          "right/sample": "sha256:a12b761584bf4812a7f2955d8bdbdc2897000eabce39ba7a288cafdaf30abf17",
+          "right/definition": "sha256:4e1b48078132282af73c22655b1fd4c693a58c18f9373472a4f148d3b1ce197b"
+        },
+        "evidence_digests": {},
+        "obligations": [
+          {
+            "id": "calibration.left",
+            "outcome": "pass"
+          },
+          {
+            "id": "calibration.right",
+            "outcome": "pass"
+          },
+          {
+            "id": "definition.compatibility",
+            "outcome": "fail"
+          }
+        ],
+        "diagnostics": [
+          {
+            "obligation_id": "definition.compatibility",
+            "pointer": "/subjects/right/definition/event",
+            "code": "definition.event_mismatch"
+          }
+        ],
+        "decision_digest": "sha256:01bb3a88835ea51ac2365ee518ca51b3b5d2f934e5ca106ded78b3e13cb84b5e",
+        "verification": "verified-without-admission"
+      }
+    }
+  ],
+  "generated_cases": [
+    {
+      "id": "sample-pair-limit-over",
+      "base_case": "admissible-ece-equality",
+      "mutation": {
+        "path": "/subjects/left/sample",
+        "kind": "repeat-pairs",
+        "count": 100001,
+        "scores_cycle": [
+          "0.25",
+          "0.75"
+        ],
+        "outcomes_cycle": [
+          0,
+          1
+        ]
+      },
+      "expected_error": {
+        "kind": "error",
+        "code": "limit.exceeded",
+        "pointer": "/subjects/left/sample/scores/100000"
+      }
+    },
+    {
+      "id": "sample-decimal-precision-over",
+      "base_case": "admissible-ece-equality",
+      "mutation": {
+        "path": "/subjects/left/sample/scores/0",
+        "value": "0.1234567890123"
+      },
+      "expected_error": {
+        "kind": "error",
+        "code": "input.invalid_value",
+        "pointer": "/subjects/left/sample/scores/0"
+      }
+    }
+  ],
+  "artifacts_files": [
+    "isoprax-artifacts-01.json",
+    "isoprax-artifacts-02.json"
+  ],
+  "calculations_file": "isoprax-calculations.json"
+}

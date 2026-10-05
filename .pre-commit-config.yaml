@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: semadmit-coverage-gates
+        name: Semadmit tests and coverage gates
+        entry: python3 scripts/check_coverage.py
+        language: system
+        pass_filenames: false
+        always_run: true

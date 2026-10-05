@@ -1,0 +1,108 @@
+{
+  "schema": "semadmit/claim-verification-cases/0.1",
+  "cases": [
+    {
+      "id": "complete-valid",
+      "request": {
+        "protocol": "semadmit/claim/0.1",
+        "policy": {"admission_profile": "strict/0.1"},
+        "claim": {
+          "id": "claim-valid",
+          "subject": {"function_id": "example.abs", "version": "1", "artifact_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"},
+          "predicate": {"id": "integer.output.gte/0.1", "lower_bound": 0},
+          "domain": {"inputs": [-1, 0, 1], "complete": true},
+          "assumptions": ["The source digest identifies the tested function."],
+          "expected_evidence_family": "deterministic-execution/0.1",
+          "required_verifier": "finite-observation/0.1"
+        },
+        "context": {"contract_id": "integer-output-lower-bound/0.1", "scope": "finite-closed-domain", "assumptions": ["The input list is the full domain."]},
+        "evidence": [
+          {"id": "trace-valid", "source": "fixture://claim/valid", "collection_method": "fixed-test-vector/0.1", "captured_version": "build-1", "family": "deterministic-execution/0.1", "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "uncertainty": null, "upstream_dependencies": ["build-1"], "artifact_references": ["fixture://claim/valid/trace"], "correlation_group": "run-1", "observations": [{"input": -1, "output": 1}, {"input": 0, "output": 0}, {"input": 1, "output": 1}]}
+        ]
+      },
+      "expected": {"verification_status": "VALID", "admission_status": "ADMISSIBLE", "core_state": "admissible", "commensurability_result": "COMPARABLE", "diagnostic_codes": [], "counterexample": null}
+    },
+    {
+      "id": "counterexample-invalid",
+      "request": {
+        "protocol": "semadmit/claim/0.1",
+        "policy": {"admission_profile": "strict/0.1"},
+        "claim": {
+          "id": "claim-invalid",
+          "subject": {"function_id": "example.abs", "version": "1", "artifact_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"},
+          "predicate": {"id": "integer.output.gte/0.1", "lower_bound": 0},
+          "domain": {"inputs": [-1, 0, 1], "complete": true},
+          "assumptions": ["The source digest identifies the tested function."],
+          "expected_evidence_family": "deterministic-execution/0.1",
+          "required_verifier": "finite-observation/0.1"
+        },
+        "context": {"contract_id": "integer-output-lower-bound/0.1", "scope": "finite-closed-domain", "assumptions": ["The input list is the full domain."]},
+        "evidence": [
+          {"id": "trace-invalid", "source": "fixture://claim/invalid", "collection_method": "fixed-test-vector/0.1", "captured_version": "build-1", "family": "deterministic-execution/0.1", "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "uncertainty": null, "upstream_dependencies": ["build-1"], "artifact_references": ["fixture://claim/invalid/trace"], "correlation_group": "run-1", "observations": [{"input": -1, "output": 1}, {"input": 0, "output": 0}, {"input": 1, "output": -1}]}
+        ]
+      },
+      "expected": {"verification_status": "INVALID", "admission_status": "INADMISSIBLE", "core_state": "inadmissible", "commensurability_result": "COMPARABLE", "diagnostic_codes": ["claim.invariant_violated"], "counterexample": {"claim_id": "claim-invalid", "evidence_id": "trace-invalid", "input": 1, "observed_output": -1, "required_lower_bound": 0, "evidence_pointer": "/evidence/0/observations/2"}}
+    },
+    {
+      "id": "partial-unknown",
+      "request": {
+        "protocol": "semadmit/claim/0.1",
+        "policy": {"admission_profile": "strict/0.1"},
+        "claim": {
+          "id": "claim-unknown",
+          "subject": {"function_id": "example.abs", "version": "1", "artifact_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"},
+          "predicate": {"id": "integer.output.gte/0.1", "lower_bound": 0},
+          "domain": {"inputs": [-1, 0, 1], "complete": true},
+          "assumptions": ["The source digest identifies the tested function."],
+          "expected_evidence_family": "deterministic-execution/0.1",
+          "required_verifier": "finite-observation/0.1"
+        },
+        "context": {"contract_id": "integer-output-lower-bound/0.1", "scope": "finite-closed-domain", "assumptions": ["The input list is the full domain."]},
+        "evidence": [
+          {"id": "trace-partial", "source": "fixture://claim/partial", "collection_method": "fixed-test-vector/0.1", "captured_version": "build-1", "family": "deterministic-execution/0.1", "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "uncertainty": null, "upstream_dependencies": ["build-1"], "artifact_references": ["fixture://claim/partial/trace"], "correlation_group": "run-1", "observations": [{"input": -1, "output": 1}, {"input": 1, "output": 1}]}
+        ]
+      },
+      "expected": {"verification_status": "UNKNOWN", "admission_status": "REQUIRES_SEPARATE_TREATMENT", "core_state": "indeterminate", "commensurability_result": "COMPARABLE", "diagnostic_codes": ["evidence.incomplete"], "counterexample": null}
+    },
+    {
+      "id": "family-mismatch-unknown",
+      "request": {
+        "protocol": "semadmit/claim/0.1",
+        "policy": {"admission_profile": "strict/0.1"},
+        "claim": {
+          "id": "claim-family-mismatch",
+          "subject": {"function_id": "example.abs", "version": "1", "artifact_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"},
+          "predicate": {"id": "integer.output.gte/0.1", "lower_bound": 0},
+          "domain": {"inputs": [-1, 0, 1], "complete": true},
+          "assumptions": ["The source digest identifies the tested function."],
+          "expected_evidence_family": "deterministic-execution/0.1",
+          "required_verifier": "finite-observation/0.1"
+        },
+        "context": {"contract_id": "integer-output-lower-bound/0.1", "scope": "finite-closed-domain", "assumptions": ["The input list is the full domain."]},
+        "evidence": [
+          {"id": "trace-other-family", "source": "fixture://claim/other-family", "collection_method": "model-output/0.1", "captured_version": "model-1", "family": "probabilistic-prediction/0.1", "subject_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "uncertainty": "uncalibrated", "upstream_dependencies": ["model-1"], "artifact_references": ["fixture://claim/other-family/output"], "correlation_group": "model-1", "observations": [{"input": -1, "output": -1}, {"input": 0, "output": 0}, {"input": 1, "output": 1}]}
+        ]
+      },
+      "expected": {"verification_status": "UNKNOWN", "admission_status": "REQUIRES_SEPARATE_TREATMENT", "core_state": "indeterminate", "commensurability_result": "NON_COMMENSURABLE", "diagnostic_codes": ["evidence.non_commensurable"], "counterexample": null}
+    },
+    {
+      "id": "missing-evidence-unknown",
+      "request": {
+        "protocol": "semadmit/claim/0.1",
+        "policy": {"admission_profile": "strict/0.1"},
+        "claim": {
+          "id": "claim-no-evidence",
+          "subject": {"function_id": "example.abs", "version": "1", "artifact_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"},
+          "predicate": {"id": "integer.output.gte/0.1", "lower_bound": 0},
+          "domain": {"inputs": [-1, 0, 1], "complete": true},
+          "assumptions": ["The source digest identifies the tested function."],
+          "expected_evidence_family": "deterministic-execution/0.1",
+          "required_verifier": "finite-observation/0.1"
+        },
+        "context": {"contract_id": "integer-output-lower-bound/0.1", "scope": "finite-closed-domain", "assumptions": ["The input list is the full domain."]},
+        "evidence": []
+      },
+      "expected": {"verification_status": "UNKNOWN", "admission_status": "REQUIRES_SEPARATE_TREATMENT", "core_state": "indeterminate", "commensurability_result": "UNKNOWN", "diagnostic_codes": ["evidence.missing"], "counterexample": null}
+    }
+  ]
+}

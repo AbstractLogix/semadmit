@@ -1,0 +1,293 @@
+{
+  "format": "semadmit-isoprax-calculations/0.1",
+  "status": "reviewed M0 calculation trace; non-normative decision field",
+  "cases": [
+    {
+      "id": "admissible-ece-equality",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "admissible-different-definition-ids",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "admissible-score-boundaries-zero-one",
+      "ece": {
+        "left": {
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "right": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-event-mismatch",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-zero-variance",
+      "ece": {
+        "left": {
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-ece-exceeded",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "2"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-empty-sample",
+      "ece": {
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "indeterminate-left-sample-absent",
+      "ece": {
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "indeterminate-definition-unknown",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "admissible-decimal-precision-12",
+      "ece": {
+        "left": {
+          "numerator": "30864197253",
+          "denominator": "250000000000"
+        },
+        "right": {
+          "numerator": "30864197253",
+          "denominator": "250000000000"
+        }
+      }
+    },
+    {
+      "id": "indeterminate-right-sample-absent",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-event-mismatch-with-unknown",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-right-zero-score-variance",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-left-single-observation",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "2"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "admissible-policy-lower-bounds",
+      "ece": {
+        "left": {
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "right": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "admissible-policy-upper-bounds",
+      "ece": {
+        "left": {
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "right": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "admissible-threshold-multiset-permutation",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-threshold-multiplicity-mismatch",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-observation-process-parameters-mismatch",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-window-duration-mismatch",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "indeterminate-threshold-value-unknown",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "admissible-normalized-key-ascii-and-raw-metadata",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    },
+    {
+      "id": "inadmissible-non-ascii-event-case-difference",
+      "ece": {
+        "left": {
+          "numerator": "1",
+          "denominator": "4"
+        },
+        "right": {
+          "numerator": "1",
+          "denominator": "4"
+        }
+      }
+    }
+  ]
+}

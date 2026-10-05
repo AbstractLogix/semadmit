@@ -1,0 +1,468 @@
+{
+  "format": "semadmit-protocol-cases/0.1",
+  "status": "normative v0.1 M0 fixtures; implementation conformance unproven",
+  "input_recipes": {
+    "request-mutation": "Resolve the named case request and apply operations in listed order. add inserts a new member at the RFC 6901 parent; replace replaces the value. replace-array-with-repeated-item resolves a source item and repeats it count times.",
+    "request-ref-padded-line": "Serialize the referenced request as RFC 8785 JCS UTF-8, append the indicated byte until target_line_bytes is reached; the byte limit excludes LF.",
+    "nested-objects": "Create an object with nest_levels nested members named key, ending in leaf. Root request has depth 1; the extra object is depth 2."
+  },
+  "cases": [
+    {
+      "id": "duplicate-json-key",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"protocol\":\"semantic-oracle/0.1\",\"protocol\":\"semantic-oracle/0.1\"}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/protocol"
+        }
+      }
+    },
+    {
+      "id": "invalid-utf8",
+      "input": {
+        "kind": "raw-bytes-hex",
+        "hex": "7b2278223a22ff227d"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_utf8",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "unpaired-surrogate",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"x\":\"\\ud800\"}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_unicode",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "invalid-json-syntax",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"x\":"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "unsupported-number-profile",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1.0}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "exponent-number-form",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e0}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "negative-zero-number-form",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":-0}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "integer-outside-safe-range",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":9007199254740992}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "unknown-top-level-field",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "add",
+            "pointer": "/unexpected",
+            "value": 0
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.unknown_field",
+          "pointer": "/unexpected"
+        }
+      }
+    },
+    {
+      "id": "missing-common-field",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "remove",
+            "pointer": "/operation"
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.missing_field",
+          "pointer": "/operation"
+        }
+      }
+    },
+    {
+      "id": "unsupported-operation",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "replace",
+            "pointer": "/operation",
+            "value": "unknown_operation"
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "protocol.unsupported_operation",
+          "pointer": "/operation"
+        }
+      }
+    },
+    {
+      "id": "well-formed-policy-digest-substitution",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "replace",
+            "pointer": "/policy_digest",
+            "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "identity.digest_mismatch",
+          "pointer": "/policy_digest"
+        }
+      }
+    },
+    {
+      "id": "unregistered-pack",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "replace",
+            "pointer": "/pack",
+            "value": "unregistered-demo/0.1"
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "protocol.unsupported_pack",
+          "pointer": "/pack"
+        }
+      }
+    },
+    {
+      "id": "unsupported-protocol-version",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "replace",
+            "pointer": "/protocol",
+            "value": "semantic-oracle/9.9"
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "protocol.unsupported_version",
+          "pointer": "/protocol"
+        }
+      }
+    },
+    {
+      "id": "oversized-request-line",
+      "input": {
+        "kind": "request-ref-padded-line",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "serialization": "RFC 8785 JCS UTF-8",
+        "padding_byte_hex": "20",
+        "target_line_bytes": 10485761,
+        "padding_position": "append"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "limit.exceeded",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "evidence-count-over-limit",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "replace-array-with-repeated-item",
+            "pointer": "/evidence",
+            "source_pointer": "/evidence/0",
+            "count": 257
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "limit.exceeded",
+          "pointer": "/evidence/256"
+        }
+      }
+    },
+    {
+      "id": "nesting-depth-over-limit",
+      "input": {
+        "kind": "request-mutation",
+        "base": {
+          "file": "measurement-cases.json",
+          "case_id": "admissible-standard"
+        },
+        "operations": [
+          {
+            "op": "add",
+            "pointer": "/extra",
+            "value": {
+              "kind": "nested-objects",
+              "key": "nest",
+              "nest_levels": 63,
+              "leaf": {}
+            }
+          }
+        ]
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "limit.exceeded",
+          "pointer": "/extra/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest/nest"
+        }
+      }
+    },
+    {
+      "id": "jsonl-recovery-after-error",
+      "input": {
+        "kind": "jsonl-lines",
+        "lines": [
+          {
+            "kind": "request-ref",
+            "request": {
+              "file": "measurement-cases.json",
+              "case_id": "admissible-standard"
+            }
+          },
+          {
+            "kind": "raw-json-utf8",
+            "text": "{"
+          },
+          {
+            "kind": "request-ref",
+            "request": {
+              "file": "measurement-cases.json",
+              "case_id": "admissible-standard"
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outputs": [
+          {
+            "kind": "decision-ref",
+            "artifact": {
+              "file": "measurement-artifacts.json",
+              "id": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f"
+            }
+          },
+          {
+            "kind": "error",
+            "value": {
+              "kind": "error",
+              "code": "input.invalid_json",
+              "pointer": ""
+            }
+          },
+          {
+            "kind": "decision-ref",
+            "artifact": {
+              "file": "measurement-artifacts.json",
+              "id": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f"
+            }
+          }
+        ],
+        "continues_after_line_error": true,
+        "exit_code": 3
+      }
+    },
+    {
+      "id": "jsonl-blank-line",
+      "input": {
+        "kind": "jsonl-lines",
+        "lines": [
+          {
+            "kind": "raw-json-utf8",
+            "text": ""
+          }
+        ]
+      },
+      "expected": {
+        "outputs": [
+          {
+            "kind": "error",
+            "value": {
+              "kind": "error",
+              "code": "input.invalid_json",
+              "pointer": ""
+            }
+          }
+        ],
+        "continues_after_line_error": true,
+        "exit_code": 3
+      }
+    },
+    {
+      "id": "jsonl-oversized-line-recovery",
+      "input": {
+        "kind": "jsonl-lines",
+        "lines": [
+          {
+            "kind": "request-ref-padded-line",
+            "base": {
+              "file": "measurement-cases.json",
+              "case_id": "admissible-standard"
+            },
+            "serialization": "RFC 8785 JCS UTF-8",
+            "padding_byte_hex": "20",
+            "target_line_bytes": 10485761,
+            "padding_position": "append"
+          },
+          {
+            "kind": "request-ref",
+            "request": {
+              "file": "measurement-cases.json",
+              "case_id": "admissible-standard"
+            }
+          }
+        ]
+      },
+      "expected": {
+        "outputs": [
+          {
+            "kind": "error",
+            "value": {
+              "kind": "error",
+              "code": "limit.exceeded",
+              "pointer": ""
+            }
+          },
+          {
+            "kind": "decision-ref",
+            "artifact": {
+              "file": "measurement-artifacts.json",
+              "id": "sha256:e8ced60b244aa484b8ef38510e9c32399644f52bc34e1e4cb78b25b36b1be42f"
+            }
+          }
+        ],
+        "continues_after_line_error": true,
+        "exit_code": 3
+      }
+    }
+  ]
+}
