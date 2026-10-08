@@ -6,7 +6,7 @@ This note freezes the Semadmit claim and Core interfaces for consumers. It does 
 
 The exact merged Semadmit commit recorded for this compatibility baseline is:
 
-`6ba07d119a62fa99cfb9ec875321bff7b4bd57d1`
+`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`
 
 The machine-readable record is [bouleusis-compatibility.json](../conformance/fixtures/bouleusis-compatibility.json). It identifies the latest merged `main` commit when this record was created. A later Semadmit change needs a new reviewed pin record before a consumer moves to it.
 

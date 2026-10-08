@@ -58,7 +58,7 @@ class ClaimResultCompatibilityChecks(unittest.TestCase):
     def test_bouleusis_compatibility_record_matches_verified_fixture(self) -> None:
         record = json.loads(_COMPATIBILITY.read_text(encoding="utf-8"))
         self.assertEqual(record["format"], "semadmit-bouleusis-compatibility/0.1")
-        self.assertEqual(record["semadmit_commit"], "6ba07d119a62fa99cfb9ec875321bff7b4bd57d1")
+        self.assertEqual(record["semadmit_commit"], "de61aa87a5f4470fd64de33c926cff7f92cf8bd6")
         self.assertEqual(record["protocol"], "semadmit/claim/0.1")
         self.assertEqual(record["core_protocol"], "semantic-oracle/0.1")
         self.assertEqual(record["compatible_bouleusis_contract"], "semadmit/claim-result-consumer/0.1")
