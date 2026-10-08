@@ -77,6 +77,23 @@ class Evaluator:
         result, _, _, _ = self._evaluate(request)
         return result
 
+    def verify_result(self, request: object, candidate: object) -> bool:
+        """Verify any successful Core decision by deterministic reevaluation."""
+        try:
+            copied_candidate = copy_json_tree(candidate)
+        except InputProblem:
+            return False
+        if type(copied_candidate) is not dict:
+            return False
+        result, snapshot, registered, operation = self._evaluate(request)
+        return (
+            snapshot is not None
+            and registered is not None
+            and operation is not None
+            and result.get("kind") == "decision"
+            and copied_candidate == result
+        )
+
     def verify(self, request: object, candidate: object) -> Admission | None:
         try:
             copied_candidate = copy_json_tree(candidate)
@@ -427,7 +444,7 @@ def _valid_pack_error(problem: PackInputError) -> bool:
     if problem.pointer == "":
         return True
     root = problem.pointer[1:].split("/", 1)[0].replace("~1", "/").replace("~0", "~")
-    return root in {"policy", "subjects", "evidence"}
+    return root in {"operation", "policy", "subjects", "evidence"}
 
 
 def _freeze(value: object) -> object:

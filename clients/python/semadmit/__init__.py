@@ -18,6 +18,7 @@ from .pack import (
 )
 from .evaluator import Admission, Evaluator, JsonlRunner
 from .claim_verification import ClaimEngine, FiniteInvariantPack, claim_jsonl_runner
+from .selector_provenance import SelectorProvenancePack
 
 __version__ = "0.1.0.dev0"
 
@@ -40,6 +41,7 @@ __all__ = [
     "PackInputError",
     "PackRegistry",
     "RegisteredPack",
+    "SelectorProvenancePack",
     "JsonlRunner",
     "claim_jsonl_runner",
     "__version__",

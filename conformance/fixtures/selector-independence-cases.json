@@ -1,0 +1,223 @@
+{
+  "format": "semadmit-selector-independence-cases/0.1",
+  "implementation": "python",
+  "pack": "selector-provenance/0.1",
+  "operation": "independent_corroboration",
+  "rule_version": "selector-independence/0.1",
+  "cases": [
+    {
+      "id": "bm25-to-model-x",
+      "expected": {
+        "state": "indeterminate",
+        "rationale_codes": ["independence.unestablished"]
+      },
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "selector-provenance/0.1",
+        "operation": "independent_corroboration",
+        "policy_digest": "sha256:ff7cee6f9a0698f6ecd8935c74f38e50406dfee087919c17c7b1e5f34e614b1b",
+        "policy": {
+          "rule_version": "selector-independence/0.1",
+          "context": {"id": "context-1", "version": "v1"},
+          "consumer": {"model_id": "model-X", "model_version": "v1"},
+          "assumptions": []
+        },
+        "subjects": {
+          "target": {
+            "kind": "claim",
+            "id": "claim-1",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        },
+        "evidence": [
+          {
+            "id": "evidence-a",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "family": "document/0.1",
+            "source": {"id": "source-a", "version": "v1"},
+            "collector": {"id": "collector-a", "version": "v1"},
+            "selector": {
+              "id": "bm25-a",
+              "type": "bm25",
+              "version": "v1",
+              "query_identity": "query-1",
+              "corpus_identity": "corpus-a",
+              "ranking_score": "0.99",
+              "rank": 1,
+              "retrieval_method": "BM25",
+              "budget": 100
+            }
+          },
+          {
+            "id": "evidence-b",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "family": "document/0.1",
+            "source": {"id": "source-b", "version": "v1"},
+            "collector": {"id": "collector-b", "version": "v1"},
+            "selector": {
+              "id": "bm25-b",
+              "type": "bm25",
+              "version": "v1",
+              "query_identity": "query-1",
+              "corpus_identity": "corpus-b",
+              "ranking_score": "0.95",
+              "rank": 2,
+              "retrieval_method": "BM25",
+              "budget": 100
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-x-selects-and-interprets",
+      "expected": {
+        "state": "indeterminate",
+        "rationale_codes": ["dependence.shared_model"]
+      },
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "selector-provenance/0.1",
+        "operation": "independent_corroboration",
+        "policy_digest": "sha256:ff7cee6f9a0698f6ecd8935c74f38e50406dfee087919c17c7b1e5f34e614b1b",
+        "policy": {
+          "rule_version": "selector-independence/0.1",
+          "context": {"id": "context-1", "version": "v1"},
+          "consumer": {"model_id": "model-X", "model_version": "v1"},
+          "assumptions": []
+        },
+        "subjects": {
+          "target": {
+            "kind": "claim",
+            "id": "claim-1",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        },
+        "evidence": [
+          {
+            "id": "evidence-a",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "family": "document/0.1",
+            "source": {"id": "source-a", "version": "v1"},
+            "collector": {"id": "collector-a", "version": "v1"},
+            "selector": {"id": "model-x-a", "type": "model", "model_id": "model-X", "model_version": "v1"}
+          },
+          {
+            "id": "evidence-b",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "family": "document/0.1",
+            "source": {"id": "source-b", "version": "v1"},
+            "collector": {"id": "collector-b", "version": "v1"},
+            "selector": {"id": "model-x-b", "type": "model", "model_id": "model-X", "model_version": "v1"}
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-x-selects-model-y-interprets",
+      "expected": {
+        "state": "indeterminate",
+        "rationale_codes": ["independence.unestablished"]
+      },
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "selector-provenance/0.1",
+        "operation": "independent_corroboration",
+        "policy_digest": "sha256:80583b511df8372a7420339468c2a0eda446a2fc9a70ccb5d8e0f279f970a5be",
+        "policy": {
+          "rule_version": "selector-independence/0.1",
+          "context": {"id": "context-1", "version": "v1"},
+          "consumer": {"model_id": "model-Y", "model_version": "v1"},
+          "assumptions": []
+        },
+        "subjects": {
+          "target": {
+            "kind": "claim",
+            "id": "claim-1",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        },
+        "evidence": [
+          {
+            "id": "evidence-a",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "family": "document/0.1",
+            "source": {"id": "source-a", "version": "v1"},
+            "collector": {"id": "collector-a", "version": "v1"},
+            "selector": {"id": "model-x-a", "type": "model", "model_id": "model-X", "model_version": "v1"}
+          },
+          {
+            "id": "evidence-b",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "family": "document/0.1",
+            "source": {"id": "source-b", "version": "v1"},
+            "collector": {"id": "collector-b", "version": "v1"},
+            "selector": {"id": "bm25-b", "type": "bm25", "version": "v1"}
+          }
+        ]
+      }
+    },
+    {
+      "id": "selectors-share-model-and-corpus",
+      "expected": {
+        "state": "indeterminate",
+        "rationale_codes": ["dependence.shared_model", "dependence.shared_source"]
+      },
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "selector-provenance/0.1",
+        "operation": "independent_corroboration",
+        "policy_digest": "sha256:80583b511df8372a7420339468c2a0eda446a2fc9a70ccb5d8e0f279f970a5be",
+        "policy": {
+          "rule_version": "selector-independence/0.1",
+          "context": {"id": "context-1", "version": "v1"},
+          "consumer": {"model_id": "model-Y", "model_version": "v1"},
+          "assumptions": []
+        },
+        "subjects": {
+          "target": {
+            "kind": "hypothesis",
+            "id": "hypothesis-1",
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        },
+        "evidence": [
+          {
+            "id": "evidence-a",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "family": "prediction/0.1",
+            "source": {"id": "source-a", "version": "v1"},
+            "collector": {"id": "collector-a", "version": "v1"},
+            "selector": {
+              "id": "selector-a",
+              "type": "model",
+              "model_id": "model-A",
+              "corpus_identity": "corpus-1",
+              "upstream_dependencies": [
+                {"id": "reranker-1", "relation": "shared_model"},
+                {"id": "corpus-1", "relation": "shared_source"}
+              ]
+            }
+          },
+          {
+            "id": "evidence-b",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "family": "prediction/0.1",
+            "source": {"id": "source-b", "version": "v1"},
+            "collector": {"id": "collector-b", "version": "v1"},
+            "selector": {
+              "id": "selector-b",
+              "type": "model",
+              "model_id": "model-B",
+              "corpus_identity": "corpus-1",
+              "upstream_dependencies": [
+                {"id": "reranker-1", "relation": "shared_model"},
+                {"id": "corpus-1", "relation": "shared_source"}
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
