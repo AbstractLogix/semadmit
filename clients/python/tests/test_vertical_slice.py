@@ -14,11 +14,28 @@ _VECTORS = _ROOT / "test" / "integration" / "vertical_slice" / "vectors.json"
 
 
 class VerticalSliceChecks(unittest.TestCase):
-    def test_shared_positive_and_negative_vectors(self) -> None:
+    def test_shared_core_parity_corpus(self) -> None:
         vectors = json.loads(_VECTORS.read_text(encoding="utf-8"))
         evaluator = Evaluator(PackRegistry((FixturePack(),)))
+        self.assertEqual(vectors["format"], "semadmit-core-parity-cases/0.1")
+        self.assertEqual(vectors["implementations"], ["python", "haskell"])
+        self.assertEqual(
+            vectors["scope"],
+            [
+                "Core request normalization",
+                "generic subject, evidence, and component bindings",
+                "obligation reduction",
+                "decision payload and digest",
+            ],
+        )
+        self.assertEqual(vectors["excludes"], ["semadmit/claim/0.1", "isoprax/0.1 domain semantics"])
+        self.assertEqual([case["id"] for case in vectors["cases"]], ["admissible", "inadmissible"])
         self.assertEqual(len(vectors["cases"]), 2)
 
         for case in vectors["cases"]:
             with self.subTest(case=case["id"]):
-                self.assertEqual(evaluator.evaluate(case["request"]), case["expected"])
+                self.assertEqual(
+                    evaluator.evaluate(case["request"]),
+                    case["expected"],
+                    f"Python Core result differs from the shared corpus case {case['id']}",
+                )

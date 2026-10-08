@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from semadmit.evaluator import Evaluator, JsonlRunner, _result_exit_status
+from semadmit.identity import canonical_bytes
 from semadmit.json_input import InputProblem, copy_json_tree
 from semadmit.pack import (
     ArtifactSpec,
@@ -645,13 +646,12 @@ class ClaimEngine:
     def verify_result(self, request: object, candidate: object) -> bool:
         try:
             copied_candidate = copy_json_tree(candidate)
-        except InputProblem:
+            if type(copied_candidate) is not dict or copied_candidate.get("kind") != "claim-result":
+                return False
+            expected = self.evaluate(request)
+            return canonical_bytes(copied_candidate) == canonical_bytes(expected)
+        except (InputProblem, TypeError, ValueError, RecursionError):
             return False
-        return (
-            type(copied_candidate) is dict
-            and copied_candidate.get("kind") == "claim-result"
-            and copied_candidate == self.evaluate(request)
-        )
 
 
 def claim_jsonl_runner(engine: ClaimEngine | None = None) -> JsonlRunner:
