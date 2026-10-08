@@ -5,9 +5,10 @@ from __future__ import annotations
 import copy
 import json
 import unittest
+from io import BytesIO
 from pathlib import Path
 
-from semadmit.evaluator import Evaluator
+from semadmit.evaluator import Evaluator, JsonlRunner
 from semadmit.pack import NormalizedPackRequest, PackIdentity, PackInputError, PackRegistry
 from semadmit.selector_provenance import (
     OPERATION,
@@ -252,6 +253,75 @@ class SelectorProvenanceChecks(unittest.TestCase):
             )["kind"],
             "error",
         )
+
+    def test_pack_validation_errors_are_stable_and_batch_continues(self) -> None:
+        request = with_policy_digest(cases()[0]["request"])
+        invalid_cases = (
+            (
+                "shape",
+                lambda value: value["policy"].update(extra=True),
+                "input.invalid_shape",
+                "/policy",
+            ),
+            (
+                "digest",
+                lambda value: value["subjects"]["target"].update(digest="bad"),
+                "input.invalid_digest",
+                "/subjects/target/digest",
+            ),
+            (
+                "relation",
+                lambda value: value["evidence"][0]["selector"].update(
+                    consumer_relation="maybe"
+                ),
+                "input.invalid_relation",
+                "/evidence/0/selector/consumer_relation",
+            ),
+            (
+                "rule",
+                lambda value: value["policy"].update(
+                    rule_version="selector-independence/9.9"
+                ),
+                "policy.unsupported_rule",
+                "/policy/rule_version",
+            ),
+            (
+                "count",
+                lambda value: value.update(evidence=value["evidence"][:1]),
+                "evidence.invalid_count",
+                "/evidence",
+            ),
+            (
+                "operation",
+                lambda value: value.update(operation="other"),
+                "protocol.unsupported_operation",
+                "/operation",
+            ),
+        )
+        for name, mutate, code, pointer in invalid_cases:
+            with self.subTest(case=name):
+                invalid = copy.deepcopy(request)
+                mutate(invalid)
+                self.assertEqual(
+                    self.evaluator.evaluate(invalid),
+                    {"kind": "error", "code": code, "pointer": pointer},
+                )
+
+        invalid = copy.deepcopy(request)
+        invalid["evidence"][0]["selector"]["consumer_relation"] = "maybe"
+        source = BytesIO(
+            b"\n".join(
+                json.dumps(item, separators=(",", ":")).encode("utf-8")
+                for item in (invalid, request)
+            )
+            + b"\n"
+        )
+        sink = BytesIO()
+        self.assertEqual(JsonlRunner(self.evaluator).run(source, sink), 3)
+        records = [json.loads(line) for line in sink.getvalue().splitlines()]
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records[0]["code"], "input.invalid_relation")
+        self.assertEqual(records[1]["kind"], "decision")
 
     def test_pack_is_fail_closed_when_called_with_malformed_normalized_data(self) -> None:
         result = self.pack.evaluate(

@@ -39,7 +39,13 @@ _INPUT_CODES = frozenset(
         "identity.digest_mismatch",
         "evidence.duplicate_id",
         "evidence.duplicate_role",
+        "evidence.invalid_count",
         "limit.exceeded",
+        "input.invalid_shape",
+        "input.invalid_digest",
+        "input.invalid_relation",
+        "policy.unsupported_rule",
+        "protocol.unsupported_operation",
     }
 )
 _INTERNAL_FAILURE = {"kind": "error", "code": "internal.failure", "pointer": ""}
@@ -444,7 +450,7 @@ def _valid_pack_error(problem: PackInputError) -> bool:
     if problem.pointer == "":
         return True
     root = problem.pointer[1:].split("/", 1)[0].replace("~1", "/").replace("~0", "~")
-    return root in {"policy", "subjects", "evidence"}
+    return root in {"operation", "policy", "subjects", "evidence"}
 
 
 def _freeze(value: object) -> object:
