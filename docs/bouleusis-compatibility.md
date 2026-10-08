@@ -22,6 +22,8 @@ The generic Core protocol remains `semantic-oracle/0.1`. A successful Core decis
 
 The payload has exactly `protocol`, `pack`, `operation`, `request_digest`, `policy_digest`, `state`, `bindings`, `obligations`, and `diagnostics`. Its state is `admissible`, `inadmissible`, or `indeterminate`. The digest covers the canonical payload only. A Core protocol change requires a new version under the existing Core contract.
 
+A protocol error has exactly `kind`, `code`, and `pointer`. `kind` is `error`; `pointer` is always present and uses RFC 6901 syntax. The empty pointer denotes the whole request. Error codes and pointer rules remain those in the [Core wire protocol](../specs/001-semantic-oracle-v0-1/contracts/wire-protocol.md#protocol-error-envelope).
+
 The claim-result wrapper has exactly these fields: `kind`, `protocol`, `result_id`, `claim_id`, `evidence_ids`, `verification_status`, `admission_status`, `verification_digest`, `verification`, and `core_decision`. The result ID equals the Core decision digest. The verification artifact digest equals its Core component binding. The claim ID and evidence IDs bind to the request.
 
 The compatibility label `semadmit/claim-result-consumer/0.1` describes the Semadmit-side consumer contract: keep the request protocol pinned, verify the result against that request with `ClaimEngine.verify_result`, keep verification and admission statuses separate, and treat admission only as permission for the named operation under the declared policy. This label does not claim that Bouleusis has implemented or tested a particular integration.

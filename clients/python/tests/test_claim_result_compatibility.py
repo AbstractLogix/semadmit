@@ -98,3 +98,10 @@ class ClaimResultCompatibilityChecks(unittest.TestCase):
             },
         )
         self.assertTrue(self.engine.verify_result(request, result))
+
+        unsupported = json.loads(json.dumps(request))
+        unsupported["protocol"] = "semadmit/claim/0.0"
+        error = self.engine.evaluate(unsupported)
+        self.assertEqual(set(error), {"kind", "code", "pointer"})
+        self.assertEqual(error["kind"], "error")
+        self.assertEqual(error["pointer"], "/protocol")
