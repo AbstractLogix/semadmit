@@ -242,7 +242,9 @@ class SelectorProvenanceChecks(unittest.TestCase):
         for mutate in mutations:
             invalid = copy.deepcopy(request)
             mutate(invalid)
-            self.assertEqual(self.evaluator.evaluate(invalid)["kind"], "error")
+            result = self.evaluator.evaluate(invalid)
+            self.assertEqual(result["kind"], "error")
+            self.assertNotEqual(result["code"], "internal.failure")
 
         self.assertEqual(
             self.evaluator.evaluate(
