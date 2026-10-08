@@ -151,6 +151,8 @@ class EvaluatorChecks(unittest.TestCase):
         missing = self.evaluator.evaluate(request("missing", []))
         self.assertEqual(failed["payload"]["state"], "inadmissible")
         self.assertEqual(missing["payload"]["state"], "indeterminate")
+        self.assertTrue(self.evaluator.verify_result(request("fail", []), failed))
+        self.assertTrue(self.evaluator.verify_result(request("missing", []), missing))
         self.assertEqual(len(failed["payload"]["diagnostics"]), 1)
         invalid = request()
         invalid["policy_digest"] = "sha256:" + "0" * 64
