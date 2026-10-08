@@ -4,9 +4,9 @@
 
 Semadmit should answer a bounded question: may identified evidence be used for one named operation on one target under one declared context and policy? The result grants no general permission to reuse that evidence for other operations.
 
-## IsoPrax Direction
+## Isoprax Direction
 
-The public IsoPrax research direction treats measurement validity, calibration, outcome semantics, and supported operations as separate questions. Calibration alone does not show that two predictions describe the same event or support the same operation. Its README also describes outcome definitions that are not commensurable. See the [IsoPrax research mission](https://github.com/AbstractLogix/isoprax#research-mission).
+The public Isoprax research direction treats measurement validity, calibration, outcome semantics, and supported operations as separate questions. Calibration alone does not show that two predictions describe the same event or support the same operation. Its README also describes outcome definitions that are not commensurable. See the [Isoprax research mission](https://github.com/AbstractLogix/isoprax#research-mission).
 
 Semadmit should therefore require an operation-specific compatibility rule where an operation needs one. It must keep unknown compatibility distinct from permission. For example, a rule may allow pooling only when outcome definitions and measurement contexts match; passing calibration checks alone must not imply that pooling is allowed.
 
@@ -29,7 +29,7 @@ This is a schema sketch, not a protocol commitment:
   ],
   "assumptions": [],
   "context": {"id": "C", "policy": "..."},
-  "rule": {"system": "IsoPrax", "id": "...", "version": "...", "digest": "sha256:..."}
+  "rule": {"system": "Isoprax", "id": "...", "version": "...", "digest": "sha256:..."}
 }
 ```
 
