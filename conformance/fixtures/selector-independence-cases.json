@@ -192,6 +192,7 @@
               "id": "selector-a",
               "type": "model",
               "model_id": "model-A",
+              "corpus_identity": "corpus-1",
               "upstream_dependencies": [
                 {"id": "reranker-1", "relation": "shared_model"},
                 {"id": "corpus-1", "relation": "shared_source"}
@@ -208,6 +209,7 @@
               "id": "selector-b",
               "type": "model",
               "model_id": "model-B",
+              "corpus_identity": "corpus-1",
               "upstream_dependencies": [
                 {"id": "reranker-1", "relation": "shared_model"},
                 {"id": "corpus-1", "relation": "shared_source"}

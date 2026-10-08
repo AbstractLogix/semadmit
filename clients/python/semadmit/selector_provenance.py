@@ -42,6 +42,7 @@ _SHARED_RELATIONS = (
 _DIAGNOSTIC_CODES = {
     "provenance.missing": ("/evidence",),
     "independence.unestablished": ("/evidence",),
+    "dependence.unknown": ("/evidence",),
     "dependence.shared_model": ("/evidence",),
     "dependence.shared_encoder": ("/evidence",),
     "dependence.shared_training_lineage": ("/evidence",),
@@ -315,6 +316,7 @@ def _relations(request: NormalizedPackRequest) -> tuple[str, ...]:
         selectors.append(selector)
 
     found: set[str] = set()
+    found_unknown = False
     for selector in selectors:
         if type(selector) is not dict:
             continue
@@ -324,6 +326,13 @@ def _relations(request: NormalizedPackRequest) -> tuple[str, ...]:
         relation = selector["consumer_relation"]
         if relation in _SHARED_RELATIONS:
             found.add(relation)
+        elif relation == "unknown":
+            found_unknown = True
+        if any(
+            dependency["relation"] == "unknown"
+            for dependency in selector["upstream_dependencies"]
+        ):
+            found_unknown = True
     for index, left in enumerate(selectors):
         if type(left) is not dict:
             continue
@@ -333,6 +342,11 @@ def _relations(request: NormalizedPackRequest) -> tuple[str, ...]:
                 continue
             if left["model_id"] is not None and left["model_id"] == right["model_id"]:
                 found.add("shared_model")
+            if (
+                left["corpus_identity"] is not None
+                and left["corpus_identity"] == right["corpus_identity"]
+            ):
+                found.add("shared_source")
             right_dependencies = right["upstream_dependencies"]
             found.update(_shared_dependency_relations(left_dependencies, right_dependencies))
         found.update(
@@ -341,16 +355,15 @@ def _relations(request: NormalizedPackRequest) -> tuple[str, ...]:
     for index, left in enumerate(sources):
         if any(left["id"] == right["id"] for right in sources[index + 1 :]):
             found.add("shared_source")
-    if missing and found:
-        return (
-            "provenance.missing",
-            *(f"dependence.{item}" for item in _SHARED_RELATIONS if item in found),
-        )
+    codes: list[str] = []
     if missing:
-        return ("provenance.missing",)
-    if not found:
+        codes.append("provenance.missing")
+    codes.extend(f"dependence.{item}" for item in _SHARED_RELATIONS if item in found)
+    if found_unknown:
+        codes.append("dependence.unknown")
+    if not codes and not found:
         return ("independence.unestablished",)
-    return tuple(f"dependence.{item}" for item in _SHARED_RELATIONS if item in found)
+    return tuple(codes)
 
 
 def _shared_dependency_relations(left: object, right: object) -> set[str]:

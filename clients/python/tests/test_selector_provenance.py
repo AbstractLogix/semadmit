@@ -132,6 +132,22 @@ class SelectorProvenanceChecks(unittest.TestCase):
         no_consumer_result = self.evaluator.evaluate(no_consumer)
         self.assertEqual(rationale_codes(no_consumer_result), ["provenance.missing"])
 
+    def test_explicit_unknown_relation_is_preserved(self) -> None:
+        request = with_policy_digest(cases()[0]["request"])
+        for evidence in request["evidence"]:
+            evidence["selector"]["consumer_relation"] = "unknown"
+        result = self.evaluator.evaluate(request)
+        self.assertEqual(result["payload"]["state"], "indeterminate")
+        self.assertEqual(rationale_codes(result), ["dependence.unknown"])
+
+        unknown_dependency = with_policy_digest(cases()[0]["request"])
+        for evidence in unknown_dependency["evidence"]:
+            evidence["selector"]["upstream_dependencies"] = [
+                {"id": "dependency-1", "relation": "unknown"}
+            ]
+        dependency_result = self.evaluator.evaluate(unknown_dependency)
+        self.assertEqual(rationale_codes(dependency_result), ["dependence.unknown"])
+
     def test_shared_model_is_preserved_without_automatic_rejection(self) -> None:
         request = with_policy_digest(cases()[1]["request"])
         result = self.evaluator.evaluate(request)
@@ -169,6 +185,12 @@ class SelectorProvenanceChecks(unittest.TestCase):
                 rationale_codes(result), [f"dependence.{relation}"], relation
             )
             self.assertEqual(result["payload"]["state"], "indeterminate")
+
+        shared_corpus = with_policy_digest(cases()[0]["request"])
+        for evidence in shared_corpus["evidence"]:
+            evidence["selector"]["corpus_identity"] = "same-corpus"
+        corpus_result = self.evaluator.evaluate(shared_corpus)
+        self.assertEqual(rationale_codes(corpus_result), ["dependence.shared_source"])
 
     def test_independence_declaration_and_isoprax_rule_do_not_change_truth(self) -> None:
         request = with_policy_digest(cases()[0]["request"])

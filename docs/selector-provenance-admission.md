@@ -25,9 +25,9 @@ The relation vocabulary is provisional:
 - `shared_encoder`: provenance declares a shared encoder dependency.
 - `shared_training_lineage`: provenance declares shared training lineage.
 - `shared_source`: provenance declares a shared source or corpus.
-- `unknown`: provenance does not identify the relation.
+- `unknown`: provenance does not identify the relation; the result reports `dependence.unknown`.
 
-Semadmit reports these as possible dependence metadata. It does not convert them into a statistical correlation estimate. If some provenance is missing, the result also reports any shared relation that can still be read from the supplied fields. A shared model is preserved as a relation and returns `indeterminate`; it is not an automatic rejection.
+Semadmit reports these as possible dependence metadata. It does not convert them into a statistical correlation estimate. Matching corpus identities report `shared_source`. If some provenance is missing, the result also reports any shared relation that can still be read from the supplied fields. A shared model is preserved as a relation and returns `indeterminate`; it is not an automatic rejection.
 
 ## Bounded cases
 
