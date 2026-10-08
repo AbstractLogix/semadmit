@@ -1,6 +1,19 @@
 # Release Readiness
 
-**Status**: Not ready for release. M0 approved the contract and fixtures. Implementation and package conformance remain open.
+**Status**: Not ready for release. The main merge at `49a772eed2591747c99b3af29c6992fda14f120d` passed the full automated test and coverage gate, the Python package build, and the Haskell executable smoke check recorded below. Release gates remain open for broader conformance, the full redistribution inventory, independent final review, and the separate release decision.
+
+## Validation Record: 2026-10-08
+
+Validation ran from a clean detached worktree at the exact `origin/main` commit `49a772eed2591747c99b3af29c6992fda14f120d` (PR #4 merge). Host: Linux x86_64; CPython 3.13.14; GHC 9.14.1; Cabal 3.18.1.0; uv 0.11.31.
+
+- `python3 scripts/check_coverage.py`: **PASS**. All 55 Python tests passed. All 9 package modules passed the 100% executable-line floor (1,672 of 1,672 lines). All 7 declared Haskell suites passed. Haskell coverage was 5,310 of 5,859 expressions (90.63%, floor 89%) and 88 of 193 boolean outcomes (45.60%, floor 34%).
+- `cabal build exe:semantic-oracle`: **PASS**.
+- Haskell CLI smoke with fixture `admissible-ece-equality`: **PASS**. The executable returned status 0 and an admissible decision with matching request, policy, and decision digests.
+- `uv build --out-dir /tmp/semadmit-build-49a772e clients/python`: **PASS**. It produced an sdist and wheel. The wheel declares `License-Expression: Apache-2.0`; both archives include the license, and the wheel includes `selector_provenance.py`.
+- The claim compatibility fixture still pins `de61aa87a5f4470fd64de33c926cff7f92cf8bd6` and protocol `semadmit/claim/0.1`. That consumer pin is distinct from the validation snapshot `49a772e`.
+- The separate Python pack `selector-provenance/0.1` is present at `49a772e`. Its bounded `independent_corroboration` cases remain `indeterminate`. Semadmit has no empirical IsoPrax result that supports an independence admission rule, so this validation adds no such rule and does not interpret relevance scores or model identity as proof of independence.
+
+This record establishes the listed build and test results for this commit. It does not establish release readiness, complete transitive license review, independent final review, or validation on other hosts.
 
 ## License and Provenance
 

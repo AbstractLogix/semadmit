@@ -10,6 +10,14 @@ The exact merged Semadmit commit recorded for this compatibility baseline is:
 
 The machine-readable record is [bouleusis-compatibility.json](../conformance/fixtures/bouleusis-compatibility.json). It identifies the latest merged `main` commit when this record was created. A later Semadmit change needs a new reviewed pin record before a consumer moves to it.
 
+## Pin Scope and Later Packs
+
+The `de61aa87a5f4470fd64de33c926cff7f92cf8bd6` value remains the compatibility pin for the `semadmit/claim/0.1` request, result wrapper, and verification boundary. Do not change that fixture just because a later commit adds another pack.
+
+The later validation snapshot `49a772eed2591747c99b3af29c6992fda14f120d` adds the experimental Python pack `selector-provenance/0.1`. This pack is separate from the claim protocol and is not part of the Bouleusis compatibility record. A consumer that needs the selector pack must review and pin that later interface separately.
+
+The selector pack currently returns Core state `indeterminate` for all four bounded `independent_corroboration` cases. It records provenance and dependence relations; it does not establish independent errors or grant admission from selector relevance. No executable independence admission rule is supported until IsoPrax supplies empirical evidence and a reviewed operation-specific rule.
+
 ## Frozen Protocols
 
 The claim request protocol is `semadmit/claim/0.1`. This version accepts the existing closed request shape: `protocol`, `policy`, `claim`, `context`, and `evidence`. This compatibility work does not change that shape or the claim-result wrapper.
