@@ -63,13 +63,29 @@ main = do
   source <- ByteString.readFile "test/integration/vertical_slice/vectors.json"
   case eitherDecodeStrict' source of
     Left message -> fail ("vertical-slice vectors are invalid JSON: " <> message)
-    Right (Object root) -> case KeyMap.lookup "cases" root of
-      Just (Array cases) -> do
-        unless (Vector.length cases == 2) $ fail "vertical-slice vectors must contain both decisions"
+    Right (Object root) -> case (KeyMap.lookup "format" root, KeyMap.lookup "implementations" root, KeyMap.lookup "scope" root, KeyMap.lookup "excludes" root, KeyMap.lookup "cases" root) of
+      (Just (String "semadmit-core-parity-cases/0.1"), Just (Array implementations), Just (Array scope), Just (Array excludes), Just (Array cases)) -> do
+        unless (implementations == Vector.fromList [String "python", String "haskell"]) $
+          fail "Core parity corpus must name both implementations"
+        unless
+          ( scope
+              == Vector.fromList
+                [ String "Core request normalization"
+                , String "generic subject, evidence, and component bindings"
+                , String "obligation reduction"
+                , String "decision payload and digest"
+                ]
+          ) $
+          fail "Core parity corpus scope changed without a test update"
+        unless (excludes == Vector.fromList [String "semadmit/claim/0.1", String "isoprax/0.1 domain semantics"]) $
+          fail "Core parity corpus scope must exclude unshared pack semantics"
+        unless (Vector.length cases == 2) $ fail "Core parity corpus must contain both decisions"
         let vectors = Vector.toList cases
+        unless (map (field "id") vectors == [Just (String "admissible"), Just (String "inadmissible")]) $
+          fail "Core parity corpus cases must retain their stable identities"
         forM_ vectors (checkVector registry)
         checkCLI registry vectors
-      _ -> fail "vertical-slice cases are missing"
+      _ -> fail "Core parity corpus metadata or cases are missing"
     Right _ -> fail "vertical-slice root must be an object"
 
 checkVector :: PackRegistry -> Value -> IO ()

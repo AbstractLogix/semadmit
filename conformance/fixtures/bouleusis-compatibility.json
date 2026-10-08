@@ -1,0 +1,11 @@
+{
+  "format": "semadmit-bouleusis-compatibility/0.1",
+  "semadmit_commit": "6ba07d119a62fa99cfb9ec875321bff7b4bd57d1",
+  "protocol": "semadmit/claim/0.1",
+  "core_protocol": "semantic-oracle/0.1",
+  "compatible_bouleusis_contract": "semadmit/claim-result-consumer/0.1",
+  "result_verification": "PASS",
+  "verification_api": "ClaimEngine.verify_result(request, result)",
+  "verification_fixture": "claim-verification-cases.json#complete-valid",
+  "commit_scope": "latest merged main commit at compatibility record creation"
+}

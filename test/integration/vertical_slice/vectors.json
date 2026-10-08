@@ -1,4 +1,13 @@
 {
+  "format": "semadmit-core-parity-cases/0.1",
+  "implementations": ["python", "haskell"],
+  "scope": [
+    "Core request normalization",
+    "generic subject, evidence, and component bindings",
+    "obligation reduction",
+    "decision payload and digest"
+  ],
+  "excludes": ["semadmit/claim/0.1", "isoprax/0.1 domain semantics"],
   "cases": [
     {
       "id": "admissible",
