@@ -260,13 +260,13 @@ class SelectorProvenanceChecks(unittest.TestCase):
             (
                 "shape",
                 lambda value: value["policy"].update(extra=True),
-                "input.invalid_shape",
+                "input.invalid_value",
                 "/policy",
             ),
             (
                 "digest",
                 lambda value: value["subjects"]["target"].update(digest="bad"),
-                "input.invalid_digest",
+                "input.invalid_value",
                 "/subjects/target/digest",
             ),
             (
@@ -274,7 +274,7 @@ class SelectorProvenanceChecks(unittest.TestCase):
                 lambda value: value["evidence"][0]["selector"].update(
                     consumer_relation="maybe"
                 ),
-                "input.invalid_relation",
+                "input.invalid_value",
                 "/evidence/0/selector/consumer_relation",
             ),
             (
@@ -282,13 +282,13 @@ class SelectorProvenanceChecks(unittest.TestCase):
                 lambda value: value["policy"].update(
                     rule_version="selector-independence/9.9"
                 ),
-                "policy.unsupported_rule",
+                "policy.unsupported",
                 "/policy/rule_version",
             ),
             (
                 "count",
                 lambda value: value.update(evidence=value["evidence"][:1]),
-                "evidence.invalid_count",
+                "input.invalid_value",
                 "/evidence",
             ),
             (
@@ -320,7 +320,7 @@ class SelectorProvenanceChecks(unittest.TestCase):
         self.assertEqual(JsonlRunner(self.evaluator).run(source, sink), 3)
         records = [json.loads(line) for line in sink.getvalue().splitlines()]
         self.assertEqual(len(records), 2)
-        self.assertEqual(records[0]["code"], "input.invalid_relation")
+        self.assertEqual(records[0]["code"], "input.invalid_value")
         self.assertEqual(records[1]["kind"], "decision")
 
     def test_pack_is_fail_closed_when_called_with_malformed_normalized_data(self) -> None:
@@ -329,8 +329,10 @@ class SelectorProvenanceChecks(unittest.TestCase):
             NormalizedPackRequest(policy=None, subjects=None, evidence=None),
         )
         self.assertEqual(result.diagnostics[0].code, "provenance.missing")
-        with self.assertRaises(PackInputError):
+        with self.assertRaises(PackInputError) as error:
             self.pack.validate("unsupported", {}, {}, [])
+        self.assertEqual(error.exception.code, "input.invalid_value")
+        self.assertEqual(error.exception.pointer, "/operation")
         self.assertEqual(RULE_VERSION, "selector-independence/0.1")
 
 

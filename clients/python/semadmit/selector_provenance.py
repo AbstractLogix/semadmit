@@ -54,7 +54,7 @@ def _object(
     value: object, required: set[str], optional: set[str], pointer: str
 ) -> dict[str, object]:
     if type(value) is not dict or not required <= set(value) or not set(value) <= required | optional:
-        raise PackInputError("input.invalid_shape", pointer)
+        raise PackInputError("input.invalid_value", pointer)
     return value
 
 
@@ -72,7 +72,7 @@ def _optional_text(value: object, pointer: str) -> str | None:
 
 def _digest(value: object, pointer: str) -> str:
     if type(value) is not str or _DIGEST.fullmatch(value) is None:
-        raise PackInputError("input.invalid_digest", pointer)
+        raise PackInputError("input.invalid_value", pointer)
     return value
 
 
@@ -104,7 +104,7 @@ def _dependencies(value: object, pointer: str) -> list[dict[str, str]]:
         identifier = _text(dependency["id"], f"{dependency_pointer}/id")
         relation = _text(dependency["relation"], f"{dependency_pointer}/relation")
         if relation not in _SHARED_RELATIONS and relation != "unknown":
-            raise PackInputError("input.invalid_relation", f"{dependency_pointer}/relation")
+            raise PackInputError("input.invalid_value", f"{dependency_pointer}/relation")
         normalized.append({"id": identifier, "relation": relation})
     return normalized
 
@@ -142,7 +142,7 @@ def _selector(value: object, pointer: str) -> dict[str, object] | None:
         selector.get("consumer_relation"), f"{pointer}/consumer_relation"
     )
     if consumer_relation is not None and consumer_relation not in _RELATIONS:
-        raise PackInputError("input.invalid_relation", f"{pointer}/consumer_relation")
+        raise PackInputError("input.invalid_value", f"{pointer}/consumer_relation")
     return {
         "id": _optional_text(selector.get("id"), f"{pointer}/id"),
         "type": _optional_text(selector.get("type"), f"{pointer}/type"),
@@ -182,7 +182,7 @@ def _normalize_policy(value: object) -> dict[str, object]:
     )
     version = _text(policy["rule_version"], f"{pointer}/rule_version")
     if version != RULE_VERSION:
-        raise PackInputError("policy.unsupported_rule", f"{pointer}/rule_version")
+        raise PackInputError("policy.unsupported", f"{pointer}/rule_version")
     context = _identity(policy["context"], f"{pointer}/context")
     if context is None or context["id"] is None:
         raise PackInputError("input.invalid_type", f"{pointer}/context/id")
@@ -253,7 +253,7 @@ def _normalize_evidence(value: object) -> list[dict[str, object]]:
     if type(value) is not list:
         raise PackInputError("input.invalid_type", "/evidence")
     if not 2 <= len(value) <= 8:
-        raise PackInputError("evidence.invalid_count", "/evidence")
+        raise PackInputError("input.invalid_value", "/evidence")
     normalized: list[dict[str, object]] = []
     for index, raw in enumerate(value):
         pointer = f"/evidence/{index}"
@@ -424,7 +424,7 @@ class SelectorProvenancePack:
         self, operation: str, policy: object, subjects: object, evidence: object
     ) -> NormalizedPackRequest:
         if operation != OPERATION:
-            raise PackInputError("protocol.unsupported_operation", "/operation")
+            raise PackInputError("input.invalid_value", "/operation")
         return NormalizedPackRequest(
             _normalize_policy(policy),
             _normalize_subjects(subjects),
@@ -442,7 +442,7 @@ class SelectorProvenancePack:
 
     def evaluate(self, operation: str, request: NormalizedPackRequest) -> PackEvaluation:
         if operation != OPERATION:
-            raise PackInputError("protocol.unsupported_operation", "/operation")
+            raise PackInputError("input.invalid_value", "/operation")
         return PackEvaluation(
             (ObligationOutcome("independence", "missing"),),
             tuple(

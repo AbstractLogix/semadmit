@@ -39,13 +39,7 @@ _INPUT_CODES = frozenset(
         "identity.digest_mismatch",
         "evidence.duplicate_id",
         "evidence.duplicate_role",
-        "evidence.invalid_count",
         "limit.exceeded",
-        "input.invalid_shape",
-        "input.invalid_digest",
-        "input.invalid_relation",
-        "policy.unsupported_rule",
-        "protocol.unsupported_operation",
     }
 )
 _INTERNAL_FAILURE = {"kind": "error", "code": "internal.failure", "pointer": ""}
