@@ -85,7 +85,7 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
     coverage_output = checked_gate("test and coverage gates", coverage_command)
     if "All test and coverage gates passed." not in coverage_output:
         raise RuntimeError("coverage command exited without its success marker")
-    test_counts = [int(count) for count in re.findall(r"^Ran (\d+) tests? in ", coverage_output, re.MULTILINE)]
+    test_counts = [int(count) for count in re.findall(r"\bRan (\d+) tests? in ", coverage_output)]
     if len(test_counts) != 2:
         raise RuntimeError("coverage output did not report both Python test counts")
 
