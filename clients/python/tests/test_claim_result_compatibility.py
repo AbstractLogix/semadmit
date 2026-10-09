@@ -24,6 +24,7 @@ class ClaimResultCompatibilityChecks(unittest.TestCase):
     def test_result_verification_rejects_changed_bindings_and_status(self) -> None:
         request = cases()[0]["request"]
         result = self.engine.evaluate(request)
+        self.assertTrue(self.engine.verify_result(request, result))
         mutations = (
             (("protocol",), "semadmit/claim/0.0"),
             (("result_id",), "sha256:" + "0" * 64),
@@ -33,7 +34,9 @@ class ClaimResultCompatibilityChecks(unittest.TestCase):
             (("admission_status",), "INADMISSIBLE"),
             (("verification_digest",), "sha256:bad"),
             (("verification", "evidence_ids"), []),
+            (("verification", "method"), "substituted-method"),
             (("core_decision", "decision_digest"), "sha256:" + "0" * 64),
+            (("core_decision", "payload", "operation"), "substituted-operation"),
             (("core_decision", "payload", "bindings", "components", 0, "digest"), "sha256:" + "0" * 64),
         )
         for path, replacement in mutations:
@@ -48,6 +51,11 @@ class ClaimResultCompatibilityChecks(unittest.TestCase):
         unexpected = json.loads(json.dumps(result))
         unexpected["unexpected"] = True
         self.assertFalse(self.engine.verify_result(request, unexpected))
+
+        missing_core = json.loads(json.dumps(result))
+        del missing_core["core_decision"]
+        self.assertFalse(self.engine.verify_result(request, missing_core))
+        self.assertFalse(self.engine.verify_result(request, []))
 
         changed_request = json.loads(json.dumps(request))
         changed_request["claim"]["id"] = "different-claim"

@@ -1,6 +1,6 @@
 # Release Readiness
 
-**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. This claim-contract qualification is separate from overall release readiness. See the [trust-boundary review](trust-boundary-review.md) for the guarantee and release-gap matrices.
+**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. This claim-contract qualification is separate from overall release readiness. See the [trust-boundary review](trust-boundary-review.md) for the guarantee matrix and the current [release assurance record](release-assurance.md) for fresh validation, detailed gates, and the reviewer packet.
 
 ## Historical Validation Record: 49a772e
 
