@@ -4,7 +4,7 @@
 
 ## Current Gate Matrix
 
-Latest merged baseline: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
+Assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 Assurance implementation and test commit: `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
 The full checks and artifacts for this commit are recorded in
 [release-assurance.md](release-assurance.md).
