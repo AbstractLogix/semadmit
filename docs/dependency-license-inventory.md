@@ -8,6 +8,7 @@
 - Haskell graph: 71 exact package versions in `cabal.project.freeze`, SHA-256 `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`.
 - Hackage index state: `2026-09-16T00:00:00Z`.
 - 69 packages were checked from source archives retrieved at that index state. Each declared `license` value and `license-file(s)` path came from its Cabal package description. Each declared license file was present. No `NOTICE` file was present in those 69 package source archives.
+- Per-archive SHA-256 values and a retrieval manifest were not retained. This record identifies the package versions and index state, but it cannot independently prove that a later archive is byte-identical to the archive inspected here.
 - `ghc-prim-0.13.1` and `rts-1.0.3` have no source archive at the pinned Hackage index state. The GHC 9.14.1 package database declares `BSD-3-Clause` for both. Their source license text and notices were not checked in this run.
 - The Cabal description format defines the `license` and `license-files` fields. These values are recorded as published; older values such as `BSD3` and `BSD2` are not rewritten here. See the [Cabal package description specification](https://github.com/haskell/cabal/blob/master/doc/cabal-package-description-file.rst).
 

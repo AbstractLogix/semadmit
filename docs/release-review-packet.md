@@ -61,6 +61,7 @@ The coverage command checks the pinned Python/GHC/Cabal versions, 58 Python test
 - The shared exact-output corpus covers nine Core cases. It does not cover every parser error, error pointer, resource limit, or CLI frame across languages.
 - Claim and selector packs do not have Haskell parity. Measurement is not qualified.
 - Two clean Python wheels matched. Two clean Python source archives did not; generated timestamps differ.
+- The dependency inventory records the lock and Hackage index state but has no per-archive hashes or retrieval manifest.
 - `ghc-prim` and `rts` have license identifiers in the GHC package database, but their source license and notice files were not audited.
 - Only Linux x86_64 under WSL2 with the pinned toolchain was tested. Other operating systems, architectures, and Python minor versions are unqualified.
 - Branch protection is unknown because GitHub returned HTTP 403 to the private repository protection query.
