@@ -5,8 +5,10 @@
 ## Current Gate Matrix
 
 Previous assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
-Independent Core assurance implementation and validation commit:
+Independent Core implementation commit:
 `47d55e1e7fa10348d4a39679add3590edfe8233b`.
+Certificate validation commit:
+`40528b3ea6989cb9487c9c558fdb278b1567e9d9`.
 The independent Core assurance extension and its exact commits are recorded in
 [independent-assurance.md](independent-assurance.md) and its machine-readable
 certificate.

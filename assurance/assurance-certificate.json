@@ -2,8 +2,8 @@
   "build_artifact_hashes_sha256": {
     "haskell_executable": "08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700",
     "haskell_source_archive": "f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4",
-    "python_source_archive": "89bc7581079a36d64b3512cd3423ffe28361c242a2bd073c2d35cbaf9f4eb45c",
-    "python_wheel": "461a8e81dcda9893e1db580cf4169ccff0ecdc1388b75dbe36df10c25701f5ee"
+    "python_source_archive": "00d226e13290fa31a130015223c38b5f5ff82ced03b2675eb91cfe10145454ff",
+    "python_wheel": "53690b5523b932800996d911b7df3ddcb2aadfc8bbb0ce4e6b473da223ed4fbd"
   },
   "counterexamples": {
     "count": 0,
@@ -24,7 +24,8 @@
     "independent_reference_tests": 7,
     "m0_identity_vectors_in_each_language": 9,
     "python_package_tests": 59,
-    "raw_parser_errors_in_each_language": 56,
+    "raw_parser_cases_in_each_language": 68,
+    "raw_parser_errors_in_each_language": 65,
     "seeded_python_differential_requests": 96,
     "selected_rfc8785_vectors_in_each_language": 1
   },
@@ -39,9 +40,9 @@
     "reference_scope": "fixture/0.1/check and common safe-integer JSON profile",
     "shared": [
       "57 complete fixture/0.1/check result or error vectors",
-      "56 raw parser error envelopes",
+      "68 raw parser cases, including 65 error envelopes",
       "9 M0 canonical identity vectors",
-      "1 selected RFC 8785 property-order vector"
+      "1 selected RFC 8785 property-order vectors"
     ]
   },
   "protocol": "semantic-oracle/0.1",
@@ -114,10 +115,39 @@
   ],
   "validation": {
     "hosted_ci": {
-      "run_url": null,
-      "status": "pending"
+      "run_url": "https://github.com/AbstractLogix/semadmit/actions/runs/37969409735",
+      "status": "passed"
     },
-    "local_full_validation": "passed"
+    "local_full_validation": "passed",
+    "local_gates": [
+      {
+        "argv": [
+          "/home/oscar/.local/bin/python3",
+          "-m",
+          "assurance.generate_corpus",
+          "--check"
+        ],
+        "exit_code": 0,
+        "name": "seeded_corpus"
+      },
+      {
+        "argv": [
+          "/home/oscar/.local/bin/python3",
+          "-m",
+          "assurance.mutation_check"
+        ],
+        "exit_code": 0,
+        "name": "source_mutation"
+      },
+      {
+        "argv": [
+          "/home/oscar/.local/bin/python3",
+          "scripts/check_coverage.py"
+        ],
+        "exit_code": 0,
+        "name": "test_and_coverage"
+      }
+    ]
   },
-  "validation_commit": "47d55e1e7fa10348d4a39679add3590edfe8233b"
+  "validation_commit": "40528b3ea6989cb9487c9c558fdb278b1567e9d9"
 }
