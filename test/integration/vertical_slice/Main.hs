@@ -79,10 +79,12 @@ main = do
           fail "Core parity corpus scope changed without a test update"
         unless (excludes == Vector.fromList [String "semadmit/claim/0.1", String "isoprax/0.1 domain semantics"]) $
           fail "Core parity corpus scope must exclude unshared pack semantics"
-        unless (Vector.length cases == 2) $ fail "Core parity corpus must contain both decisions"
         let vectors = Vector.toList cases
-        unless (map (field "id") vectors == [Just (String "admissible"), Just (String "inadmissible")]) $
-          fail "Core parity corpus cases must retain their stable identities"
+        unless
+          ( map (field "id") vectors
+              == map (Just . String) ["admissible", "inadmissible", "indeterminate", "pass-with-missing", "failure-dominates-missing", "duplicate-evidence", "unsupported-protocol", "policy-digest-mismatch", "unexpected-field"]
+          ) $
+          fail "Core parity corpus must retain its reviewed cases and order"
         forM_ vectors (checkVector registry)
         checkCLI registry vectors
       _ -> fail "Core parity corpus metadata or cases are missing"
@@ -255,7 +257,7 @@ fixtureOperation =
     , operationComponentDeclarations =
         [ComponentDeclaration "item" "name" "component" "fixture/0.1/component" 1 1]
     , operationEvidenceDeclaration = Just (EvidenceDeclaration "assertion" "fixture/0.1/assertion")
-    , operationObligations = ["present"]
+    , operationObligations = ["present", "complete"]
     , operationAllowedOutcomes = [Pass, Fail, Missing]
     , operationDiagnosticPointers = Map.singleton "domain.mismatch" ["/subjects/item/name"]
     }
@@ -270,7 +272,7 @@ normalize _ policy subjects evidence = do
 validatePolicy :: Value -> Either PackInputError ()
 validatePolicy (Object fields) = case KeyMap.lookup "mode" fields of
   Just (String mode)
-    | KeyMap.size fields == 1 && mode `elem` ["pass", "fail", "missing"] -> Right ()
+    | KeyMap.size fields == 1 && mode `elem` ["pass", "fail", "missing", "partial", "mixed"] -> Right ()
   _ -> Left (PackInputError "policy.unsupported" "/policy")
 validatePolicy _ = Left (PackInputError "policy.unsupported" "/policy")
 
@@ -310,18 +312,22 @@ evaluate _ _ request =
         "fixture/0.1/component"
         (object ["name" .= subjectName])
     ]
-    [("present", outcome)]
+    [("present", presentOutcome), ("complete", completeOutcome)]
     diagnostics
   where
     subject = field "item" (normalizedSubjects request)
     subjectName = maybe Null String (subject >>= textField "name")
-    outcome = case textField "mode" (normalizedPolicy request) of
-      Just "fail" -> Fail
-      Just "missing" -> Missing
-      _ -> Pass
-    diagnostics = case outcome of
-      Fail -> [Diagnostic "present" "/subjects/item/name" "domain.mismatch"]
-      _ -> []
+    (presentOutcome, completeOutcome) = case textField "mode" (normalizedPolicy request) of
+      Just "fail" -> (Pass, Fail)
+      Just "missing" -> (Missing, Missing)
+      Just "partial" -> (Missing, Pass)
+      Just "mixed" -> (Fail, Missing)
+      _ -> (Pass, Pass)
+    diagnostics =
+      [ Diagnostic identifier "/subjects/item/name" "domain.mismatch"
+      | (identifier, outcome) <- [("present", presentOutcome), ("complete", completeOutcome)]
+      , outcome == Fail
+      ]
 
 field :: Text -> Value -> Maybe Value
 field name (Object fields) = KeyMap.lookup (Key.fromText name) fields

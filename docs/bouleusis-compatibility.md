@@ -10,13 +10,15 @@ The exact merged Semadmit commit recorded for this compatibility baseline is:
 
 The machine-readable record is [bouleusis-compatibility.json](../conformance/fixtures/bouleusis-compatibility.json). It identifies the latest merged `main` commit when this record was created. A later Semadmit change needs a new reviewed pin record before a consumer moves to it.
 
+This is the minimum reviewed implementation for the contract. The expanded machine-readable matrix is [claim-consumer-compatibility-matrix.json](../conformance/fixtures/claim-consumer-compatibility-matrix.json). Current `main` is tested against this frozen pin; it does not replace the pin.
+
 ## Pin Scope and Later Packs
 
 The `de61aa87a5f4470fd64de33c926cff7f92cf8bd6` value remains the compatibility pin for the `semadmit/claim/0.1` request, result wrapper, and verification boundary. Do not change that fixture just because a later commit adds another pack.
 
 The later validation snapshot `49a772eed2591747c99b3af29c6992fda14f120d` adds the experimental Python pack `selector-provenance/0.1`. This pack is separate from the claim protocol and is not part of the Bouleusis compatibility record. A consumer that needs the selector pack must review and pin that later interface separately.
 
-The selector pack currently returns Core state `indeterminate` for all four bounded `independent_corroboration` cases. It records provenance and dependence relations; it does not establish independent errors or grant admission from selector relevance. No executable independence admission rule is supported until Isoprax supplies empirical evidence and a reviewed operation-specific rule.
+The selector pack currently returns Core state `indeterminate` for all four bounded `independent_corroboration` cases. It records provenance and dependence relations; it does not establish independent evidence or grant admission from selector relevance. No executable independence admission rule is supported until Isoprax supplies empirical evidence and a reviewed operation-specific rule.
 
 ## Frozen Protocols
 
@@ -50,6 +52,8 @@ if not engine.verify_result(request, result):
 ```
 
 `verify_result` recomputes the result from the supplied request and compares the canonical JSON bytes. It checks request/result binding, claim and evidence identities, the verification artifact digest, the Core decision digest and bindings, the supported status pair, and the protocol. It returns `False` for malformed candidates and for any mismatch. Callers do not need to reproduce Semadmit canonicalization rules.
+
+The matrix records the minimum Python runtime as `>=3.13,<3.14` and lists the normative and adversarial cases. The suite checks boolean/integer substitutions (`true`/`1` and `false`/`0`), candidate changes, evidence and policy substitution, malformed digests, duplicate JSON keys, invalid Unicode, unsupported versions, and unknown results.
 
 `VerificationStatus` and `AdmissionStatus` remain separate values. The supported pairs are:
 

@@ -91,7 +91,7 @@ class Evaluator:
             and registered is not None
             and operation is not None
             and result.get("kind") == "decision"
-            and copied_candidate == result
+            and canonical_bytes(copied_candidate) == canonical_bytes(result)
         )
 
     def verify(self, request: object, candidate: object) -> Admission | None:
@@ -107,7 +107,7 @@ class Evaluator:
         payload = result.get("payload")
         if result.get("kind") != "decision" or type(payload) is not dict:
             return None
-        if payload.get("state") != "admissible" or copied_candidate != result:
+        if payload.get("state") != "admissible" or canonical_bytes(copied_candidate) != canonical_bytes(result):
             return None
         return Admission(_ADMISSION_TOKEN, snapshot, registered, operation)
 
