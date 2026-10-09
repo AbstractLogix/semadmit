@@ -8,7 +8,7 @@ qualification results.
 
 ## Exact Baseline and Validation
 
-- Latest merged baseline: `b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
+- Latest merged baseline: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 - Assurance implementation and test commit:
   `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
 - Scope: dependency provenance evidence, Python source archive metadata
