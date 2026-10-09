@@ -87,28 +87,35 @@ Python-only because Haskell does not implement the claim semantics.
 Use Linux x86_64, CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31.
 Run from a clean checkout of the exact implementation commit above.
 
-```sh
+```bash
+set -euo pipefail
+scratch="$(mktemp -d /tmp/semadmit-review-build.XXXXXX)"
+mkdir -p "$scratch/haskell" "$scratch/python"
 python3 scripts/check_coverage.py
 cabal build exe:semantic-oracle
-cabal sdist --output-directory=/tmp/semadmit-review-haskell
-uv build --out-dir /tmp/semadmit-review-python clients/python
+cabal sdist --output-directory="$scratch/haskell"
+uv build --out-dir "$scratch/python" clients/python
+printf 'Build artifacts: %s\n' "$scratch"
 ```
 
 To rebuild and compare the normalized Python source archives from two clean
 copies of the exact source commit:
 
-```sh
+```bash
+set -euo pipefail
 source_sha=cad6943ce19bc4b0439cd85332ed632ee17f3a9f
 source_epoch="$(git show -s --format=%ct "$source_sha")"
-mkdir -p /tmp/semadmit-source-a /tmp/semadmit-source-b
-git archive "$source_sha" | tar -x -C /tmp/semadmit-source-a
-git archive "$source_sha" | tar -x -C /tmp/semadmit-source-b
-(cd /tmp/semadmit-source-a && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir /tmp/semadmit-build-a clients/python)
-(cd /tmp/semadmit-source-b && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir /tmp/semadmit-build-b clients/python)
-SOURCE_DATE_EPOCH="$source_epoch" python3 scripts/normalize_python_sdist.py /tmp/semadmit-build-a/semadmit-0.1.0.dev0.tar.gz /tmp/semadmit-build-a/normalized.tar.gz
-SOURCE_DATE_EPOCH="$source_epoch" python3 scripts/normalize_python_sdist.py /tmp/semadmit-build-b/semadmit-0.1.0.dev0.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
-sha256sum /tmp/semadmit-build-a/normalized.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
-cmp /tmp/semadmit-build-a/normalized.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
+repository_root="$(git rev-parse --show-toplevel)"
+scratch="$(mktemp -d /tmp/semadmit-source-repro.XXXXXX)"
+mkdir -p "$scratch/source-a" "$scratch/source-b" "$scratch/build-a" "$scratch/build-b"
+git archive "$source_sha" | tar -x -C "$scratch/source-a"
+git archive "$source_sha" | tar -x -C "$scratch/source-b"
+(cd "$scratch/source-a" && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir "$scratch/build-a" clients/python)
+(cd "$scratch/source-b" && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir "$scratch/build-b" clients/python)
+SOURCE_DATE_EPOCH="$source_epoch" python3 "$repository_root/scripts/normalize_python_sdist.py" "$scratch/build-a/semadmit-0.1.0.dev0.tar.gz" "$scratch/build-a/normalized.tar.gz"
+SOURCE_DATE_EPOCH="$source_epoch" python3 "$repository_root/scripts/normalize_python_sdist.py" "$scratch/build-b/semadmit-0.1.0.dev0.tar.gz" "$scratch/build-b/normalized.tar.gz"
+sha256sum "$scratch/build-a/normalized.tar.gz" "$scratch/build-b/normalized.tar.gz"
+cmp "$scratch/build-a/normalized.tar.gz" "$scratch/build-b/normalized.tar.gz"
 ```
 
 The recorded normalized archive SHA-256 is
