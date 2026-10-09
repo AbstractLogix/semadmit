@@ -1,8 +1,8 @@
 # Release Readiness
 
-**Status**: Not ready for release. The main merge at `49a772eed2591747c99b3af29c6992fda14f120d` passed the full automated test and coverage gate, the Python package build, and the Haskell executable smoke check recorded below. Release gates remain open for broader conformance, the full redistribution inventory, independent final review, and the separate release decision.
+**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. This claim-contract qualification is separate from overall release readiness. See the [trust-boundary review](trust-boundary-review.md) for the guarantee and release-gap matrices.
 
-## Validation Record: 2026-10-08
+## Historical Validation Record: 49a772e
 
 Validation ran from a clean detached worktree at the exact `origin/main` commit `49a772eed2591747c99b3af29c6992fda14f120d` (PR #4 merge). Host: Linux x86_64; CPython 3.13.14; GHC 9.14.1; Cabal 3.18.1.0; uv 0.11.31.
 
@@ -14,6 +14,21 @@ Validation ran from a clean detached worktree at the exact `origin/main` commit 
 - The separate Python pack `selector-provenance/0.1` is present at `49a772e`. Its bounded `independent_corroboration` cases remain `indeterminate`. Semadmit has no empirical Isoprax result that supports an independence admission rule, so this validation adds no such rule and does not interpret relevance scores or model identity as proof of independence.
 
 This record establishes the listed build and test results for this commit. It does not establish release readiness, complete transitive license review, independent final review, or validation on other hosts.
+
+## Qualification Validation Record: 3b802a33acbb501ec4a4bcc3874e202322c41a8f
+
+Source commit: `3b802a33acbb501ec4a4bcc3874e202322c41a8f` (`fix(core): verify JSON results canonically`), based on clean `main` at `79dc40a74dfb6aa6469534ecde14bc80903cb685`. Host: Linux x86_64 under WSL2; CPython 3.13.14; GHC 9.14.1; Cabal 3.18.1.0; uv 0.11.31.
+
+- `python3 scripts/check_coverage.py`: **PASS**. All 58 Python tests passed. All 9 package modules passed the 100% executable-line floor (1,673 of 1,673 lines). All 7 Haskell suites passed. HPC measured 5,315 of 5,859 expressions (90.72%, floor 89%) and 89 of 193 boolean outcomes (46.11%, floor 34%). The commit hook reran this gate and passed.
+- The nine shared Core vectors passed in both Python and Haskell. They cover all three states, partial and mixed outcome reduction, duplicate evidence, unsupported protocol, policy digest mismatch, and an unexpected field. This does not claim claim-pack or selector-pack parity.
+- `cabal build exe:semantic-oracle`: **PASS**. The CLI smoke returned an admissible `admissible-ece-equality` decision with a decision digest.
+- `uv build --out-dir /tmp/semadmit-build-trust-boundary-79dc clients/python`: **PASS**. Wheel metadata declares `License-Expression: Apache-2.0`. The wheel has all 9 Python modules and the license, and it has no test package. The source archive has the license and selector module.
+- Artifact SHA-256: sdist `f273d7efae337fdaa68afa6dfb87aaa96dfc7d9b9fd60239e6566c849ffae5e5`; wheel `14abe2fc3dbc5bb24479f2603290f25bb745d80781ffe8d5cbe297ba0f708707`.
+- `cabal.project.freeze` pins 71 Haskell package versions at Hackage index state `2026-09-16T00:00:00Z`; file SHA-256 is `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`. This run confirms the recorded toolchain and locked graph build on this host. It does not establish byte-for-byte builds or qualification on other hosts.
+- The Python package has no third-party runtime dependencies. The setuptools 84.0.0 build backend is pinned. The Haskell direct dependency versions and license identifiers are recorded below. The lock pins the transitive graph, but a package-by-package transitive license and notice review remains open.
+- A read-only GitHub protection query returned HTTP 403 with a message that private-repository branch protection needs an upgrade. Protection status is unknown. No repository settings changed. The proposed rule is to require the **Coverage** check and one independent review.
+
+The package was built from the same source tree that was committed as `3b802a33acbb501ec4a4bcc3874e202322c41a8f`. The full test/coverage hook passed on that exact commit. Hosted pull-request status is reported separately from this local record.
 
 ## License and Provenance
 
@@ -30,7 +45,7 @@ This record establishes the listed build and test results for this commit. It do
 - Direct Haskell dependencies are `base` 4.22.0.0 (BSD-3-Clause), `aeson` 2.2.5.1 (BSD-3-Clause), `bytestring` 0.12.2.0 (BSD-3-Clause), `containers` 0.8 (BSD-3-Clause), `cryptohash-sha256` 0.11.102.1 (BSD3), `directory` 1.3.10.0 (BSD-3-Clause, test only), `scientific` 0.3.8.1 (BSD3), `text` 2.1.3 (BSD-2-Clause), and `vector` 0.13.2.0 (BSD-3-Clause). The pinned Cabal package metadata supplies these license declarations. `aeson` provides JSON values and RFC 8785 encoding. The bounded byte parser enforces the v0.1 token profile. `cryptohash-sha256` provides digests. `base` provides exact `Ratio Integer`. `scientific` and `vector` support Aeson value validation. `Core.CLI` uses `base` and `bytestring` for handle-based framing and output.
 - Direct license metadata permits the selected Apache-2.0 project license. Preserve each dependency's distribution notices. Review the transitive graph before release. This repository does not copy dependency code.
 
-## Setup Checks Run
+## Historical M1 Setup Checks
 
 - `cabal build lib:semantic-oracle` completed with GHC 9.14.1. The library contains protocol parsing, bounded canonical identity, pack registration, and decision evaluation. A shared registered-pack vector suite checks positive and negative decisions through the Haskell evaluator.
 - `cabal freeze` wrote the locked direct and transitive Haskell package graph.
@@ -45,9 +60,12 @@ Apache-2.0 permits reuse and redistribution under its conditions. It also includ
 
 ## Open Gates
 
-- M2: Complete snapshot-bound verification, guarded consumption, independent Python Isoprax parity, and substitution checks.
-- M3: Implement and check the Haskell and Python Measurement packs.
-- M4: Complete the downstream extension example and its guarded-use checks.
-- M5–M6: Add broader conformance tests, close license and dependency-provenance checks, record release evidence, and obtain independent final review.
-- T043–T045: Inventory each redistributed direct and transitive dependency. Verify package license metadata and included notices. Record clean build/test commands and exact source SHAs. Obtain final independent review.
+- Snapshot-bound verification: bind verification to an immutable implementation or build identity.
+- Guarded consumption: provide a claim-specific checked-use capability.
+- Measurement pack: qualify matching Python and Haskell semantics.
+- Extension example: add downstream guarded-use and conformance checks.
+- Broad conformance: add more parser-limit, component-binding, evidence-boundary, and error-order cases. The nine shared Core vectors do not close this gate.
+- Dependency and license review: inventory transitive notices and confirm each redistribution requirement.
+- Independent final review: obtain a separate reviewer for the implementation, contracts, package, and license evidence.
+- Repository protection: branch rules could not be inspected; the repository owner must confirm that Coverage and independent review are required.
 - Publishing remains a separate decision.
