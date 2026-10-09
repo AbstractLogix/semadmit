@@ -29,8 +29,20 @@ class VerticalSliceChecks(unittest.TestCase):
             ],
         )
         self.assertEqual(vectors["excludes"], ["semadmit/claim/0.1", "isoprax/0.1 domain semantics"])
-        self.assertEqual([case["id"] for case in vectors["cases"]], ["admissible", "inadmissible"])
-        self.assertEqual(len(vectors["cases"]), 2)
+        self.assertEqual(
+            [case["id"] for case in vectors["cases"]],
+            [
+                "admissible",
+                "inadmissible",
+                "indeterminate",
+                "pass-with-missing",
+                "failure-dominates-missing",
+                "duplicate-evidence",
+                "unsupported-protocol",
+                "policy-digest-mismatch",
+                "unexpected-field",
+            ],
+        )
 
         for case in vectors["cases"]:
             with self.subTest(case=case["id"]):

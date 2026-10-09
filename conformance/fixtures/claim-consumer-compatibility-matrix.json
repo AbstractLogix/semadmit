@@ -1,0 +1,99 @@
+{
+  "format": "semadmit-claim-consumer-compatibility/0.1",
+  "compatible_bouleusis_contract": "semadmit/claim-result-consumer/0.1",
+  "minimum_reviewed_semadmit_commit": "de61aa87a5f4470fd64de33c926cff7f92cf8bd6",
+  "protocols": {
+    "claim_request": "semadmit/claim/0.1",
+    "core_request_and_decision": "semantic-oracle/0.1",
+    "consumer_boundary": "semadmit/claim-result-consumer/0.1"
+  },
+  "verification_api": {
+    "language": "python",
+    "call": "ClaimEngine.verify_result(request, result)",
+    "success_value": true,
+    "failure_value": false,
+    "recomputes_from_request": true
+  },
+  "python_runtime": ">=3.13,<3.14",
+  "request_schema": {
+    "closed": true,
+    "fields": ["protocol", "policy", "claim", "context", "evidence"],
+    "schema_source": "clients/python/semadmit/claim_verification.py"
+  },
+  "result_schema": {
+    "closed_fields": [
+      "kind",
+      "protocol",
+      "result_id",
+      "claim_id",
+      "evidence_ids",
+      "verification_status",
+      "admission_status",
+      "verification_digest",
+      "verification",
+      "core_decision"
+    ],
+    "core_decision_closed_fields": ["kind", "payload", "decision_digest"],
+    "core_payload_closed_fields": [
+      "protocol",
+      "pack",
+      "operation",
+      "request_digest",
+      "policy_digest",
+      "state",
+      "bindings",
+      "obligations",
+      "diagnostics"
+    ]
+  },
+  "identity": {
+    "canonicalization": "RFC 8785 JSON Canonicalization Scheme with UTF-16 property ordering",
+    "request_json_profile": "Unicode scalar strings, unique object keys, safe integers only, bounded depth and byte size",
+    "artifact_digest": "SHA-256 of canonical {kind,schema,payload} identity envelope",
+    "decision_digest": "SHA-256 of canonical Core decision payload",
+    "verification_digest_binding": "must equal the Core component binding for the verification artifact"
+  },
+  "supported_status_pairs": [
+    {"verification": "VALID", "admission": "ADMISSIBLE", "core_state": "admissible"},
+    {"verification": "INVALID", "admission": "INADMISSIBLE", "core_state": "inadmissible"},
+    {"verification": "UNKNOWN", "admission": "REQUIRES_SEPARATE_TREATMENT", "core_state": "indeterminate"}
+  ],
+  "failure_handling": {
+    "invalid_request": "evaluate returns {kind:error,code,pointer}; it is not a claim result",
+    "invalid_or_mismatched_candidate": false,
+    "unexpected_result_fields": false,
+    "duplicate_json_keys": "input.duplicate_key error",
+    "invalid_unicode": "input.invalid_unicode error or verification false",
+    "invalid_or_unsupported_protocol": "error or verification false",
+    "incomplete_evidence": "UNKNOWN / REQUIRES_SEPARATE_TREATMENT / indeterminate",
+    "source_authenticity": "not established by a digest or result verification"
+  },
+  "normative_claim_cases": [
+    "complete-valid",
+    "counterexample-invalid",
+    "partial-unknown",
+    "family-mismatch-unknown",
+    "unsupported-family-unknown",
+    "missing-evidence-unknown"
+  ],
+  "adversarial_checks": [
+    "true-versus-one",
+    "false-versus-zero",
+    "candidate-result-mutation",
+    "evidence-identity-substitution",
+    "policy-substitution",
+    "request-result-mismatch",
+    "invalid-unicode",
+    "duplicate-json-keys",
+    "malformed-digests",
+    "unsupported-protocols",
+    "incomplete-evidence",
+    "unexpected-output-fields"
+  ],
+  "scope_limits": [
+    "A valid digest identifies the supplied artifact; it does not authenticate its source.",
+    "Deterministic result verification checks reevaluation under the registered implementation; it does not establish evidence truth or reliability.",
+    "Admission permits evidence to participate only in the named operation under the declared policy; it does not prescribe a belief update.",
+    "This matrix does not claim a Bouleusis integration run or Python/Haskell claim-pack parity."
+  ]
+}

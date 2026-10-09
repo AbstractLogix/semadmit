@@ -3,6 +3,7 @@
 import json
 import unittest
 from io import BytesIO
+from unittest.mock import patch
 
 from semadmit.evaluator import Admission, Evaluator, JsonlRunner
 from semadmit.identity import decision_digest
@@ -39,7 +40,7 @@ def operation() -> OperationDescriptor:
                 1,
             ),
         ),
-        obligations=("present",),
+        obligations=("complete", "present"),
         diagnostic_pointers={"domain.mismatch": ("/subjects/item/name",)},
         input_schemas={"policy": {}, "subjects": {}, "evidence": {}},
         validation_order={"policy": ("mode",), "subjects": ("item",), "evidence": ("id",)},
@@ -62,6 +63,8 @@ class FixturePack:
             "pass",
             "fail",
             "missing",
+            "partial",
+            "mixed",
         }:
             raise PackInputError("policy.unsupported", "/policy")
         if (
@@ -105,12 +108,23 @@ class FixturePack:
 
     def evaluate(self, operation_name: str, request: NormalizedPackRequest) -> PackEvaluation:
         outcome = request.policy["mode"]
-        diagnostics = (
-            (Diagnostic("present", "/subjects/item/name", "domain.mismatch"),)
-            if outcome == "fail"
-            else ()
+        outcomes = {
+            "pass": ("pass", "pass"),
+            "fail": ("pass", "fail"),
+            "missing": ("missing", "missing"),
+            "partial": ("missing", "pass"),
+            "mixed": ("fail", "missing"),
+        }[outcome]
+        obligations = (
+            ObligationOutcome("present", outcomes[0]),
+            ObligationOutcome("complete", outcomes[1]),
         )
-        return PackEvaluation((ObligationOutcome("present", outcome),), diagnostics)
+        diagnostics = tuple(
+            Diagnostic(identifier, "/subjects/item/name", "domain.mismatch")
+            for identifier, item_outcome in zip(("present", "complete"), outcomes)
+            if item_outcome == "fail"
+        )
+        return PackEvaluation(obligations, diagnostics)
 
 
 def request(mode: str = "pass", evidence: list[object] | None = None) -> dict[str, object]:
@@ -160,6 +174,31 @@ class EvaluatorChecks(unittest.TestCase):
             self.evaluator.evaluate(invalid),
             {"kind": "error", "code": "identity.digest_mismatch", "pointer": "/policy_digest"},
         )
+
+    def test_status_reduction_keeps_failure_above_missing(self) -> None:
+        partial = self.evaluator.evaluate(request("partial", []))
+        mixed = self.evaluator.evaluate(request("mixed", []))
+        self.assertEqual(partial["payload"]["state"], "indeterminate")
+        self.assertEqual(
+            {item["id"]: item["outcome"] for item in partial["payload"]["obligations"]},
+            {"complete": "pass", "present": "missing"},
+        )
+        self.assertEqual(mixed["payload"]["state"], "inadmissible")
+        self.assertEqual(
+            {item["id"]: item["outcome"] for item in mixed["payload"]["obligations"]},
+            {"complete": "missing", "present": "fail"},
+        )
+
+    def test_result_comparison_uses_json_types(self) -> None:
+        evaluation = self.evaluator._evaluate(request())
+        for number, boolean in ((1, True), (0, False)):
+            expected = dict(evaluation[0])
+            expected["future_numeric_field"] = number
+            candidate = dict(expected)
+            candidate["future_numeric_field"] = boolean
+            with patch.object(self.evaluator, "_evaluate", return_value=(expected, *evaluation[1:])):
+                self.assertFalse(self.evaluator.verify_result(request(), candidate))
+                self.assertIsNone(self.evaluator.verify(request(), candidate))
 
     def test_pack_errors_and_verification_fail_closed(self) -> None:
         unsupported = request()
