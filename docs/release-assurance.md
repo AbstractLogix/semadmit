@@ -1,88 +1,178 @@
 # Release Assurance
 
-**Claim contract: qualified. Release: not ready.** The claim contract qualification covers the Semadmit verifier and its bounded conformance cases. It does not claim a Bouleusis integration run. The stable compatibility pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6` for `semadmit/claim/0.1`. The separate `selector-provenance/0.1` pack remains experimental.
+**Claim contract: qualified. Release: not ready.** The qualified contract is
+`semadmit/claim/0.1`. The stable Bouleusis compatibility pin remains
+`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate
+`selector-provenance/0.1` pack remains experimental. These are separate
+qualification results.
 
-This record separates evidence for the current merged baseline from older validation. It does not treat a documentation entry as proof that an open gate is complete.
+## Exact Baseline and Validation
 
-## Clean Baseline
+- Latest merged baseline: `b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
+- Assurance implementation and test commit:
+  `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
+- Scope: dependency provenance evidence, Python source archive metadata
+  normalization, and exact shared parser-error comparisons. No claim, Core,
+  or selector runtime semantics changed.
+- Host: Linux x86_64 under WSL2; CPython 3.13.14; GHC 9.14.1; Cabal 3.18.1.0;
+  uv 0.11.31.
 
-Validation ran from a clean checkout of `origin/main` at `46b81c7d1429dc645efafdafcfac35b584ef38b9` on 2026-10-08. Host: Linux x86_64 under WSL2. Toolchain: CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31.
+The full validation command was `python3 scripts/check_coverage.py`.
 
 | Check | Result | Evidence |
 | --- | --- | --- |
-| Python tests and coverage | PASS | `python3 scripts/check_coverage.py`: 58 tests; all 9 package modules at 100% executable-line coverage (1,673/1,673). The gate does not measure Python branch coverage. |
-| Haskell tests and coverage | PASS | All 7 declared suites passed. HPC: 5,315/5,859 expressions (90.72%, floor 89%) and 89/193 booleans (46.11%, floor 34%). |
-| Shared Python/Haskell Core corpus | PASS for stated scope | All 9 exact-output vectors passed in both implementations. This is not claim-pack or selector-pack parity. |
-| Haskell executable | PASS | `cabal build exe:semantic-oracle` completed. |
-| CLI smoke | PASS | The `admissible-ece-equality` request returned `admissible` and the fixture decision digest `sha256:90e4c7d10296fe508ecd250904139d8b8c0c492b361b1f59940afdf7b4faa0f5`. |
-| Python sdist and wheel | PASS | `uv build --out-dir /tmp/semadmit-release-assurance-46b81c7 clients/python` completed. The wheel has 9 runtime modules, no test package, and the Apache-2.0 license. The sdist includes the license and tests. |
-| Wheel metadata | PASS | `License-Expression: Apache-2.0`; `Requires-Python: >=3.13,<3.14`; no Python runtime dependencies. |
-| Claim compatibility matrix | PASS | `ClaimEngine.verify_result` accepted the normative valid fixture. Tests reject candidate mutation, request substitution, status changes, digest changes, duplicate keys, and invalid Unicode. |
+| Python tests and line coverage | PASS | 58 tests; all 9 package modules at 100% executable-line coverage (1,678/1,678). Python branch coverage is not measured. |
+| Haskell tests and coverage | PASS | All 7 suites; 5,315/5,859 expressions (90.72%, floor 89%); 89/193 booleans (46.11%, floor 34%). |
+| Haskell executable build | PASS | `cabal build exe:semantic-oracle`; SHA-256 `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700`. This matches the earlier two-clean-build result; Haskell runtime code did not change. |
+| Haskell CLI smoke | PASS | The `admissible-ece-equality` request returned `admissible` and decision digest `sha256:90e4c7d10296fe508ecd250904139d8b8c0c492b361b1f59940afdf7b4faa0f5`. |
+| Haskell source archive | PASS | `cabal sdist --output-directory=/tmp/semadmit-final-cad6943-haskell`; SHA-256 `b79b145abfa4fd2f138c1cd17a46926f29acc9485cd9bcce1ca42925f4bbeac5`. It contains Semadmit's `LICENSE`; it does not bundle dependencies. |
+| Python source archive and wheel | PASS | `uv build --out-dir /tmp/semadmit-final-cad6943-python clients/python`; raw sdist SHA-256 `fb019e472d95702487c07d29f06b3268b7524b121b5c1b27689a9d528eaacd86`; wheel SHA-256 `3bd2eefbad3348401ac1d1a9155f597c2b58ca7941eb71a5970d903f43659871`. |
+| Python package contents | PASS | Wheel has 9 modules, no tests, no runtime dependencies, the Semadmit license, and `License-Expression: Apache-2.0`. The sdist includes the license and tests. |
+| Dependency archives | PASS for recorded artifacts | All 69 locked Hackage archive hashes and sizes match the current Cabal-managed Hackage index target metadata. A fresh download check also matched `aeson-2.2.5.1`. GHC source signatures and the remaining notice limits are recorded below. |
 
-The claim pin and the validation commit are separate values. The pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`; this run validated the current merged source at `46b81c7d1429dc645efafdafcfac35b584ef38b9`.
+The Cabal lock file hash is
+`9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`.
+The effective index state is `2026-09-15T22:55:42Z`, recorded in
+`cabal.project.freeze`. `cabal.project` says `2026-09-16T00:00:00Z`, but Cabal
+applies the freeze file after the project file. See the [Cabal configuration
+order](https://github.com/haskell/cabal/blob/master/doc/cabal-project-description-file.rst#L204-L210).
 
-## Assurance Test Commit
+## Qualification Matrix
 
-The focused regression-test commit is `03751e4a3a234c00360c9e6ddf36b6f742b0e3b3`. It changes tests only; it does not change Python or Haskell runtime code. The full coverage hook passed on this exact commit: 58 Python tests; all 9 modules at 100% executable-line coverage (1,674/1,674); all 7 Haskell suites; 5,315/5,859 expressions (90.72%) and 89/193 booleans (46.11%).
+| Area | Status | Evidence and limit |
+| --- | --- | --- |
+| Claim protocol | Qualified | Python Semadmit verifier checks request/result binding, identities, digests, Core bindings, status pairs, and protocol version. This is not a truth or source-authentication claim. |
+| Core cross-language conformance | Qualified for named vectors | Python and Haskell compare the 9 exact decision vectors and 9 M0 identity vectors. Both also run the selected RFC 8785 property-order vector and 8 raw parser-error cases. This does not establish full cross-language parity. |
+| Claim semantics | Python-only | `semadmit/claim/0.1` is implemented and tested in Python. Haskell does not implement this claim pack. No claim-pack parity is asserted. |
+| Selector provenance | Experimental | `selector-provenance/0.1` remains Python-only. All 4 bounded independence cases remain `indeterminate`. No positive independence rule is supported by the current IsoPrax evidence. |
+| Distribution readiness | Not ready | The normalized Python sdist is reproducible on the tested host, but the Haskell runtime notice set is incomplete for a future binary. Other hosts and the release build environment are not qualified. |
+| Independent release approval | Open | No independent human has reviewed and approved the exact source, dependency notices, and distribution artifacts. Automated checks do not close this gate. |
 
-Two clean builds from this exact source commit produced identical Python wheels with SHA-256 `086a9911558f539fa892857403282c1838b40722dfa504105e4aabcf5c224339` and identical Haskell executables with SHA-256 `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700`. The Python sdist hashes differed: `263580b032f2b8fb09ee70b39422d3436cd9fc48394ba14ed8df9cb8c069799c` and `eef5869b31101add915f97967fd238832fb55a250d6c4a0b3c372786ab4b1712`. The sdist member contents matched; generated timestamps differed.
+`VerificationStatus` remains separate from `AdmissionStatus`. An admissibility
+result only says whether evidence may participate in the named operation under
+the declared policy. It does not tell Bouleusis what to believe.
 
-### Clean Build Repeatability
+## Cross-Language Conformance Review
 
-Two clean source snapshots were built with `SOURCE_DATE_EPOCH` set to the baseline commit time. The Python wheel was byte-identical in both builds: SHA-256 `5e08e6ec31a9f6904c360b858380b9604aaade29e0e2ee4550a19dbfa0f759a3`. The Haskell executable was byte-identical in both builds: SHA-256 `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700`.
+The nine exact Core decision vectors are:
+`admissible`, `inadmissible`, `indeterminate`, `pass-with-missing`,
+`failure-dominates-missing`, `duplicate-evidence`, `unsupported-protocol`,
+`policy-digest-mismatch`, and `unexpected-field`. They compare full decisions
+and error results. They cover generic request normalization, identity and
+component bindings, digest equality, and operation-state reduction.
 
-The Python source archives were not byte-identical. Their SHA-256 values were `ab83a6821dc7fc9aaa180800d8400488a6ee282a35cb648ca0546029edebf1fc` and `e59e6d068723bb9e0ca567f1c1466f46d694e1ec245191d7c25a92fb0a9f7b6f`. The file contents matched; generated directory and metadata times and the gzip time differed. Source-archive reproducibility remains open.
+The two language suites consume the 9 M0 identity vectors. They check canonical
+bytes and identity digests, including a decision digest. Both consume the
+selected RFC 8785 property-order and UTF-8 vector. Both now consume the same 8
+raw parser-error cases: duplicate keys, invalid UTF-8, unpaired surrogate,
+invalid syntax, and the four out-of-profile number forms. Python compares the
+full error object; Haskell now does the same. The parser loader also fails if
+the shared set of raw cases changes without a test update.
 
-### Dependency Lock and Platform
+No new vector cases were added. The fixture gap was in the loaders: Python used
+field names that did not match the fixture, and Haskell compared only error
+code and pointer. The loaders now exercise the existing raw cases and compare
+complete errors. Adding cases only to increase the count would not add evidence.
 
-The frozen Haskell graph has 71 exact package versions. `cabal.project.freeze` SHA-256 is `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`; its Hackage index state is `2026-09-16T00:00:00Z`. The full package and license metadata list is in the [dependency license inventory](dependency-license-inventory.md).
+The remaining 12 `protocol-cases.json` entries describe request mutations,
+resource recipes, or JSONL framing. They are not all run as exact shared
+Python/Haskell cases. The claim substitution tests are Python-only because
+Haskell does not implement the claim pack. Parser precedence, every error
+pointer, resource-limit boundaries, and CLI framing remain partial; see the
+open gate matrix.
 
-The package declares Python `>=3.13,<3.14`. This run qualifies only CPython 3.13.14 on Linux x86_64 under WSL2. Windows, macOS, other Python minor versions, and other architectures are untested and are not release-qualified.
+## Dependency and Notice Findings
 
-## Adversarial Boundary Evidence
+The complete per-artifact record is [dependency-provenance.json](dependency-provenance.json).
 
-The Python claim verifier recomputes the result from the supplied request and compares canonical JSON bytes. Its tests cover:
+- The 69 locked Hackage archives match their `package.json` target hash and size
+  in the current Cabal-managed local index. The `01-index.tar` SHA-256 is
+  `63acf6536e0cdfe6aca24f8b018006dafd32e1df45f1d82c817260f2dd8f28da`.
+  A fresh `aeson-2.2.5.1` download also matched. Hackage stores the archive hash
+  and size in the package target metadata; see its [security design](https://github.com/haskell/hackage-security/blob/master/README.md#targets).
+- Each of the 69 source archives has its declared Cabal license file. No
+  separate `NOTICE` file was found. This scan does not assess every source file
+  for additional attribution requirements.
+- `base-4.22.0.0`, `colour-2.3.7`, and `strict-0.5.1` do not declare a source
+  repository in their package descriptions. Their source repositories are not
+  established here.
+- `ghc-prim-0.13.1` and `rts-1.0.3` come from the official GHC 9.14.1 source
+  archive at `https://downloads.haskell.org/ghc/9.14.1/ghc-9.14.1-src.tar.xz`.
+  Its SHA-256 is
+  `2a83779c9af86554a3289f2787a38d6aa83d00d136aa9f920361dd693c101e77`.
+  The checksum-list and source-archive GPG signatures verify with fingerprint
+  `88B5 7FCF 7DB5 3B4D B3BF A4B1 5887 64FB E22D 19C4`. The GHC 9.14.1 download
+  page lists this signing key. The local GPG trust database reports the key as
+  unknown, so signer identity is not independently certified here. See the
+  [GHC source release page](https://ghc.gitlab.haskell.org/homepage/download_ghc_9_14_1.html).
+- `ghc-prim` declares BSD-3-Clause and includes its license with the GHC and
+  Haskell 98 notices. `rts` declares BSD-3-Clause but has no `license-file`
+  field. The source archive includes GHC's root license, inline xxHash
+  BSD-2-Clause terms, LLVM license text, and the generated `configure` script's
+  Free Software Foundation unlimited-permission notice. `rts/js/md5.js`
+  identifies vendored Closure Library code under Apache-2.0, but no separate
+  Apache license copy or `NOTICE` file was found under `rts`. This notice gap
+  blocks a Haskell binary release until the owner reviews and approves a
+  complete notice bundle.
+- Setuptools 84.0.0 is a build-only backend. Its exact wheel hash and MIT
+  license file are recorded in the inventory. It is not bundled in Semadmit's
+  Python wheel or source archive.
 
-- request substitution for claim, evidence, and policy;
-- result-envelope changes, including claim/evidence IDs, status pairs, missing fields, unexpected fields, and a non-object candidate;
-- verification-artifact and Core component-binding changes;
-- operation substitution and decision, result, and verification digest changes;
-- `true`/`1` and `false`/`0` substitutions;
-- duplicate JSON keys, malformed Unicode, unsupported protocols, and bounded number/resource profiles.
+The Hackage target hashes come from the current Cabal-managed index cache, not
+from a separately recreated historical index snapshot at the freeze time. The
+report does not independently verify the full Hackage signing-key chain. These
+limits are recorded in the provenance data.
 
-The claim and selector fixtures include positive, negative, and unknown paths. Missing provenance and unknown dependence remain `indeterminate`. The selector score, model names, and shared model metadata do not grant an independence result. No positive independence rule is added from the IsoPrax synthetic study.
+## Source Archive Reproducibility
 
-No tested mutation produced an incorrectly admissible result. This is bounded test evidence. It is not a formal proof or a security certification. A valid digest does not authenticate a source. The in-memory Python API cannot detect duplicate keys after a caller has parsed them and discarded them.
+Two clean source trees at
+`cad6943ce19bc4b0439cd85332ed632ee17f3a9f` were built with `SOURCE_DATE_EPOCH`
+set to the commit time. The raw sdist hashes differed:
 
-## Cross-Language Scope
+- `487f195463deedf0da6c705c460e30716b189c488bb568cab23b5e9731f1a44c`
+- `f53a465f55fd6bc8cb39a8cf92fe07ecc6b0b92852e33bb6d3f5b2b3f7fe1964`
 
-| Contract | Python | Haskell | Exact shared comparison | Status |
-| --- | --- | --- | --- | --- |
-| Generic Core decisions | Implemented | Implemented | 9 full decision/error vectors, including bindings, digest, status reduction, and selected protocol errors | Qualified for those vectors only |
-| Core parser and resource limits | Local parser tests | Local parser tests | No complete shared corpus for error precedence, all error pointers, and every size/depth boundary | Partial |
-| Claim pack `semadmit/claim/0.1` | Implemented and tested | Not implemented | None | Python-only by design; no parity claim |
-| Selector pack `selector-provenance/0.1` | Experimental and tested | Not implemented | None | Python-only; all four bounded cases remain `indeterminate` |
-| Measurement pack | Not qualified | Not qualified | None | Open |
-| CLI framing | Python JSONL tests | Haskell CLI tests and smoke | No complete cross-language byte/exit-code corpus | Partial |
+All 32 archive member names, types, and file bytes matched. PAX fractional
+`mtime` fields differed for the generated top-level directory, `PKG-INFO`,
+`semadmit/`, `semadmit.egg-info/`, its generated metadata files, `setup.cfg`,
+and `tests/`. The gzip timestamp happened to match because both builds ran in
+the same second. Earlier clean builds also showed the gzip header timestamp
+changing with build time.
 
-The shared Core vectors cover request normalization, generic bindings, obligation reduction, decision payloads, and decision digests. They do not establish parity for the claim pack, selector pack, Measurement, or every parser and CLI boundary.
+`scripts/normalize_python_sdist.py` removes variable time and owner metadata,
+keeps member order, modes, names, and file bytes, and writes a fixed gzip
+header. Both normalized archives are byte-identical with SHA-256
+`940ed9931fbcbfbdeaf0a05b374af7a0226662635dcff69ddda1567d8701b13c`.
+The normalized archive has the same 32 members. Its `LICENSE`,
+`License-Expression: Apache-2.0`, and `License-File: LICENSE` are present.
+The two clean wheels also match byte for byte at SHA-256
+`48cfb2aa836e5313e00239bac61118f7ff8209b4fb624b9c36efa40273cb4423`.
 
-## Remaining Release Gates
+This procedure makes the normalized sdist reproducible on the tested pinned
+toolchain. The unmodified `uv build` sdist is not byte-reproducible. Repeatable
+release builds on CI and other supported hosts remain open.
 
-| Requirement | Existing evidence | Missing evidence | Risk if omitted | Required action | Independent review | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| Snapshot-bound verification | The verifier recomputes the result with the registered implementation in the current process. | An immutable implementation or build identity that the consumer can verify. | A changed verifier can produce a valid-looking result under different code. | Add a versioned snapshot identity and bind verification to it. Keep the frozen claim protocol unchanged. | Required | Open |
-| Guarded claim consumption | Core exposes an `Admission`; claim results have a boolean verifier. | A claim-specific checked-use capability bound to request, operation, and policy. | A consumer can use a candidate without proving that the checked request was admitted. | Add the smallest claim-specific checked-use API and fail-closed tests. Do not make it a truth or belief update. | Required | Open |
-| Cross-language conformance gaps | Nine shared Core vectors pass in Python and Haskell. | Shared exact-output cases for more parser errors, pointers, limits, and CLI framing. | Implementations can disagree at boundaries that callers depend on. | Add shared vectors only for semantics both implementations claim to support. Keep claim and selector semantics excluded. | Required | Partial |
-| Measurement readiness | Existing Core and Isoprax tests pass. | A qualified Measurement contract and matching Python/Haskell semantics. | Callers may rely on a pack with no cross-language evidence. | Define the narrow Measurement contract, then add matching behavior and shared cases before qualification. | Required | Open |
-| Downstream extension example | The repository has a neutral Core extension fixture. | A downstream example that uses the guarded claim boundary and checks conformance. | Consumers may copy the API incorrectly or skip verification. | Add a small example after the guarded-use API exists and test it against the public contract. | Required | Open |
-| Dependency and licensing inventory | The 71 locked versions and 69 Hackage license files are listed at the frozen index state. Python wheel and sdist contain Semadmit's Apache-2.0 license. | Per-archive hashes and retrieval manifest; source and notice review for GHC-only `ghc-prim` and `rts`; owner confirmation of redistribution obligations. | A release may use an unverified dependency archive or omit a required notice or attribution. | Record archive hashes and retrieval provenance; complete source/notice review for those compiler components; obtain owner approval for the distribution inventory. | Required | Partial |
-| Reproducible release builds | Two clean Haskell executable builds and Python wheel builds were byte-identical. | Reproducible Python sdist output and repeated release build evidence on the supported CI host. | The same source can produce different published source archives. | Normalize sdist metadata and timestamps in the release build path, then compare clean outputs. | Required | Partial |
-| Independent final review | A focused review packet is prepared below. The prior automated code review was not a human review. | A reviewer who did not author the implementation must inspect the exact source and release evidence. | Defects or unsupported claims may remain unchallenged. | Obtain and record an independent human review of the final source, contract, package, and license evidence. | Required | Open |
-| Repository protection | Hosted Coverage passed on PR #6. | Branch protection could not be read; GitHub returned HTTP 403 for private-repository protection settings. | A later change can merge without the intended checks or review. | Repository owner must confirm or configure Coverage and one independent review. | Owner action | Unknown |
+## Outstanding Gate Matrix
 
-The compatibility result remains separate from release readiness. Do not publish a package until the owner makes a separate release decision.
+| Gate | Current evidence | Remaining action | Status |
+| --- | --- | --- | --- |
+| Snapshot-bound verification | Verifier uses the implementation in the current process. | Bind verification to an immutable implementation or build identity without changing the frozen claim protocol. | Open |
+| Guarded claim consumption | Result verification returns a boolean. | Add and qualify a claim-specific checked-use capability before claiming guarded consumption. | Open |
+| Broad Core conformance | 9 decision vectors, 9 identity vectors, one shared RFC vector, and 8 full raw parser errors pass. | Add exact shared cases only for supported overlapping Core semantics; include remaining error and CLI cases where they expose a real risk. | Partial |
+| Measurement | Existing tests pass. | Qualify a narrow contract and matching Python/Haskell behavior. | Open |
+| Downstream extension example | Neutral Core fixture exists. | Add and test an example after guarded consumption is available. | Open |
+| Dependency redistribution notices | Hackage archive digests and license files are recorded. The `rts` Apache-2.0 copy is not established. | Resolve the `rts` notice gap and obtain owner approval for all redistributed artifacts. | Partial |
+| Reproducible builds | Python wheel and normalized sdist match across two clean trees. Earlier Haskell executable builds matched; this commit changes Haskell tests only. | Repeat release builds on the supported CI host and any claimed target platforms. | Partial |
+| Independent release review | Reviewer packet is prepared. | A human who did not author the implementation must record findings against the exact source commit and artifacts. | Open |
+| Repository protection | Prior read-only query returned HTTP 403 for private repository settings. | Owner confirms required Coverage and independent review rules. | Unknown |
+| Package release decision | No package has been published. | Obtain a separate owner release decision after the other gates close. | Open |
 
-## Focused Review Packet
+Do not publish a package until the open release gates are closed or the owner
+records an explicit release decision. This assurance work does not itself
+authorize publication.
 
-The [review packet](release-review-packet.md) gives the threat model, frozen contract, invariants, limitations, validation commands, and open defects for a reviewer who did not author the implementation.
+## Independent Review Packet
+
+See the [review packet](release-review-packet.md). It identifies the exact
+source commit, scope, threats, reproduction steps, limitations, and open
+release gates. It does not claim human approval.

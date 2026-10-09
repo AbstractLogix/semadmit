@@ -1,0 +1,2304 @@
+{
+  "schema": "semadmit/dependency-provenance/0.1",
+  "baseline_commit": "b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7",
+  "cabal_freeze_sha256": "9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba",
+  "effective_hackage_index_state": "2026-09-15T22:55:42Z",
+  "declared_cabal_project_index_state": "2026-09-16T00:00:00Z",
+  "hackage_archive_check": {
+    "package_count": 69,
+    "sha256_and_size_matches": 69,
+    "result": "PASS",
+    "archive_source": "Cabal package cache for hackage.haskell.org",
+    "cache_path_template": "~/.cabal/packages/hackage.haskell.org/{name}/{version}/{name}-{version}.tar.gz",
+    "expected_digest_source": "The package target entry in package.json from the current Cabal-managed Hackage 01-index.tar cache. The freeze timestamp records solver state; this local index is not claimed to be a historical snapshot at that timestamp.",
+    "cached_index_sha256": "63acf6536e0cdfe6aca24f8b018006dafd32e1df45f1d82c817260f2dd8f28da",
+    "fresh_download_spot_check": {
+      "url": "https://hackage.haskell.org/package/aeson-2.2.5.1/aeson-2.2.5.1.tar.gz",
+      "sha256": "ea82d650c0bbd8877dbf13a03b9baae3be7ed4a65f4e8cfe5b4eacb4f5beae75",
+      "result": "PASS; matches the Hackage package target and cached archive."
+    },
+    "limit": "The package index is read from Cabal local state; this report does not independently re-validate the Hackage signing key chain."
+  },
+  "hackage_packages": [
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/QuickCheck-2.18.0.0/QuickCheck-2.18.0.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "fd8462ad3b1c3bb90465ec581356cf5214673c1015d73f28f2e7a3df179bbc55",
+      "expected_size_bytes": 90712,
+      "hackage_index_target": "<repo>/package/QuickCheck-2.18.0.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "QuickCheck-2.18.0.0/LICENSE",
+          "sha256": "17035f93180f20bc9c9eb2fd5e0c8836c699b6dedae654b3f2a7a76e737bf2b9",
+          "size_bytes": 1600
+        }
+      ],
+      "name": "QuickCheck",
+      "notice_files_found": [],
+      "observed_sha256": "fd8462ad3b1c3bb90465ec581356cf5214673c1015d73f28f2e7a3df179bbc55",
+      "observed_size_bytes": 90712,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/nick8325/quickcheck",
+          "type": "git"
+        },
+        {
+          "kind": "this",
+          "location": "https://github.com/nick8325/quickcheck",
+          "tag": "2.18",
+          "type": "git"
+        }
+      ],
+      "version": "2.18.0.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/StateVar-1.2.2/StateVar-1.2.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "5e4b39da395656a59827b0280508aafdc70335798b50e5d6fd52596026251825",
+      "expected_size_bytes": 5048,
+      "hackage_index_target": "<repo>/package/StateVar-1.2.2.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "StateVar-1.2.2/LICENSE",
+          "sha256": "0e64a0908ba147b6c38f3e905a6d193bf1b0a4cd9af2a1cd8d58a60509e7cfa2",
+          "size_bytes": 1528
+        }
+      ],
+      "name": "StateVar",
+      "notice_files_found": [],
+      "observed_sha256": "5e4b39da395656a59827b0280508aafdc70335798b50e5d6fd52596026251825",
+      "observed_size_bytes": 5048,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell-opengl/StateVar.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.2.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/aeson-2.2.5.1/aeson-2.2.5.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ea82d650c0bbd8877dbf13a03b9baae3be7ed4a65f4e8cfe5b4eacb4f5beae75",
+      "expected_size_bytes": 341499,
+      "hackage_index_target": "<repo>/package/aeson-2.2.5.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "aeson-2.2.5.1/LICENSE",
+          "sha256": "0447823bc7935d43958ae6fe9a779b7f78cac08df3b4f6a89b61b80d3af1cca0",
+          "size_bytes": 1500
+        }
+      ],
+      "name": "aeson",
+      "notice_files_found": [],
+      "observed_sha256": "ea82d650c0bbd8877dbf13a03b9baae3be7ed4a65f4e8cfe5b4eacb4f5beae75",
+      "observed_size_bytes": 341499,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/aeson.git",
+          "type": "git"
+        }
+      ],
+      "version": "2.2.5.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/ansi-terminal-1.1.5/ansi-terminal-1.1.5.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "9cf083cef2e2ba88a425f132c8a82bfa931eb4b0c38232b2017f8fcea2e23073",
+      "expected_size_bytes": 33344,
+      "hackage_index_target": "<repo>/package/ansi-terminal-1.1.5.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "ansi-terminal-1.1.5/LICENSE",
+          "sha256": "004081ebe5ee864a3722ec322866edd72411649d08f92cf8d9807d942d904a56",
+          "size_bytes": 1526
+        }
+      ],
+      "name": "ansi-terminal",
+      "notice_files_found": [],
+      "observed_sha256": "9cf083cef2e2ba88a425f132c8a82bfa931eb4b0c38232b2017f8fcea2e23073",
+      "observed_size_bytes": 33344,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "git://github.com/UnkindPartition/ansi-terminal.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.1.5"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/ansi-terminal-types-1.1.3/ansi-terminal-types-1.1.3.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "9fc9ce2157f1889bd99a4d22c9f1c64589590be0f797c3efe71c8fa17a11a689",
+      "expected_size_bytes": 8791,
+      "hackage_index_target": "<repo>/package/ansi-terminal-types-1.1.3.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "ansi-terminal-types-1.1.3/LICENSE",
+          "sha256": "432f4c2a60915fb4402b5d75580bfcc446f723cc66293b02b5c721ea4552f518",
+          "size_bytes": 1526
+        }
+      ],
+      "name": "ansi-terminal-types",
+      "notice_files_found": [],
+      "observed_sha256": "9fc9ce2157f1889bd99a4d22c9f1c64589590be0f797c3efe71c8fa17a11a689",
+      "observed_size_bytes": 8791,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "git://github.com/UnkindPartition/ansi-terminal.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.1.3"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/array-0.5.8.0/array-0.5.8.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "3a022dd6ac608d678f404db0b44fc9849c67dea19702eb3b82f358744f65e66b",
+      "expected_size_bytes": 22990,
+      "hackage_index_target": "<repo>/package/array-0.5.8.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "array-0.5.8.0/LICENSE",
+          "sha256": "87ededd935c29e5b06e2a42de021a11c753cbbb4be331992a2ffbef1281b03ef",
+          "size_bytes": 3882
+        }
+      ],
+      "name": "array",
+      "notice_files_found": [],
+      "observed_sha256": "3a022dd6ac608d678f404db0b44fc9849c67dea19702eb3b82f358744f65e66b",
+      "observed_size_bytes": 22990,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "http://gitlab.haskell.org/ghc/packages/array.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.5.8.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/assoc-1.1.1/assoc-1.1.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "231149b7fef09f5dd95af51228615e3b296dbd0faadeca053e0644a4b13b0ff6",
+      "expected_size_bytes": 3158,
+      "hackage_index_target": "<repo>/package/assoc-1.1.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "assoc-1.1.1/LICENSE",
+          "sha256": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "assoc",
+      "notice_files_found": [],
+      "observed_sha256": "231149b7fef09f5dd95af51228615e3b296dbd0faadeca053e0644a4b13b0ff6",
+      "observed_size_bytes": 3158,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/phadej/assoc.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.1.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/base-4.22.0.0/base-4.22.0.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "4f3ac5ee584ef852fd5214aaeaaf7dc5997d80eb91fc13e567d184f104ed8564",
+      "expected_size_bytes": 221735,
+      "hackage_index_target": "<repo>/package/base-4.22.0.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "base-4.22.0.0/LICENSE",
+          "sha256": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d",
+          "size_bytes": 3881
+        }
+      ],
+      "name": "base",
+      "notice_files_found": [],
+      "observed_sha256": "4f3ac5ee584ef852fd5214aaeaaf7dc5997d80eb91fc13e567d184f104ed8564",
+      "observed_size_bytes": 221735,
+      "source_repository": null,
+      "version": "4.22.0.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/base-orphans-0.9.4/base-orphans-0.9.4.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "08cc283a31350f7bd28b2a5d31af693ee337f2593d3e7222999b72dd4954c72b",
+      "expected_size_bytes": 19999,
+      "hackage_index_target": "<repo>/package/base-orphans-0.9.4.tar.gz",
+      "license": "MIT",
+      "license_files_found": [
+        {
+          "path": "base-orphans-0.9.4/LICENSE",
+          "sha256": "924b65e4acfff34d5b46f3de783d051b591d25932d113d2cf2332bcd2bf9f82a",
+          "size_bytes": 1161
+        }
+      ],
+      "name": "base-orphans",
+      "notice_files_found": [],
+      "observed_sha256": "08cc283a31350f7bd28b2a5d31af693ee337f2593d3e7222999b72dd4954c72b",
+      "observed_size_bytes": 19999,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell-compat/base-orphans",
+          "type": "git"
+        }
+      ],
+      "version": "0.9.4"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/bifunctors-5.6.3/bifunctors-5.6.3.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ad7a357f022f4c780c505040d73f1c06a4fd697b4a0bab6123bbd73b55d8115c",
+      "expected_size_bytes": 38216,
+      "hackage_index_target": "<repo>/package/bifunctors-5.6.3.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "bifunctors-5.6.3/LICENSE",
+          "sha256": "bcc90708feb8a742f4702201849b51b6fc99d48308ddccdecc5498d144c3a223",
+          "size_bytes": 1268
+        }
+      ],
+      "name": "bifunctors",
+      "notice_files_found": [],
+      "observed_sha256": "ad7a357f022f4c780c505040d73f1c06a4fd697b4a0bab6123bbd73b55d8115c",
+      "observed_size_bytes": 38216,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/bifunctors.git",
+          "type": "git"
+        }
+      ],
+      "version": "5.6.3"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/binary-0.8.9.3/binary-0.8.9.3.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "977bc800fb22c85b2c257ef48c9a7236581e859dc76c7e6b7743f6ad55647bef",
+      "expected_size_bytes": 57510,
+      "hackage_index_target": "<repo>/package/binary-0.8.9.3.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "binary-0.8.9.3/LICENSE",
+          "sha256": "b0400f7ccef7de35184d413828dabcd15e6970b11972d11c6100f869f6de1831",
+          "size_bytes": 1459
+        }
+      ],
+      "name": "binary",
+      "notice_files_found": [],
+      "observed_sha256": "977bc800fb22c85b2c257ef48c9a7236581e859dc76c7e6b7743f6ad55647bef",
+      "observed_size_bytes": 57510,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "git://github.com/kolmodin/binary.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.8.9.3"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/bytestring-0.12.2.0/bytestring-0.12.2.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "2eda1a7383fc2dba0b2d969fa00320fbf4d418a2e1b20ccbe0a423795d80fba3",
+      "expected_size_bytes": 255442,
+      "hackage_index_target": "<repo>/package/bytestring-0.12.2.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "bytestring-0.12.2.0/LICENSE",
+          "sha256": "236de8169415cc6e1fd5fbb96035dd36dacc6444e8a600575566753cda4cbf7d",
+          "size_bytes": 1612
+        }
+      ],
+      "name": "bytestring",
+      "notice_files_found": [],
+      "observed_sha256": "2eda1a7383fc2dba0b2d969fa00320fbf4d418a2e1b20ccbe0a423795d80fba3",
+      "observed_size_bytes": 255442,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/bytestring",
+          "type": "git"
+        }
+      ],
+      "version": "0.12.2.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/character-ps-0.1/character-ps-0.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "22de71fde38b236d3e9168a832b5e1e75d1fb4f4028667bdf747b3b4c8c1529c",
+      "expected_size_bytes": 8192,
+      "hackage_index_target": "<repo>/package/character-ps-0.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "character-ps-0.1/LICENSE",
+          "sha256": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "character-ps",
+      "notice_files_found": [],
+      "observed_sha256": "22de71fde38b236d3e9168a832b5e1e75d1fb4f4028667bdf747b3b4c8c1529c",
+      "observed_size_bytes": 8192,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/phadej/character-ps.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/colour-2.3.7/colour-2.3.7.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "1f3b1055675abe4e3362800cc9bf7ab9b92dfdf21a1f6c82b252611270be9680",
+      "expected_size_bytes": 22506,
+      "hackage_index_target": "<repo>/package/colour-2.3.7.tar.gz",
+      "license": "MIT",
+      "license_files_found": [
+        {
+          "path": "colour-2.3.7/LICENSE",
+          "sha256": "1f1db3ff571e88a62840f88706fb97cea9eca3c7d21852d8859a6ae5718c7622",
+          "size_bytes": 1066
+        }
+      ],
+      "name": "colour",
+      "notice_files_found": [],
+      "observed_sha256": "1f3b1055675abe4e3362800cc9bf7ab9b92dfdf21a1f6c82b252611270be9680",
+      "observed_size_bytes": 22506,
+      "source_repository": null,
+      "version": "2.3.7"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/comonad-5.0.10/comonad-5.0.10.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "e9739df2bf5944958062a4ea73bde3bf35c0879cee0944edf7f05bebf993f9c1",
+      "expected_size_bytes": 14520,
+      "hackage_index_target": "<repo>/package/comonad-5.0.10.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "comonad-5.0.10/LICENSE",
+          "sha256": "1cd5d1f57ac61339dbad8f0a0b2e7dcf977c17e0b93021fbad3650a52c8d4975",
+          "size_bytes": 1302
+        }
+      ],
+      "name": "comonad",
+      "notice_files_found": [],
+      "observed_sha256": "e9739df2bf5944958062a4ea73bde3bf35c0879cee0944edf7f05bebf993f9c1",
+      "observed_size_bytes": 14520,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/comonad.git",
+          "type": "git"
+        }
+      ],
+      "version": "5.0.10"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/containers-0.8/containers-0.8.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "b1c1127ff57b6f844d0b30cea54a62c01ca146a49ed4953485be1af389a94bd8",
+      "expected_size_bytes": 222196,
+      "hackage_index_target": "<repo>/package/containers-0.8.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "containers-0.8/LICENSE",
+          "sha256": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+          "size_bytes": 1607
+        }
+      ],
+      "name": "containers",
+      "notice_files_found": [],
+      "observed_sha256": "b1c1127ff57b6f844d0b30cea54a62c01ca146a49ed4953485be1af389a94bd8",
+      "observed_size_bytes": 222196,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/containers",
+          "type": "git"
+        }
+      ],
+      "version": "0.8"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/contravariant-1.5.6/contravariant-1.5.6.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "65f3260354ee5fd1f2c7ffc54cff99d22b794c254f053734979ad37820e6efe3",
+      "expected_size_bytes": 13438,
+      "hackage_index_target": "<repo>/package/contravariant-1.5.6.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "contravariant-1.5.6/LICENSE",
+          "sha256": "ca552b03f51300af9f01341076808d7df603a1dab4dbbf47e2cae276cb15c770",
+          "size_bytes": 1456
+        }
+      ],
+      "name": "contravariant",
+      "notice_files_found": [],
+      "observed_sha256": "65f3260354ee5fd1f2c7ffc54cff99d22b794c254f053734979ad37820e6efe3",
+      "observed_size_bytes": 13438,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/contravariant.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.5.6"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/cryptohash-sha256-0.11.102.1/cryptohash-sha256-0.11.102.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "73a7dc7163871a80837495039a099967b11f5c4fe70a118277842f7a713c6bf6",
+      "expected_size_bytes": 15707,
+      "hackage_index_target": "<repo>/package/cryptohash-sha256-0.11.102.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "cryptohash-sha256-0.11.102.1/LICENSE",
+          "sha256": "85cba5053cc10efdbf66295af758de7c6d2c0e29533638f6bde5a4f31a6eab9b",
+          "size_bytes": 1558
+        }
+      ],
+      "name": "cryptohash-sha256",
+      "notice_files_found": [],
+      "observed_sha256": "73a7dc7163871a80837495039a099967b11f5c4fe70a118277842f7a713c6bf6",
+      "observed_size_bytes": 15707,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/hvr/cryptohash-sha256.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.11.102.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/data-fix-0.3.4/data-fix-0.3.4.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "8df052d18c047ab9e9200536a8799b5af3997ebecbbb091a7384b6be8416ab37",
+      "expected_size_bytes": 5992,
+      "hackage_index_target": "<repo>/package/data-fix-0.3.4.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "data-fix-0.3.4/LICENSE",
+          "sha256": "a79799c00ff9b9e0edec255f12f2b27f459db1f166a584f6779efcb957ec2ddf",
+          "size_bytes": 1523
+        }
+      ],
+      "name": "data-fix",
+      "notice_files_found": [],
+      "observed_sha256": "8df052d18c047ab9e9200536a8799b5af3997ebecbbb091a7384b6be8416ab37",
+      "observed_size_bytes": 5992,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/spell-music/data-fix",
+          "type": "git"
+        }
+      ],
+      "version": "0.3.4"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/deepseq-1.5.1.0/deepseq-1.5.1.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "3f4e87e3abe0601785551034ae7eaf272f7e865a8e98c6edbc415d47d858e17b",
+      "expected_size_bytes": 12471,
+      "hackage_index_target": "<repo>/package/deepseq-1.5.1.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "deepseq-1.5.1.0/LICENSE",
+          "sha256": "bb015371a164f83d605ffefa79007f0cf42b8984d4e80cc6f11bdc14d60c8ea3",
+          "size_bytes": 1945
+        }
+      ],
+      "name": "deepseq",
+      "notice_files_found": [],
+      "observed_sha256": "3f4e87e3abe0601785551034ae7eaf272f7e865a8e98c6edbc415d47d858e17b",
+      "observed_size_bytes": 12471,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/deepseq.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.5.1.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/directory-1.3.10.0/directory-1.3.10.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "80e74f1f9cd8f88f70e230b2b40e965057cca1b66fbe151011c442d0ba73e5f7",
+      "expected_size_bytes": 98571,
+      "hackage_index_target": "<repo>/package/directory-1.3.10.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "directory-1.3.10.0/LICENSE",
+          "sha256": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557",
+          "size_bytes": 2934
+        }
+      ],
+      "name": "directory",
+      "notice_files_found": [],
+      "observed_sha256": "80e74f1f9cd8f88f70e230b2b40e965057cca1b66fbe151011c442d0ba73e5f7",
+      "observed_size_bytes": 98571,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/directory",
+          "type": "git"
+        }
+      ],
+      "version": "1.3.10.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/distributive-0.6.3/distributive-0.6.3.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "aeeb028a23db9f9b073e24a6bd766b79b9d58c2b407b06bf33296c27e9264baa",
+      "expected_size_bytes": 7840,
+      "hackage_index_target": "<repo>/package/distributive-0.6.3.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "distributive-0.6.3/LICENSE",
+          "sha256": "7d94212fab30a5dd88ff193657043cf9c3df8353380ad4c7de6bc10b45d6fed8",
+          "size_bytes": 1268
+        }
+      ],
+      "name": "distributive",
+      "notice_files_found": [],
+      "observed_sha256": "aeeb028a23db9f9b073e24a6bd766b79b9d58c2b407b06bf33296c27e9264baa",
+      "observed_size_bytes": 7840,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/distributive.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.6.3"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/dlist-1.0/dlist-1.0.tar.gz",
+      "declared_license_paths": [
+        "license.md"
+      ],
+      "digest_match": true,
+      "expected_sha256": "173d637328bb173fcc365f30d29ff4a94292a1e0e5558aeb3dfc11de81510115",
+      "expected_size_bytes": 18667,
+      "hackage_index_target": "<repo>/package/dlist-1.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "dlist-1.0/license.md",
+          "sha256": "9b659a8f7227402615c243adf2db24b97d1cbaa6b29f79ea4991289b0b37c7be",
+          "size_bytes": 1547
+        }
+      ],
+      "name": "dlist",
+      "notice_files_found": [],
+      "observed_sha256": "173d637328bb173fcc365f30d29ff4a94292a1e0e5558aeb3dfc11de81510115",
+      "observed_size_bytes": 18667,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "git://github.com/spl/dlist.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/exceptions-0.10.11/exceptions-0.10.11.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "51a52f16fdf5dce652755df73af3504a03dfdadbf1a42f0dbc444b3ffcf76fec",
+      "expected_size_bytes": 17950,
+      "hackage_index_target": "<repo>/package/exceptions-0.10.11.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "exceptions-0.10.11/LICENSE",
+          "sha256": "09baf819c095749d4f8563600b5ffca346ed1124a2d964dc2085515627029091",
+          "size_bytes": 1483
+        }
+      ],
+      "name": "exceptions",
+      "notice_files_found": [],
+      "observed_sha256": "51a52f16fdf5dce652755df73af3504a03dfdadbf1a42f0dbc444b3ffcf76fec",
+      "observed_size_bytes": 17950,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/exceptions.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.10.11"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/file-io-0.1.5/file-io-0.1.5.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "310a19e4c792de4d30c912bc71ff3becb40818d7c796b9999bcd0979dab87d5b",
+      "expected_size_bytes": 11890,
+      "hackage_index_target": "<repo>/package/file-io-0.1.5.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "file-io-0.1.5/LICENSE",
+          "sha256": "33a22015aa12755668404c19b1d81bda96f7a21b3429ed725c44a9c56fed6590",
+          "size_bytes": 1519
+        }
+      ],
+      "name": "file-io",
+      "notice_files_found": [],
+      "observed_sha256": "310a19e4c792de4d30c912bc71ff3becb40818d7c796b9999bcd0979dab87d5b",
+      "observed_size_bytes": 11890,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/hasufell/file-io.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.5"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/filepath-1.5.4.0/filepath-1.5.4.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "54aa86c432f593273d7b9f607c5b5e0a1628c2674c6f4e3b5a54eb0c83db5caf",
+      "expected_size_bytes": 77260,
+      "hackage_index_target": "<repo>/package/filepath-1.5.4.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "filepath-1.5.4.0/LICENSE",
+          "sha256": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd",
+          "size_bytes": 1524
+        }
+      ],
+      "name": "filepath",
+      "notice_files_found": [],
+      "observed_sha256": "54aa86c432f593273d7b9f607c5b5e0a1628c2674c6f4e3b5a54eb0c83db5caf",
+      "observed_size_bytes": 77260,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/filepath",
+          "type": "git"
+        }
+      ],
+      "version": "1.5.4.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/ghc-boot-th-9.14.1/ghc-boot-th-9.14.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "4ecbc1562e08bfe86036bf96209dfa173dbd1145b6f01e4aa5765980c2ac6ce4",
+      "expected_size_bytes": 17180,
+      "hackage_index_target": "<repo>/package/ghc-boot-th-9.14.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "ghc-boot-th-9.14.1/LICENSE",
+          "sha256": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1",
+          "size_bytes": 1611
+        }
+      ],
+      "name": "ghc-boot-th",
+      "notice_files_found": [],
+      "observed_sha256": "4ecbc1562e08bfe86036bf96209dfa173dbd1145b6f01e4aa5765980c2ac6ce4",
+      "observed_size_bytes": 17180,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://gitlab.haskell.org/ghc/ghc.git",
+          "subdir": "libraries/ghc-boot-th",
+          "type": "git"
+        }
+      ],
+      "version": "9.14.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/ghc-internal-9.1401.0/ghc-internal-9.1401.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "82e4950d1ca056edc16776cc4c0f32cfa4b9b65ecd90f3c733ace1756f0fa632",
+      "expected_size_bytes": 997442,
+      "hackage_index_target": "<repo>/package/ghc-internal-9.1401.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "ghc-internal-9.1401.0/LICENSE",
+          "sha256": "768c070bd0b7d820d169ee8153d5487acfc262cbbc10dfce18d05c0bb2d2800d",
+          "size_bytes": 3881
+        }
+      ],
+      "name": "ghc-internal",
+      "notice_files_found": [],
+      "observed_sha256": "82e4950d1ca056edc16776cc4c0f32cfa4b9b65ecd90f3c733ace1756f0fa632",
+      "observed_size_bytes": 997442,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://gitlab.haskell.org/ghc/ghc.git",
+          "subdir": "libraries/base",
+          "type": "git"
+        }
+      ],
+      "version": "9.1401.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/hashable-1.5.1.0/hashable-1.5.1.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ed0b7c10ce92c9ffe45420dadc38c6d39db486ff3633ff13567cc9f75f79b112",
+      "expected_size_bytes": 90605,
+      "hackage_index_target": "<repo>/package/hashable-1.5.1.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "hashable-1.5.1.0/LICENSE",
+          "sha256": "3112022b0b06d7f529bc5bf8cc767973191d3d6502693c9e4ad9c79de9318db0",
+          "size_bytes": 1517
+        }
+      ],
+      "name": "hashable",
+      "notice_files_found": [],
+      "observed_sha256": "ed0b7c10ce92c9ffe45420dadc38c6d39db486ff3633ff13567cc9f75f79b112",
+      "observed_size_bytes": 90605,
+      "source_repository": [
+        {
+          "https": "//github.com/haskell-unordered-containers/hashable.git",
+          "kind": "head",
+          "location": "",
+          "type": "git"
+        }
+      ],
+      "version": "1.5.1.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/indexed-traversable-0.1.5/indexed-traversable-0.1.5.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "6423597d3528ac66c54beaab9f5408429c0a29b8cb98c45a1645f255aef7fef0",
+      "expected_size_bytes": 9532,
+      "hackage_index_target": "<repo>/package/indexed-traversable-0.1.5.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "indexed-traversable-0.1.5/LICENSE",
+          "sha256": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796",
+          "size_bytes": 1268
+        }
+      ],
+      "name": "indexed-traversable",
+      "notice_files_found": [],
+      "observed_sha256": "6423597d3528ac66c54beaab9f5408429c0a29b8cb98c45a1645f255aef7fef0",
+      "observed_size_bytes": 9532,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/indexed-traversable",
+          "subdir": "indexed-traversable",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.5"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/indexed-traversable-instances-0.1.2.1/indexed-traversable-instances-0.1.2.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec",
+      "expected_size_bytes": 3690,
+      "hackage_index_target": "<repo>/package/indexed-traversable-instances-0.1.2.1.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "indexed-traversable-instances-0.1.2.1/LICENSE",
+          "sha256": "c40d7afbc07af51f50301617e1f9dd122a3517caab8564ad3baa4d2c85491796",
+          "size_bytes": 1268
+        }
+      ],
+      "name": "indexed-traversable-instances",
+      "notice_files_found": [],
+      "observed_sha256": "e69d41f23a95463c2e03aee03374a4f489c72f7bf235be251499c4cca9411fec",
+      "observed_size_bytes": 3690,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/indexed-traversable",
+          "subdir": "indexed-traversable-instances",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.2.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/integer-conversion-0.1.1/integer-conversion-0.1.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "c18164a048073310f6353ebc64c9037b52a4b8299963ce05e027bcf60e22155a",
+      "expected_size_bytes": 6179,
+      "hackage_index_target": "<repo>/package/integer-conversion-0.1.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "integer-conversion-0.1.1/LICENSE",
+          "sha256": "acdcccb0242a8497e4d1deaca0692770d55e8cd30298634382f4b6505bb1766b",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "integer-conversion",
+      "notice_files_found": [],
+      "observed_sha256": "c18164a048073310f6353ebc64c9037b52a4b8299963ce05e027bcf60e22155a",
+      "observed_size_bytes": 6179,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/phadej/integer-conversion.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/integer-logarithms-1.0.5/integer-logarithms-1.0.5.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "66dff6f1f778fe1ec689139fe125cd4e6a95643734c651c891eafa2c50669459",
+      "expected_size_bytes": 8925,
+      "hackage_index_target": "<repo>/package/integer-logarithms-1.0.5.tar.gz",
+      "license": "MIT",
+      "license_files_found": [
+        {
+          "path": "integer-logarithms-1.0.5/LICENSE",
+          "sha256": "ce24460cb902fe28fef98b8d3ce0cc4105d9d8204dccc819a8233452de3b38b7",
+          "size_bytes": 1084
+        }
+      ],
+      "name": "integer-logarithms",
+      "notice_files_found": [],
+      "observed_sha256": "66dff6f1f778fe1ec689139fe125cd4e6a95643734c651c891eafa2c50669459",
+      "observed_size_bytes": 8925,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/integer-logarithms",
+          "type": "git"
+        }
+      ],
+      "version": "1.0.5"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/mtl-2.3.1/mtl-2.3.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "2178f1cb60fe2a4cb780827a2bfbab01b56eed92f7f502dc728fecd9f56cdca7",
+      "expected_size_bytes": 26192,
+      "hackage_index_target": "<repo>/package/mtl-2.3.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "mtl-2.3.1/LICENSE",
+          "sha256": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+          "size_bytes": 1607
+        }
+      ],
+      "name": "mtl",
+      "notice_files_found": [],
+      "observed_sha256": "2178f1cb60fe2a4cb780827a2bfbab01b56eed92f7f502dc728fecd9f56cdca7",
+      "observed_size_bytes": 26192,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/mtl.git",
+          "type": "git"
+        }
+      ],
+      "version": "2.3.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/network-uri-2.6.4.2/network-uri-2.6.4.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "9c188973126e893250b881f20e8811dca06c223c23402b06f7a1f2e995797228",
+      "expected_size_bytes": 31309,
+      "hackage_index_target": "<repo>/package/network-uri-2.6.4.2.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "network-uri-2.6.4.2/LICENSE",
+          "sha256": "52b7b34c66e567678e498103d010a1bd163ef8b06e7e044016b04286a08db982",
+          "size_bytes": 1595
+        }
+      ],
+      "name": "network-uri",
+      "notice_files_found": [],
+      "observed_sha256": "9c188973126e893250b881f20e8811dca06c223c23402b06f7a1f2e995797228",
+      "observed_size_bytes": 31309,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "git://github.com/haskell/network-uri.git",
+          "type": "git"
+        }
+      ],
+      "version": "2.6.4.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/optparse-applicative-0.19.0.0/optparse-applicative-0.19.0.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "cf16aeefd821730c7738447fa7c6b7ada7ca1c9cc25400d64ef283294d345871",
+      "expected_size_bytes": 67629,
+      "hackage_index_target": "<repo>/package/optparse-applicative-0.19.0.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "optparse-applicative-0.19.0.0/LICENSE",
+          "sha256": "1919d7ec1ccf5f83f13c3070a25fd6ac4b5be91e1c99972d0eb3e564a61e8a2f",
+          "size_bytes": 1528
+        }
+      ],
+      "name": "optparse-applicative",
+      "notice_files_found": [],
+      "observed_sha256": "cf16aeefd821730c7738447fa7c6b7ada7ca1c9cc25400d64ef283294d345871",
+      "observed_size_bytes": 67629,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/pcapriotti/optparse-applicative.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.19.0.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/os-string-2.0.8/os-string-2.0.8.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "02794279dd30282e7b0d45a860dda50ee26a92b1461f5da4545f62dab4172686",
+      "expected_size_bytes": 44896,
+      "hackage_index_target": "<repo>/package/os-string-2.0.8.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "os-string-2.0.8/LICENSE",
+          "sha256": "ab5d673bec862e824a264b00113a4ba4fe3edfd303fa7175da85d4e1c7e595cd",
+          "size_bytes": 1524
+        }
+      ],
+      "name": "os-string",
+      "notice_files_found": [],
+      "observed_sha256": "02794279dd30282e7b0d45a860dda50ee26a92b1461f5da4545f62dab4172686",
+      "observed_size_bytes": 44896,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/os-string",
+          "type": "git"
+        }
+      ],
+      "version": "2.0.8"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/parsec-3.1.18.0/parsec-3.1.18.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "402f9f133a71462678f9c257934f504f55e441d70c54a73ee70582182450d0af",
+      "expected_size_bytes": 37601,
+      "hackage_index_target": "<repo>/package/parsec-3.1.18.0.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "parsec-3.1.18.0/LICENSE",
+          "sha256": "eae9baac9236cb84023f659665e9af6993de24d715350d2300a3c73d784a4252",
+          "size_bytes": 1284
+        }
+      ],
+      "name": "parsec",
+      "notice_files_found": [],
+      "observed_sha256": "402f9f133a71462678f9c257934f504f55e441d70c54a73ee70582182450d0af",
+      "observed_size_bytes": 37601,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/parsec",
+          "type": "git"
+        }
+      ],
+      "version": "3.1.18.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/pretty-1.1.3.6/pretty-1.1.3.6.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "eb12cc23cbaf7d3f3e2a5e804e2e0ddb2a2d98d3ad456617d1b87fd3951d66e8",
+      "expected_size_bytes": 35483,
+      "hackage_index_target": "<repo>/package/pretty-1.1.3.6.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "pretty-1.1.3.6/LICENSE",
+          "sha256": "43ea4e43d7fa62834449ab5ba5a8dd07cd86ceea5cfafe385f3e236c88b493b4",
+          "size_bytes": 1949
+        }
+      ],
+      "name": "pretty",
+      "notice_files_found": [],
+      "observed_sha256": "eb12cc23cbaf7d3f3e2a5e804e2e0ddb2a2d98d3ad456617d1b87fd3951d66e8",
+      "observed_size_bytes": 35483,
+      "source_repository": [
+        {
+          "kind": "this",
+          "location": "http://github.com/haskell/pretty.git",
+          "tag": "1.1.3.5",
+          "type": "git"
+        },
+        {
+          "kind": "head",
+          "location": "http://github.com/haskell/pretty.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.1.3.6"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/prettyprinter-1.7.2/prettyprinter-1.7.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE.md"
+      ],
+      "digest_match": true,
+      "expected_sha256": "f04eb6fd865512ad8672da1e8bfcea1c384509fc2f662c41b7ac39d7898706ee",
+      "expected_size_bytes": 57434,
+      "hackage_index_target": "<repo>/package/prettyprinter-1.7.2.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "prettyprinter-1.7.2/LICENSE.md",
+          "sha256": "bb5195c6ad2f073268f918f33a7b6beac68203365c5d82122b87d2de0a93c153",
+          "size_bytes": 1315
+        }
+      ],
+      "name": "prettyprinter",
+      "notice_files_found": [],
+      "observed_sha256": "f04eb6fd865512ad8672da1e8bfcea1c384509fc2f662c41b7ac39d7898706ee",
+      "observed_size_bytes": 57434,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/quchen/prettyprinter",
+          "type": "git"
+        }
+      ],
+      "version": "1.7.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/prettyprinter-ansi-terminal-1.1.4/prettyprinter-ansi-terminal-1.1.4.tar.gz",
+      "declared_license_paths": [
+        "LICENSE.md"
+      ],
+      "digest_match": true,
+      "expected_sha256": "912cd340d5c2583111e2eaeb9aa03b87551ca2e3dd78bbfd346756b9f1e6c9fe",
+      "expected_size_bytes": 9918,
+      "hackage_index_target": "<repo>/package/prettyprinter-ansi-terminal-1.1.4.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "prettyprinter-ansi-terminal-1.1.4/LICENSE.md",
+          "sha256": "bb5195c6ad2f073268f918f33a7b6beac68203365c5d82122b87d2de0a93c153",
+          "size_bytes": 1315
+        }
+      ],
+      "name": "prettyprinter-ansi-terminal",
+      "notice_files_found": [],
+      "observed_sha256": "912cd340d5c2583111e2eaeb9aa03b87551ca2e3dd78bbfd346756b9f1e6c9fe",
+      "observed_size_bytes": 9918,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/quchen/prettyprinter",
+          "type": "git"
+        }
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/primitive-0.9.1.0/primitive-0.9.1.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "44b4de41813c7bc5db8a57f87c3612a069b65086946268ba165097252ebd3d76",
+      "expected_size_bytes": 61724,
+      "hackage_index_target": "<repo>/package/primitive-0.9.1.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "primitive-0.9.1.0/LICENSE",
+          "sha256": "cd6b51ecce7bc97a7bbd8500797c350a72f2f9c8e3aaf9d7154b9064d16316ea",
+          "size_bytes": 1550
+        }
+      ],
+      "name": "primitive",
+      "notice_files_found": [],
+      "observed_sha256": "44b4de41813c7bc5db8a57f87c3612a069b65086946268ba165097252ebd3d76",
+      "observed_size_bytes": 61724,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/primitive",
+          "type": "git"
+        }
+      ],
+      "version": "0.9.1.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/process-1.6.26.1/process-1.6.26.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "b431d2ba77607986fa84b42ff3021505b8637b8d638ff664be3292dd44aba8f0",
+      "expected_size_bytes": 101414,
+      "hackage_index_target": "<repo>/package/process-1.6.26.1.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "process-1.6.26.1/LICENSE",
+          "sha256": "9297dea19dc57cb380328b8b9311352c9a73f9d2d81863dff454de55b85c0f20",
+          "size_bytes": 2937
+        }
+      ],
+      "name": "process",
+      "notice_files_found": [],
+      "observed_sha256": "b431d2ba77607986fa84b42ff3021505b8637b8d638ff664be3292dd44aba8f0",
+      "observed_size_bytes": 101414,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/process.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.6.26.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/random-1.3.1/random-1.3.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "d840ac83f265b0cfa2a678f8ec78627eb50cf9be2f067c52c8a4239c29b71a35",
+      "expected_size_bytes": 63846,
+      "hackage_index_target": "<repo>/package/random-1.3.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "random-1.3.1/LICENSE",
+          "sha256": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557",
+          "size_bytes": 2934
+        }
+      ],
+      "name": "random",
+      "notice_files_found": [],
+      "observed_sha256": "d840ac83f265b0cfa2a678f8ec78627eb50cf9be2f067c52c8a4239c29b71a35",
+      "observed_size_bytes": 63846,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/random.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.3.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/scientific-0.3.8.1/scientific-0.3.8.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ad3781be149dfc7936e62eb9c3ad78ded0e9985b4dae16d2f62d9ba957ccdcfe",
+      "expected_size_bytes": 24338,
+      "hackage_index_target": "<repo>/package/scientific-0.3.8.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "scientific-0.3.8.1/LICENSE",
+          "sha256": "4809f8a687a81a714ca99fc2a9a366d3fa5dec4adc284a5e026c909da924ba53",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "scientific",
+      "notice_files_found": [],
+      "observed_sha256": "ad3781be149dfc7936e62eb9c3ad78ded0e9985b4dae16d2f62d9ba957ccdcfe",
+      "observed_size_bytes": 24338,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/basvandijk/scientific.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.3.8.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/semialign-1.4/semialign-1.4.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "0f51389e57af646042dcec2511960617bee2857231ac291228cf4ef6621a9464",
+      "expected_size_bytes": 10752,
+      "hackage_index_target": "<repo>/package/semialign-1.4.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "semialign-1.4/LICENSE",
+          "sha256": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8",
+          "size_bytes": 1540
+        }
+      ],
+      "name": "semialign",
+      "notice_files_found": [],
+      "observed_sha256": "0f51389e57af646042dcec2511960617bee2857231ac291228cf4ef6621a9464",
+      "observed_size_bytes": 10752,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/these.git",
+          "subdir": "semialign",
+          "type": "git"
+        }
+      ],
+      "version": "1.4"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/semigroupoids-6.0.2/semigroupoids-6.0.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "e48258e49542245ef6c58d7f419a83d1d1ab91b013d92c3b5c8c7c048daaa12e",
+      "expected_size_bytes": 36447,
+      "hackage_index_target": "<repo>/package/semigroupoids-6.0.2.tar.gz",
+      "license": "BSD2",
+      "license_files_found": [
+        {
+          "path": "semigroupoids-6.0.2/LICENSE",
+          "sha256": "c9ed0c32e5332899f31bfad68cdb6e949a712a155318a0eb4872cc8f5bf4c95b",
+          "size_bytes": 1268
+        }
+      ],
+      "name": "semigroupoids",
+      "notice_files_found": [],
+      "observed_sha256": "e48258e49542245ef6c58d7f419a83d1d1ab91b013d92c3b5c8c7c048daaa12e",
+      "observed_size_bytes": 36447,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/semigroupoids.git",
+          "type": "git"
+        }
+      ],
+      "version": "6.0.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/splitmix-0.1.3.2/splitmix-0.1.3.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "a61d4e8b30f5a16526d7d31171b674ae7924d2207f378060d13363bd8794de8c",
+      "expected_size_bytes": 11373,
+      "hackage_index_target": "<repo>/package/splitmix-0.1.3.2.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "splitmix-0.1.3.2/LICENSE",
+          "sha256": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "splitmix",
+      "notice_files_found": [],
+      "observed_sha256": "a61d4e8b30f5a16526d7d31171b674ae7924d2207f378060d13363bd8794de8c",
+      "observed_size_bytes": 11373,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/splitmix.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.3.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/stm-2.5.3.1/stm-2.5.3.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ebb0465391edce6787e954bef0d0246ec007b2c9096b7c21ad69ab7d802630e7",
+      "expected_size_bytes": 16965,
+      "hackage_index_target": "<repo>/package/stm-2.5.3.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "stm-2.5.3.1/LICENSE",
+          "sha256": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
+          "size_bytes": 1611
+        }
+      ],
+      "name": "stm",
+      "notice_files_found": [],
+      "observed_sha256": "ebb0465391edce6787e954bef0d0246ec007b2c9096b7c21ad69ab7d802630e7",
+      "observed_size_bytes": 16965,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/stm.git",
+          "type": "git"
+        }
+      ],
+      "version": "2.5.3.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/strict-0.5.1/strict-0.5.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "77719280c2a86312e748227bfa732eeaae0e7df48d57acc3c2e5b7b07afe2f8b",
+      "expected_size_bytes": 11798,
+      "hackage_index_target": "<repo>/package/strict-0.5.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "strict-0.5.1/LICENSE",
+          "sha256": "79c71a6ece44448f34b5395c358367e1c94c2c3924cbf690f251551bd392a185",
+          "size_bytes": 1447
+        }
+      ],
+      "name": "strict",
+      "notice_files_found": [],
+      "observed_sha256": "77719280c2a86312e748227bfa732eeaae0e7df48d57acc3c2e5b7b07afe2f8b",
+      "observed_size_bytes": 11798,
+      "source_repository": null,
+      "version": "0.5.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/tagged-0.8.10/tagged-0.8.10.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "17ef791eb4caf314a3b4b158827a0f1f4b695c2a24af0875f09e3d8c10f56c5d",
+      "expected_size_bytes": 8398,
+      "hackage_index_target": "<repo>/package/tagged-0.8.10.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "tagged-0.8.10/LICENSE",
+          "sha256": "3b9fcb04037a8eb1389717d322ed727c60080a9dab2cb6f76882f45f56e6cb12",
+          "size_bytes": 1525
+        }
+      ],
+      "name": "tagged",
+      "notice_files_found": [],
+      "observed_sha256": "17ef791eb4caf314a3b4b158827a0f1f4b695c2a24af0875f09e3d8c10f56c5d",
+      "observed_size_bytes": 8398,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/tagged.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.8.10"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/tasty-1.5.4/tasty-1.5.4.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "c76120141bd61c4418b3ed5efc5fe3094186d47cfe12d7be552320139f52c6c7",
+      "expected_size_bytes": 68529,
+      "hackage_index_target": "<repo>/package/tasty-1.5.4.tar.gz",
+      "license": "MIT",
+      "license_files_found": [
+        {
+          "path": "tasty-1.5.4/LICENSE",
+          "sha256": "9bf95b300dd78f7f53d8891793f86da69a308c3221ebaa988c166c19536a8cf0",
+          "size_bytes": 1059
+        }
+      ],
+      "name": "tasty",
+      "notice_files_found": [],
+      "observed_sha256": "c76120141bd61c4418b3ed5efc5fe3094186d47cfe12d7be552320139f52c6c7",
+      "observed_size_bytes": 68529,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/UnkindPartition/tasty.git",
+          "subdir": "core",
+          "type": "git"
+        }
+      ],
+      "version": "1.5.4"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/template-haskell-2.24.0.0/template-haskell-2.24.0.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "18d9dc4edd7340c22b4842673a57d86875fea5b0e6ba93d6c2976d1461ae81a1",
+      "expected_size_bytes": 37010,
+      "hackage_index_target": "<repo>/package/template-haskell-2.24.0.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "template-haskell-2.24.0.0/LICENSE",
+          "sha256": "29a12cdf7350473abfa64d71beb390216c6ad7827843726c9c3a7afab912be72",
+          "size_bytes": 1614
+        }
+      ],
+      "name": "template-haskell",
+      "notice_files_found": [],
+      "observed_sha256": "18d9dc4edd7340c22b4842673a57d86875fea5b0e6ba93d6c2976d1461ae81a1",
+      "observed_size_bytes": 37010,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://gitlab.haskell.org/ghc/ghc.git",
+          "subdir": "libraries/template-haskell",
+          "type": "git"
+        }
+      ],
+      "version": "2.24.0.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/text-2.1.3/text-2.1.3.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "b1bb1ee43e9dac6417a7d4897316ffc13a7c77ddd737600a3155c3c3d9cef89d",
+      "expected_size_bytes": 453086,
+      "hackage_index_target": "<repo>/package/text-2.1.3.tar.gz",
+      "license": "BSD-2-Clause",
+      "license_files_found": [
+        {
+          "path": "text-2.1.3/LICENSE",
+          "sha256": "cf522e3d53b8d1768695fe5b66438baf4514fcd64b7a95739960f2f5b50c6ee8",
+          "size_bytes": 1323
+        }
+      ],
+      "name": "text",
+      "notice_files_found": [],
+      "observed_sha256": "b1bb1ee43e9dac6417a7d4897316ffc13a7c77ddd737600a3155c3c3d9cef89d",
+      "observed_size_bytes": 453086,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/text",
+          "type": "git"
+        }
+      ],
+      "version": "2.1.3"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/text-iso8601-0.1.1.2/text-iso8601-0.1.1.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "ddbb13aec70a2fd54c7a25bf85e38a467d0d5599980d21f4925b3c706f8f7398",
+      "expected_size_bytes": 10174,
+      "hackage_index_target": "<repo>/package/text-iso8601-0.1.1.2.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "text-iso8601-0.1.1.2/LICENSE",
+          "sha256": "e885635ca8d75bf5e3988aa4cb77d13793133ab2b4f6c6416a4d8d4fec6a6aa3",
+          "size_bytes": 1460
+        }
+      ],
+      "name": "text-iso8601",
+      "notice_files_found": [],
+      "observed_sha256": "ddbb13aec70a2fd54c7a25bf85e38a467d0d5599980d21f4925b3c706f8f7398",
+      "observed_size_bytes": 10174,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/aeson.git",
+          "subdir": "text-iso8601",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.1.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/text-short-0.1.6.1/text-short-0.1.6.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "83669f402354274fbcdc75126443af733267b955e451f72c0c6d86ae8da87416",
+      "expected_size_bytes": 24700,
+      "hackage_index_target": "<repo>/package/text-short-0.1.6.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "text-short-0.1.6.1/LICENSE",
+          "sha256": "11a5b1f0c369358d5b4d0baee31232033b8b0dc3ec034f2dcc9ad393d1dc75a4",
+          "size_bytes": 1542
+        }
+      ],
+      "name": "text-short",
+      "notice_files_found": [],
+      "observed_sha256": "83669f402354274fbcdc75126443af733267b955e451f72c0c6d86ae8da87416",
+      "observed_size_bytes": 24700,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/hvr/text-short.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.6.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/th-abstraction-0.7.2.0/th-abstraction-0.7.2.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "946654bcd8ea2dff7d0058061861a8c898be9addf20c92d3cfa53b679e737622",
+      "expected_size_bytes": 45532,
+      "hackage_index_target": "<repo>/package/th-abstraction-0.7.2.0.tar.gz",
+      "license": "ISC",
+      "license_files_found": [
+        {
+          "path": "th-abstraction-0.7.2.0/LICENSE",
+          "sha256": "499e8e5638d8d217fc7b8e0aa4dfcc1852495fe3d1f8ac9e8dd707a8ee213009",
+          "size_bytes": 735
+        }
+      ],
+      "name": "th-abstraction",
+      "notice_files_found": [],
+      "observed_sha256": "946654bcd8ea2dff7d0058061861a8c898be9addf20c92d3cfa53b679e737622",
+      "observed_size_bytes": 45532,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/glguy/th-abstraction.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.7.2.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/th-compat-0.1.7/th-compat-0.1.7.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "9e26f12230d38ae56dcf94f8c139799dc3b7376f3434d35ce74847a0a24fd5ff",
+      "expected_size_bytes": 14763,
+      "hackage_index_target": "<repo>/package/th-compat-0.1.7.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "th-compat-0.1.7/LICENSE",
+          "sha256": "24132d6adf696164c3cc6e3fdbec6f095934aaff90bca1d330ef01eff7ade6f4",
+          "size_bytes": 1518
+        }
+      ],
+      "name": "th-compat",
+      "notice_files_found": [],
+      "observed_sha256": "9e26f12230d38ae56dcf94f8c139799dc3b7376f3434d35ce74847a0a24fd5ff",
+      "observed_size_bytes": 14763,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell-compat/th-compat",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.7"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/these-1.2.1/these-1.2.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "17d6d933365edabf801a16842c1403bdd37cc5300faa2fcca980decdab22e4de",
+      "expected_size_bytes": 9906,
+      "hackage_index_target": "<repo>/package/these-1.2.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "these-1.2.1/LICENSE",
+          "sha256": "ac2ed60fbb868f568b86a26cfe93b608359decaf125f506bd5fdf04975fb35f8",
+          "size_bytes": 1540
+        }
+      ],
+      "name": "these",
+      "notice_files_found": [],
+      "observed_sha256": "17d6d933365edabf801a16842c1403bdd37cc5300faa2fcca980decdab22e4de",
+      "observed_size_bytes": 9906,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/these.git",
+          "subdir": "these",
+          "type": "git"
+        }
+      ],
+      "version": "1.2.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/time-1.15/time-1.15.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "4fa2138f5c9af96528bedb0e5ba659fe6a0f30331a3a53ce224f5f62c9736218",
+      "expected_size_bytes": 133724,
+      "hackage_index_target": "<repo>/package/time-1.15.tar.gz",
+      "license": "BSD-2-Clause",
+      "license_files_found": [
+        {
+          "path": "time-1.15/LICENSE",
+          "sha256": "7308114bd92aee5b33c1ff98e804a6f72ad2b90917bf06ed0b88ec278d07076b",
+          "size_bytes": 1415
+        }
+      ],
+      "name": "time",
+      "notice_files_found": [],
+      "observed_sha256": "4fa2138f5c9af96528bedb0e5ba659fe6a0f30331a3a53ce224f5f62c9736218",
+      "observed_size_bytes": 133724,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/time",
+          "type": "git"
+        }
+      ],
+      "version": "1.15"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/time-compat-1.9.9/time-compat-1.9.9.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "90fadded53cf9c15855eebf809e9536af8f85d00e32b82f7c8b506d2fadf7c25",
+      "expected_size_bytes": 64400,
+      "hackage_index_target": "<repo>/package/time-compat-1.9.9.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "time-compat-1.9.9/LICENSE",
+          "sha256": "1bfcfa37bada908246a9908f61535a116f53283bdbb3550504c46c28da402e5c",
+          "size_bytes": 1539
+        }
+      ],
+      "name": "time-compat",
+      "notice_files_found": [],
+      "observed_sha256": "90fadded53cf9c15855eebf809e9536af8f85d00e32b82f7c8b506d2fadf7c25",
+      "observed_size_bytes": 64400,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskellari/time-compat.git",
+          "type": "git"
+        }
+      ],
+      "version": "1.9.9"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/transformers-0.6.1.2/transformers-0.6.1.2.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "3fd85cfb18c40ee59c4a1ecdca12ea25978707da146f3770892ffcd9487e61b5",
+      "expected_size_bytes": 43834,
+      "hackage_index_target": "<repo>/package/transformers-0.6.1.2.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "transformers-0.6.1.2/LICENSE",
+          "sha256": "7904b49880da042ab0e3125ef4da8ba2322b7b5e13de13bc6a322e5e2670bc5c",
+          "size_bytes": 1607
+        }
+      ],
+      "name": "transformers",
+      "notice_files_found": [],
+      "observed_sha256": "3fd85cfb18c40ee59c4a1ecdca12ea25978707da146f3770892ffcd9487e61b5",
+      "observed_size_bytes": 43834,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "http://hub.darcs.net/ross/transformers",
+          "type": "darcs"
+        }
+      ],
+      "version": "0.6.1.2"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/transformers-compat-0.8/transformers-compat-0.8.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "f05c2145ee8d77ed773908d27a77c7f8be4d9419af90a757076b799c4a194da8",
+      "expected_size_bytes": 23171,
+      "hackage_index_target": "<repo>/package/transformers-compat-0.8.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "transformers-compat-0.8/LICENSE",
+          "sha256": "bbb4823c79bfc2d482513e9f7020d63bf490b91639cc5812a8500c5cbe167618",
+          "size_bytes": 1456
+        }
+      ],
+      "name": "transformers-compat",
+      "notice_files_found": [],
+      "observed_sha256": "f05c2145ee8d77ed773908d27a77c7f8be4d9419af90a757076b799c4a194da8",
+      "observed_size_bytes": 23171,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/ekmett/transformers-compat.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.8"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/unix-2.8.8.0/unix-2.8.8.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "a128dea3bfeb731a562f22d376fa606e902154d95321363f7ec1ea6b787a5a3e",
+      "expected_size_bytes": 186813,
+      "hackage_index_target": "<repo>/package/unix-2.8.8.0.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "unix-2.8.8.0/LICENSE",
+          "sha256": "3c1256f4dcca630614312dca24be15db94a7cfdaf4584b4a90d6f4dbf3db2c23",
+          "size_bytes": 1611
+        }
+      ],
+      "name": "unix",
+      "notice_files_found": [],
+      "observed_sha256": "a128dea3bfeb731a562f22d376fa606e902154d95321363f7ec1ea6b787a5a3e",
+      "observed_size_bytes": 186813,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/unix.git",
+          "type": "git"
+        }
+      ],
+      "version": "2.8.8.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/unordered-containers-0.2.21/unordered-containers-0.2.21.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "3b2ad1522b546e61960153257d1e5d239eeec5e83da847d5cb4d896a5bb7f9c0",
+      "expected_size_bytes": 68227,
+      "hackage_index_target": "<repo>/package/unordered-containers-0.2.21.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "unordered-containers-0.2.21/LICENSE",
+          "sha256": "f48ff1f157f254305a224bbb92978b44d562cd735504008575f53201e6ae410b",
+          "size_bytes": 1522
+        }
+      ],
+      "name": "unordered-containers",
+      "notice_files_found": [],
+      "observed_sha256": "3b2ad1522b546e61960153257d1e5d239eeec5e83da847d5cb4d896a5bb7f9c0",
+      "observed_size_bytes": 68227,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell-unordered-containers/unordered-containers.git",
+          "type": "git"
+        }
+      ],
+      "version": "0.2.21"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/uuid-types-1.0.6.1/uuid-types-1.0.6.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "9f00f278b9711104b6acc1404d9f0d45c1183b4987cf9c07403bebc05c0c3024",
+      "expected_size_bytes": 11231,
+      "hackage_index_target": "<repo>/package/uuid-types-1.0.6.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "uuid-types-1.0.6.1/LICENSE",
+          "sha256": "9fd9cbfc86dd7e1831281a4ba4edf63a03a1f7adf59fc9fdc243b8600f08164d",
+          "size_bytes": 1456
+        }
+      ],
+      "name": "uuid-types",
+      "notice_files_found": [],
+      "observed_sha256": "9f00f278b9711104b6acc1404d9f0d45c1183b4987cf9c07403bebc05c0c3024",
+      "observed_size_bytes": 11231,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell-hvr/uuid.git",
+          "subdir": "uuid-types",
+          "type": "git"
+        }
+      ],
+      "version": "1.0.6.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/vector-0.13.2.0/vector-0.13.2.0.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "28f203c786cbf8ac6dc3fea3378ec36f34173d505fb4a1dd60fc8418ad91c423",
+      "expected_size_bytes": 185739,
+      "hackage_index_target": "<repo>/package/vector-0.13.2.0.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "vector-0.13.2.0/LICENSE",
+          "sha256": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71",
+          "size_bytes": 1676
+        }
+      ],
+      "name": "vector",
+      "notice_files_found": [],
+      "observed_sha256": "28f203c786cbf8ac6dc3fea3378ec36f34173d505fb4a1dd60fc8418ad91c423",
+      "observed_size_bytes": 185739,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/vector.git",
+          "subdir": "vector",
+          "type": "git"
+        }
+      ],
+      "version": "0.13.2.0"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/vector-stream-0.1.0.1/vector-stream-0.1.0.1.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "d0f507334bdea5431a2f07f525a97f29e76522c32210f5de6d5a2b4f1d42bf7c",
+      "expected_size_bytes": 12577,
+      "hackage_index_target": "<repo>/package/vector-stream-0.1.0.1.tar.gz",
+      "license": "BSD3",
+      "license_files_found": [
+        {
+          "path": "vector-stream-0.1.0.1/LICENSE",
+          "sha256": "a2bb7af96394e2cf79f5ceb0b7c85b088219814339fd0edb61d4fafb6dfd1c71",
+          "size_bytes": 1676
+        }
+      ],
+      "name": "vector-stream",
+      "notice_files_found": [],
+      "observed_sha256": "d0f507334bdea5431a2f07f525a97f29e76522c32210f5de6d5a2b4f1d42bf7c",
+      "observed_size_bytes": 12577,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/haskell/vector.git",
+          "subdir": "vector-stream",
+          "type": "git"
+        }
+      ],
+      "version": "0.1.0.1"
+    },
+    {
+      "all_declared_license_files_found": true,
+      "archive_url": "https://hackage.haskell.org/package/witherable-0.5/witherable-0.5.tar.gz",
+      "declared_license_paths": [
+        "LICENSE"
+      ],
+      "digest_match": true,
+      "expected_sha256": "48434cc1e465b13cbc0133a90c3ec0d827c93b77ce95807fe0a38b65f4918cd1",
+      "expected_size_bytes": 10819,
+      "hackage_index_target": "<repo>/package/witherable-0.5.tar.gz",
+      "license": "BSD-3-Clause",
+      "license_files_found": [
+        {
+          "path": "witherable-0.5/LICENSE",
+          "sha256": "acdbcfe3ef2b455b38bcec8fa9184a9fefb950cf9d6c6b10e092d72581345b16",
+          "size_bytes": 1532
+        }
+      ],
+      "name": "witherable",
+      "notice_files_found": [],
+      "observed_sha256": "48434cc1e465b13cbc0133a90c3ec0d827c93b77ce95807fe0a38b65f4918cd1",
+      "observed_size_bytes": 10819,
+      "source_repository": [
+        {
+          "kind": "head",
+          "location": "https://github.com/fumieval/witherable.git",
+          "subdir": "witherable",
+          "type": "git"
+        }
+      ],
+      "version": "0.5"
+    }
+  ],
+  "compiler_packages": [
+    {
+      "name": "ghc-prim",
+      "version": "0.13.1",
+      "source_repository": {
+        "type": "git",
+        "location": "https://gitlab.haskell.org/ghc/ghc.git",
+        "subdir": "libraries/ghc-prim"
+      },
+      "source_artifact": {
+        "distribution": "GHC 9.14.1 official source archive",
+        "url": "https://downloads.haskell.org/ghc/9.14.1/ghc-9.14.1-src.tar.xz",
+        "sha256": "2a83779c9af86554a3289f2787a38d6aa83d00d136aa9f920361dd693c101e77",
+        "signature_checks": "SHA256SUMS and source archive signatures both verify with key fingerprint 88B5 7FCF 7DB5 3B4D B3BF A4B1 5887 64FB E22D 19C4; GPG trust database reports the key as unknown."
+      },
+      "declared_license": "BSD-3-Clause",
+      "license_file_field": "libraries/ghc-prim/ghc-prim.cabal declares LICENSE",
+      "license_files": [
+        {
+          "path": "libraries/ghc-prim/LICENSE",
+          "size_bytes": 2863,
+          "sha256": "e17dc2656f2bdc4b5715a6a35fa4cdfa403b0e95a8d63e97366818e067fe6f6e"
+        }
+      ],
+      "required_notices": "Retain the GHC BSD-style copyright and conditions; the license also includes a Haskell 98 report notice and redistribution condition.",
+      "notice_files_found": [],
+      "source_archive_notice_result": "PASS for the declared ghc-prim LICENSE: it is present in the verified GHC source archive.",
+      "semadmit_redistribution_result": "No Haskell binary is released by Semadmit. A future Haskell binary must ship the applicable dependency notices; this has not been qualified."
+    },
+    {
+      "name": "rts",
+      "version": "1.0.3",
+      "source_repository": {
+        "type": "git",
+        "location": "https://gitlab.haskell.org/ghc/ghc.git",
+        "subdir": "rts"
+      },
+      "source_artifact": {
+        "distribution": "GHC 9.14.1 official source archive",
+        "url": "https://downloads.haskell.org/ghc/9.14.1/ghc-9.14.1-src.tar.xz",
+        "sha256": "2a83779c9af86554a3289f2787a38d6aa83d00d136aa9f920361dd693c101e77",
+        "signature_checks": "SHA256SUMS and source archive signatures both verify with key fingerprint 88B5 7FCF 7DB5 3B4D B3BF A4B1 5887 64FB E22D 19C4; GPG trust database reports the key as unknown."
+      },
+      "declared_license": "BSD-3-Clause",
+      "license_file_field": "rts.cabal declares no license-file field; GHC root LICENSE is present in the enclosing source distribution.",
+      "license_files": [
+        {
+          "path": "LICENSE",
+          "size_bytes": 1611,
+          "sha256": "e06c13b8a117652621781c15d622bd4c62c568307954f7136955b4b656d14ec1"
+        }
+      ],
+      "required_notices": [
+        "GHC BSD-style license and copyright notice.",
+        "xxHash BSD-2-Clause notice is present inline in rts/xxhash.h.",
+        "LLVM release license text is present at rts/linker/ELFRelocs/LICENSE-LLVM.TXT.",
+        "The generated rts/configure script carries the Free Software Foundation copyright and unlimited permission notice in its header.",
+        "rts/js/md5.js has an Apache-2.0 header for vendored Closure Library code. No separate Apache license copy or NOTICE file was found under rts in this source distribution."
+      ],
+      "notice_files_found": [
+        {
+          "path": "rts/linker/ELFRelocs/LICENSE-LLVM.TXT",
+          "size_bytes": 3192,
+          "sha256": "abd4d8794808bacb1eb6924d49efafd9ab6eef88faaaeb5d3cfa13ee3670d672"
+        }
+      ],
+      "inline_notice_files": [
+        {
+          "path": "rts/xxhash.h",
+          "size_bytes": 268319,
+          "sha256": "17973c0dc49d9854ca26caa191f0e12f7a424b68858d9a78de3860d959d85e4b"
+        },
+        {
+          "path": "rts/js/md5.js",
+          "size_bytes": 19146,
+          "sha256": "b2336465d37d484c9129edc1ae4b93b9877bb9fe0e0c49b8ee2803755959ba62"
+        },
+        {
+          "path": "rts/configure",
+          "size_bytes": 274785,
+          "sha256": "bb460cfe852488a29f4c15206b3a7ac6c50485f0d7554a2366cea9b1d2ba6215"
+        }
+      ],
+      "source_archive_notice_result": "PARTIAL: GHC, xxHash, LLVM, and generated Autoconf notice material is present; the separate Apache-2.0 license copy for vendored Closure Library code was not found under rts.",
+      "semadmit_redistribution_result": "No Haskell binary is released by Semadmit. Required notice coverage for any future Haskell binary remains unresolved and needs owner review."
+    }
+  ],
+  "python_build_backend": {
+    "name": "setuptools",
+    "version": "84.0.0",
+    "role": "Build-only backend; not a Semadmit runtime dependency and not bundled in Semadmit wheel or sdist.",
+    "source_repository": "https://github.com/pypa/setuptools",
+    "distribution_artifact": {
+      "type": "wheel",
+      "url": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl",
+      "sha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670",
+      "size_bytes": 818216,
+      "local_artifact_matches_pypi_file_metadata": true
+    },
+    "declared_license": "MIT",
+    "required_notices": "MIT copyright and license text.",
+    "license_file": {
+      "path": "setuptools-84.0.0.dist-info/licenses/LICENSE",
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "present_in_backend_wheel": true
+    },
+    "notice_result": "The backend wheel contains its MIT license and vendored license files. This backend wheel is a local build input, not a Semadmit distribution artifact."
+  },
+  "semadmit_distribution_assessment": {
+    "python_wheel": {
+      "artifact": "semadmit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "3bd2eefbad3348401ac1d1a9155f597c2b58ca7941eb71a5970d903f43659871",
+      "project_license": "Apache-2.0 LICENSE present",
+      "dependency_notices": "No Haskell dependencies or setuptools build backend are bundled."
+    },
+    "python_source_archive": {
+      "artifact": "semadmit-0.1.0.dev0.tar.gz",
+      "raw_sha256": "fb019e472d95702487c07d29f06b3268b7524b121b5c1b27689a9d528eaacd86",
+      "normalized_reproducible_sha256": "940ed9931fbcbfbdeaf0a05b374af7a0226662635dcff69ddda1567d8701b13c",
+      "project_license": "LICENSE present; PKG-INFO declares Apache-2.0 and License-File: LICENSE",
+      "dependency_notices": "No Haskell dependencies or setuptools build backend are bundled."
+    },
+    "haskell_source_archive": {
+      "artifact": "semantic-oracle-0.1.0.0.tar.gz",
+      "sha256": "b79b145abfa4fd2f138c1cd17a46926f29acc9485cd9bcce1ca42925f4bbeac5",
+      "project_license": "LICENSE present",
+      "dependency_notices": "Dependency archives are not bundled in the Cabal source archive."
+    },
+    "haskell_executable": {
+      "artifact": "Locally built validation output; not published or included in a release bundle.",
+      "notice_inclusion": "Not qualified for redistribution. The rts Closure Library Apache-2.0 license copy remains unresolved."
+    }
+  }
+}
