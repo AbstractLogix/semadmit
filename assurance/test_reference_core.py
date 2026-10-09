@@ -24,6 +24,8 @@ _VECTORS = _ROOT / "test/integration/vertical_slice/vectors.json"
 _IDENTITIES = _ROOT / "conformance/fixtures/m0-identity-vectors.json"
 _RFC = _ROOT / "conformance/fixtures/rfc8785-vectors.json"
 _SEED = 20261009
+SEEDED_DIFFERENTIAL_REQUEST_COUNT = 96
+SELECTED_RFC8785_VECTOR_IDS = ("section-3-2-3-property-order-and-utf8",)
 
 
 def _request(mode: str, name: str, evidence: list[object]) -> dict[str, object]:
@@ -64,13 +66,14 @@ class ReferenceCoreChecks(unittest.TestCase):
                 )
 
         rfc_cases = json.loads(_RFC.read_text(encoding="utf-8"))["cases"]
-        property_order = next(
-            case for case in rfc_cases if case["id"] == "section-3-2-3-property-order-and-utf8"
-        )
-        self.assertEqual(
-            canonical_bytes(json.loads(property_order["input_json_utf8"])),
-            property_order["expected_canonical_utf8"].encode("utf-8"),
-        )
+        selected_rfc_cases = [case for case in rfc_cases if case["id"] in SELECTED_RFC8785_VECTOR_IDS]
+        self.assertEqual({case["id"] for case in selected_rfc_cases}, set(SELECTED_RFC8785_VECTOR_IDS))
+        for case in selected_rfc_cases:
+            with self.subTest(vector=case["id"]):
+                self.assertEqual(
+                    canonical_bytes(json.loads(case["input_json_utf8"])),
+                    case["expected_canonical_utf8"].encode("utf-8"),
+                )
 
     def test_hand_derived_canonical_bytes_and_digest(self) -> None:
         value = {"a": 1, "b": True, "c": "é"}
@@ -89,7 +92,7 @@ class ReferenceCoreChecks(unittest.TestCase):
         evaluator = Evaluator(PackRegistry((FixturePack(),)))
         names = ["plain", "café", "cafe\u0301", "λ", "𐐷", "東京"]
         modes = ["pass", "fail", "missing", "partial", "mixed"]
-        for case_index in range(96):
+        for case_index in range(SEEDED_DIFFERENTIAL_REQUEST_COUNT):
             identifiers = [f"evidence-{case_index}-{offset}" for offset in range(rng.randrange(5))]
             evidence = [
                 {"id": identifier, "present": bool(rng.getrandbits(1))}

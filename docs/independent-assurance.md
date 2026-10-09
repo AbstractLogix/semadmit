@@ -79,8 +79,10 @@ The machine-readable evidence is in
 [`assurance-certificate.json`](../assurance/assurance-certificate.json). It
 records the implementation commit, corpus digests, toolchain, test counts,
 mutation results, local build hashes, CI evidence, and unsupported guarantees.
-The certificate is a reproducible report, not a signature or independent
-approval.
+The certificate writer reruns the corpus, mutation, test, and coverage gates;
+it derives test counts and mutation outcomes from those runs. A hosted pass is
+read from GitHub Actions and bound to the validation commit. The certificate
+is a reproducible report, not a signature or independent approval.
 
 ## Research Artifact Description
 

@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import platform
+import re
 import subprocess
 import sys
 from pathlib import Path
 
-from assurance.generate_corpus import check_corpora
 from assurance.mutation_check import MUTATIONS
 
 
@@ -39,11 +40,153 @@ def tool_version(*command: str) -> str | None:
         return None
 
 
+def checked_gate(name: str, command: list[str]) -> str:
+    print(f"$ {' '.join(command)}", flush=True)
+    result = subprocess.run(
+        command,
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if result.stdout:
+        print(result.stdout, end="" if result.stdout.endswith("\n") else "\n")
+    if result.returncode != 0:
+        raise RuntimeError(f"{name} failed with exit code {result.returncode}")
+    return result.stdout
+
+
+def test_constant(name: str) -> object:
+    source = ast.parse((ROOT / "assurance/test_reference_core.py").read_text(encoding="utf-8"))
+    for statement in source.body:
+        if isinstance(statement, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == name for target in statement.targets
+        ):
+            return ast.literal_eval(statement.value)
+    raise RuntimeError(f"test case count {name} is not declared")
+
+
+def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str, object]]]:
+    corpus_command = [sys.executable, "-m", "assurance.generate_corpus", "--check"]
+    mutation_command = [sys.executable, "-m", "assurance.mutation_check"]
+    coverage_command = [sys.executable, "scripts/check_coverage.py"]
+    checked_gate("seeded corpus check", corpus_command)
+
+    mutation_output = checked_gate("source mutation check", mutation_command)
+    killed = re.findall(r"^KILLED: (.+)$", mutation_output, re.MULTILINE)
+    expected_mutations = [mutation.name for mutation in MUTATIONS]
+    score = re.search(r"^mutation score: (\d+)/(\d+) \((\d+)%\)$", mutation_output, re.MULTILINE)
+    if killed != expected_mutations or score is None:
+        raise RuntimeError("mutation output does not report every configured mutation as killed")
+    if tuple(map(int, score.groups())) != (len(expected_mutations), len(expected_mutations), 100):
+        raise RuntimeError("mutation score is not a complete pass")
+
+    coverage_output = checked_gate("test and coverage gates", coverage_command)
+    if "All test and coverage gates passed." not in coverage_output:
+        raise RuntimeError("coverage command exited without its success marker")
+    test_counts = [int(count) for count in re.findall(r"^Ran (\d+) tests? in ", coverage_output, re.MULTILINE)]
+    if len(test_counts) != 2:
+        raise RuntimeError("coverage output did not report both Python test counts")
+
+    core = json.loads((ROOT / "test/integration/vertical_slice/vectors.json").read_text(encoding="utf-8"))
+    parser = json.loads((ROOT / "conformance/fixtures/protocol-cases.json").read_text(encoding="utf-8"))
+    identities = json.loads((ROOT / "conformance/fixtures/m0-identity-vectors.json").read_text(encoding="utf-8"))
+    rfc = json.loads((ROOT / "conformance/fixtures/rfc8785-vectors.json").read_text(encoding="utf-8"))
+    differential_request_count = test_constant("SEEDED_DIFFERENTIAL_REQUEST_COUNT")
+    selected_rfc_ids = test_constant("SELECTED_RFC8785_VECTOR_IDS")
+    if not isinstance(differential_request_count, int) or not isinstance(selected_rfc_ids, tuple):
+        raise RuntimeError("seeded test counts have an invalid declaration")
+    rfc_ids = {case["id"] for case in rfc["cases"]}
+    if not set(selected_rfc_ids).issubset(rfc_ids):
+        raise RuntimeError("selected RFC 8785 vector is missing")
+    haskell_suites = len(
+        re.findall(
+            r"^test-suite\s+[A-Za-z0-9_-]+\s*$",
+            (ROOT / "semantic-oracle.cabal").read_text(encoding="utf-8"),
+            re.MULTILINE,
+        )
+    )
+    if haskell_suites == 0:
+        raise RuntimeError("no Haskell test suites are declared")
+
+    tests = {
+        "python_package_tests": test_counts[0],
+        "independent_reference_tests": test_counts[1],
+        "haskell_suites": haskell_suites,
+        "exact_core_vectors_in_each_language": len(core["cases"]),
+        "raw_parser_errors_in_each_language": sum("error" in case["expected"] for case in parser["cases"]),
+        "m0_identity_vectors_in_each_language": len(identities["vectors"]),
+        "selected_rfc8785_vectors_in_each_language": len(selected_rfc_ids),
+        "seeded_python_differential_requests": differential_request_count,
+    }
+    mutations = {
+        "scope": "selected Python Core mutations only; no Haskell source mutations",
+        "killed": len(killed),
+        "total": len(expected_mutations),
+        "score_percent": 100,
+        "mutations": killed,
+        "outcomes": {name: "killed" for name in killed},
+    }
+    gates = [
+        {"name": "seeded_corpus", "argv": corpus_command, "exit_code": 0},
+        {"name": "source_mutation", "argv": mutation_command, "exit_code": 0},
+        {"name": "test_and_coverage", "argv": coverage_command, "exit_code": 0},
+    ]
+    return tests, mutations, gates
+
+
+def hosted_ci(run_url: str | None, validation_commit: str) -> dict[str, str | None]:
+    if run_url is None:
+        return {"status": "unavailable", "run_url": None}
+    match = re.fullmatch(
+        r"https://github\.com/AbstractLogix/semadmit/actions/runs/(\d+)(?:/.*)?", run_url
+    )
+    if match is None:
+        raise RuntimeError("CI run URL must point to an AbstractLogix/semadmit GitHub Actions run")
+    try:
+        output = subprocess.run(
+            ["gh", "run", "view", match.group(1), "--json", "url,status,conclusion,headSha"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=True,
+        ).stdout
+        run = json.loads(output)
+    except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as error:
+        return {"status": "unavailable", "run_url": run_url, "verification_error": str(error)}
+    if run.get("headSha") != validation_commit or run.get("url") != run_url:
+        raise RuntimeError("CI run does not match the validation commit and supplied URL")
+    if run.get("status") != "completed":
+        status = "pending"
+    else:
+        status = "passed" if run.get("conclusion") == "success" else "failed"
+    return {"status": status, "run_url": run_url}
+
+
+def require_clean_validation_commit(validation_commit: str, implementation_commit: str) -> None:
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, capture_output=True, check=True
+    ).stdout.strip()
+    status = subprocess.run(
+        ["git", "status", "--porcelain"], cwd=ROOT, text=True, capture_output=True, check=True
+    ).stdout
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", implementation_commit, validation_commit],
+        cwd=ROOT,
+        check=False,
+    )
+    if head != validation_commit or status or ancestor.returncode != 0:
+        raise RuntimeError(
+            "validation must run from a clean checkout at a commit descended from the implementation commit"
+        )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--implementation-commit", required=True)
     parser.add_argument("--validation-commit", required=True)
-    parser.add_argument("--ci-status", choices=("pending", "passed", "unavailable"), required=True)
     parser.add_argument("--ci-run-url")
     parser.add_argument("--haskell-executable", type=Path, required=True)
     parser.add_argument("--haskell-sdist", type=Path, required=True)
@@ -52,9 +195,14 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=ROOT / "assurance/assurance-certificate.json")
     args = parser.parse_args()
 
-    if not check_corpora():
-        print("committed seeded corpora do not match their generator", file=sys.stderr)
+    try:
+        require_clean_validation_commit(args.validation_commit, args.implementation_commit)
+        executed_tests, mutation_results, gates = local_validation()
+        ci = hosted_ci(args.ci_run_url, args.validation_commit)
+    except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
+        print(f"certificate not written: {error}", file=sys.stderr)
         return 1
+
     artifacts = {
         "haskell_executable": args.haskell_executable,
         "haskell_source_archive": args.haskell_sdist,
@@ -102,24 +250,8 @@ def main() -> int:
             "uv": tool_version("uv", "--version"),
             "platform": platform.platform(),
         },
-        "executed_tests": {
-            "python_package_tests": 59,
-            "independent_reference_tests": 7,
-            "haskell_suites": 7,
-            "exact_core_vectors_in_each_language": 57,
-            "raw_parser_errors_in_each_language": 56,
-            "m0_identity_vectors_in_each_language": 9,
-            "selected_rfc8785_vectors_in_each_language": 1,
-            "seeded_python_differential_requests": 96,
-        },
-        "source_mutation_results": {
-            "scope": "selected Python Core mutations only; no Haskell source mutations",
-            "killed": len(MUTATIONS),
-            "total": len(MUTATIONS),
-            "score_percent": 100,
-            "mutations": [mutation.name for mutation in MUTATIONS],
-            "outcomes": {mutation.name: "killed" for mutation in MUTATIONS},
-        },
+        "executed_tests": executed_tests,
+        "source_mutation_results": mutation_results,
         "language_parity": {
             "shared": [
                 "57 complete fixture/0.1/check result or error vectors",
@@ -144,10 +276,8 @@ def main() -> int:
         },
         "validation": {
             "local_full_validation": "passed",
-            "hosted_ci": {
-                "status": args.ci_status,
-                "run_url": args.ci_run_url,
-            },
+            "local_gates": gates,
+            "hosted_ci": ci,
         },
         "unsupported_guarantees": [
             "evidence authenticity or collector identity",
