@@ -4,18 +4,18 @@
 
 ## Current Gate Matrix
 
-Assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
-Assurance implementation and test commit: `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
-The full checks and artifacts for this commit are recorded in
-[release-assurance.md](release-assurance.md).
+Previous assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
+The independent Core assurance extension and its exact commits are recorded in
+[independent-assurance.md](independent-assurance.md) and its machine-readable
+certificate.
 
 | Gate | Result | Scope |
 | --- | --- | --- |
 | Claim protocol | Qualified | Python verifier for `semadmit/claim/0.1`; this does not establish truth or source authenticity. |
-| Core cross-language conformance | Qualified for named vectors | 9 full decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 8 raw parser-error envelopes. Broader parser and CLI parity remains partial. |
+| Core cross-language conformance | Qualified for named vectors only | 57 exact decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 56 raw parser-error envelopes. Broader parser precedence, resource-boundary, and CLI parity remains partial. |
 | Claim semantics | Python-only | Haskell does not implement the claim pack; no claim-pack parity is claimed. |
 | Selector provenance | Experimental | Four bounded independence cases remain `indeterminate`; no positive independence rule is supported. |
-| Distribution readiness | Not ready | GHC `rts` Apache-2.0 notice copy remains unresolved for any future Haskell binary. Other hosts are not qualified. |
+| Distribution readiness | No distribution approved | Haskell binaries still lack an approved `rts` Apache-2.0 notice set. A Python-only release needs its own artifact review and owner decision. Other hosts are not qualified. |
 | Independent release approval | Open | No independent human reviewer has approved the source and distribution evidence. |
 
 Do not publish until the dependency notice gap, other open gates, and owner

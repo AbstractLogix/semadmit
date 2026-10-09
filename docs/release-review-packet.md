@@ -11,6 +11,11 @@ release assurance documents in the pull request record results from that exact
 commit. Review the implementation commit and the full pull request diff. This
 packet is not human approval.
 
+This packet also covers the independent Core assurance extension. Its exact
+implementation commit, corpus digests, local build hashes, and CI evidence are
+recorded in [`assurance-certificate.json`](../assurance/assurance-certificate.json).
+That certificate identifies the source commit for the new assurance artifact.
+
 ## Review Scope
 
 Review Semadmit's `semadmit/claim/0.1` result boundary, bounded Core parity,
@@ -37,9 +42,10 @@ Read these files:
 - Stable Bouleusis pin: `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
 - Claim semantics are implemented and tested in Python only. Haskell does not
   implement the claim pack, so no claim-pack parity is asserted.
-- Core parity is limited to the 9 shared decision vectors, 9 M0 identity
-  vectors, the selected RFC 8785 property-order vector, and the 8 raw parser
-  error cases. Other parser recipes and full CLI framing remain partial.
+- Core parity is limited to 57 shared decision vectors, 9 M0 identity vectors,
+  the selected RFC 8785 property-order vector, and 56 raw parser-error cases.
+  The independent Python oracle supports only test-only
+  `fixture/0.1/check`. Other parser recipes and full CLI framing remain partial.
 - `selector-provenance/0.1` is experimental and Python-only. Its four bounded
   independence cases remain `indeterminate`. No positive independence rule is
   supported by current IsoPrax evidence.
@@ -61,6 +67,12 @@ uses the implementation available in the caller's process and does not bind
 the result to an immutable executable. The in-memory API cannot detect
 duplicate JSON keys after a caller has parsed and discarded them.
 
+The independent Core reference does not use the production evaluator to
+compute expected results. The Haskell implementation consumes committed
+expected outputs from that reference; this qualifies only the listed shared
+vectors. The oracle does not implement claim semantics or authenticate source
+evidence.
+
 ## Positive and Negative Conformance Evidence
 
 The shared Core decision cases include:
@@ -73,9 +85,12 @@ The shared Core decision cases include:
 
 Both language suites compare complete Core decisions and error results with
 the same expected vectors. The Haskell and Python identity suites consume the
-same M0 canonical byte and digest vectors. The parser suites now consume the
-same eight raw error cases and compare the full error object. The full test
-record and known limits are in [release-assurance.md](release-assurance.md).
+same M0 canonical byte and digest vectors. The parser suites consume the same
+56 raw error cases and compare the full error object. The selected source
+mutations killed all 7 Python Core mutants; this does not establish Haskell
+mutation coverage. The test record and limits are in
+[independent-assurance.md](independent-assurance.md) and
+[release-assurance.md](release-assurance.md).
 
 Claim-verification tests reject changed requests, claim and evidence identity
 substitution, result-envelope changes, status changes, artifact/Core binding
@@ -92,6 +107,8 @@ set -euo pipefail
 scratch="$(mktemp -d /tmp/semadmit-review-build.XXXXXX)"
 mkdir -p "$scratch/haskell" "$scratch/python"
 python3 scripts/check_coverage.py
+python3 -m assurance.generate_corpus --check
+python3 -m assurance.mutation_check
 cabal build exe:semantic-oracle
 cabal sdist --output-directory="$scratch/haskell"
 uv build --out-dir "$scratch/python" clients/python
@@ -150,6 +167,9 @@ The dependency archive URLs and hashes are in
   contracts.
 - [ ] Confirm the Core parity statement names only semantics and vectors both
   implementations test.
+- [ ] Inspect the independent reference, fixed-seed corpora, and seven-mutation
+  scope. Confirm the reference does not import production identity or evaluator
+  code and both language suites consume the same expected data.
 - [ ] Confirm selector metadata does not grant independence and the outcomes
   remain `indeterminate`.
 - [ ] Review the exact hashes, lock metadata, GHC signatures, and missing
@@ -158,8 +178,8 @@ The dependency archive URLs and hashes are in
   notice bundle.
 - [ ] Review snapshot binding, guarded consumption, Measurement, and the
   incomplete parser/CLI cross-language cases as open gates.
-- [ ] Record findings against implementation commit
-  `cad6943ce19bc4b0439cd85332ed632ee17f3a9f` and the pull request.
+- [ ] Record findings against the exact implementation commit in
+  `assurance/assurance-certificate.json` and the pull request.
 - [ ] Obtain independent human approval before any release decision.
 
 **Independent reviewer status: not obtained.** The release gate remains open.

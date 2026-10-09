@@ -17,6 +17,10 @@ _RAW_ERROR_CASE_IDS = (
     "exponent-number-form",
     "negative-zero-number-form",
     "integer-outside-safe-range",
+) + tuple(
+    f"assurance-parser-seed-20261009-{kind}-{index:02d}"
+    for kind in ("trailing", "number", "duplicate")
+    for index in range(16)
 )
 
 

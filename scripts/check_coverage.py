@@ -118,6 +118,19 @@ def check_python(root: Path, output_dir: Path) -> None:
     print(test_summary.group(0))
     print("OK")
 
+    assurance_output = run(
+        [sys.executable, "-m", "unittest", "assurance.test_reference_core"],
+        cwd=root,
+        env=env,
+        capture=True,
+    )
+    assurance_summary = re.search(r"^Ran \d+ tests? in .+$", assurance_output, re.MULTILINE)
+    if not assurance_summary or not re.search(r"^OK$", assurance_output, re.MULTILINE):
+        print(assurance_output, end="" if assurance_output.endswith("\n") else "\n")
+        raise GateFailure("independent Core assurance tests did not report a successful run")
+    print("Independent assurance " + assurance_summary.group(0))
+    print("OK")
+
     rows: dict[str, tuple[int, int, str]] = {}
     for line in output.splitlines():
         match = TRACE_ROW.match(line)

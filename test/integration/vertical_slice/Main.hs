@@ -80,11 +80,13 @@ main = do
         unless (excludes == Vector.fromList [String "semadmit/claim/0.1", String "isoprax/0.1 domain semantics"]) $
           fail "Core parity corpus scope must exclude unshared pack semantics"
         let vectors = Vector.toList cases
-        unless
-          ( map (field "id") vectors
-              == map (Just . String) ["admissible", "inadmissible", "indeterminate", "pass-with-missing", "failure-dominates-missing", "duplicate-evidence", "unsupported-protocol", "policy-digest-mismatch", "unexpected-field"]
-          ) $
+        let identifiers = map (field "id") vectors
+            baseIdentifiers = map (Just . String) ["admissible", "inadmissible", "indeterminate", "pass-with-missing", "failure-dominates-missing", "duplicate-evidence", "unsupported-protocol", "policy-digest-mismatch", "unexpected-field"]
+            generatedIdentifiers = map (Just . String . ("assurance-seed-20261009-" <>) . paddedIndex) [0 .. 47]
+        unless (take (length baseIdentifiers) identifiers == baseIdentifiers) $
           fail "Core parity corpus must retain its reviewed cases and order"
+        unless (drop (length baseIdentifiers) identifiers == generatedIdentifiers) $
+          fail "independent seeded Core vectors are missing, reordered, or duplicated"
         forM_ vectors (checkVector registry)
         checkCLI registry vectors
       _ -> fail "Core parity corpus metadata or cases are missing"
@@ -99,6 +101,11 @@ checkVector registry vector = case (field "id" vector, field "request" vector, f
       unless (actual == expected) $
         fail ("Haskell vertical-slice result differs for " <> Text.unpack identifier)
   _ -> fail "malformed vertical-slice vector"
+
+paddedIndex :: Int -> Text
+paddedIndex index = Text.replicate (3 - Text.length digits) "0" <> digits
+  where
+    digits = Text.pack (show index)
 
 checkCLI :: PackRegistry -> [Value] -> IO ()
 checkCLI registry vectors = do
