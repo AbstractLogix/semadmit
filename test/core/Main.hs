@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Control.Monad (unless)
 import Core.Pack (NormalizedPackRequest (..), OperationDescriptor (..), Pack (..), PackBehavior (..), PackDescriptor (..), PackInputError (..), PackRegistry, PackRegistryError (..), PackResult (..), lookupOperation, lookupPack, mkPackRegistry)
 import Core.Pack (packIdentityFor)
 import Core.Evaluator (evaluateRequest)
@@ -379,10 +380,24 @@ checkProtocolFixtures = do
   case eitherDecodeStrict' bytes of
     Left message -> fail message
     Right (Object root) -> case KeyMap.lookup "cases" root of
-      Just (Array cases) -> mapM_ checkFixture (Vector.toList cases)
+      Just (Array cases) -> do
+        parserFixtureIds <- concat <$> mapM checkFixture (Vector.toList cases)
+        unless (parserFixtureIds == expectedParserFixtureIds) $
+          fail "shared raw parser fixture set changed"
       _ -> fail "protocol fixture cases are missing"
     Right _ -> fail "protocol fixture root is not an object"
   where
+    expectedParserFixtureIds =
+      [ "duplicate-json-key"
+      , "invalid-utf8"
+      , "unpaired-surrogate"
+      , "invalid-json-syntax"
+      , "unsupported-number-profile"
+      , "exponent-number-form"
+      , "negative-zero-number-form"
+      , "integer-outside-safe-range"
+      ]
+
     checkFixture fixture = case (field "id" fixture, field "input" fixture, field "expected" fixture) of
       (Just (String identifier), Just input, Just expected) -> case (field "kind" input, field "error" expected) of
         (Just (String "raw-json-utf8"), Just errorValue) ->
@@ -395,17 +410,19 @@ checkProtocolFixtures = do
               Just raw -> compareExpected identifier raw errorValue
               Nothing -> fail "raw byte fixture contains invalid hex"
             _ -> fail "raw byte fixture hex is missing"
-        _ -> pure ()
+        (Just (String "request-mutation"), _) -> pure []
+        (Just (String "request-ref-padded-line"), _) -> pure []
+        (Just (String "jsonl-lines"), _) -> pure []
+        _ -> fail "unsupported protocol fixture input kind"
       _ -> fail "malformed protocol fixture"
 
-    compareExpected identifier source expected = case (field "code" expected, field "pointer" expected) of
-      (Just (String code), Just (String pointer)) -> case parseJsonBytes source of
-        Left actual ->
-          check
-            ("protocol fixture " <> Text.unpack identifier)
-            (inputErrorCode actual == code && inputErrorPointer actual == pointer)
-        Right _ -> fail ("protocol fixture was accepted: " <> Text.unpack identifier)
-      _ -> fail "protocol fixture error is incomplete"
+    compareExpected identifier source expected = case parseJsonBytes source of
+      Left actual -> do
+        check
+          ("protocol fixture " <> Text.unpack identifier)
+          (errorEnvelope actual == expected)
+        pure [identifier]
+      Right _ -> fail ("protocol fixture was accepted: " <> Text.unpack identifier)
 
 field :: Text -> Value -> Maybe Value
 field name (Object fields) = KeyMap.lookup (Key.fromText name) fields

@@ -1,18 +1,21 @@
 # Dependency and License Inventory
 
-**Status: partial release evidence.** This inventory records the exact Haskell dependency lock and the Python build backend used for this validation. It does not approve redistribution or replace an owner review of license obligations.
+**Status: evidence recorded; redistribution approval open.** This inventory records the exact Haskell dependency lock, archive digests, source locations, declared licenses, and inspected notice files. It does not approve redistribution or replace an owner review of license obligations.
 
 ## Evidence Source
 
-- Project baseline: `46b81c7d1429dc645efafdafcfac35b584ef38b9`.
+- Project baseline: `b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
 - Haskell graph: 71 exact package versions in `cabal.project.freeze`, SHA-256 `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`.
-- Hackage index state: `2026-09-16T00:00:00Z`.
-- 69 packages were checked from source archives retrieved at that index state. Each declared `license` value and `license-file(s)` path came from its Cabal package description. Each declared license file was present. No `NOTICE` file was present in those 69 package source archives.
-- Per-archive SHA-256 values and a retrieval manifest were not retained. This record identifies the package versions and index state, but it cannot independently prove that a later archive is byte-identical to the archive inspected here.
-- `ghc-prim-0.13.1` and `rts-1.0.3` have no source archive at the pinned Hackage index state. The GHC 9.14.1 package database declares `BSD-3-Clause` for both. Their source license text and notices were not checked in this run.
+- Effective Cabal Hackage index state: `2026-09-15T22:55:42Z`, from `cabal.project.freeze`. The `cabal.project` file says `2026-09-16T00:00:00Z`, but Cabal applies `cabal.project.freeze` after `cabal.project`; see the [Cabal project configuration order](https://github.com/haskell/cabal/blob/master/doc/cabal-project-description-file.rst#L204-L210).
+- All 69 locked Hackage archives match their `package.json` target SHA-256 and size in the Cabal-managed local Hackage index/cache. The current `01-index.tar` digest is `63acf6536e0cdfe6aca24f8b018006dafd32e1df45f1d82c817260f2dd8f28da`. A fresh Hackage download of `aeson-2.2.5.1` also matches its target hash. The per-package URLs, hashes, sizes, declared licenses, license-file hashes, source repositories, and separate `NOTICE` file results are in [dependency-provenance.json](dependency-provenance.json).
+- The index target metadata is read from the current Cabal-managed index cache. This report does not claim that the whole index tar is a historical snapshot at the freeze timestamp or independently re-validate its signing key chain. Hackage package target metadata records the package archive hash and size; see the [Hackage security design](https://github.com/haskell/hackage-security/blob/master/README.md#targets).
+- All 69 declared Cabal license files were present in the checked source archives. No separate `NOTICE` file was found in those archives. This check does not review every source file for embedded copyright or attribution notices.
+- Three Hackage package descriptions do not declare a source repository: `base-4.22.0.0`, `colour-2.3.7`, and `strict-0.5.1`. Their source repository remains unestablished here; no URL is inferred.
+- `ghc-prim-0.13.1` and `rts-1.0.3` are included with the exact GHC 9.14.1 toolchain source distribution, not the Hackage lock. The signed source archive SHA-256 is `2a83779c9af86554a3289f2787a38d6aa83d00d136aa9f920361dd693c101e77`. Both archive signatures verify under the key published by the [GHC 9.14.1 download page](https://ghc.gitlab.haskell.org/homepage/download_ghc_9_14_1.html); the local GPG trust database does not certify that key.
+- `ghc-prim` declares BSD-3-Clause and includes its `LICENSE`, which contains the GHC notice and Haskell 98 report notice. `rts` declares BSD-3-Clause but has no `license-file` field. Its enclosing GHC source archive includes the GHC `LICENSE`; `rts` also contains inline xxHash BSD-2-Clause terms, the LLVM license text, and vendored Closure Library code with an Apache-2.0 header. No separate Apache license copy or `NOTICE` file was found under `rts`. The full required notice set for a future Haskell binary is not established.
 - The Cabal description format defines the `license` and `license-files` fields. These values are recorded as published; older values such as `BSD3` and `BSD2` are not rewritten here. See the [Cabal package description specification](https://github.com/haskell/cabal/blob/master/doc/cabal-package-description-file.rst).
 
-The inventory checks metadata and the presence of declared license files. It does not compare each license text with its upstream copyright history or decide whether every redistribution condition is met. The missing source evidence for `ghc-prim` and `rts` keeps this gate open for a Haskell binary release.
+The inventory checks package metadata, archive digests, and declared license-file presence. It does not compare every license text with its upstream copyright history or decide whether every redistribution condition is met. No Haskell binary is currently a Semadmit release artifact. A future Haskell binary release remains blocked on a complete notice bundle and owner approval.
 
 ## Haskell Locked Graph
 
@@ -93,9 +96,9 @@ The inventory checks metadata and the presence of declared license files. It doe
 ## Python Build Dependencies and Package Contents
 
 - Python runtime dependencies: none.
-- Build backend: `setuptools==84.0.0`, pinned in `clients/python/pyproject.toml`. It is build-only and declares MIT in the upstream [Setuptools 84.0.0 metadata](https://github.com/pypa/setuptools/blob/v84.0.0/pyproject.toml). Its license file is in the [Setuptools 84.0.0 source](https://github.com/pypa/setuptools/blob/v84.0.0/LICENSE).
+- Build backend: `setuptools==84.0.0`, pinned in `clients/python/pyproject.toml`. Its exact wheel URL and SHA-256 are in [dependency-provenance.json](dependency-provenance.json). The wheel metadata declares MIT and includes its license file. Setuptools is build-only and is not included in Semadmit's Python artifacts. See the [Setuptools 84.0.0 metadata](https://github.com/pypa/setuptools/blob/v84.0.0/pyproject.toml) and [license file](https://github.com/pypa/setuptools/blob/v84.0.0/LICENSE).
 - Build frontend used here: uv 0.11.31. It is not bundled in the Semadmit wheel.
 - The Python sdist and wheel include Semadmit's `LICENSE`. The wheel metadata declares `License-Expression: Apache-2.0`; it contains the nine package modules and no test package.
 - The Haskell `cabal sdist` archive includes the project `LICENSE`, source, and tests. It does not include a `NOTICE` file.
 
-The [Apache License 2.0 text](https://www.apache.org/licenses/LICENSE-2.0.html) requires distribution of a license copy. If a source package includes a `NOTICE` file, applicable attribution notices must also be retained. This check found no `NOTICE` file in the 69 Hackage source archives reviewed. The two GHC package entries still need source-level notice review before a Haskell binary is distributed.
+The [Apache License 2.0 text](https://www.apache.org/licenses/LICENSE-2.0.html) requires distribution of a license copy. The Python package artifacts contain Semadmit's Apache-2.0 license. The Hackage archives reviewed contain their declared license files but no separate `NOTICE` files. The GHC `rts` source includes vendored Apache-2.0 code without a separate license copy under `rts`; therefore notice coverage for a future Haskell binary remains open. The project must not publish that binary until the owner approves a complete notice bundle.

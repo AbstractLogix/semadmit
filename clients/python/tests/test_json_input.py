@@ -8,19 +8,34 @@ from semadmit.json_input import InputProblem, copy_json_tree, parse_json_bytes
 
 
 _CASES = Path(__file__).resolve().parents[3] / "conformance/fixtures/protocol-cases.json"
+_RAW_ERROR_CASE_IDS = (
+    "duplicate-json-key",
+    "invalid-utf8",
+    "unpaired-surrogate",
+    "invalid-json-syntax",
+    "unsupported-number-profile",
+    "exponent-number-form",
+    "negative-zero-number-form",
+    "integer-outside-safe-range",
+)
 
 
 class JsonInputChecks(unittest.TestCase):
     def test_published_parser_errors(self) -> None:
         cases = json.loads(_CASES.read_text(encoding="utf-8"))["cases"]
-        for case in cases:
+        selected = [
+            case for case in cases
+            if case["input"]["kind"] in {"raw-json-utf8", "raw-bytes-hex"}
+        ]
+        self.assertEqual(tuple(case["id"] for case in selected), _RAW_ERROR_CASE_IDS)
+        for case in selected:
             data = case["input"]
-            if data["kind"] == "text":
+            if data["kind"] == "raw-json-utf8":
                 source = data["text"].encode("utf-8")
-            elif data["kind"] == "hex":
+            elif data["kind"] == "raw-bytes-hex":
                 source = bytes.fromhex(data["hex"])
             else:
-                continue
+                self.fail(f"unsupported raw parser fixture kind: {data['kind']}")
             with self.subTest(case=case["id"]), self.assertRaises(InputProblem) as caught:
                 parse_json_bytes(source)
             self.assertEqual(caught.exception.envelope(), case["expected"]["error"])
