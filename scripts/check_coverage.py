@@ -131,6 +131,19 @@ def check_python(root: Path, output_dir: Path) -> None:
     print("Independent assurance " + assurance_summary.group(0))
     print("OK")
 
+    certificate_output = run(
+        [sys.executable, "-m", "unittest", "assurance.test_certificate"],
+        cwd=root,
+        env=env,
+        capture=True,
+    )
+    certificate_summary = re.search(r"^Ran \d+ tests? in .+$", certificate_output, re.MULTILINE)
+    if not certificate_summary or not re.search(r"^OK$", certificate_output, re.MULTILINE):
+        print(certificate_output, end="" if certificate_output.endswith("\n") else "\n")
+        raise GateFailure("certificate integrity tests did not report a successful run")
+    print("Certificate integrity " + certificate_summary.group(0))
+    print("OK")
+
     rows: dict[str, tuple[int, int, str]] = {}
     for line in output.splitlines():
         match = TRACE_ROW.match(line)
