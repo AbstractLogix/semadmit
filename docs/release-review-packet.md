@@ -3,8 +3,8 @@
 **Exact implementation and validation commit:**
 `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
 
-**Latest merged Semadmit baseline:**
-`b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
+**Assurance PR #8 merge commit:**
+`e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 
 The implementation commit contains the assurance corrections and tests. The
 release assurance documents in the pull request record results from that exact
