@@ -58,10 +58,10 @@ SHA-256 values are in the machine-readable certificate.
 The shared Core suite now compares 57 complete decisions or error results in
 both languages. The 48 generated decisions come from a fixed seed and have
 expected values from the independent reference, not the production evaluator.
-Both parser suites compare 56 complete raw-input error envelopes: 8 reviewed
-cases and 48 bounded generated mutations. The reference supports only the
-test-only `fixture/0.1/check` operation. It does not implement Semadmit claim,
-Isoprax, selector, or Measurement semantics.
+Both parser suites compare 68 complete raw-input cases, including 65 error
+envelopes: 17 reviewed errors and 48 bounded generated mutations. The
+reference supports only the test-only `fixture/0.1/check` operation. It does
+not implement Semadmit claim, Isoprax, selector, or Measurement semantics.
 
 Seven controlled Python Core source mutants were killed (7/7) across exact
 result comparison, request and policy identity, policy-digest verification,
@@ -80,7 +80,7 @@ independence cases are `indeterminate`.
 | Area | Status | Evidence and limit |
 | --- | --- | --- |
 | Claim protocol | Qualified | Python Semadmit verifier checks request/result binding, identities, digests, Core bindings, status pairs, and protocol version. This is not a truth or source-authentication claim. |
-| Core cross-language conformance | Qualified for named vectors | Python and Haskell compare 57 exact decision vectors and 9 M0 identity vectors. Both also run the selected RFC 8785 property-order vector and 56 raw parser-error cases. The independent reference is bounded to the test-only fixture pack. This does not establish full cross-language parity. |
+| Core cross-language conformance | Qualified for named vectors | Python and Haskell compare 57 exact decision vectors and 9 M0 identity vectors. Both also run the selected RFC 8785 property-order vector and 68 raw parser cases, including 65 error envelopes. The independent reference is bounded to the test-only fixture pack. This does not establish full cross-language parity. |
 | Claim semantics | Python-only | `semadmit/claim/0.1` is implemented and tested in Python. Haskell does not implement this claim pack. No claim-pack parity is asserted. |
 | Selector provenance | Experimental | `selector-provenance/0.1` remains Python-only. All 4 bounded independence cases remain `indeterminate`. No positive independence rule is supported by the current IsoPrax evidence. |
 | Distribution readiness | No distribution approved | The normalized Python sdist is reproducible on the tested host, but a Python-only release still needs its own artifact review and owner decision. The Haskell runtime notice set is incomplete for a future binary. Other hosts and the release build environment are not qualified. |
@@ -104,12 +104,12 @@ compares all 57 full results against the committed expected values.
 
 The two language suites consume the 9 M0 identity vectors. They check canonical
 bytes and identity digests, including a decision digest. Both consume the
-selected RFC 8785 property-order and UTF-8 vector. Both consume the same 56 raw
-parser-error cases: the 8 reviewed inputs plus 48 fixed-seed mutations of
-trailing data, number profiles, and duplicate keys. They compare each full
-error envelope. Invalid UTF-8, unpaired surrogate, and negative zero remain in
-the reviewed cases. The loader fails if the expected raw case set changes
-without a test update.
+selected RFC 8785 property-order and UTF-8 vector. Both consume the same 68 raw
+parser cases, including 65 error envelopes: 17 reviewed errors plus 48
+fixed-seed mutations of trailing data, number profiles, and duplicate keys.
+They compare each complete output. Invalid UTF-8, unpaired surrogate, and
+negative zero remain in the reviewed cases. The loader fails if the expected
+raw case set changes without a test update.
 
 The remaining `protocol-cases.json` entries describe request mutations,
 resource recipes, or JSONL framing. They are not all run as exact shared
@@ -195,7 +195,7 @@ release builds on CI and other supported hosts remain open.
 | --- | --- | --- | --- |
 | Snapshot-bound verification | Verifier uses the implementation in the current process. | Bind verification to an immutable implementation or build identity without changing the frozen claim protocol. | Open |
 | Guarded claim consumption | Result verification returns a boolean. | Add and qualify a claim-specific checked-use capability before claiming guarded consumption. | Open |
-| Broad Core conformance | 57 exact decision vectors, 9 identity vectors, one shared RFC vector, 56 full raw parser errors, and 7/7 selected Python mutation kills pass. | Qualify remaining parser precedence, error pointers, resource boundaries, and CLI behavior where they expose a real compatibility risk. | Partial |
+| Broad Core conformance | 57 exact decision vectors, 9 identity vectors, one shared RFC vector, 68 raw parser cases (65 errors), and 7/7 selected Python mutation kills pass. | Qualify remaining parser precedence, error pointers, resource boundaries, and CLI behavior where they expose a real compatibility risk. | Partial |
 | Measurement | Existing tests pass. | Qualify a narrow contract and matching Python/Haskell behavior. | Open |
 | Downstream extension example | Neutral Core fixture exists. | Add and test an example after guarded consumption is available. | Open |
 | Dependency redistribution notices | Hackage archive digests and license files are recorded. The `rts` Apache-2.0 copy is not established. | Resolve the `rts` notice gap and obtain owner approval for all redistributed artifacts. | Partial |

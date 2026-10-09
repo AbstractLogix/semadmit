@@ -115,6 +115,7 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
         "independent_reference_tests": test_counts[1],
         "haskell_suites": haskell_suites,
         "exact_core_vectors_in_each_language": len(core["cases"]),
+        "raw_parser_cases_in_each_language": len(parser["cases"]),
         "raw_parser_errors_in_each_language": sum("error" in case["expected"] for case in parser["cases"]),
         "m0_identity_vectors_in_each_language": len(identities["vectors"]),
         "selected_rfc8785_vectors_in_each_language": len(selected_rfc_ids),
@@ -254,15 +255,21 @@ def main() -> int:
         "source_mutation_results": mutation_results,
         "language_parity": {
             "shared": [
-                "57 complete fixture/0.1/check result or error vectors",
-                "56 raw parser error envelopes",
-                "9 M0 canonical identity vectors",
-                "1 selected RFC 8785 property-order vector",
+                (
+                    f"{executed_tests['exact_core_vectors_in_each_language']} complete "
+                    "fixture/0.1/check result or error vectors"
+                ),
+                (
+                    f"{executed_tests['raw_parser_cases_in_each_language']} raw parser cases, "
+                    f"including {executed_tests['raw_parser_errors_in_each_language']} error envelopes"
+                ),
+                f"{executed_tests['m0_identity_vectors_in_each_language']} M0 canonical identity vectors",
+                f"{executed_tests['selected_rfc8785_vectors_in_each_language']} selected RFC 8785 property-order vectors",
             ],
             "python_only": [
                 "semadmit/claim/0.1 semantics",
                 "selector-provenance/0.1 semantics",
-                "96 dynamic seeded differential requests",
+                f"{executed_tests['seeded_python_differential_requests']} dynamic seeded differential requests",
             ],
             "reference_scope": "fixture/0.1/check and common safe-integer JSON profile",
         },

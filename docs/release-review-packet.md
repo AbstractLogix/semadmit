@@ -46,7 +46,8 @@ Read these files:
 - Claim semantics are implemented and tested in Python only. Haskell does not
   implement the claim pack, so no claim-pack parity is asserted.
 - Core parity is limited to 57 shared decision vectors, 9 M0 identity vectors,
-  the selected RFC 8785 property-order vector, and 56 raw parser-error cases.
+  the selected RFC 8785 property-order vector, and 68 raw parser cases,
+  including 65 error envelopes.
   The independent Python oracle supports only test-only
   `fixture/0.1/check`. Other parser recipes and full CLI framing remain partial.
 - `selector-provenance/0.1` is experimental and Python-only. Its four bounded
@@ -89,9 +90,9 @@ The shared Core decision cases include:
 Both language suites compare complete Core decisions and error results with
 the same expected vectors. The Haskell and Python identity suites consume the
 same M0 canonical byte and digest vectors. The parser suites consume the same
-56 raw error cases and compare the full error object. The selected source
-mutations killed all 7 Python Core mutants; this does not establish Haskell
-mutation coverage. The test record and limits are in
+68 raw cases, including 65 errors. They compare the full output. The selected
+source mutations killed all 7 Python Core mutants; this does not establish
+Haskell mutation coverage. The test record and limits are in
 [independent-assurance.md](independent-assurance.md) and
 [release-assurance.md](release-assurance.md).
 
@@ -139,8 +140,9 @@ sha256sum "$scratch/build-a/normalized.tar.gz" "$scratch/build-b/normalized.tar.
 cmp "$scratch/build-a/normalized.tar.gz" "$scratch/build-b/normalized.tar.gz"
 ```
 
-The recorded normalized archive SHA-256 is
-`940ed9931fbcbfbdeaf0a05b374af7a0226662635dcff69ddda1567d8701b13c`.
+Two clean builds of source commit `47d55e1e7fa10348d4a39679add3590edfe8233b`
+produced byte-identical normalized archives with SHA-256
+`43c0fecf441ab49e2edf3e639825c14b037eab301898395c2cf84f4e3d205c9d`.
 The dependency archive URLs and hashes are in
 [dependency-provenance.json](dependency-provenance.json).
 

@@ -14,7 +14,7 @@ certificate.
 | Gate | Result | Scope |
 | --- | --- | --- |
 | Claim protocol | Qualified | Python verifier for `semadmit/claim/0.1`; this does not establish truth or source authenticity. |
-| Core cross-language conformance | Qualified for named vectors only | 57 exact decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 56 raw parser-error envelopes. Broader parser precedence, resource-boundary, and CLI parity remains partial. |
+| Core cross-language conformance | Qualified for named vectors only | 57 exact decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 68 raw parser cases, including 65 error envelopes. Broader parser precedence, resource-boundary, and CLI parity remains partial. |
 | Claim semantics | Python-only | Haskell does not implement the claim pack; no claim-pack parity is claimed. |
 | Selector provenance | Experimental | Four bounded independence cases remain `indeterminate`; no positive independence rule is supported. |
 | Distribution readiness | No distribution approved | Haskell binaries still lack an approved `rts` Apache-2.0 notice set. A Python-only release needs its own artifact review and owner decision. Other hosts are not qualified. |
