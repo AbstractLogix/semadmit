@@ -46,6 +46,15 @@ implementation commit, source hashes, build artifact hashes, and hosted CI
 evidence are recorded in
 [`assurance-certificate.json`](../assurance/assurance-certificate.json).
 
+The source commit is
+`47d55e1e7fa10348d4a39679add3590edfe8233b`. At that exact commit,
+`python3 scripts/check_coverage.py` passed: 59 Python package tests, 7
+independent-reference tests, and all 7 Haskell suites. Python line coverage was
+1,679/1,679 executable lines. Haskell coverage was 5,318/5,859 expressions
+(90.77%) and 90/193 booleans (46.63%). The Haskell executable, Haskell source
+archive, Python source archive, and Python wheel also built successfully. Their
+SHA-256 values are in the machine-readable certificate.
+
 The shared Core suite now compares 57 complete decisions or error results in
 both languages. The 48 generated decisions come from a fixed seed and have
 expected values from the independent reference, not the production evaluator.

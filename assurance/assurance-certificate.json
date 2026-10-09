@@ -1,0 +1,123 @@
+{
+  "build_artifact_hashes_sha256": {
+    "haskell_executable": "08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700",
+    "haskell_source_archive": "f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4",
+    "python_source_archive": "89bc7581079a36d64b3512cd3423ffe28361c242a2bd073c2d35cbaf9f4eb45c",
+    "python_wheel": "461a8e81dcda9893e1db580cf4169ccff0ecdc1388b75dbe36df10c25701f5ee"
+  },
+  "counterexamples": {
+    "count": 0,
+    "details": [],
+    "scope": "listed committed corpus and recorded test runs only"
+  },
+  "digests": {
+    "core_result_corpus_sha256": "6096c75a17459e4b8c189fc58a6ea65be4cdbb7be27f19e7201a5665b544e737",
+    "corpus_generator_sha256": "a3e195b88273ef777d2c94408c5f5b2804f8a2b0755a352484634c333abf15c7",
+    "identity_vectors_sha256": "05fcd9169bd91dfb3361a6c7bc59e5815cae1d3fdd842098d4b187a213934b4d",
+    "parser_corpus_sha256": "7f3f9199ed997d16a66c499fe8822c23f958d9af7063506077b5c901a9f918fe",
+    "reference_oracle_sha256": "041a7fa82af2bca2c843859d12ec63de57f0a088e87c332f8b9c62e9968f628d",
+    "rfc8785_vectors_sha256": "538a9c545b58eb6ed49bea5c45ff62ff35f78715e29edbea7ffddf9218a57c14"
+  },
+  "executed_tests": {
+    "exact_core_vectors_in_each_language": 57,
+    "haskell_suites": 7,
+    "independent_reference_tests": 7,
+    "m0_identity_vectors_in_each_language": 9,
+    "python_package_tests": 59,
+    "raw_parser_errors_in_each_language": 56,
+    "seeded_python_differential_requests": 96,
+    "selected_rfc8785_vectors_in_each_language": 1
+  },
+  "format": "semadmit-assurance-certificate/0.1",
+  "implementation_commit": "47d55e1e7fa10348d4a39679add3590edfe8233b",
+  "language_parity": {
+    "python_only": [
+      "semadmit/claim/0.1 semantics",
+      "selector-provenance/0.1 semantics",
+      "96 dynamic seeded differential requests"
+    ],
+    "reference_scope": "fixture/0.1/check and common safe-integer JSON profile",
+    "shared": [
+      "57 complete fixture/0.1/check result or error vectors",
+      "56 raw parser error envelopes",
+      "9 M0 canonical identity vectors",
+      "1 selected RFC 8785 property-order vector"
+    ]
+  },
+  "protocol": "semantic-oracle/0.1",
+  "reproduction_commands": [
+    "python3 -m assurance.generate_corpus --check",
+    "python3 -m assurance.mutation_check",
+    "python3 scripts/check_coverage.py",
+    "cabal build exe:semantic-oracle",
+    "cabal sdist --output-directory=<output-dir>",
+    "uv build --out-dir <output-dir> clients/python"
+  ],
+  "research_artifact": {
+    "doi": null,
+    "peer_reviewed": false,
+    "permalink": "https://github.com/AbstractLogix/semadmit/tree/47d55e1e7fa10348d4a39679add3590edfe8233b",
+    "title": "Semadmit Core Conformance Oracle and Assurance Corpus",
+    "version": "0.1"
+  },
+  "selector_provenance": {
+    "independence_cases": "indeterminate",
+    "protocol": "selector-provenance/0.1",
+    "status": "experimental"
+  },
+  "source_mutation_results": {
+    "killed": 7,
+    "mutations": [
+      "canonical-result-comparison",
+      "request-binding",
+      "policy-digest-verification",
+      "policy-identity-binding",
+      "failure-state-priority",
+      "unsupported-protocol-rejection",
+      "internal-error-envelope"
+    ],
+    "outcomes": {
+      "canonical-result-comparison": "killed",
+      "failure-state-priority": "killed",
+      "internal-error-envelope": "killed",
+      "policy-digest-verification": "killed",
+      "policy-identity-binding": "killed",
+      "request-binding": "killed",
+      "unsupported-protocol-rejection": "killed"
+    },
+    "scope": "selected Python Core mutations only; no Haskell source mutations",
+    "score_percent": 100,
+    "total": 7
+  },
+  "stable_claim_compatibility": {
+    "bouleusis_pin": "de61aa87a5f4470fd64de33c926cff7f92cf8bd6",
+    "claim_status": "qualified; Python-only semantics",
+    "protocol": "semadmit/claim/0.1"
+  },
+  "toolchain": {
+    "cabal": "3.18.1.0",
+    "ghc": "9.14.1",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.13.14",
+    "uv": "uv 0.11.31 (x86_64-unknown-linux-gnu)"
+  },
+  "unsupported_guarantees": [
+    "evidence authenticity or collector identity",
+    "evidence reliability",
+    "claim truth",
+    "all Core parser precedence and error-pointer combinations",
+    "all Core resource limits and CLI framing in cross-language parity",
+    "Haskell parity for claim, selector, Isoprax, or Measurement semantics",
+    "formal correctness, exploit resistance, or total defect detection",
+    "independent human release approval",
+    "release readiness or package publication authorization"
+  ],
+  "validation": {
+    "hosted_ci": {
+      "run_url": null,
+      "status": "pending"
+    },
+    "local_full_validation": "passed"
+  },
+  "validation_commit": "47d55e1e7fa10348d4a39679add3590edfe8233b"
+}

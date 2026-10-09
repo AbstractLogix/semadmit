@@ -1,14 +1,17 @@
 # Independent Release Review Packet
 
-**Exact implementation and validation commit:**
+**Previous assurance implementation and validation commit:**
 `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
+
+**Independent Core assurance implementation and validation commit:**
+`47d55e1e7fa10348d4a39679add3590edfe8233b`.
 
 **Assurance PR #8 merge commit:**
 `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 
-The implementation commit contains the assurance corrections and tests. The
-release assurance documents in the pull request record results from that exact
-commit. Review the implementation commit and the full pull request diff. This
+The previous implementation commit contains the PR #8 assurance corrections.
+The new Core assurance implementation is the commit listed above. Review that
+commit, the machine-readable certificate, and the full pull request diff. This
 packet is not human approval.
 
 This packet also covers the independent Core assurance extension. Its exact
@@ -100,7 +103,8 @@ Python-only because Haskell does not implement the claim semantics.
 ## Reproduction Commands
 
 Use Linux x86_64, CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31.
-Run from a clean checkout of the exact implementation commit above.
+Run from a clean checkout of the independent Core assurance implementation
+commit above.
 
 ```bash
 set -euo pipefail
@@ -120,7 +124,7 @@ copies of the exact source commit:
 
 ```bash
 set -euo pipefail
-source_sha=cad6943ce19bc4b0439cd85332ed632ee17f3a9f
+source_sha=47d55e1e7fa10348d4a39679add3590edfe8233b
 source_epoch="$(git show -s --format=%ct "$source_sha")"
 repository_root="$(git rev-parse --show-toplevel)"
 scratch="$(mktemp -d /tmp/semadmit-source-repro.XXXXXX)"
