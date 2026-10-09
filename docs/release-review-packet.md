@@ -1,80 +1,158 @@
 # Independent Release Review Packet
 
-**Implementation baseline SHA:** `46b81c7d1429dc645efafdafcfac35b584ef38b9`.
+**Exact implementation and validation commit:**
+`cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
 
-**Exact test source SHA:** `03751e4a3a234c00360c9e6ddf36b6f742b0e3b3`.
+**Latest merged Semadmit baseline:**
+`b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
 
-The baseline is the exact merged Semadmit source used for fresh validation. The test source SHA adds regression assertions. The remaining PR changes are evidence documents. No assurance change alters runtime semantics or the frozen claim contract. Review the PR diff as well as these exact source commits.
+The implementation commit contains the assurance corrections and tests. The
+release assurance documents in the pull request record results from that exact
+commit. Review the implementation commit and the full pull request diff. This
+packet is not human approval.
 
 ## Review Scope
 
-Review Semadmit's claim result boundary, generic Core behavior, package contents, and evidence. Do not infer a Bouleusis integration result from the compatibility fixture. Do not treat this packet or automated review as human independent approval.
+Review Semadmit's `semadmit/claim/0.1` result boundary, bounded Core parity,
+archive provenance, package contents, and reproducible Python source archive
+procedure. Do not infer a Bouleusis integration run from the compatibility
+fixture. Do not treat automated checks as independent release approval.
 
-Read these files in order:
+Read these files:
 
 1. [Claim admission specification](../specs/002-structured-claim-admission/spec.md)
 2. [Core wire contract](../specs/001-semantic-oracle-v0-1/contracts/wire-protocol.md)
 3. [Trust boundary review](trust-boundary-review.md)
 4. [Bouleusis compatibility record](bouleusis-compatibility.md)
-5. [Machine-readable compatibility matrix](../conformance/fixtures/claim-consumer-compatibility-matrix.json)
-6. [Release assurance and remaining gates](release-assurance.md)
-7. [Dependency and license inventory](dependency-license-inventory.md)
+5. [Claim compatibility matrix](../conformance/fixtures/claim-consumer-compatibility-matrix.json)
+6. [Release assurance and open gates](release-assurance.md)
+7. [Dependency license inventory](dependency-license-inventory.md)
+8. [Per-artifact provenance data](dependency-provenance.json)
 
-## Threat Model
-
-An untrusted caller may provide a malformed request or a candidate result whose claim, evidence, policy, operation, components, status, or digests were changed. The verifier must reject a candidate that does not match a fresh evaluation for the supplied request. JSONL input must reject ambiguous or out-of-profile JSON. Missing provenance or unknown dependence must not create an independence decision.
-
-The boundary does not authenticate sources or collectors. It does not measure evidence reliability. It does not establish claim truth. It does not bind a result to an immutable executable. Those limits must remain visible.
-
-## Frozen Contract and Invariants
+## Supported Contract and Scope
 
 - Claim request protocol: `semadmit/claim/0.1`.
 - Core request and decision protocol: `semantic-oracle/0.1`.
 - Consumer contract label: `semadmit/claim-result-consumer/0.1`.
-- Minimum reviewed compatibility pin: `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
-- Verification status and admission status are separate values.
-- `VALID` maps to `ADMISSIBLE`; `INVALID` maps to `INADMISSIBLE`; `UNKNOWN` maps to `REQUIRES_SEPARATE_TREATMENT` and Core `indeterminate`.
-- Admission permits evidence to participate only in the named operation under the declared policy. It does not say what a consumer must believe.
-- Digests bind supplied content to an identity declaration. They do not authenticate a source.
-- `selector-provenance/0.1` is a separate experimental Python pack. It remains `indeterminate` for its four bounded independence cases. No positive independence rule is supported by the current IsoPrax evidence.
+- Stable Bouleusis pin: `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
+- Claim semantics are implemented and tested in Python only. Haskell does not
+  implement the claim pack, so no claim-pack parity is asserted.
+- Core parity is limited to the 9 shared decision vectors, 9 M0 identity
+  vectors, the selected RFC 8785 property-order vector, and the 8 raw parser
+  error cases. Other parser recipes and full CLI framing remain partial.
+- `selector-provenance/0.1` is experimental and Python-only. Its four bounded
+  independence cases remain `indeterminate`. No positive independence rule is
+  supported by current IsoPrax evidence.
+- `VerificationStatus` and `AdmissionStatus` are separate. Admission says only
+  whether evidence may take part in a named operation under a declared policy.
+  It does not say what Bouleusis must believe.
 
-## Validation Commands
+## Threat Model
 
-Run from a clean checkout at the source SHA above, with CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31:
+An untrusted caller may submit malformed JSON or a candidate result whose
+request, claim, evidence, policy, operation, bindings, status, or digests have
+changed. The Semadmit verifier recomputes the result for the supplied request
+and rejects a candidate that does not match.
+
+The boundary does not authenticate evidence sources or collectors. A digest
+binds content to an identity declaration; it does not prove where the content
+came from. The verifier does not prove claim truth or evidence reliability. It
+uses the implementation available in the caller's process and does not bind
+the result to an immutable executable. The in-memory API cannot detect
+duplicate JSON keys after a caller has parsed and discarded them.
+
+## Positive and Negative Conformance Evidence
+
+The shared Core decision cases include:
+
+- Positive: `admissible` and `pass-with-missing`.
+- Negative: `inadmissible` and `failure-dominates-missing`.
+- Unknown: `indeterminate`.
+- Identity, binding, and error cases: `duplicate-evidence`,
+  `unsupported-protocol`, `policy-digest-mismatch`, and `unexpected-field`.
+
+Both language suites compare complete Core decisions and error results with
+the same expected vectors. The Haskell and Python identity suites consume the
+same M0 canonical byte and digest vectors. The parser suites now consume the
+same eight raw error cases and compare the full error object. The full test
+record and known limits are in [release-assurance.md](release-assurance.md).
+
+Claim-verification tests reject changed requests, claim and evidence identity
+substitution, result-envelope changes, status changes, artifact/Core binding
+changes, and decision or verification digest changes. These tests are
+Python-only because Haskell does not implement the claim semantics.
+
+## Reproduction Commands
+
+Use Linux x86_64, CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31.
+Run from a clean checkout of the exact implementation commit above.
 
 ```sh
 python3 scripts/check_coverage.py
 cabal build exe:semantic-oracle
 cabal sdist --output-directory=/tmp/semadmit-review-haskell
 uv build --out-dir /tmp/semadmit-review-python clients/python
-jq -c '.cases[] | select(.id == "admissible-ece-equality") | .request' \
-  conformance/fixtures/isoprax-cases.json \
-  | cabal run exe:semantic-oracle --
 ```
 
-The coverage command checks the pinned Python/GHC/Cabal versions, 58 Python tests, all 7 Haskell suites, and the coverage floors. The exact results and artifact hashes are in the [release assurance record](release-assurance.md). The compatibility fixture tests the Semadmit verifier; it is not a downstream integration test.
+To rebuild and compare the normalized Python source archives from two clean
+copies of the exact source commit:
 
-## Known Limits and Open Defects
+```sh
+source_sha=cad6943ce19bc4b0439cd85332ed632ee17f3a9f
+source_epoch="$(git show -s --format=%ct "$source_sha")"
+mkdir -p /tmp/semadmit-source-a /tmp/semadmit-source-b
+git archive "$source_sha" | tar -x -C /tmp/semadmit-source-a
+git archive "$source_sha" | tar -x -C /tmp/semadmit-source-b
+(cd /tmp/semadmit-source-a && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir /tmp/semadmit-build-a clients/python)
+(cd /tmp/semadmit-source-b && SOURCE_DATE_EPOCH="$source_epoch" uv build --out-dir /tmp/semadmit-build-b clients/python)
+SOURCE_DATE_EPOCH="$source_epoch" python3 scripts/normalize_python_sdist.py /tmp/semadmit-build-a/semadmit-0.1.0.dev0.tar.gz /tmp/semadmit-build-a/normalized.tar.gz
+SOURCE_DATE_EPOCH="$source_epoch" python3 scripts/normalize_python_sdist.py /tmp/semadmit-build-b/semadmit-0.1.0.dev0.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
+sha256sum /tmp/semadmit-build-a/normalized.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
+cmp /tmp/semadmit-build-a/normalized.tar.gz /tmp/semadmit-build-b/normalized.tar.gz
+```
 
-- Verification uses the implementation available in the caller's process. There is no immutable implementation or build identity in the claim result.
-- The claim verifier returns a boolean. There is no claim-specific checked-use capability.
-- The shared exact-output corpus covers nine Core cases. It does not cover every parser error, error pointer, resource limit, or CLI frame across languages.
-- Claim and selector packs do not have Haskell parity. Measurement is not qualified.
-- Two clean Python wheels matched. Two clean Python source archives did not; generated timestamps differ.
-- The dependency inventory records the lock and Hackage index state but has no per-archive hashes or retrieval manifest.
-- `ghc-prim` and `rts` have license identifiers in the GHC package database, but their source license and notice files were not audited.
-- Only Linux x86_64 under WSL2 with the pinned toolchain was tested. Other operating systems, architectures, and Python minor versions are unqualified.
-- Branch protection is unknown because GitHub returned HTTP 403 to the private repository protection query.
-- A separate human reviewer has not approved the implementation, package, and license evidence. This gate remains open.
+The recorded normalized archive SHA-256 is
+`940ed9931fbcbfbdeaf0a05b374af7a0226662635dcff69ddda1567d8701b13c`.
+The dependency archive URLs and hashes are in
+[dependency-provenance.json](dependency-provenance.json).
 
-## Reviewer Checklist
+## Dependency and Build Findings
 
-- [ ] Confirm result verification rejects the changed request and candidate cases.
-- [ ] Confirm canonical JSON comparison preserves strict JSON type distinctions.
-- [ ] Confirm supported status pairs remain separate from belief or truth.
-- [ ] Confirm the Core parity claim is limited to the nine committed vectors.
-- [ ] Confirm selector metadata and relevance scores do not grant independence.
-- [ ] Confirm package files include the project license and do not overstate dependency notice coverage.
-- [ ] Review the sdist reproducibility failure and the two compiler-only license entries.
-- [ ] Record findings against the exact source SHA and the PR head.
-- [ ] Do not approve release until the open gates are closed or explicitly accepted by the owner.
+- All 69 Hackage dependency archives match the target hash and size recorded in
+  the current Cabal-managed index cache. All declared license files are
+  present; no separate `NOTICE` file was found in those 69 archives.
+- `base-4.22.0.0`, `colour-2.3.7`, and `strict-0.5.1` do not declare a source
+  repository in their package descriptions.
+- The verified GHC 9.14.1 source archive supplies `ghc-prim-0.13.1` and
+  `rts-1.0.3`. `rts` contains inline xxHash terms, LLVM license text, and the
+  generated `configure` script's Free Software Foundation permission notice.
+  Closure Library code has an Apache-2.0 header, but no separate Apache
+  license copy or `NOTICE` file was found under `rts`; a future Haskell binary
+  notice bundle is not approved.
+- The two raw Python source archives differed in PAX fractional timestamps on
+  generated directories and metadata files. All member contents matched. The
+  normalizer made both archives byte-identical without changing package files
+  or licensing metadata. The wheels also matched byte for byte.
+- No Semadmit package has been published. The Python wheel and source archive
+  contain Semadmit's Apache-2.0 license. The Haskell source archive does not
+  bundle its dependencies.
+
+## Open Review Checklist
+
+- [ ] Confirm claim result verification and status separation match the frozen
+  contracts.
+- [ ] Confirm the Core parity statement names only semantics and vectors both
+  implementations test.
+- [ ] Confirm selector metadata does not grant independence and the outcomes
+  remain `indeterminate`.
+- [ ] Review the exact hashes, lock metadata, GHC signatures, and missing
+  `rts` Apache license copy.
+- [ ] Confirm no Haskell binary release proceeds without a complete approved
+  notice bundle.
+- [ ] Review snapshot binding, guarded consumption, Measurement, and the
+  incomplete parser/CLI cross-language cases as open gates.
+- [ ] Record findings against implementation commit
+  `cad6943ce19bc4b0439cd85332ed632ee17f3a9f` and the pull request.
+- [ ] Obtain independent human approval before any release decision.
+
+**Independent reviewer status: not obtained.** The release gate remains open.

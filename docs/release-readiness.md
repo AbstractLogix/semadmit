@@ -2,6 +2,25 @@
 
 **Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. This claim-contract qualification is separate from overall release readiness. See the [trust-boundary review](trust-boundary-review.md) for the guarantee matrix and the current [release assurance record](release-assurance.md) for fresh validation, detailed gates, and the reviewer packet.
 
+## Current Gate Matrix
+
+Assurance correction commit: `cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
+The full checks and artifacts for this commit are recorded in
+[release-assurance.md](release-assurance.md).
+
+| Gate | Result | Scope |
+| --- | --- | --- |
+| Claim protocol | Qualified | Python verifier for `semadmit/claim/0.1`; this does not establish truth or source authenticity. |
+| Core cross-language conformance | Qualified for named vectors | 9 full decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 8 raw parser-error envelopes. Broader parser and CLI parity remains partial. |
+| Claim semantics | Python-only | Haskell does not implement the claim pack; no claim-pack parity is claimed. |
+| Selector provenance | Experimental | Four bounded independence cases remain `indeterminate`; no positive independence rule is supported. |
+| Distribution readiness | Not ready | GHC `rts` Apache-2.0 notice copy remains unresolved for any future Haskell binary. Other hosts are not qualified. |
+| Independent release approval | Open | No independent human reviewer has approved the source and distribution evidence. |
+
+Do not publish until the dependency notice gap, other open gates, and owner
+release decision are addressed. Current open gates are listed in
+[release-assurance.md](release-assurance.md).
+
 ## Historical Validation Record: 49a772e
 
 Validation ran from a clean detached worktree at the exact `origin/main` commit `49a772eed2591747c99b3af29c6992fda14f120d` (PR #4 merge). Host: Linux x86_64; CPython 3.13.14; GHC 9.14.1; Cabal 3.18.1.0; uv 0.11.31.
@@ -24,8 +43,8 @@ Source commit: `3b802a33acbb501ec4a4bcc3874e202322c41a8f` (`fix(core): verify JS
 - `cabal build exe:semantic-oracle`: **PASS**. The CLI smoke returned an admissible `admissible-ece-equality` decision with a decision digest.
 - `uv build --out-dir /tmp/semadmit-build-trust-boundary-79dc clients/python`: **PASS**. Wheel metadata declares `License-Expression: Apache-2.0`. The wheel has all 9 Python modules and the license, and it has no test package. The source archive has the license and selector module.
 - Artifact SHA-256: sdist `f273d7efae337fdaa68afa6dfb87aaa96dfc7d9b9fd60239e6566c849ffae5e5`; wheel `14abe2fc3dbc5bb24479f2603290f25bb745d80781ffe8d5cbe297ba0f708707`.
-- `cabal.project.freeze` pins 71 Haskell package versions at Hackage index state `2026-09-16T00:00:00Z`; file SHA-256 is `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`. This run confirms the recorded toolchain and locked graph build on this host. It does not establish byte-for-byte builds or qualification on other hosts.
-- The Python package has no third-party runtime dependencies. The setuptools 84.0.0 build backend is pinned. The Haskell direct dependency versions and license identifiers are recorded below. The lock pins the transitive graph, but a package-by-package transitive license and notice review remains open.
+- `cabal.project.freeze` pins 71 Haskell package versions; its effective index state is `2026-09-15T22:55:42Z`, and its SHA-256 is `9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba`. `cabal.project` declares `2026-09-16T00:00:00Z`; Cabal applies the freeze file after the project file.
+- The Python package has no third-party runtime dependencies. The setuptools 84.0.0 build backend is pinned and its wheel hash and license file are recorded in [dependency-provenance.json](dependency-provenance.json). The 69 Hackage archives and the GHC-only source packages are reviewed in the current [dependency inventory](dependency-license-inventory.md). The `rts` third-party Apache notice gap and owner approval remain open.
 - A read-only GitHub protection query returned HTTP 403 with a message that private-repository branch protection needs an upgrade. Protection status is unknown. No repository settings changed. The proposed rule is to require the **Coverage** check and one independent review.
 
 The package was built from the same source tree that was committed as `3b802a33acbb501ec4a4bcc3874e202322c41a8f`. The full test/coverage hook passed on that exact commit. Hosted pull-request status is reported separately from this local record.
@@ -35,15 +54,15 @@ The package was built from the same source tree that was committed as `3b802a33a
 - Project license: The owner selected Apache-2.0 on 2026-09-30. `LICENSE` contains the full Apache License 2.0 text. Package metadata must use the SPDX expression `Apache-2.0` and include this file.
 - Founding source baseline: Isoprax Haskell kernel at commit `223187c319d6b50fb05cc2d55ffc5b465556a660`, path `haskell/isoprax-kernel/`. Its package declares `Apache-2.0`. Its root `LICENSE` SHA-256 is `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`. The commit has no root `NOTICE` file.
 - Integration method: Implement the reviewed Semadmit v0.1 contract independently. Compare behavior with the pinned Isoprax source only where semantics overlap. Do not copy Isoprax source or make Semadmit depend on the Isoprax package. Record any later copied code and its attribution before distribution.
-- The planned Python runtime uses the standard library for its restricted JSON/JCS number profile. The build backend and direct Haskell dependencies are listed below. Review the transitive dependency graph for distribution notices before release.
+- The Python runtime uses the standard library for its restricted JSON/JCS number profile. The build backend and exact locked Haskell packages are listed below. See the current dependency inventory for archive hashes and unresolved notices.
 
 ## Pinned Setup for M1
 
 - Reference host: Linux x86_64 under WSL2. The first supported toolchain uses GHC 9.14.1, Cabal 3.18.1.0, and CPython 3.13.14. Other hosts and Python minor versions are unqualified until clean checks are recorded.
-- `cabal.project` fixes the Hackage index state to `2026-09-16T00:00:00Z` and selects GHC 9.14.1. `semantic-oracle.cabal` pins direct library versions. `cabal.project.freeze` records the solved transitive graph and its effective index state.
+- `cabal.project` declares Hackage index state `2026-09-16T00:00:00Z` and selects GHC 9.14.1. `cabal.project.freeze` overrides that setting with effective index state `2026-09-15T22:55:42Z` and records the solved graph.
 - `clients/python/pyproject.toml` supports Python 3.13 and pins setuptools 84.0.0 as its build backend. Setuptools declares MIT on [PyPI](https://pypi.org/project/setuptools/). This setup has no third-party Python runtime dependencies. Python's standard library provides restricted JSON/JCS encoding, SHA-256, evaluation, and JSONL. The public API exports the explicit registry, evaluator, verification result, and JSONL runner.
 - Direct Haskell dependencies are `base` 4.22.0.0 (BSD-3-Clause), `aeson` 2.2.5.1 (BSD-3-Clause), `bytestring` 0.12.2.0 (BSD-3-Clause), `containers` 0.8 (BSD-3-Clause), `cryptohash-sha256` 0.11.102.1 (BSD3), `directory` 1.3.10.0 (BSD-3-Clause, test only), `scientific` 0.3.8.1 (BSD3), `text` 2.1.3 (BSD-2-Clause), and `vector` 0.13.2.0 (BSD-3-Clause). The pinned Cabal package metadata supplies these license declarations. `aeson` provides JSON values and RFC 8785 encoding. The bounded byte parser enforces the v0.1 token profile. `cryptohash-sha256` provides digests. `base` provides exact `Ratio Integer`. `scientific` and `vector` support Aeson value validation. `Core.CLI` uses `base` and `bytestring` for handle-based framing and output.
-- Direct license metadata permits the selected Apache-2.0 project license. Preserve each dependency's distribution notices. Review the transitive graph before release. This repository does not copy dependency code.
+- Direct license metadata permits the selected Apache-2.0 project license. Preserve each dependency's distribution notices. The exact archive and license-file inventory is in [dependency-provenance.json](dependency-provenance.json). The `rts` notice gap still blocks a Haskell binary release. This repository does not copy dependency code.
 
 ## Historical M1 Setup Checks
 
@@ -64,8 +83,8 @@ Apache-2.0 permits reuse and redistribution under its conditions. It also includ
 - Guarded consumption: provide a claim-specific checked-use capability.
 - Measurement pack: qualify matching Python and Haskell semantics.
 - Extension example: add downstream guarded-use and conformance checks.
-- Broad conformance: add more parser-limit, component-binding, evidence-boundary, and error-order cases. The nine shared Core vectors do not close this gate.
-- Dependency and license review: inventory transitive notices and confirm each redistribution requirement.
+- Broad conformance: the named decision, identity, and raw parser cases pass in both languages. Request mutation, resource recipes, all parser boundaries, and full CLI framing are not a complete shared corpus.
+- Dependency and license review: the 69 Hackage archive hashes and declared license files are recorded. Resolve the GHC `rts` Apache-2.0 copy and obtain owner review of the redistribution notice set.
 - Independent final review: obtain a separate reviewer for the implementation, contracts, package, and license evidence.
 - Repository protection: branch rules could not be inspected; the repository owner must confirm that Coverage and independent review are required.
 - Publishing remains a separate decision.

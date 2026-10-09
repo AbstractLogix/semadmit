@@ -2224,6 +2224,7 @@
         "GHC BSD-style license and copyright notice.",
         "xxHash BSD-2-Clause notice is present inline in rts/xxhash.h.",
         "LLVM release license text is present at rts/linker/ELFRelocs/LICENSE-LLVM.TXT.",
+        "The generated rts/configure script carries the Free Software Foundation copyright and unlimited permission notice in its header.",
         "rts/js/md5.js has an Apache-2.0 header for vendored Closure Library code. No separate Apache license copy or NOTICE file was found under rts in this source distribution."
       ],
       "notice_files_found": [
@@ -2243,9 +2244,14 @@
           "path": "rts/js/md5.js",
           "size_bytes": 19146,
           "sha256": "b2336465d37d484c9129edc1ae4b93b9877bb9fe0e0c49b8ee2803755959ba62"
+        },
+        {
+          "path": "rts/configure",
+          "size_bytes": 274785,
+          "sha256": "bb460cfe852488a29f4c15206b3a7ac6c50485f0d7554a2366cea9b1d2ba6215"
         }
       ],
-      "source_archive_notice_result": "PARTIAL: GHC, xxHash, and LLVM notice material is present; the separate Apache-2.0 license copy for the vendored Closure Library code was not found under rts.",
+      "source_archive_notice_result": "PARTIAL: GHC, xxHash, LLVM, and generated Autoconf notice material is present; the separate Apache-2.0 license copy for vendored Closure Library code was not found under rts.",
       "semadmit_redistribution_result": "No Haskell binary is released by Semadmit. Required notice coverage for any future Haskell binary remains unresolved and needs owner review."
     }
   ],
@@ -2269,5 +2275,30 @@
       "present_in_backend_wheel": true
     },
     "notice_result": "The backend wheel contains its MIT license and vendored license files. This backend wheel is a local build input, not a Semadmit distribution artifact."
+  },
+  "semadmit_distribution_assessment": {
+    "python_wheel": {
+      "artifact": "semadmit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "3bd2eefbad3348401ac1d1a9155f597c2b58ca7941eb71a5970d903f43659871",
+      "project_license": "Apache-2.0 LICENSE present",
+      "dependency_notices": "No Haskell dependencies or setuptools build backend are bundled."
+    },
+    "python_source_archive": {
+      "artifact": "semadmit-0.1.0.dev0.tar.gz",
+      "raw_sha256": "fb019e472d95702487c07d29f06b3268b7524b121b5c1b27689a9d528eaacd86",
+      "normalized_reproducible_sha256": "940ed9931fbcbfbdeaf0a05b374af7a0226662635dcff69ddda1567d8701b13c",
+      "project_license": "LICENSE present; PKG-INFO declares Apache-2.0 and License-File: LICENSE",
+      "dependency_notices": "No Haskell dependencies or setuptools build backend are bundled."
+    },
+    "haskell_source_archive": {
+      "artifact": "semantic-oracle-0.1.0.0.tar.gz",
+      "sha256": "b79b145abfa4fd2f138c1cd17a46926f29acc9485cd9bcce1ca42925f4bbeac5",
+      "project_license": "LICENSE present",
+      "dependency_notices": "Dependency archives are not bundled in the Cabal source archive."
+    },
+    "haskell_executable": {
+      "artifact": "Locally built validation output; not published or included in a release bundle.",
+      "notice_inclusion": "Not qualified for redistribution. The rts Closure Library Apache-2.0 license copy remains unresolved."
+    }
   }
 }

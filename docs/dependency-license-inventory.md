@@ -12,7 +12,7 @@
 - All 69 declared Cabal license files were present in the checked source archives. No separate `NOTICE` file was found in those archives. This check does not review every source file for embedded copyright or attribution notices.
 - Three Hackage package descriptions do not declare a source repository: `base-4.22.0.0`, `colour-2.3.7`, and `strict-0.5.1`. Their source repository remains unestablished here; no URL is inferred.
 - `ghc-prim-0.13.1` and `rts-1.0.3` are included with the exact GHC 9.14.1 toolchain source distribution, not the Hackage lock. The signed source archive SHA-256 is `2a83779c9af86554a3289f2787a38d6aa83d00d136aa9f920361dd693c101e77`. Both archive signatures verify under the key published by the [GHC 9.14.1 download page](https://ghc.gitlab.haskell.org/homepage/download_ghc_9_14_1.html); the local GPG trust database does not certify that key.
-- `ghc-prim` declares BSD-3-Clause and includes its `LICENSE`, which contains the GHC notice and Haskell 98 report notice. `rts` declares BSD-3-Clause but has no `license-file` field. Its enclosing GHC source archive includes the GHC `LICENSE`; `rts` also contains inline xxHash BSD-2-Clause terms, the LLVM license text, and vendored Closure Library code with an Apache-2.0 header. No separate Apache license copy or `NOTICE` file was found under `rts`. The full required notice set for a future Haskell binary is not established.
+- `ghc-prim` declares BSD-3-Clause and includes its `LICENSE`, which contains the GHC notice and Haskell 98 report notice. `rts` declares BSD-3-Clause but has no `license-file` field. Its enclosing GHC source archive includes the GHC `LICENSE`; `rts` also contains inline xxHash BSD-2-Clause terms, the LLVM license text, and the Free Software Foundation's unlimited-permission notice in its generated `configure` script. Vendored Closure Library code has an Apache-2.0 header, but no separate Apache license copy or `NOTICE` file was found under `rts`. The full required notice set for a future Haskell binary is not established.
 - The Cabal description format defines the `license` and `license-files` fields. These values are recorded as published; older values such as `BSD3` and `BSD2` are not rewritten here. See the [Cabal package description specification](https://github.com/haskell/cabal/blob/master/doc/cabal-package-description-file.rst).
 
 The inventory checks package metadata, archive digests, and declared license-file presence. It does not compare every license text with its upstream copyright history or decide whether every redistribution condition is met. No Haskell binary is currently a Semadmit release artifact. A future Haskell binary release remains blocked on a complete notice bundle and owner approval.
@@ -49,7 +49,7 @@ The inventory checks package metadata, archive digests, and declared license-fil
 | filepath | 1.5.4.0 | BSD-3-Clause | Hackage; `LICENSE` present; no `NOTICE` |
 | ghc-boot-th | 9.14.1 | BSD3 | Hackage; `LICENSE` present; no `NOTICE` |
 | ghc-internal | 9.1401.0 | BSD-3-Clause | Hackage; `LICENSE` present; no `NOTICE` |
-| ghc-prim | 0.13.1 | BSD-3-Clause | GHC 9.14.1 package database only; source and notice not checked |
+| ghc-prim | 0.13.1 | BSD-3-Clause | GHC 9.14.1 source archive; `libraries/ghc-prim/LICENSE` present with GHC and Haskell 98 notices |
 | hashable | 1.5.1.0 | BSD-3-Clause | Hackage; `LICENSE` present; no `NOTICE` |
 | indexed-traversable | 0.1.5 | BSD2 | Hackage; `LICENSE` present; no `NOTICE` |
 | indexed-traversable-instances | 0.1.2.1 | BSD2 | Hackage; `LICENSE` present; no `NOTICE` |
@@ -66,7 +66,7 @@ The inventory checks package metadata, archive digests, and declared license-fil
 | primitive | 0.9.1.0 | BSD3 | Hackage; `LICENSE` present; no `NOTICE` |
 | process | 1.6.26.1 | BSD-3-Clause | Hackage; `LICENSE` present; no `NOTICE` |
 | random | 1.3.1 | BSD3 | Hackage; `LICENSE` present; no `NOTICE` |
-| rts | 1.0.3 | BSD-3-Clause | GHC 9.14.1 package database only; source and notice not checked |
+| rts | 1.0.3 | BSD-3-Clause | GHC 9.14.1 source archive; no `license-file` field; root GHC license and reviewed inline notices present; Closure Apache license copy unresolved |
 | scientific | 0.3.8.1 | BSD3 | Hackage; `LICENSE` present; no `NOTICE` |
 | semialign | 1.4 | BSD3 | Hackage; `LICENSE` present; no `NOTICE` |
 | semigroupoids | 6.0.2 | BSD2 | Hackage; `LICENSE` present; no `NOTICE` |
