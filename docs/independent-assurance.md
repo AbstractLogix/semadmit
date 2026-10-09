@@ -80,9 +80,20 @@ The machine-readable evidence is in
 records the implementation commit, corpus digests, toolchain, test counts,
 mutation results, local build hashes, CI evidence, and unsupported guarantees.
 The certificate writer reruns the corpus, mutation, test, and coverage gates;
-it derives test counts and mutation outcomes from those runs. A hosted pass is
-read from GitHub Actions and bound to the validation commit. The certificate
-is a reproducible report, not a signature or independent approval.
+it derives test counts from discovered tests and mutation outcomes from gate
+output. It stores the local gate output, byte count, and digest. Hosted CI must
+be the completed `Coverage` workflow on the exact validation commit. These
+checks do not bind supplied artifacts to the source commit, and the repository
+has no offline certificate verifier. The certificate is a report, not a
+signature or independent approval. See the
+[adversarial assessment](assurance-integrity-assessment.md) for tested cases
+and limits.
+
+The current certificate records validation commit
+`dcf3d1070186a3f936e17f5975622023c812fc2b` and the successful [hosted Coverage
+run](https://github.com/AbstractLogix/semadmit/actions/runs/38000152994). It
+records 59 Python package tests, 7 reference tests, 10 certificate-integrity
+tests, and all 7 Haskell suites. Artifact source binding remains unverified.
 
 ## Research Artifact Description
 
@@ -115,10 +126,10 @@ status is claimed.
 | Area | Current state | Open work |
 | --- | --- | --- |
 | `semadmit/claim/0.1` | Qualified, Python-only | No Haskell claim-pack parity is claimed. |
-| Core parity | Qualified only for named, bounded semantics | Complete parser precedence, broader errors, resource limits, CLI parity, and all-pack conformance remain open. |
+| Core parity | Partially qualified | Complete parser precedence, broader errors, resource limits, CLI parity, and all-pack conformance remain open. |
 | `selector-provenance/0.1` | Experimental; independence outcomes remain indeterminate | Do not add positive independence permission without qualifying Isoprax evidence. |
-| Python package distribution | Not approved | Review the exact Python artifacts and obtain a separate owner release decision. |
-| Haskell distribution | Not ready | Resolve and approve the `rts` Apache-2.0 notice obligations and full distribution notice set. |
+| Python package distribution | Ready for owner decision | Exact Python artifacts are assessed. Independent review and the separate owner release decision remain open. |
+| Haskell executable distribution | Blocked | Prepare and review a complete notice and provenance bundle for linked dependencies and the GHC runtime. The Closure Apache license copy applies if a distributed artifact includes `rts/js/md5.js`; it is not in the assessed native Linux executable. |
 | Dependency provenance | Partial | Establish remaining source-repository provenance and independent archive/source review. |
 | Independent release review | Open | A human who did not author the change must review exact source and distribution evidence. |
 | Release decision | Open | The owner must approve each proposed distribution separately. No package is published by this work. |

@@ -6,18 +6,40 @@
 **Independent Core assurance implementation and validation commit:**
 `47d55e1e7fa10348d4a39679add3590edfe8233b`.
 
+**Current assurance-integrity commit:**
+`dcf3d1070186a3f936e17f5975622023c812fc2b`.
+
+**Current validation commit and hosted Coverage run:**
+`dcf3d1070186a3f936e17f5975622023c812fc2b`,
+<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>.
+
 **Assurance PR #8 merge commit:**
 `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 
 The previous implementation commit contains the PR #8 assurance corrections.
 The new Core assurance implementation is the commit listed above. Review that
-commit, the machine-readable certificate, and the full pull request diff. This
-packet is not human approval.
+commit, the current integrity commit, the machine-readable certificate, and
+the full PR #11 diff. This packet is not human approval.
 
 This packet also covers the independent Core assurance extension. Its exact
 implementation commit, corpus digests, local build hashes, and CI evidence are
 recorded in [`assurance-certificate.json`](../assurance/assurance-certificate.json).
 That certificate identifies the source commit for the new assurance artifact.
+
+## Current Final Assurance Assessment
+
+The current review baseline is PR #10 merge
+`e042aded9fd98d22aeb708337a26e9bbc9f2b7b8`, tree
+`c84d326ab07eacec88786df12081cf6442175982`. The stable Bouleusis pin remains
+`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
+
+Read the [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
+with this packet. It records the adversarial certificate cases, remaining Core
+parity gaps, separate Python and Haskell artifact assessments, exact build
+hashes, and the unresolved review and owner decisions. Its conclusion is that
+the certificate is not a signed attestation, Core parity is partial, Python
+distribution is ready for an owner decision, Haskell executable distribution
+is blocked, and independent release approval is absent.
 
 ## Review Scope
 
@@ -71,6 +93,11 @@ uses the implementation available in the caller's process and does not bind
 the result to an immutable executable. The in-memory API cannot detect
 duplicate JSON keys after a caller has parsed and discarded them.
 
+The assurance certificate records execution logs and artifact hashes. It does
+not sign them, and it does not prove that supplied build artifacts came from
+the validation commit. The repository has no offline certificate verifier.
+The adversarial assessment lists these limits.
+
 The independent Core reference does not use the production evaluator to
 compute expected results. The Haskell implementation consumes committed
 expected outputs from that reference; this qualifies only the listed shared
@@ -114,6 +141,7 @@ mkdir -p "$scratch/haskell" "$scratch/python"
 python3 scripts/check_coverage.py
 python3 -m assurance.generate_corpus --check
 python3 -m assurance.mutation_check
+PYTHONPATH=clients/python:clients/python/tests python3 -m unittest assurance.test_certificate -v
 cabal build exe:semantic-oracle
 cabal sdist --output-directory="$scratch/haskell"
 uv build --out-dir "$scratch/python" clients/python
@@ -157,8 +185,9 @@ The dependency archive URLs and hashes are in
   `rts-1.0.3`. `rts` contains inline xxHash terms, LLVM license text, and the
   generated `configure` script's Free Software Foundation permission notice.
   Closure Library code has an Apache-2.0 header, but no separate Apache
-  license copy or `NOTICE` file was found under `rts`; a future Haskell binary
-  notice bundle is not approved.
+  license copy or `NOTICE` file was found under `rts`. The assessed native
+  Linux executable does not contain the JavaScript file. The full notice bundle
+  for linked Haskell libraries and the runtime is not approved.
 - The two raw Python source archives differed in PAX fractional timestamps on
   generated directories and metadata files. All member contents matched. The
   normalizer made both archives byte-identical without changing package files
@@ -178,12 +207,15 @@ The dependency archive URLs and hashes are in
   code and both language suites consume the same expected data.
 - [ ] Confirm selector metadata does not grant independence and the outcomes
   remain `indeterminate`.
-- [ ] Review the exact hashes, lock metadata, GHC signatures, and missing
-  `rts` Apache license copy.
+- [ ] Review the exact hashes, lock metadata, GHC signatures, and whether a
+  proposed artifact includes the Closure JavaScript work from `rts`.
 - [ ] Confirm no Haskell binary release proceeds without a complete approved
   notice bundle.
 - [ ] Review snapshot binding, guarded consumption, Measurement, and the
   incomplete parser/CLI cross-language cases as open gates.
+- [ ] Review [the current assurance integrity assessment](assurance-integrity-assessment.md),
+  including the accepted arbitrary-artifact case and the lack of an offline
+  certificate verifier.
 - [ ] Record findings against the exact implementation commit in
   `assurance/assurance-certificate.json` and the pull request.
 - [ ] Obtain independent human approval before any release decision.

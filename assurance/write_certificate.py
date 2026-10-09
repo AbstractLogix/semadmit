@@ -10,12 +10,16 @@ import platform
 import re
 import subprocess
 import sys
+import unittest
 from pathlib import Path
 
 from assurance.mutation_check import MUTATIONS
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REQUIRED_CI_WORKFLOW_NAME = "Coverage"
+REQUIRED_CI_WORKFLOW_DATABASE_ID = 375788046
+MANDATORY_LOCAL_GATES = ("seeded_corpus", "source_mutation", "test_and_coverage")
 
 
 def sha256(path: Path) -> str:
@@ -24,6 +28,10 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: source.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
 
 
 def tool_version(*command: str) -> str | None:
@@ -40,7 +48,7 @@ def tool_version(*command: str) -> str | None:
         return None
 
 
-def checked_gate(name: str, command: list[str]) -> str:
+def checked_gate(name: str, command: list[str]) -> tuple[str, dict[str, object]]:
     print(f"$ {' '.join(command)}", flush=True)
     result = subprocess.run(
         command,
@@ -54,7 +62,55 @@ def checked_gate(name: str, command: list[str]) -> str:
         print(result.stdout, end="" if result.stdout.endswith("\n") else "\n")
     if result.returncode != 0:
         raise RuntimeError(f"{name} failed with exit code {result.returncode}")
-    return result.stdout
+    if not result.stdout.strip():
+        raise RuntimeError(f"{name} produced no execution log")
+    log = result.stdout.encode("utf-8")
+    return result.stdout, {
+        "name": name,
+        "argv": command,
+        "exit_code": result.returncode,
+        "stdout": result.stdout,
+        "stdout_bytes": len(log),
+        "stdout_sha256": sha256_bytes(log),
+    }
+
+
+def expected_python_test_counts() -> tuple[int, int, int]:
+    package_tests = ROOT / "clients/python/tests"
+    added_paths = [str(ROOT / "clients/python"), str(package_tests)]
+    inserted_paths = []
+    for path in reversed(added_paths):
+        if path not in sys.path:
+            sys.path.insert(0, path)
+            inserted_paths.append(path)
+    try:
+        package_suite = unittest.defaultTestLoader.discover(
+            str(package_tests), pattern="test*.py"
+        )
+        reference_suite = unittest.defaultTestLoader.loadTestsFromName(
+            "assurance.test_reference_core"
+        )
+        certificate_suite = unittest.defaultTestLoader.loadTestsFromName(
+            "assurance.test_certificate"
+        )
+        return (
+            package_suite.countTestCases(),
+            reference_suite.countTestCases(),
+            certificate_suite.countTestCases(),
+        )
+    finally:
+        for path in inserted_paths:
+            if path in sys.path:
+                sys.path.remove(path)
+
+
+def parse_python_test_counts(coverage_output: str) -> list[int]:
+    counts = [int(count) for count in re.findall(r"\bRan (\d+) tests? in ", coverage_output)]
+    if len(counts) != 3:
+        raise RuntimeError("coverage output did not report all three Python test counts")
+    if tuple(counts) != expected_python_test_counts():
+        raise RuntimeError("Python test counts do not match discovered test cases")
+    return counts
 
 
 def test_constant(name: str) -> object:
@@ -71,9 +127,11 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
     corpus_command = [sys.executable, "-m", "assurance.generate_corpus", "--check"]
     mutation_command = [sys.executable, "-m", "assurance.mutation_check"]
     coverage_command = [sys.executable, "scripts/check_coverage.py"]
-    checked_gate("seeded corpus check", corpus_command)
+    corpus_output, corpus_log = checked_gate("seeded corpus check", corpus_command)
+    if corpus_output.strip() != "seeded assurance corpus matches its generator":
+        raise RuntimeError("seeded corpus output is missing or truncated")
 
-    mutation_output = checked_gate("source mutation check", mutation_command)
+    mutation_output, mutation_log = checked_gate("source mutation check", mutation_command)
     killed = re.findall(r"^KILLED: (.+)$", mutation_output, re.MULTILINE)
     expected_mutations = [mutation.name for mutation in MUTATIONS]
     score = re.search(r"^mutation score: (\d+)/(\d+) \((\d+)%\)$", mutation_output, re.MULTILINE)
@@ -82,12 +140,10 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
     if tuple(map(int, score.groups())) != (len(expected_mutations), len(expected_mutations), 100):
         raise RuntimeError("mutation score is not a complete pass")
 
-    coverage_output = checked_gate("test and coverage gates", coverage_command)
-    if "All test and coverage gates passed." not in coverage_output:
+    coverage_output, coverage_log = checked_gate("test and coverage gates", coverage_command)
+    if not coverage_output.rstrip().endswith("All test and coverage gates passed."):
         raise RuntimeError("coverage command exited without its success marker")
-    test_counts = [int(count) for count in re.findall(r"\bRan (\d+) tests? in ", coverage_output)]
-    if len(test_counts) != 2:
-        raise RuntimeError("coverage output did not report both Python test counts")
+    test_counts = parse_python_test_counts(coverage_output)
 
     core = json.loads((ROOT / "test/integration/vertical_slice/vectors.json").read_text(encoding="utf-8"))
     parser = json.loads((ROOT / "conformance/fixtures/protocol-cases.json").read_text(encoding="utf-8"))
@@ -113,6 +169,7 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
     tests = {
         "python_package_tests": test_counts[0],
         "independent_reference_tests": test_counts[1],
+        "certificate_integrity_tests": test_counts[2],
         "haskell_suites": haskell_suites,
         "exact_core_vectors_in_each_language": len(core["cases"]),
         "raw_parser_cases_in_each_language": len(parser["cases"]),
@@ -130,16 +187,18 @@ def local_validation() -> tuple[dict[str, int], dict[str, object], list[dict[str
         "outcomes": {name: "killed" for name in killed},
     }
     gates = [
-        {"name": "seeded_corpus", "argv": corpus_command, "exit_code": 0},
-        {"name": "source_mutation", "argv": mutation_command, "exit_code": 0},
-        {"name": "test_and_coverage", "argv": coverage_command, "exit_code": 0},
+        {**corpus_log, "name": "seeded_corpus", "description": corpus_log["name"]},
+        {**mutation_log, "name": "source_mutation", "description": mutation_log["name"]},
+        {**coverage_log, "name": "test_and_coverage", "description": coverage_log["name"]},
     ]
+    if tuple(gate["name"] for gate in gates) != MANDATORY_LOCAL_GATES:
+        raise RuntimeError("a mandatory local assurance gate did not execute")
     return tests, mutations, gates
 
 
-def hosted_ci(run_url: str | None, validation_commit: str) -> dict[str, str | None]:
+def hosted_ci(run_url: str | None, validation_commit: str) -> dict[str, object]:
     if run_url is None:
-        return {"status": "unavailable", "run_url": None}
+        raise RuntimeError("a completed hosted Coverage CI run is required")
     match = re.fullmatch(
         r"https://github\.com/AbstractLogix/semadmit/actions/runs/(\d+)(?:/.*)?", run_url
     )
@@ -147,7 +206,14 @@ def hosted_ci(run_url: str | None, validation_commit: str) -> dict[str, str | No
         raise RuntimeError("CI run URL must point to an AbstractLogix/semadmit GitHub Actions run")
     try:
         output = subprocess.run(
-            ["gh", "run", "view", match.group(1), "--json", "url,status,conclusion,headSha"],
+            [
+                "gh",
+                "run",
+                "view",
+                match.group(1),
+                "--json",
+                "url,status,conclusion,headSha,name,workflowDatabaseId",
+            ],
             cwd=ROOT,
             text=True,
             stdout=subprocess.PIPE,
@@ -156,14 +222,23 @@ def hosted_ci(run_url: str | None, validation_commit: str) -> dict[str, str | No
         ).stdout
         run = json.loads(output)
     except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as error:
-        return {"status": "unavailable", "run_url": run_url, "verification_error": str(error)}
+        raise RuntimeError(f"hosted Coverage CI evidence is unavailable: {error}") from error
     if run.get("headSha") != validation_commit or run.get("url") != run_url:
         raise RuntimeError("CI run does not match the validation commit and supplied URL")
-    if run.get("status") != "completed":
-        status = "pending"
-    else:
-        status = "passed" if run.get("conclusion") == "success" else "failed"
-    return {"status": status, "run_url": run_url}
+    if (
+        run.get("name") != REQUIRED_CI_WORKFLOW_NAME
+        or run.get("workflowDatabaseId") != REQUIRED_CI_WORKFLOW_DATABASE_ID
+    ):
+        raise RuntimeError("CI run is not the required Coverage workflow")
+    if run.get("status") != "completed" or run.get("conclusion") != "success":
+        raise RuntimeError("required Coverage CI run is not completed successfully")
+    return {
+        "status": "passed",
+        "run_url": run_url,
+        "head_sha": validation_commit,
+        "workflow_name": REQUIRED_CI_WORKFLOW_NAME,
+        "workflow_database_id": REQUIRED_CI_WORKFLOW_DATABASE_ID,
+    }
 
 
 def require_clean_validation_commit(validation_commit: str, implementation_commit: str) -> None:
@@ -188,7 +263,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--implementation-commit", required=True)
     parser.add_argument("--validation-commit", required=True)
-    parser.add_argument("--ci-run-url")
+    parser.add_argument("--ci-run-url", required=True)
     parser.add_argument("--haskell-executable", type=Path, required=True)
     parser.add_argument("--haskell-sdist", type=Path, required=True)
     parser.add_argument("--python-wheel", type=Path, required=True)
@@ -210,8 +285,8 @@ def main() -> int:
         "python_wheel": args.python_wheel,
         "python_source_archive": args.python_sdist,
     }
-    if any(not path.is_file() for path in artifacts.values()):
-        print("every build artifact path must name a file", file=sys.stderr)
+    if any(not path.is_file() or path.stat().st_size == 0 for path in artifacts.values()):
+        print("every build artifact path must name a non-empty file", file=sys.stderr)
         return 1
 
     certificate = {
@@ -281,12 +356,16 @@ def main() -> int:
         "build_artifact_hashes_sha256": {
             name: sha256(path.resolve()) for name, path in artifacts.items()
         },
+        "build_artifact_sizes_bytes": {
+            name: path.stat().st_size for name, path in artifacts.items()
+        },
         "validation": {
             "local_full_validation": "passed",
             "local_gates": gates,
             "hosted_ci": ci,
         },
         "unsupported_guarantees": [
+            "build provenance beyond the recorded artifact byte hashes and toolchain; artifact source binding is not verified",
             "evidence authenticity or collector identity",
             "evidence reliability",
             "claim truth",

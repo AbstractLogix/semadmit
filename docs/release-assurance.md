@@ -6,7 +6,10 @@
 `selector-provenance/0.1` pack remains experimental. These are separate
 qualification results.
 
-## Exact Baseline and Validation
+The [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
+adds the adversarial certificate results and current artifact build hashes.
+
+## PR #8 Baseline and Validation (Historical)
 
 - Pre-assurance main baseline: `b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
 - Assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
@@ -47,18 +50,18 @@ evidence are recorded in
 [`assurance-certificate.json`](../assurance/assurance-certificate.json).
 
 The implementation commit is
-`47d55e1e7fa10348d4a39679add3590edfe8233b`. The certificate was generated from
-clean validation commit `40528b3ea6989cb9487c9c558fdb278b1567e9d9`. Its writer
-reran the seeded-corpus, source-mutation, and full test/coverage gates and
-derived the counts and outcomes from those runs. The local run passed 59
-Python package tests, 7 independent-reference tests, and all 7 Haskell suites.
-Python line coverage was 1,679/1,679 executable lines. Haskell coverage was
-5,318/5,859 expressions (90.77%) and 90/193 booleans (46.63%). Hosted Coverage
-passed on the same validation commit:
-<https://github.com/AbstractLogix/semadmit/actions/runs/37969409735>.
-The Haskell executable, Haskell source archive, Python source archive, and
-Python wheel also built successfully. Their SHA-256 values are in the
-machine-readable certificate.
+`47d55e1e7fa10348d4a39679add3590edfe8233b`. The refreshed certificate was
+generated from clean validation commit
+`dcf3d1070186a3f936e17f5975622023c812fc2b`. The writer reran the seeded-corpus,
+source-mutation, and full test/coverage gates. It recorded 59 Python package
+tests, 7 independent-reference tests, 10 certificate-integrity tests, and all
+7 Haskell suites. Python line coverage was 1,679/1,679 executable lines.
+Haskell coverage was 5,318/5,859 expressions (90.77%) and 90/193 booleans
+(46.63%). Hosted Coverage passed on the same validation commit:
+<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>. The
+certificate stores stdout, byte counts, and digests for all three local gates.
+Its artifact hashes match the assessed artifact bytes, but do not prove source
+binding. The certificate is not a signed build attestation.
 
 The shared Core suite now compares 57 complete decisions or error results in
 both languages. The 48 generated decisions come from a fixed seed and have
@@ -85,10 +88,12 @@ independence cases are `indeterminate`.
 | Area | Status | Evidence and limit |
 | --- | --- | --- |
 | Claim protocol | Qualified | Python Semadmit verifier checks request/result binding, identities, digests, Core bindings, status pairs, and protocol version. This is not a truth or source-authentication claim. |
-| Core cross-language conformance | Qualified for named vectors | Python and Haskell compare 57 exact decision vectors and 9 M0 identity vectors. Both also run the selected RFC 8785 property-order vector and 68 raw parser cases, including 65 error envelopes. The independent reference is bounded to the test-only fixture pack. This does not establish full cross-language parity. |
+| Core cross-language conformance | Partially qualified | Python and Haskell compare 57 exact decision vectors and 9 M0 identity vectors. Both also run the selected RFC 8785 property-order vector and 68 raw parser cases, including 65 error envelopes. The independent reference is bounded to the test-only fixture pack. Parser precedence, limits, and CLI framing remain open. |
 | Claim semantics | Python-only | `semadmit/claim/0.1` is implemented and tested in Python. Haskell does not implement this claim pack. No claim-pack parity is asserted. |
 | Selector provenance | Experimental | `selector-provenance/0.1` remains Python-only. All 4 bounded independence cases remain `indeterminate`. No positive independence rule is supported by the current IsoPrax evidence. |
-| Distribution readiness | No distribution approved | The normalized Python sdist is reproducible on the tested host, but a Python-only release still needs its own artifact review and owner decision. The Haskell runtime notice set is incomplete for a future binary. Other hosts and the release build environment are not qualified. |
+| Python distribution | Ready for owner decision | The exact Python artifacts are reproducible on the tested host. An independent review and separate owner decision remain open. |
+| Haskell executable distribution | Blocked | A complete notice and provenance bundle for the linked dependencies and GHC runtime is not prepared or approved. Other hosts are not qualified. |
+| Certificate integrity | Blocked | Adversarial tests now reject missing logs, false counts, wrong workflow runs, and other tested failures. Artifact-to-source binding and offline certificate verification remain absent. |
 | Independent release approval | Open | No independent human has reviewed and approved the exact source, dependency notices, and distribution artifacts. Automated checks do not close this gate. |
 
 `VerificationStatus` remains separate from `AdmissionStatus`. An admissibility
@@ -153,9 +158,12 @@ The complete per-artifact record is [dependency-provenance.json](dependency-prov
   BSD-2-Clause terms, LLVM license text, and the generated `configure` script's
   Free Software Foundation unlimited-permission notice. `rts/js/md5.js`
   identifies vendored Closure Library code under Apache-2.0, but no separate
-  Apache license copy or `NOTICE` file was found under `rts`. This notice gap
-  blocks a Haskell binary release until the owner reviews and approves a
-  complete notice bundle.
+  Apache license copy or `NOTICE` file was found under `rts`. The assessed
+  native Linux executable and Semadmit Cabal source archive do not contain
+  this JavaScript file. The Apache license-copy issue applies if a distribution
+  includes that Closure work. The Haskell executable remains blocked because
+  no complete, reviewed notice bundle exists for its linked dependencies and
+  runtime. This inventory is not legal approval.
 - Setuptools 84.0.0 is a build-only backend. Its exact wheel hash and MIT
   license file are recorded in the inventory. It is not bundled in Semadmit's
   Python wheel or source archive.
@@ -203,8 +211,9 @@ release builds on CI and other supported hosts remain open.
 | Broad Core conformance | 57 exact decision vectors, 9 identity vectors, one shared RFC vector, 68 raw parser cases (65 errors), and 7/7 selected Python mutation kills pass. | Qualify remaining parser precedence, error pointers, resource boundaries, and CLI behavior where they expose a real compatibility risk. | Partial |
 | Measurement | Existing tests pass. | Qualify a narrow contract and matching Python/Haskell behavior. | Open |
 | Downstream extension example | Neutral Core fixture exists. | Add and test an example after guarded consumption is available. | Open |
-| Dependency redistribution notices | Hackage archive digests and license files are recorded. The `rts` Apache-2.0 copy is not established. | Resolve the `rts` notice gap and obtain owner approval for all redistributed artifacts. | Partial |
-| Reproducible builds | Python wheel and normalized sdist match across two clean trees. Earlier Haskell executable builds matched; this commit changes Haskell tests only. | Repeat release builds on the supported CI host and any claimed target platforms. | Partial |
+| Certificate integrity | Executed gate logs and their hashes are recorded; tested fail-closed cases pass. | Add source-bound artifact verification and an offline certificate verifier. | Partial |
+| Dependency redistribution notices | Hackage archive digests and declared licenses are recorded. The native ELF does not include `rts/js/md5.js`; the full linked-dependency notice bundle is not prepared. | Review the exact artifact notice bundle, GHC provenance limits, and any Closure-containing distribution separately. | Partial |
+| Reproducible builds | Python wheel and normalized sdist match across two clean trees with fixed `SOURCE_DATE_EPOCH`; Haskell executable and source archive also match across two clean trees. | Repeat release builds on any additional claimed target platforms. | Partial |
 | Independent release review | Reviewer packet is prepared. | A human who did not author the implementation must record findings against the exact source commit and artifacts. | Open |
 | Repository protection | Prior read-only query returned HTTP 403 for private repository settings. | Owner confirms required Coverage and independent review rules. | Unknown |
 | Package release decision | No package has been published. | Obtain a separate owner release decision after the other gates close. | Open |
@@ -217,4 +226,6 @@ authorize publication.
 
 See the [review packet](release-review-packet.md). It identifies the exact
 source commit, scope, threats, reproduction steps, limitations, and open
-release gates. It does not claim human approval.
+release gates. The current [assurance assessment](assurance-integrity-assessment.md)
+records the certificate, parity, distribution, and owner-review gates. Neither
+document claims human approval.
