@@ -8,7 +8,6 @@ import unittest
 from pathlib import Path
 
 from assurance.reference_core import (
-    ReferenceError,
     artifact_digest,
     canonical_bytes,
     evaluate,

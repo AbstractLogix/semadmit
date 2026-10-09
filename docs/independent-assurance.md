@@ -116,7 +116,7 @@ status is claimed.
 | --- | --- | --- |
 | `semadmit/claim/0.1` | Qualified, Python-only | No Haskell claim-pack parity is claimed. |
 | Core parity | Qualified only for named, bounded semantics | Complete parser precedence, broader errors, resource limits, CLI parity, and all-pack conformance remain open. |
-| `selector-provenance/0.1` | Experimental; independence outcomes remain indeterminate | Do not add positive independence permission without qualifying IsoPrax evidence. |
+| `selector-provenance/0.1` | Experimental; independence outcomes remain indeterminate | Do not add positive independence permission without qualifying Isoprax evidence. |
 | Python package distribution | Not approved | Review the exact Python artifacts and obtain a separate owner release decision. |
 | Haskell distribution | Not ready | Resolve and approve the `rts` Apache-2.0 notice obligations and full distribution notice set. |
 | Dependency provenance | Partial | Establish remaining source-repository provenance and independent archive/source review. |
