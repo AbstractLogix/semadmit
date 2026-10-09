@@ -57,9 +57,10 @@ The operation `independent_corroboration` remains `indeterminate` for all four r
 | Guarded claim consumption | Open | Add a claim-specific capability or equivalent checked-use API so verification and use cannot be confused. |
 | Measurement pack | Open | Qualify matching Python and Haskell Measurement semantics and their shared decision cases. |
 | Extension example | Open | Add a complete downstream pack example with guarded consumption and conformance checks. |
-| Broad conformance | In progress | Expand the shared Core corpus further for parser-limit recipes, component and evidence boundaries, and error ordering; retain failures as fixtures. This change adds nine Core evaluator cases but does not close the gate. |
-| Dependency and license inventory | In progress | Direct dependencies and the Cabal freeze are recorded. Inventory every transitive package's distribution notice and verify redistribution requirements. |
-| Independent final review | Open | Obtain a separate reviewer for the final code, contract, package, and license evidence. |
+| Broad conformance | In progress | Nine shared Core evaluator cases pass. Add shared parser-error, pointer, resource-limit, and CLI framing cases for semantics both implementations claim to support. See the [current assurance scope](release-assurance.md#cross-language-scope). |
+| Dependency and license inventory | Partial | The locked graph and license-file checks are recorded for 69 Hackage packages. Source and notice review for `ghc-prim` and `rts`, plus owner approval of redistribution obligations, remain open. See the [dependency inventory](dependency-license-inventory.md). |
+| Reproducible release builds | Partial | Two clean wheels and Haskell executables matched. Python sdist output changed because generated timestamps differ. See the [release assurance record](release-assurance.md#clean-build-repeatability). |
+| Independent final review | Open | A review packet is ready. Obtain a human reviewer for the final code, contract, package, and license evidence; automated review does not close this gate. |
 | Repository protection | Unable to inspect | GitHub returned HTTP 403 because private-repository branch protection requires an upgrade. Proposed rule: require the `Coverage` check and one independent review. The owner must confirm or configure it; no settings changed. |
 | Release decision | Open | Close required gates, record final evidence for one exact commit, and make a separate release decision. |
 
@@ -67,4 +68,4 @@ The operation `independent_corroboration` remains `indeterminate` for all four r
 
 The frozen Bouleusis consumer pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6` with protocols `semadmit/claim/0.1`, `semantic-oracle/0.1`, and `semadmit/claim-result-consumer/0.1`. See `conformance/fixtures/claim-consumer-compatibility-matrix.json` for the machine-readable contract.
 
-The claim consumer boundary can be qualified independently of overall Semadmit release readiness. Release remains not ready while the open gates above remain open.
+The claim consumer boundary can be qualified independently of overall Semadmit release readiness. Release remains not ready while the open gates above remain open. See the [release assurance record](release-assurance.md) for the exact baseline, validation results, and remaining actions.
