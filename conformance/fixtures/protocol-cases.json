@@ -463,6 +463,688 @@
         "continues_after_line_error": true,
         "exit_code": 3
       }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-00",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}8"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-01",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}("
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-02",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}X"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-03",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}4"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-04",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}]"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-05",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}F"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-06",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}B"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-07",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}H"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-08",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}t"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-09",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}f"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-10",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}e"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-11",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}G"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-12",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}F"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-13",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}2"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-14",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}["
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-trailing-15",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{}k"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.invalid_json",
+          "pointer": ""
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-00",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e5}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-01",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.7}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-02",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.5}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-03",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.4}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-04",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":9007199254740999}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-05",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e5}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-06",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.7}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-07",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.9}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-08",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.4}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-09",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.3}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-10",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e2}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-11",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e5}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-12",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":0.5}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-13",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":9007199254740997}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-14",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-number-15",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"n\":1e2}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.number_profile",
+          "pointer": "/n"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-00",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key21\":0,\"key21\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key21"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-01",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key21\":0,\"key21\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key21"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-02",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key10\":0,\"key10\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key10"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-03",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key21\":0,\"key21\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key21"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-04",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key09\":0,\"key09\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key09"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-05",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key29\":0,\"key29\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key29"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-06",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key04\":0,\"key04\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key04"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-07",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key25\":0,\"key25\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key25"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-08",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key10\":0,\"key10\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key10"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-09",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key24\":0,\"key24\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key24"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-10",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key21\":0,\"key21\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key21"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-11",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key31\":0,\"key31\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key31"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-12",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key00\":0,\"key00\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key00"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-13",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key31\":0,\"key31\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key31"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-14",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key08\":0,\"key08\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key08"
+        }
+      }
+    },
+    {
+      "id": "assurance-parser-seed-20261009-duplicate-15",
+      "input": {
+        "kind": "raw-json-utf8",
+        "text": "{\"key00\":0,\"key00\":1}"
+      },
+      "expected": {
+        "error": {
+          "kind": "error",
+          "code": "input.duplicate_key",
+          "pointer": "/key00"
+        }
+      }
     }
-  ]
+  ],
+  "assurance_parser_fuzz": {
+    "seed": 20261009,
+    "count": 48,
+    "classes": [
+      "non-whitespace trailing byte after valid JSON",
+      "fractional, exponent-form, and unsafe integer tokens",
+      "duplicate object keys"
+    ],
+    "generator": "assurance.generate_corpus"
+  }
 }

@@ -467,6 +467,4309 @@
         "code": "input.unknown_field",
         "pointer": "/unexpected"
       }
+    },
+    {
+      "id": "assurance-seed-20261009-000",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "a",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:9fac5457d3917fb86dbbbaa01d5c472419eb545bf36ebfd318cb40d2347440c0",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:daee8cb72fe20c00517545e124e91241437f0aba3a1f9d1b4739a95c551b58d8"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-001",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:90e984d43877c3a8645838d178183faf42ce0b6b67445a29f713e1c45d9c509a",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:5646fdc57ce1772f3dfc72a83471a9941305dc860b5963c1fbfcf2ef2036e84a"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-002",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:a83354baf6ea4b492c3105689fd874a4bdadfd24b2bcf289b3122daab98c372f",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:79d67bda142ded3d9fcbf43a2cbde66f629f515908dbc38b21def64e540faa45"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-003",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+        "policy": {
+          "mode": "missing"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:ce54ce370a1435569a2b7f99d5e237b3610e915c0e6ec74aba840c5d9fa5b11e",
+          "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:02e456b956f6dca4ad70b4bf573b0a58f093e43ab4dfda38abbbd6def6a5b28f"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-004",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:d35c0b2a72bc6cebd2a6a9f1bfad94f30feada352a3f971abfc4eff4b66e8585",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:b1d00e6d2708901bc30883c686186504decd3bbac7585f0fcc9fedf709864dc9"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-005",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:0f807dec163c98f34a0a34a27c6b7b7deadb6ddb1ec5cb996e166b7f7f987155",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:6fea2915c0e0fdbb649f1aa58da3589e19e8954aa8f56014a69dbbd3c87ea564"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-006",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:e918dcac40f465f51186a5b3363a3f179da7f0423467c4d7dedc52a3b3598179",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:b78a8bf2e57ee69f8a878c589e5fa09bb491e6fc20cdd675dedc08f5f69ba6ee"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-007",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:7b8d6ffa31604d7e79b8bd7e3d3956eab9299b723d16e68cbeba96b207e282c9",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:ff4866c75abc55ec8603709809434a524a35a8cf468d189c49eea4b90b7a5fa1"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-008",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b3413bf5356b62b2b59d04cc6e02b82af486e6fd1fec0a541b29000b1fc5262e",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:60d2a6b9c7cf4b9b31eace3e630c7c858719f14ee2382b659352936d304de3df"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-009",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": [
+          {
+            "id": "𐐷",
+            "present": false
+          },
+          {
+            "id": "a",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:745f57bc04653d218f8102d1a0bf3cd743ee234df000569c5c452a4d4df445ff",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:93d47b0cfd0811bd3bdca9a6e8960620f7299a0db153c5a20a4544ea293ca02b"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-010",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b3413bf5356b62b2b59d04cc6e02b82af486e6fd1fec0a541b29000b1fc5262e",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:60d2a6b9c7cf4b9b31eace3e630c7c858719f14ee2382b659352936d304de3df"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-011",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b057f0e297cf0fe957cac01148d42a1012b71446b8dad7cde87f6b8ce273bf54",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:6047199c0342ddeaa4eb21eda28fc371a6670ae7cbe6cd5284bf9cf7a1d9c936"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-012",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:ee5fbbee95fa856dad5589d22870f602d5770868368e332a53f7394f5800b6db",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:183eb09edae188096e3a9814f43dcfd93d31f52ed862c234ed88befc4f42f245"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-013",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "a",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:27f5dd69ba3a42693e567386053a1ce1ab7d0d58ceec373564129f1d13d1b271",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:f3782c9ba4f9543fb2b348d471fa9ea2f730b2f827dd26cd23d9248513b0a46a"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-014",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:03b3d889321c9e8ee9604ba3f069d8d01d0dd6bf7858165a0da6f16f6df86e64",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:aaafeb6b1a4d4d7cb694ea64cedc29e42d83d706862ec3e819732644da01e831"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-015",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:22afb3d95f9d71ff0d5dbcb538e53850a61bdb6212a7e491fa3b3b0ac0619ced",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:33e8ef639d5e73d86b7f98888c4a41e83875bf9717273e3d9511fec17c933e23"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-016",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:32d9fff0e1cab18237fccafa71c0ea81e58421caf1c0b13b0b79b5d148adb232",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:de10f1439a43349df1162a350893841c7137430f61dacb603552e3b61a70784f"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-017",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:3115c9175758763e09f9f436d2fa770fb3c411a81f81f0f4fa9efa178442dd08",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:73a17c5239d3c8086c0314da417c3d96e6c881a93b9b07bba2ddbd7e443d34d6"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-018",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          },
+          {
+            "id": "a",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:0833e4d23c147f31032134dc20b8b600a13593adc66bb01dfba5d89393de913c",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:531139953aa71891ef780235104f79b7a84ef3946cb9334bfbdede375f984c9c"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-019",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b70f5979d442cd8acd9f63d3b0144d628d3c08c735459bb24ca185813c89327a",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:325715e8a254c9097b053b72aed3efb781973a4c66935397948a64f12060cb61"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-020",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+        "policy": {
+          "mode": "missing"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:bbdb14b6b2fb11a90728ee86d2b3e72db9ec0c1f8bf8e0d345839e4c18376ee6",
+          "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:4aec95976afa4227258b05428d4f7812f164153825310bcc13bc67d3c1bb2a85"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-021",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "𐐷",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:77362eca9b2474e862c4ecfee3b508608cd8329b7d8b5a5941ddfcf4aaf46c39",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:9614176f4f15581828fc18300265d3b85ed012b1e8d0823d8e8e4ad7e54301d7"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-022",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:81628daeea3d2a1dbb24af1de61e0c2d6910fc3c3fb64121939c2851118e9fd6",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:6ab64ae0193a155b883617f139f46c61db7665798ad96962b8768e67f2f5ca58"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-023",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b753c3d65fc38c3200669d4660317c90bfabc182c6c0207861c08b79b0921a3b",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:2f5de9d570a47251d77a2fd61ac31f431e449f3c79f895fc1edcbff8db57581c"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-024",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:2fbb2a04ae77c5bba3ce03b86a4a8a27f87fbed9166e3f3c3a0aad3c3c1e9ab3",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:e0b3193d5776f0c5e1fec2dab60007e92dadf23e2406c773a708cc06cf2c1932"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-025",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:af7cf09c224b5e5e739fffe9842edfe66b14363ea5bd01bb5bcc39fa175c541f",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:e1942cab09fcb2e0c1af7a26691283caa5fb20d788ded5a50c79db758b25c873"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-026",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+        "policy": {
+          "mode": "missing"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:bcbbfef63d64b1b53f8d1d5063d5bdd8107fdaf96f20122206dc5ef75725d64e",
+          "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:0dae208d72e9a6df5ef1350b525ac5b4e299aed12e8adee2a31a8aa18aa16d05"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-027",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "𐐷",
+            "present": false
+          },
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:f6dec4bbe11d90a89eeb8fef195a8bd35dcfc66aa2d58a2762909d352f7afc95",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:625d774fa871327f06836a7ba082157cd19b5ffae2e6651f68ca029e795875f5"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-028",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "λ"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:a0a85f296fff86d03c1792104411551ce6cdb21c66396b9d85bdcb490980046a",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4af7ee333f0539eb5927f181966d14b9a6f61d68770abfc151f83dcc640a8eb9"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:565e71c926e6f2a4dd63f0c4fc5851619830723ba7149338cbc5d43521f3e496"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:6a1575558027adc4924529de5ffc178a20c0daa5c73ab2d5dfcbce4be5615ab5"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-029",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": [
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:bb77da50d6cc5b143c693ead09921de2c4abdc1745f7adde1f0d1a9874c91fd0",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:179d99c64e39280dd04f61e361a4d62ce81e195483bacf1cbd1ac437fa418782"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-030",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:311ee825409e7b80e1645490b4f4f354e52f59313abbbd9fdff9023e0bb397d2",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:dfbade80dcddfdbf4f01e63516b9f1a50a5ed35bab828aa41c32bd54d1afe2ca"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-031",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:e417b690b0eec6f717c3f3dbcd0036a4f51f5e4000ffd468c4ad96315a582b48",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:453d097da2b20bf3866e7d2bb8a3fc3aaaf35969b77d4a102dded13be8d1444f"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-032",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:711ac0cd29716161ea9e90405177031cb0851db84604c4f8015d5e85683c8b1e",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:183fe3a41dfb1c95991ac5bba64cdc2df252f35adde83e49fb02a95da7f98c91"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-033",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+        "policy": {
+          "mode": "missing"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:a80efc8d62b5da9ef6147a22dfde9d1c596334c674b49561b3e0571e39cc3784",
+          "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:9070a1bd9b11ee4dbc949e79ed177e0a8253a51c70027897675e9684378787b3"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-034",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:3781c44d2d8e5898561269efb5b5126b5d6b389cda3aa493078bb12b9151001d",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:bb896831c848b68ea09564931193b4c8b226ead94705809e1b0b9905729a8e2b"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-035",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:6db95db05f99df774aff5afe229aa696f2005bf8f8a7449ad2c7ac3a06fce430",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:b2898223f601d959f18008dab2af541f7756ac7af6da571758bc9a05ca0eb1c2"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-036",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:31a288a32eb8e4f3eec54a10f794f49cce9bd3d3fb63e8ec966c36eabca5ac83",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:2755886ca6a680f7b9d12f30a54aa308c192ccba379437cea50cb2eb324bbb80"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-037",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:08076b14d4440a3814cb7f983a7d4947da874306efbdb1a77efe229e7868ce2f",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:38c9916b1ad7a625fae597adea2267c14e5c96ba556175cb63d7dfbe17d5c3d1"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:71da5813127070e685e0bbf4a39a472a7b865d269dc0dddc70e1a0625485bb5e"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-038",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:a7851c7bb399a84fa484c80a3cd55a6c68c95628110f28d221ade840c31a7a27",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:7c1976fb44bd5205bb7a72df335186e373ac8df67c9b7829d60cbf20de003a59"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-039",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+        "policy": {
+          "mode": "missing"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:a2da0105ae03180fd9b6b7483ab77d6215ae240e739d6f27f291da8559cfa9e6",
+          "policy_digest": "sha256:ad5afa817c46fe3010ef66654e3c4d805bd90974fa4810f1cb518e1de6c33aaa",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:9ce5b45291ce473b7267622cb9a7af218bedf746f2cef9c3bfd39ba036864444"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:e8d2282fd2d2be77032db106a902252d11e76a8c97f789fb5e0fc32f721b3991"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-040",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "a",
+            "present": true
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:212ea0d17da7f6a9bd963710ab411bba37d9ab3b281c65fc438a38025029276f",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:6578b9b23ab6bc55b799ed90de274dea355f2fa406393b0519952ba75c844e13"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:dc1c88e582de5fc60997b6e739a18660c30483dca26f8d6a294e784e9abc9cf0"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-041",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:9bafc185704743b585c18f59e10f0249c47569bf9062682168401adf7a33cdae",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1383df8f159a42de600891d21571b9b4a2e3fdd0398dd838a70d2e20e6c365a3"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:273c33872ed9415b4c092d9543537cd1ed56df6bfb29d8cd2aa64dbc1cf39ef5"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-042",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "plain"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:2210dce76b0924253d6dd9bdf30013d52edfc30bf115e329de56a782eb3583b9",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:5b2d21692e971cb7e7eb1e27b584e501949ec21cb9f74f63f163d5e77e6e1501"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:90414dd974d998f74759b49b03d84f1998b81de73abe5c8bac9d3f38d8a41fe9"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:9d6765e867e91b0d761e01d0722caaa8edfab0e663556946ec3f6d26698f8076"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-043",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "東京"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:bd131ec745bc2dea26a71d7ff314384b51cc887c242a8d4179b85301f6d82c91",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:4e325dd9f99bc28c773285c169971ae0fd7fdaaf8dbe99c6e7563cf658ef8828"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:fcc15ee7e472c6e8d4b7ef75684c5f0dc5ccd8a883861369b71feaa303b42d54"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:0ff93c61170b95300dc0678e65316456bf852e553333f20a85b3540ba8a92603"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-044",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+        "policy": {
+          "mode": "partial"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:b3eaf5814f28f9e1889af8940e1c75ab579d4e8f511f54b3a85096570fb48bce",
+          "policy_digest": "sha256:ae348c69d9d625bd1b1bb6fa03d37fbe44c86de234f1eca65b211a6fc502aba4",
+          "state": "indeterminate",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "missing"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:e3ed08a17df37596113d335e988a28e86bc779e7b18c225aca872c3e1191dbf7"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-045",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+        "policy": {
+          "mode": "fail"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": []
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:2fbb2a04ae77c5bba3ce03b86a4a8a27f87fbed9166e3f3c3a0aad3c3c1e9ab3",
+          "policy_digest": "sha256:132c0cef4c3d0a8366623db143cdf95b8e9ce7aaeacb1d663a22f91458b43d5b",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1eb871cea6aeb04665b4cb7c24378b20d84c529f5a802a52a8631c752bc44c7c"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:55e08477fc63bf15596b35395f217a288edc2b008af58e69292bc64cbf210d48"
+              }
+            ],
+            "evidence": []
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "fail"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "complete",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:e0b3193d5776f0c5e1fec2dab60007e92dadf23e2406c773a708cc06cf2c1932"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-046",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+        "policy": {
+          "mode": "mixed"
+        },
+        "subjects": {
+          "item": {
+            "name": "café"
+          }
+        },
+        "evidence": [
+          {
+            "id": "a",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "β",
+            "present": false
+          },
+          {
+            "id": "𐐷",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:d922d6aae2457dd50344f3b86089830ae67c780f83c60a78efdc2ac1d9dd1915",
+          "policy_digest": "sha256:24b1bde79f4e5bc92e983367c817098a920c7d7ba4901389d10b6655deb629a1",
+          "state": "inadmissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:574e4ff274454b67be78302c5a980c6d6fcef6f0325b27bf1be2fd1e7e74482f"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:1da0800df4503c45b418f062f473490a3e3a4a4fcaa895226ed632f304b17c51"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:44580f65aaa4543a43cc4ec7783b9b49b8d16116f383bcae3ed8856eda1dd9ab"
+              },
+              {
+                "id": "𐐷",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:636e3ad4bce9c5e3bab5f229d7caedaca4dfdaf00ad02714c16fddfa283f5e41"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "missing"
+            },
+            {
+              "id": "present",
+              "outcome": "fail"
+            }
+          ],
+          "diagnostics": [
+            {
+              "obligation_id": "present",
+              "pointer": "/subjects/item/name",
+              "code": "domain.mismatch"
+            }
+          ]
+        },
+        "decision_digest": "sha256:ff6cbe5dce45db6ca7b74ee875e8282ec1eba1fd6c6aba5bcb1ac204908f2823"
+      }
+    },
+    {
+      "id": "assurance-seed-20261009-047",
+      "request": {
+        "protocol": "semantic-oracle/0.1",
+        "pack": "fixture/0.1",
+        "operation": "check",
+        "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+        "policy": {
+          "mode": "pass"
+        },
+        "subjects": {
+          "item": {
+            "name": "𐐷"
+          }
+        },
+        "evidence": [
+          {
+            "id": "β",
+            "present": true
+          },
+          {
+            "id": "é",
+            "present": false
+          },
+          {
+            "id": "é",
+            "present": true
+          },
+          {
+            "id": "a",
+            "present": false
+          }
+        ]
+      },
+      "expected": {
+        "kind": "decision",
+        "payload": {
+          "protocol": "semantic-oracle/0.1",
+          "pack": "fixture/0.1",
+          "operation": "check",
+          "request_digest": "sha256:e64621e817dac5c664fa00f44eac2520243f85cf45e07856b545a43eb7c0e543",
+          "policy_digest": "sha256:652d9137bfceffcbc072a4fb3b3598434c7f6a5408abe56d34139bcc7bd0cdf5",
+          "state": "admissible",
+          "bindings": {
+            "subjects": [
+              {
+                "role": "item",
+                "kind": "subject",
+                "schema": "fixture/0.1/subject",
+                "digest": "sha256:1d1c747ae4cd506082a1d579ab2cb0bf093af186e0e2f85d7c16c45b3c411b5d"
+              }
+            ],
+            "components": [
+              {
+                "subject_role": "item",
+                "name": "name",
+                "kind": "component",
+                "schema": "fixture/0.1/component",
+                "digest": "sha256:19aa461d111726d59f2f1cde2ee51a8a713d99b9fe1eee13106fe5cc1df42f2b"
+              }
+            ],
+            "evidence": [
+              {
+                "id": "a",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:e98959baae407d59f4fa74dc733502cb7e8fcf463650f459ff297b938596de44"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:1d5bd46477e695e98f1b5667ba3e777b82ae711023769eb2e563368aa565bb37"
+              },
+              {
+                "id": "é",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bf1200fab1e5d536f63508c2a72c8b1262097973e3af326a618f982b0e1fad52"
+              },
+              {
+                "id": "β",
+                "kind": "assertion",
+                "schema": "fixture/0.1/assertion",
+                "digest": "sha256:bb8e8c63dac97769e38e3f8e76b4d149060c0cc40da2423da1367397d5166a5f"
+              }
+            ]
+          },
+          "obligations": [
+            {
+              "id": "complete",
+              "outcome": "pass"
+            },
+            {
+              "id": "present",
+              "outcome": "pass"
+            }
+          ],
+          "diagnostics": []
+        },
+        "decision_digest": "sha256:3036c0a5cf1cbc329e296855b72a2023a648ddb45bc48d9ce2e50576f3abd9d4"
+      }
     }
-  ]
+  ],
+  "generated": {
+    "seed": 20261009,
+    "count": 48,
+    "method": "stdlib random.Random; expected values from assurance.reference_core only"
+  }
 }

@@ -76,6 +76,20 @@ class ClaimVerificationChecks(unittest.TestCase):
         self.assertFalse(self.engine.verify_result(unknown, {"kind": "claim-result"}))
         self.assertFalse(self.engine.verify_result(unknown, object()))
 
+    def test_tampered_verification_evidence_does_not_verify_admissible_result(self) -> None:
+        request = valid_request()
+        result = self.engine.evaluate(request)
+        self.assertEqual(result["verification_status"], "VALID")
+        self.assertEqual(result["admission_status"], "ADMISSIBLE")
+
+        altered = json.loads(json.dumps(result))
+        altered["verification"]["evidence_ids"] = ["forged-evidence"]
+        self.assertFalse(self.engine.verify_result(request, altered))
+
+        altered = json.loads(json.dumps(result))
+        altered["verification"]["assumptions"].append("source is independently reliable")
+        self.assertFalse(self.engine.verify_result(request, altered))
+
     def test_exhaustive_small_domain_oracle(self) -> None:
         base = valid_request()
         domain = [0, 1]

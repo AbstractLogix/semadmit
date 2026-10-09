@@ -397,6 +397,8 @@ checkProtocolFixtures = do
       , "negative-zero-number-form"
       , "integer-outside-safe-range"
       ]
+        <> ["assurance-parser-seed-20261009-" <> kind <> "-" <> paddedParserIndex index
+           | kind <- ["trailing", "number", "duplicate"], index <- [0 .. 15]]
 
     checkFixture fixture = case (field "id" fixture, field "input" fixture, field "expected" fixture) of
       (Just (String identifier), Just input, Just expected) -> case (field "kind" input, field "error" expected) of
@@ -423,6 +425,10 @@ checkProtocolFixtures = do
           (errorEnvelope actual == expected)
         pure [identifier]
       Right _ -> fail ("protocol fixture was accepted: " <> Text.unpack identifier)
+
+    paddedParserIndex index = Text.pack (replicate (2 - length digits) '0' <> digits)
+      where
+        digits = show index
 
 field :: Text -> Value -> Maybe Value
 field name (Object fields) = KeyMap.lookup (Key.fromText name) fields
