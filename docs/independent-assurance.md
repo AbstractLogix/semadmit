@@ -89,6 +89,12 @@ signature or independent approval. See the
 [adversarial assessment](assurance-integrity-assessment.md) for tested cases
 and limits.
 
+The current certificate records validation commit
+`dcf3d1070186a3f936e17f5975622023c812fc2b` and the successful [hosted Coverage
+run](https://github.com/AbstractLogix/semadmit/actions/runs/38000152994). It
+records 59 Python package tests, 7 reference tests, 10 certificate-integrity
+tests, and all 7 Haskell suites. Artifact source binding remains unverified.
+
 ## Research Artifact Description
 
 **Title:** Semadmit Core Conformance Oracle and Assurance Corpus, version 0.1.

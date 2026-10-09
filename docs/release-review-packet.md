@@ -6,13 +6,20 @@
 **Independent Core assurance implementation and validation commit:**
 `47d55e1e7fa10348d4a39679add3590edfe8233b`.
 
+**Current assurance-integrity commit:**
+`dcf3d1070186a3f936e17f5975622023c812fc2b`.
+
+**Current validation commit and hosted Coverage run:**
+`dcf3d1070186a3f936e17f5975622023c812fc2b`,
+<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>.
+
 **Assurance PR #8 merge commit:**
 `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
 
 The previous implementation commit contains the PR #8 assurance corrections.
 The new Core assurance implementation is the commit listed above. Review that
-commit, the machine-readable certificate, and the full pull request diff. This
-packet is not human approval.
+commit, the current integrity commit, the machine-readable certificate, and
+the full PR #11 diff. This packet is not human approval.
 
 This packet also covers the independent Core assurance extension. Its exact
 implementation commit, corpus digests, local build hashes, and CI evidence are

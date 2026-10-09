@@ -9,7 +9,7 @@ qualification results.
 The [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
 adds the adversarial certificate results and current artifact build hashes.
 
-## Exact Baseline and Validation
+## PR #8 Baseline and Validation (Historical)
 
 - Pre-assurance main baseline: `b4e1f85ccc8bc56de8f4b12529cfc4e110ee21c7`.
 - Assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
@@ -50,18 +50,18 @@ evidence are recorded in
 [`assurance-certificate.json`](../assurance/assurance-certificate.json).
 
 The implementation commit is
-`47d55e1e7fa10348d4a39679add3590edfe8233b`. The certificate was generated from
-clean validation commit `40528b3ea6989cb9487c9c558fdb278b1567e9d9`. Its writer
-reran the seeded-corpus, source-mutation, and full test/coverage gates and
-derived the counts and outcomes from those runs. The local run passed 59
-Python package tests, 7 independent-reference tests, and all 7 Haskell suites.
-Python line coverage was 1,679/1,679 executable lines. Haskell coverage was
-5,318/5,859 expressions (90.77%) and 90/193 booleans (46.63%). Hosted Coverage
-passed on the same validation commit:
-<https://github.com/AbstractLogix/semadmit/actions/runs/37969409735>.
-The Haskell executable, Haskell source archive, Python source archive, and
-Python wheel also built successfully. Their SHA-256 values are in the
-machine-readable certificate.
+`47d55e1e7fa10348d4a39679add3590edfe8233b`. The refreshed certificate was
+generated from clean validation commit
+`dcf3d1070186a3f936e17f5975622023c812fc2b`. The writer reran the seeded-corpus,
+source-mutation, and full test/coverage gates. It recorded 59 Python package
+tests, 7 independent-reference tests, 10 certificate-integrity tests, and all
+7 Haskell suites. Python line coverage was 1,679/1,679 executable lines.
+Haskell coverage was 5,318/5,859 expressions (90.77%) and 90/193 booleans
+(46.63%). Hosted Coverage passed on the same validation commit:
+<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>. The
+certificate stores stdout, byte counts, and digests for all three local gates.
+Its artifact hashes match the assessed artifact bytes, but do not prove source
+binding. The certificate is not a signed build attestation.
 
 The shared Core suite now compares 57 complete decisions or error results in
 both languages. The 48 generated decisions come from a fixed seed and have

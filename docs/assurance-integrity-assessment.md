@@ -2,6 +2,10 @@
 
 **Assessment baseline:** PR #10 merge `e042aded9fd98d22aeb708337a26e9bbc9f2b7b8`.
 Its tree is `c84d326ab07eacec88786df12081cf6442175982`.
+The assurance-integrity implementation commit is
+`dcf3d1070186a3f936e17f5975622023c812fc2b`. The refreshed certificate records
+that validation commit and the successful
+[hosted Coverage run](https://github.com/AbstractLogix/semadmit/actions/runs/38000152994).
 
 The stable Bouleusis compatibility pin remains
 `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. `semadmit/claim/0.1` remains
