@@ -60,13 +60,15 @@ record, artifact modes, sizes, and digests.
 ## GitHub attestations
 
 GitHub documents offline verification for artifact attestations, but this
-repository's current local GitHub CLI is version 2.4.0 and has no
-`attestation` command. The organization plan could not be queried with the
-available credentials. GitHub documents attestation support for private
-repositories on Enterprise Cloud; public-repository support is broader. The
-current certificate therefore uses the reproducible-build fallback and does
-not claim an authenticated attestation. See the [GitHub attestation
-availability](https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/use-artifact-attestations)
+repository is private and its organization plan could not be queried with the
+available credentials. GitHub currently requires Enterprise Cloud for
+attestations in private or internal repositories. The local GitHub CLI is
+version 2.4.0 and has no `attestation` command. The Coverage workflow runs
+tests and coverage; it does not produce artifact attestations. Therefore no
+authenticated attestation is available to verify for this certificate. The
+certificate uses the clean-source reproducibility fallback and does not claim
+authenticated provenance. See GitHub's [attestation availability
+requirements](https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/use-artifact-attestations)
 and [offline verification instructions](https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/verify-attestations-offline).
 
 The recorded Coverage run must be successful and match the exact source
