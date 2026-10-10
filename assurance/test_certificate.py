@@ -214,8 +214,12 @@ class CertificateIntegrityChecks(unittest.TestCase):
                 capture=True,
             )
             self.assertEqual(output.strip(), "<unset>")
-            process_output = _run_sandboxed(
-                [sys.executable, "-c", "import os; print(os.getpid())"],
+            host_process_output = _run_sandboxed(
+                [
+                    sys.executable,
+                    "-c",
+                    f"import os; print(os.path.exists('/proc/{os.getpid()}'))",
+                ],
                 cwd=source,
                 env=clean_env,
                 work=work,
@@ -223,7 +227,7 @@ class CertificateIntegrityChecks(unittest.TestCase):
                 uv_cache=uv_cache,
                 capture=True,
             )
-            self.assertNotEqual(int(process_output.strip()), os.getpid())
+            self.assertEqual(host_process_output.strip(), "False")
             host_path = work.parent / f"semadmit-sandbox-write-{work.name}"
             host_path.write_text("protected", encoding="utf-8")
             try:
