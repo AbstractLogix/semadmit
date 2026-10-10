@@ -2,7 +2,7 @@
 
 **Deterministic, verifiable evidence-admission decisions for software agents and research systems.**
 
-[![Coverage](https://github.com/AbstractLogix/semadmit/actions/workflows/coverage.yml/badge.svg?branch=main)](https://github.com/AbstractLogix/semadmit/actions/workflows/coverage.yml?query=branch%3Amain) [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) ![CPython 3.13](https://img.shields.io/badge/python-CPython%203.13-blue.svg) ![Experimental v0.1](https://img.shields.io/badge/status-experimental%20v0.1-orange.svg)
+[![Coverage](https://github.com/AbstractLogix/semadmit/actions/workflows/coverage.yml/badge.svg?branch=main)](https://github.com/AbstractLogix/semadmit/actions/workflows/coverage.yml) [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) ![CPython 3.13](https://img.shields.io/badge/python-CPython%203.13-blue.svg) ![Experimental v0.1](https://img.shields.io/badge/status-experimental%20v0.1-orange.svg)
 
 Semadmit checks whether identified evidence may take part in one named operation under a declared policy. An evidence obligation is a policy requirement the supplied evidence must meet. Semadmit returns a result bound to the request, evidence identities, and decision so a caller can verify it before use.
 
