@@ -7,6 +7,7 @@ import io
 import json
 import unittest
 import copy
+import os
 import stat
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -19,6 +20,7 @@ from assurance.source_build import (
     BUILD_COMMANDS,
     SOURCE_EXPORT_COMMAND,
     VALIDATION_COMMAND,
+    _run_sandboxed,
 )
 from assurance.verify_certificate import (
     UNSUPPORTED_GUARANTEES,
@@ -177,6 +179,41 @@ class CertificateIntegrityChecks(unittest.TestCase):
         with TemporaryDirectory() as temporary:
             certificate, rebuilt, artifacts, source_revision = self._offline_fixture(Path(temporary))
             validate_certificate_record(certificate, source_revision, rebuilt, artifacts)
+
+    def test_isolated_build_hides_host_environment_and_blocks_host_writes(self) -> None:
+        import sys
+
+        with TemporaryDirectory() as temporary:
+            work = Path(temporary).resolve()
+            source = work / "source"
+            cabal_cache = work / "cabal-cache"
+            uv_cache = work / "uv-cache"
+            for directory in (source, cabal_cache, uv_cache):
+                directory.mkdir()
+            clean_env = {"PATH": os.environ["PATH"], "PYTHONHASHSEED": "0"}
+            output = _run_sandboxed(
+                [sys.executable, "-c", "import os; print(os.environ.get('PYTHONPATH', '<unset>'))"],
+                cwd=source,
+                env=clean_env,
+                work=work,
+                cabal_cache=cabal_cache,
+                uv_cache=uv_cache,
+                capture=True,
+            )
+            self.assertEqual(output.strip(), "<unset>")
+            host_path = Path("/tmp/semadmit-sandbox-write-must-fail")
+            host_path.unlink(missing_ok=True)
+            with self.assertRaisesRegex(RuntimeError, "isolated command failed"):
+                _run_sandboxed(
+                    [sys.executable, "-c", f"open({str(host_path)!r}, 'w').close()"],
+                    cwd=source,
+                    env=clean_env,
+                    work=work,
+                    cabal_cache=cabal_cache,
+                    uv_cache=uv_cache,
+                    capture=True,
+                )
+            self.assertFalse(host_path.exists())
 
     def test_offline_verifier_rejects_arbitrary_artifact_substitution(self) -> None:
         with TemporaryDirectory() as temporary:

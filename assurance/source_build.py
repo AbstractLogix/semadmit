@@ -75,6 +75,74 @@ def _run(
     return result.stdout or "" if capture else ""
 
 
+def _expand_command(command: list[str], replacements: dict[str, str]) -> list[str]:
+    return [
+        next((part.replace(marker, value) for marker, value in replacements.items() if marker in part), part)
+        for part in command
+    ]
+
+
+def _run_sandboxed(
+    command: list[str],
+    *,
+    cwd: Path,
+    env: dict[str, str],
+    work: Path,
+    cabal_cache: Path,
+    uv_cache: Path,
+    capture: bool = False,
+) -> str:
+    bwrap = shutil.which("bwrap")
+    if bwrap is None:
+        raise RuntimeError("bubblewrap is required for isolated offline builds")
+    wrapped = [
+        bwrap,
+        "--die-with-parent",
+        "--new-session",
+        "--unshare-net",
+        "--ro-bind",
+        "/",
+        "/",
+        "--dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--bind",
+        str(work),
+        str(work),
+        "--bind",
+        str(cabal_cache),
+        str(cabal_cache),
+        "--bind",
+        str(uv_cache),
+        str(uv_cache),
+        "--chdir",
+        str(cwd),
+        "--",
+        *command,
+    ]
+    result = subprocess.run(
+        wrapped,
+        cwd=cwd,
+        env=env,
+        text=True,
+        stdout=subprocess.PIPE if capture else None,
+        stderr=subprocess.STDOUT if capture else None,
+        check=False,
+    )
+    if result.returncode != 0:
+        output = (result.stdout or "").strip()
+        raise RuntimeError(
+            f"isolated command failed ({result.returncode}): {' '.join(command)}"
+            + (f"\n{output}" if output else "")
+        )
+    return result.stdout or "" if capture else ""
+
+
+def _record_command(command: list[str], work: Path) -> list[str]:
+    return [part.replace(str(work), "<build-root>") for part in command]
+
+
 def _git(repo: Path, *args: str) -> str:
     return subprocess.run(
         ["git", *args], cwd=repo, text=True, capture_output=True, check=True
@@ -89,7 +157,9 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _toolchain(repo: Path, cabal_config_sha256: str) -> dict[str, str]:
+def _toolchain(
+    repo: Path, cabal_config_sha256: str, cabal_cache: Path, uv_cache: Path
+) -> dict[str, str]:
     versions: dict[str, str] = {
         "python": platform.python_version(),
         "python_executable": sys.executable,
@@ -113,6 +183,15 @@ def _toolchain(repo: Path, cabal_config_sha256: str) -> dict[str, str]:
         capture_output=True,
         check=True,
     ).stdout.strip()
+    bwrap = shutil.which("bwrap")
+    if bwrap is None:
+        raise RuntimeError("bubblewrap is required for isolated offline builds")
+    versions["bwrap"] = subprocess.run(
+        [bwrap, "--version"], cwd=repo, text=True, capture_output=True, check=True
+    ).stdout.strip()
+    versions["bwrap_path"] = str(Path(bwrap).resolve())
+    versions["cabal_cache_root"] = str(cabal_cache)
+    versions["uv_cache_root"] = str(uv_cache)
     versions.update(
         {
             "system": platform.system(),
@@ -125,7 +204,9 @@ def _toolchain(repo: Path, cabal_config_sha256: str) -> dict[str, str]:
     return versions
 
 
-def _source_tree(repo: Path, revision: str, source_dir: Path) -> tuple[str, str, int]:
+def _source_tree(
+    repo: Path, revision: str, source_dir: Path, command_log: list[list[str]], work: Path
+) -> tuple[str, str, int]:
     if len(revision) != 40 or any(char not in "0123456789abcdef" for char in revision):
         raise ValueError("source revision must be a full lowercase 40-character Git SHA")
     commit = _git(repo, "rev-parse", "--verify", f"{revision}^{{commit}}")
@@ -134,20 +215,42 @@ def _source_tree(repo: Path, revision: str, source_dir: Path) -> tuple[str, str,
     tree = _git(repo, "rev-parse", "--verify", f"{revision}^{{tree}}")
     epoch = int(_git(repo, "show", "-s", "--format=%ct", revision))
     archive_path = source_dir.parent / "source.tar"
+    export_command = _expand_command(
+        SOURCE_EXPORT_COMMAND,
+        {"<temp>": str(source_dir.parent), "<source-revision>": revision},
+    )
     _run(
-        ["git", "archive", "--format=tar", "--output", str(archive_path), revision],
+        export_command,
         cwd=repo,
         env=os.environ.copy(),
     )
+    command_log.append(_record_command(export_command, work))
     with tarfile.open(archive_path, mode="r:") as archive:
         archive.extractall(source_dir, filter="data")
     archive_path.unlink()
     return commit, tree, epoch
 
 
-def _validation(source_root: Path, env: dict[str, str]) -> dict[str, Any]:
-    command = [sys.executable, *VALIDATION_COMMAND[1:]]
-    output = _run(command, cwd=source_root, env=env, capture=True)
+def _validation(
+    source_root: Path,
+    env: dict[str, str],
+    *,
+    work: Path,
+    cabal_cache: Path,
+    uv_cache: Path,
+    command_log: list[list[str]],
+) -> dict[str, Any]:
+    command = VALIDATION_COMMAND
+    output = _run_sandboxed(
+        command,
+        cwd=source_root,
+        env=env,
+        work=work,
+        cabal_cache=cabal_cache,
+        uv_cache=uv_cache,
+        capture=True,
+    )
+    command_log.append(_record_command(command, work))
     try:
         record = json.loads(output.rstrip().splitlines()[-1])
     except (IndexError, json.JSONDecodeError) as error:
@@ -243,9 +346,11 @@ def build_source_revision(
 
     with tempfile.TemporaryDirectory(prefix="semadmit-source-build-") as temporary:
         work = Path(temporary)
+        work = work.resolve()
         source_root = work / "source"
         source_root.mkdir()
-        commit, tree, epoch = _source_tree(repo, revision, source_root)
+        source_commands: list[list[str]] = []
+        commit, tree, epoch = _source_tree(repo, revision, source_root, source_commands, work)
         temp_output = work / "outputs"
         temp_output.mkdir()
         temp_python = temp_output / "python"
@@ -256,57 +361,101 @@ def build_source_revision(
         temp_normalized.mkdir()
         temp_tmp = work / "tmp"
         temp_tmp.mkdir()
-        env = os.environ.copy()
-        env.update(
-            {
-                "TZ": "UTC",
-                "LC_ALL": "C.UTF-8",
-                "PYTHONHASHSEED": "0",
-                "SOURCE_DATE_EPOCH": str(epoch),
-                "TMPDIR": str(temp_tmp),
-                "UV_OFFLINE": "1",
-            }
+        home = work / "home"
+        home.mkdir()
+        inherited_path = os.environ.get("PATH")
+        if not inherited_path:
+            raise RuntimeError("PATH is required to locate the pinned build tools")
+        cabal_path_result = subprocess.run(
+            [shutil.which("cabal") or "cabal", "path"],
+            cwd=repo,
+            env=os.environ.copy(),
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout
+        cache_line = next(
+            (line for line in cabal_path_result.splitlines() if line.startswith("cache-home:")),
+            None,
         )
+        if cache_line is None:
+            raise RuntimeError("Cabal did not report its cache home")
+        cabal_cache = Path(cache_line.split(":", 1)[1].strip()).expanduser().resolve()
+        uv_cache_result = subprocess.run(
+            [shutil.which("uv") or "uv", "cache", "dir"],
+            cwd=repo,
+            env=os.environ.copy(),
+            text=True,
+            capture_output=True,
+            check=True,
+        ).stdout.strip()
+        uv_cache = Path(uv_cache_result).expanduser().resolve()
+        if not cabal_cache.is_dir() or not uv_cache.is_dir():
+            raise RuntimeError("offline dependency caches must exist before isolated builds")
+        env = {
+            "PATH": inherited_path,
+            "HOME": str(home),
+            "CABAL_DIR": str(cabal_cache),
+            "UV_CACHE_DIR": str(uv_cache),
+            "TZ": "UTC",
+            "LC_ALL": "C.UTF-8",
+            "PYTHONHASHSEED": "0",
+            "SOURCE_DATE_EPOCH": str(epoch),
+            "TMPDIR": str(temp_tmp),
+            "UV_OFFLINE": "1",
+        }
         cabal_config_sha256 = _offline_cabal_config(source_root, work, env)
 
-        validation = _validation(source_root, env)
+        validation_command_log: list[list[str]] = []
+        validation = _validation(
+            source_root,
+            env,
+            work=work,
+            cabal_cache=cabal_cache,
+            uv_cache=uv_cache,
+            command_log=validation_command_log,
+        )
+        build_commands: list[list[str]] = []
 
-        _run(["cabal", "build", "--offline", "exe:semantic-oracle"], cwd=source_root, env=env)
-        executable_path = Path(
-            _run(
-                ["cabal", "list-bin", "exe:semantic-oracle"],
+        def run_build(command: list[str], *, capture: bool = False) -> str:
+            result = _run_sandboxed(
+                command,
                 cwd=source_root,
                 env=env,
-                capture=True,
-            ).strip()
+                work=work,
+                cabal_cache=cabal_cache,
+                uv_cache=uv_cache,
+                capture=capture,
+            )
+            build_commands.append(_record_command(command, work))
+            return result
+
+        run_build(BUILD_COMMANDS[0])
+        executable_path = Path(
+            run_build(BUILD_COMMANDS[1], capture=True).strip()
         )
         executable_path = executable_path if executable_path.is_absolute() else source_root / executable_path
         if not executable_path.is_file():
             raise RuntimeError("Cabal did not produce the declared executable")
-        _run(
-            ["cabal", "sdist", f"--output-directory={temp_haskell}"],
-            cwd=source_root,
-            env=env,
+        run_build(
+            _expand_command(BUILD_COMMANDS[2], {"<output>/haskell": str(temp_haskell)})
         )
         haskell_sdist = _find_one(temp_haskell, "*.tar.gz")
 
-        _run(
-            ["uv", "build", "--offline", "--out-dir", str(temp_python), "clients/python"],
-            cwd=source_root,
-            env=env,
+        run_build(
+            _expand_command(BUILD_COMMANDS[3], {"<output>/python": str(temp_python)})
         )
         python_wheel = _find_one(temp_python, "*.whl")
         python_raw_sdist = _find_one(temp_python, "*.tar.gz")
         python_sdist = temp_normalized / python_raw_sdist.name
-        _run(
-            [
-                sys.executable,
-                "scripts/normalize_python_sdist.py",
-                str(python_raw_sdist),
-                str(python_sdist),
-            ],
-            cwd=source_root,
-            env=env,
+        run_build(
+            _expand_command(
+                BUILD_COMMANDS[4],
+                {
+                    "<raw-sdist>": str(python_raw_sdist),
+                    "<output>/normalized/<sdist-name>": str(python_sdist),
+                },
+            )
         )
 
         generated = {
@@ -349,15 +498,25 @@ def build_source_revision(
             "source_date_epoch": epoch,
             "locked_inputs_sha256": locks,
             "build_inputs_sha256": build_inputs,
-            "toolchain": _toolchain(source_root, cabal_config_sha256),
+            "toolchain": _toolchain(source_root, cabal_config_sha256, cabal_cache, uv_cache),
             "commands": {
-                "source_export": SOURCE_EXPORT_COMMAND,
-                "validation": VALIDATION_COMMAND,
-                "build": BUILD_COMMANDS,
+                "source_export": source_commands,
+                "validation": validation_command_log,
+                "build": build_commands,
             },
             "environment": {
-                "LC_ALL": "C.UTF-8", "PYTHONHASHSEED": "0", "SOURCE_DATE_EPOCH": "source commit time",
-                "TZ": "UTC", "UV_OFFLINE": "1", "CABAL_OFFLINE": "true via temporary CABAL_CONFIG",
+                "CABAL_CONFIG": "<build-root>/cabal-offline.config",
+                "CABAL_DIR": str(cabal_cache),
+                "HOME": "<build-root>/home",
+                "LC_ALL": "C.UTF-8",
+                "PATH": inherited_path,
+                "PYTHONHASHSEED": "0",
+                "SOURCE_DATE_EPOCH": str(epoch),
+                "TMPDIR": "<build-root>/tmp",
+                "TZ": "UTC",
+                "UV_CACHE_DIR": str(uv_cache),
+                "UV_OFFLINE": "1",
+                "sandbox": "bubblewrap; all filesystem paths read-only except build root and declared Cabal/uv caches; network namespace disabled",
             },
             "validation": validation,
             "artifacts": records,
