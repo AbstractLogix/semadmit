@@ -1,176 +1,221 @@
 {
-  "build_artifact_hashes_sha256": {
-    "haskell_executable": "08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700",
-    "haskell_source_archive": "f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4",
-    "python_source_archive": "db2a5fba968e2552bcd09e20034975ae482748022a1f1080c7590de0a22606aa",
-    "python_wheel": "d93f079d885674ccef9aa482d628675a90387749d7380559d0aa82dbec286740"
-  },
-  "build_artifact_sizes_bytes": {
-    "haskell_executable": 20763832,
-    "haskell_source_archive": 46556,
-    "python_source_archive": 38460,
-    "python_wheel": 29770
-  },
-  "counterexamples": {
-    "count": 0,
-    "details": [],
-    "scope": "listed committed corpus and recorded test runs only"
-  },
-  "digests": {
-    "core_result_corpus_sha256": "6096c75a17459e4b8c189fc58a6ea65be4cdbb7be27f19e7201a5665b544e737",
-    "corpus_generator_sha256": "a3e195b88273ef777d2c94408c5f5b2804f8a2b0755a352484634c333abf15c7",
-    "identity_vectors_sha256": "05fcd9169bd91dfb3361a6c7bc59e5815cae1d3fdd842098d4b187a213934b4d",
-    "parser_corpus_sha256": "7f3f9199ed997d16a66c499fe8822c23f958d9af7063506077b5c901a9f918fe",
-    "reference_oracle_sha256": "041a7fa82af2bca2c843859d12ec63de57f0a088e87c332f8b9c62e9968f628d",
-    "rfc8785_vectors_sha256": "538a9c545b58eb6ed49bea5c45ff62ff35f78715e29edbea7ffddf9218a57c14"
-  },
-  "executed_tests": {
-    "certificate_integrity_tests": 10,
-    "exact_core_vectors_in_each_language": 57,
-    "haskell_suites": 7,
-    "independent_reference_tests": 7,
-    "m0_identity_vectors_in_each_language": 9,
-    "python_package_tests": 59,
-    "raw_parser_cases_in_each_language": 68,
-    "raw_parser_errors_in_each_language": 65,
-    "seeded_python_differential_requests": 96,
-    "selected_rfc8785_vectors_in_each_language": 1
-  },
-  "format": "semadmit-assurance-certificate/0.1",
-  "implementation_commit": "47d55e1e7fa10348d4a39679add3590edfe8233b",
-  "language_parity": {
-    "python_only": [
-      "semadmit/claim/0.1 semantics",
-      "selector-provenance/0.1 semantics",
-      "96 dynamic seeded differential requests"
-    ],
-    "reference_scope": "fixture/0.1/check and common safe-integer JSON profile",
-    "shared": [
-      "57 complete fixture/0.1/check result or error vectors",
-      "68 raw parser cases, including 65 error envelopes",
-      "9 M0 canonical identity vectors",
-      "1 selected RFC 8785 property-order vectors"
-    ]
-  },
-  "protocol": "semantic-oracle/0.1",
-  "reproduction_commands": [
-    "python3 -m assurance.generate_corpus --check",
-    "python3 -m assurance.mutation_check",
-    "python3 scripts/check_coverage.py",
-    "cabal build exe:semantic-oracle",
-    "cabal sdist --output-directory=<output-dir>",
-    "uv build --out-dir <output-dir> clients/python"
-  ],
-  "research_artifact": {
-    "doi": null,
-    "peer_reviewed": false,
-    "permalink": "https://github.com/AbstractLogix/semadmit/tree/47d55e1e7fa10348d4a39679add3590edfe8233b",
-    "title": "Semadmit Core Conformance Oracle and Assurance Corpus",
-    "version": "0.1"
-  },
-  "selector_provenance": {
-    "independence_cases": "indeterminate",
-    "protocol": "selector-provenance/0.1",
-    "status": "experimental"
-  },
-  "source_mutation_results": {
-    "killed": 7,
-    "mutations": [
-      "canonical-result-comparison",
-      "request-binding",
-      "policy-digest-verification",
-      "policy-identity-binding",
-      "failure-state-priority",
-      "unsupported-protocol-rejection",
-      "internal-error-envelope"
-    ],
-    "outcomes": {
-      "canonical-result-comparison": "killed",
-      "failure-state-priority": "killed",
-      "internal-error-envelope": "killed",
-      "policy-digest-verification": "killed",
-      "policy-identity-binding": "killed",
-      "request-binding": "killed",
-      "unsupported-protocol-rejection": "killed"
+  "build": {
+    "artifacts": {
+      "haskell_executable": {
+        "filename": "semantic-oracle",
+        "mode": 493,
+        "sha256": "08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700",
+        "size_bytes": 20763832
+      },
+      "haskell_source_archive": {
+        "filename": "semantic-oracle-0.1.0.0.tar.gz",
+        "mode": 420,
+        "sha256": "f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4",
+        "size_bytes": 46556
+      },
+      "python_source_archive": {
+        "filename": "semadmit-0.1.0.dev0.tar.gz",
+        "mode": 420,
+        "sha256": "0e0b9a223af03053bdb0017d7b8db757d4bdffbb86ff9b82a8a91fc19961d5ea",
+        "size_bytes": 37272
+      },
+      "python_wheel": {
+        "filename": "semadmit-0.1.0.dev0-py3-none-any.whl",
+        "mode": 420,
+        "sha256": "fc73f79beac938de49f60f184725aff31dca0bd696aeeb69b46e06a7a110708c",
+        "size_bytes": 29770
+      }
     },
-    "scope": "selected Python Core mutations only; no Haskell source mutations",
-    "score_percent": 100,
-    "total": 7
+    "commands": {
+      "build": [
+        [
+          "cabal",
+          "build",
+          "--offline",
+          "exe:semantic-oracle"
+        ],
+        [
+          "cabal",
+          "list-bin",
+          "exe:semantic-oracle"
+        ],
+        [
+          "cabal",
+          "sdist",
+          "--output-directory=<build-root>/outputs/haskell"
+        ],
+        [
+          "uv",
+          "build",
+          "--offline",
+          "--out-dir",
+          "<build-root>/outputs/python",
+          "clients/python"
+        ],
+        [
+          "/home/oscar/.local/bin/python3",
+          "scripts/normalize_python_sdist.py",
+          "<build-root>/outputs/python/semadmit-0.1.0.dev0.tar.gz",
+          "<build-root>/outputs/normalized/semadmit-0.1.0.dev0.tar.gz"
+        ]
+      ],
+      "source_export": [
+        [
+          "git",
+          "archive",
+          "--format=tar",
+          "--output",
+          "<build-root>/source.tar",
+          "82ed0559d00a84f9970174e7d4c7610877dd10a7"
+        ]
+      ],
+      "validation": [
+        [
+          "/home/oscar/.local/bin/python3",
+          "-c",
+          "from assurance.write_certificate import local_validation; import json; tests, mutations, gates = local_validation(); print(json.dumps({'tests': tests, 'mutations': mutations, 'gates': [{'name': gate['name'], 'exit_code': gate['exit_code']} for gate in gates]}, sort_keys=True))"
+        ]
+      ]
+    },
+    "environment": {
+      "CABAL_CONFIG": "<build-root>/cabal-offline.config",
+      "CABAL_DIR": "/home/oscar/.cabal",
+      "HOME": "<build-root>/home",
+      "LC_ALL": "C.UTF-8",
+      "PATH": "/home/oscar/.cabal/bin:/home/oscar/.ghcup/bin:/home/oscar/Android/Sdk/platform-tools:/home/oscar/.cargo/bin:/home/oscar/.deno/bin:/home/oscar/.local/bin:/home/oscar/bin:/mnt/c/Users/abstr/.codex/tmp/arg0/codex-arg0jiGjkF:/mnt/c/Users/abstr/.codex/bin/wsl/d04c9d9044dd4815:/mnt/c/Users/abstr/.codex/bin/wsl/1a4f6f66dd2f3710:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python314/Scripts/:/mnt/c/Python314/:/mnt/c/Program Files/Microsoft/jdk-21.0.9.10-hotspot/bin:/mnt/c/Program Files/Microsoft/jdk-25.0.1.8-hotspot/bin:/mnt/c/Program Files/Microsoft/jdk-17.0.11.9-hotspot/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.4/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.4/libnvvp:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Git/cmd:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/WireGuard/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.1.1/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Program Files/PowerShell/7/:/Docker/host/bin:/mnt/c/Program Files/WSL/:/mnt/c/Users/abstr/.local/bin:/mnt/c/Users/abstr/AppData/Local/mesh-llm/bin:/mnt/c/Users/abstr/.grok/bin:/mnt/c/Users/abstr/AppData/Local/Programs/OpenAI/Codex/bin:/mnt/c/Users/abstr/AppData/Local/pnpm:/mnt/c/Users/abstr/.cargo/bin:/mnt/c/Users/abstr/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/abstr/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/abstr/.aftman/bin:/mnt/c/msys64/ucrt64/bin:/mnt/c/Users/abstr/go/bin:/mnt/c/Users/abstr/.dotnet/tools:/mnt/c/Users/abstr/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/abstr/AppData/Local/Programs/Ollama:/mnt/c/Users/abstr/AppData/Local/Python/bin:/mnt/c/Users/abstr/AppData/Roaming/npm:/mnt/c/Users/abstr/AppData/Local/PowerToys/DSCModules/:/mnt/c/Users/abstr/Downloads/goose-x86_64-pc-windows-msvc/goose-package:/snap/bin",
+      "PYTHONHASHSEED": "0",
+      "SOURCE_DATE_EPOCH": "1791606961",
+      "TMPDIR": "<build-root>/tmp",
+      "TZ": "UTC",
+      "UV_CACHE_DIR": "/home/oscar/.cache/uv",
+      "UV_OFFLINE": "1",
+      "sandbox": "bubblewrap write and network isolation; host filesystem remains visible read-only except build root and declared Cabal/uv caches; network namespace disabled"
+    },
+    "provenance": {
+      "authenticated": false,
+      "ci_execution_identity": {
+        "authentication": "recorded-unverified",
+        "head_sha": "82ed0559d00a84f9970174e7d4c7610877dd10a7",
+        "run_id": "38024659759",
+        "run_url": "https://github.com/AbstractLogix/semadmit/actions/runs/38024659759",
+        "status": "passed",
+        "workflow_database_id": 375788046,
+        "workflow_name": "Coverage"
+      },
+      "method": "clean-source-rebuild"
+    },
+    "toolchain": {
+      "bwrap": "bubblewrap 0.6.1",
+      "bwrap_path": "/usr/bin/bwrap",
+      "cabal": "3.18.1.0",
+      "cabal_cache_root": "/home/oscar/.cabal",
+      "cabal_config_sha256": "339a88d5cded3ef2be4e14438d5111631f93e44de2ec250d8abeab7c06ae877b",
+      "cabal_path": "/home/oscar/.ghcup/cabal/3.18.1.0/cabal",
+      "ghc": "9.14.1",
+      "ghc_global_packages": "Cabal-3.16.0.0 Cabal-syntax-3.16.0.0 array-0.5.8.0 base-4.22.0.0 binary-0.8.9.3 bytestring-0.12.2.0 containers-0.8 deepseq-1.5.1.0 directory-1.3.10.0 exceptions-0.10.11 file-io-0.1.5 filepath-1.5.4.0 ghc-9.14.1 ghc-bignum-1.4 ghc-boot-9.14.1 ghc-boot-th-9.14.1 ghc-compact-0.1.0.0 ghc-experimental-9.1401.0 ghc-heap-9.14.1 ghc-internal-9.1401.0 ghc-platform-0.1.0.0 ghc-prim-0.13.1 ghc-toolchain-0.1.0.0 ghci-9.14.1 haddock-api-2.33.0 haddock-library-1.11.0 haskeline-0.8.3.0 hpc-0.7.0.2 integer-gmp-1.1 mtl-2.3.1 os-string-2.0.8 parsec-3.1.18.0 pretty-1.1.3.6 process-1.6.26.1 rts-1.0.3 semaphore-compat-1.0.0 stm-2.5.3.1 system-cxx-std-lib-1.0 template-haskell-2.24.0.0 template-haskell-lift-0.1.0.0 template-haskell-quasiquoter-0.1.0.0 terminfo-0.4.1.7 text-2.1.3 time-1.15 transformers-0.6.1.2 unix-2.8.8.0 xhtml-3000.2.2.1",
+      "ghc_path": "/home/oscar/.ghcup/ghc/9.14.1/bin/ghc-9.14.1",
+      "machine": "x86_64",
+      "network": "offline",
+      "python": "3.13.14",
+      "python_executable": "/home/oscar/.local/bin/python3",
+      "release": "6.18.40.1-microsoft-standard-WSL2",
+      "system": "Linux",
+      "uv": "uv 0.11.31 (x86_64-unknown-linux-gnu)",
+      "uv_cache_root": "/home/oscar/.cache/uv",
+      "uv_path": "/home/oscar/.local/bin/uv"
+    }
   },
-  "stable_claim_compatibility": {
+  "format": "semadmit-assurance-certificate/0.2",
+  "protocol_scope": {
     "bouleusis_pin": "de61aa87a5f4470fd64de33c926cff7f92cf8bd6",
+    "claim_protocol": "semadmit/claim/0.1",
     "claim_status": "qualified; Python-only semantics",
-    "protocol": "semadmit/claim/0.1"
+    "core_protocol": "semantic-oracle/0.1",
+    "selector_protocol": "selector-provenance/0.1",
+    "selector_status": "experimental; bounded independence outcomes remain indeterminate"
   },
-  "toolchain": {
-    "cabal": "3.18.1.0",
-    "ghc": "9.14.1",
-    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
-    "python": "3.13.14",
-    "uv": "uv 0.11.31 (x86_64-unknown-linux-gnu)"
+  "source": {
+    "build_inputs_sha256": {
+      ".github/workflows/coverage.yml": "267c76c71c1f7c8f6e8d66051b953b881e6328c12da622d7e92dc39401812eae",
+      "assurance/source_build.py": "374f2001b3285ed7db5045bd833b7c6de8afdb302321e8078613d369d3c609af",
+      "assurance/write_certificate.py": "50cb4befad9f5c9c92403c29afe2417672f117c42e7ca516fd7d9a8eb446e3cb",
+      "cabal.project": "57ed00ceb05ba6572869ae003ccf1715e7fd1a8ff78315f723ad7ae907714810",
+      "cabal.project.freeze": "9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba",
+      "clients/python/pyproject.toml": "953e3fac5f9ad27e250948432db4d5b7e7b0f6da885b8d70aea3d5f6c510e83f",
+      "docs/dependency-provenance.json": "f96d655a6331656dc5e5bdf3b3fc7798e46e4d4a197897b3db98d063f75e4188",
+      "scripts/check_coverage.py": "82717fae1047ed51dfd875e8c0dac81dc36e486402fc3c4e5c2206cdf13002af",
+      "scripts/normalize_python_sdist.py": "1506293c2d4baaf3814ac6b5bc484631de06d7aa2181092a0b1c56463fc44427",
+      "semantic-oracle.cabal": "b75f131beced23ab493ba1df76f7edfe3aee86475a9d7b33982db0d0aa292f70"
+    },
+    "commit": "82ed0559d00a84f9970174e7d4c7610877dd10a7",
+    "locked_inputs_sha256": {
+      "cabal.project": "57ed00ceb05ba6572869ae003ccf1715e7fd1a8ff78315f723ad7ae907714810",
+      "cabal.project.freeze": "9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba",
+      "clients/python/pyproject.toml": "953e3fac5f9ad27e250948432db4d5b7e7b0f6da885b8d70aea3d5f6c510e83f",
+      "docs/dependency-provenance.json": "f96d655a6331656dc5e5bdf3b3fc7798e46e4d4a197897b3db98d063f75e4188",
+      "semantic-oracle.cabal": "b75f131beced23ab493ba1df76f7edfe3aee86475a9d7b33982db0d0aa292f70"
+    },
+    "source_date_epoch": 1791606961,
+    "tree": "446c8caeeceaf941b3c981267166892d664c1f86"
   },
   "unsupported_guarantees": [
-    "build provenance beyond the recorded artifact byte hashes and toolchain; artifact source binding is not verified",
+    "authenticated CI identity or authenticated build provenance",
     "evidence authenticity or collector identity",
-    "evidence reliability",
-    "claim truth",
-    "all Core parser precedence and error-pointer combinations",
-    "all Core resource limits and CLI framing in cross-language parity",
-    "Haskell parity for claim, selector, Isoprax, or Measurement semantics",
-    "formal correctness, exploit resistance, or total defect detection",
-    "independent human release approval",
-    "release readiness or package publication authorization"
+    "evidence reliability or claim truth",
+    "scientific validity or general functional correctness",
+    "complete Core parity or Haskell claim-pack semantics",
+    "independent human release approval or distribution authorization"
   ],
   "validation": {
-    "hosted_ci": {
-      "head_sha": "dcf3d1070186a3f936e17f5975622023c812fc2b",
-      "run_url": "https://github.com/AbstractLogix/semadmit/actions/runs/38000152994",
-      "status": "passed",
-      "workflow_database_id": 375788046,
-      "workflow_name": "Coverage"
-    },
-    "local_full_validation": "passed",
-    "local_gates": [
+    "gates": [
       {
-        "argv": [
-          "/home/oscar/.local/bin/python3",
-          "-m",
-          "assurance.generate_corpus",
-          "--check"
-        ],
-        "description": "seeded corpus check",
         "exit_code": 0,
-        "name": "seeded_corpus",
-        "stdout": "seeded assurance corpus matches its generator\n",
-        "stdout_bytes": 46,
-        "stdout_sha256": "f8ffa2ae3243bdd434ff5d8eeb5b00e27059732933545561f8caed432894f77f"
+        "name": "seeded_corpus"
       },
       {
-        "argv": [
-          "/home/oscar/.local/bin/python3",
-          "-m",
-          "assurance.mutation_check"
-        ],
-        "description": "source mutation check",
         "exit_code": 0,
-        "name": "source_mutation",
-        "stdout": "KILLED: canonical-result-comparison\nKILLED: request-binding\nKILLED: policy-digest-verification\nKILLED: policy-identity-binding\nKILLED: failure-state-priority\nKILLED: unsupported-protocol-rejection\nKILLED: internal-error-envelope\nmutation score: 7/7 (100%)\nscope: seven selected Python Core mutations; no Haskell source mutations\n",
-        "stdout_bytes": 329,
-        "stdout_sha256": "cb8cbef71118d60788b8fe909191814aa1981a2f92cb79045086f4ff64428643"
+        "name": "source_mutation"
       },
       {
-        "argv": [
-          "/home/oscar/.local/bin/python3",
-          "scripts/check_coverage.py"
-        ],
-        "description": "test and coverage gates",
         "exit_code": 0,
-        "name": "test_and_coverage",
-        "stdout": "Python version: 3.13.14\n$ /home/oscar/.local/bin/python3 -m trace --count --summary --coverdir=/tmp/semadmit-coverage-ksko47iw/python --ignore-dir=/home/oscar/projects/semadmit/clients/python/tests --module unittest discover -s /home/oscar/projects/semadmit/clients/python/tests\nRan 59 tests in 18.774s\nOK\n$ /home/oscar/.local/bin/python3 -m unittest assurance.test_reference_core\nIndependent assurance Ran 7 tests in 0.143s\nOK\n$ /home/oscar/.local/bin/python3 -m unittest assurance.test_certificate\nCertificate integrity Ran 10 tests in 0.020s\nOK\nPython semadmit.__init__: 100% (7 executable lines)\nPython semadmit.claim_verification: 100% (509 executable lines)\nPython semadmit.evaluator: 100% (304 executable lines)\nPython semadmit.identity: 100% (54 executable lines)\nPython semadmit.json_input: 100% (207 executable lines)\nPython semadmit.pack: 100% (196 executable lines)\nPython semadmit.protocol: 100% (62 executable lines)\nPython semadmit.selector_provenance: 100% (315 executable lines)\nPython semadmit.state: 100% (25 executable lines)\nPython line gate passed: all 9 modules, 1679 executable lines at 100% or higher.\nPython branch coverage is not measured by this gate.\n$ ghc --numeric-version\nghc version: 9.14.1\n$ cabal --numeric-version\ncabal version: 3.18.1.0\n$ cabal test all --enable-coverage --test-show-details=direct\nBuild profile: -w ghc-9.14.1 -O1\nIn order, the following will be built (use -v for more details):\n - semantic-oracle-0.1.0.0 (lib) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:vertical-slice) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:protocol-contract) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:isoprax-types) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:isoprax-pool) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:isoprax-calibration) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:identity-vectors) (configuration changed)\n - semantic-oracle-0.1.0.0 (test:core-registry) (configuration changed)\nConfiguring library for semantic-oracle-0.1.0.0...\nPreprocessing library for semantic-oracle-0.1.0.0...\nBuilding library for semantic-oracle-0.1.0.0...\nConfiguring test suite 'protocol-contract' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'vertical-slice' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'isoprax-types' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'isoprax-pool' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'isoprax-calibration' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'identity-vectors' for semantic-oracle-0.1.0.0...\nConfiguring test suite 'core-registry' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'protocol-contract' for semantic-oracle-0.1.0.0...\nBuilding test suite 'protocol-contract' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'isoprax-types' for semantic-oracle-0.1.0.0...\nBuilding test suite 'isoprax-types' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'vertical-slice' for semantic-oracle-0.1.0.0...\nBuilding test suite 'vertical-slice' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'isoprax-pool' for semantic-oracle-0.1.0.0...\nBuilding test suite 'isoprax-pool' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'isoprax-calibration' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'identity-vectors' for semantic-oracle-0.1.0.0...\nBuilding test suite 'isoprax-calibration' for semantic-oracle-0.1.0.0...\nBuilding test suite 'identity-vectors' for semantic-oracle-0.1.0.0...\nPreprocessing test suite 'core-registry' for semantic-oracle-0.1.0.0...\nBuilding test suite 'core-registry' for semantic-oracle-0.1.0.0...\nRunning 1 test suites...\nTest suite protocol-contract: RUNNING...\nTest suite protocol-contract: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/test/semantic-oracle-0.1.0.0-protocol-contract.log\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/hpc/vanilla/html/hpc_index.html\nRunning 1 test suites...\nTest suite isoprax-types: RUNNING...\nTest suite isoprax-types: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/test/semantic-oracle-0.1.0.0-isoprax-types.log\nRunning 1 test suites...\nTest suite vertical-slice: RUNNING...\nRunning 1 test suites...\nTest suite isoprax-pool: RUNNING...\nRunning 1 test suites...\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nTest suite isoprax-calibration: RUNNING...\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nTest suite isoprax-calibration: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/test/semantic-oracle-0.1.0.0-isoprax-calibration.log\nRunning 1 test suites...\nTest suite identity-vectors: RUNNING...\nverified 9 M0 identity vectors\nTest suite identity-vectors: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/test/semantic-oracle-0.1.0.0-identity-vectors.log\nRunning 1 test suites...\nTest suite core-registry: RUNNING...\nTest suite isoprax-pool: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/test/semantic-oracle-0.1.0.0-isoprax-pool.log\nTest suite core-registry: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/test/semantic-oracle-0.1.0.0-core-registry.log\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/hpc/vanilla/html/hpc_index.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Calibration.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/hpc/vanilla/html/hpc_index.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Calibration.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.PoolPredictions.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.CLI.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Calibration.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/hpc/vanilla/html/hpc_index.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/hpc/vanilla/html/hpc_index.html\nTest suite vertical-slice: PASS\nTest suite logged to:\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/test/semantic-oracle-0.1.0.0-vertical-slice.log\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Calibration.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.PoolPredictions.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.CLI.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/hpc/vanilla/html/hpc_index.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.CLI.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/hpc/vanilla/html/hpc_index.html\n1 of 1 test suites (1 of 1 test cases) passed.\nWriting: semantic-oracle-0.1.0.0-inplace/Core.CLI.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Evaluator.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Pack.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Decision.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Identity.hs.html\nWriting: semantic-oracle-0.1.0.0-inplace/Core.Protocol.hs.html\nWriting: hpc_index.html\nWriting: hpc_index_fun.html\nWriting: hpc_index_alt.html\nWriting: hpc_index_exp.html\nPackage coverage report written to\n/home/oscar/projects/semadmit/./dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/hpc/vanilla/html/hpc_index.html\n$ hpc sum --union --output=/tmp/semadmit-coverage-ksko47iw/semadmit-combined.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/hpc/vanilla/tix/core-registry.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/hpc/vanilla/tix/identity-vectors.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/hpc/vanilla/tix/isoprax-calibration.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/hpc/vanilla/tix/isoprax-pool.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/hpc/vanilla/tix/isoprax-types.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/hpc/vanilla/tix/protocol-contract.tix /home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/hpc/vanilla/tix/vertical-slice.tix\n$ hpc report /tmp/semadmit-coverage-ksko47iw/semadmit-combined.tix --exclude=semantic-oracle-0.1.0.0-inplace-core-registry:Main --exclude=semantic-oracle-0.1.0.0-inplace-identity-vectors:Main --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-calibration:Main --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-pool:IsopraxPoolTest --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-types:Main --exclude=semantic-oracle-0.1.0.0-inplace-protocol-contract:Main --exclude=semantic-oracle-0.1.0.0-inplace-vertical-slice:Main --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/build/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/build/core-registry/core-registry-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/build/identity-vectors/identity-vectors-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/build/isoprax-calibration/isoprax-calibration-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/build/isoprax-pool/isoprax-pool-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/build/isoprax-types/isoprax-types-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/build/protocol-contract/protocol-contract-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/build/vertical-slice/vertical-slice-tmp/extra-compilation-artifacts/hpc/vanilla/mix\n 90% expressions used (5318/5859)\n 46% boolean coverage (90/193)\n      38% guards (51/134), 51 always True, 23 always False, 9 unevaluated\n      58% 'if' conditions (28/48), 4 always True, 16 always False\n     100% qualifiers (11/11)\n 72% alternatives used (397/548)\n 99% local declarations used (256/258)\n 55% top-level declarations used (308/554)\n$ hpc report /tmp/semadmit-coverage-ksko47iw/semadmit-combined.tix --per-module --exclude=semantic-oracle-0.1.0.0-inplace-core-registry:Main --exclude=semantic-oracle-0.1.0.0-inplace-identity-vectors:Main --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-calibration:Main --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-pool:IsopraxPoolTest --exclude=semantic-oracle-0.1.0.0-inplace-isoprax-types:Main --exclude=semantic-oracle-0.1.0.0-inplace-protocol-contract:Main --exclude=semantic-oracle-0.1.0.0-inplace-vertical-slice:Main --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/build/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/core-registry/build/core-registry/core-registry-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/identity-vectors/build/identity-vectors/identity-vectors-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-calibration/build/isoprax-calibration/isoprax-calibration-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-pool/build/isoprax-pool/isoprax-pool-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/isoprax-types/build/isoprax-types/isoprax-types-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/protocol-contract/build/protocol-contract/protocol-contract-tmp/extra-compilation-artifacts/hpc/vanilla/mix --hpcdir=/home/oscar/projects/semadmit/dist-newstyle/build/x86_64-linux/ghc-9.14.1/semantic-oracle-0.1.0.0/t/vertical-slice/build/vertical-slice/vertical-slice-tmp/extra-compilation-artifacts/hpc/vanilla/mix\n-----<module semantic-oracle-0.1.0.0-inplace-isoprax-pool/Main>-----\n 44% expressions used (13/29)\n100% boolean coverage (0/0)\n     100% guards (0/0)\n     100% 'if' conditions (0/0)\n     100% qualifiers (0/0)\n 50% alternatives used (1/2)\n100% local declarations used (0/0)\n 50% top-level declarations used (1/2)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.CLI>-----\n 90% expressions used (332/368)\n 56% boolean coverage (9/16)\n      50% guards (5/10), 3 always True, 2 always False\n      66% 'if' conditions (4/6), 2 always False\n     100% qualifiers (0/0)\n 75% alternatives used (39/52)\n100% local declarations used (10/10)\n 95% top-level declarations used (20/21)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Decision>-----\n 92% expressions used (821/886)\n 44% boolean coverage (12/27)\n      44% guards (12/27), 7 always True, 8 always False\n     100% 'if' conditions (0/0)\n     100% qualifiers (0/0)\n 70% alternatives used (46/65)\n 98% local declarations used (52/53)\n 45% top-level declarations used (62/137)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Evaluator>-----\n 90% expressions used (412/453)\n 25% boolean coverage (2/8)\n      25% guards (2/8), 4 always True, 2 always False\n     100% 'if' conditions (0/0)\n     100% qualifiers (0/0)\n 56% alternatives used (35/62)\n 96% local declarations used (26/27)\n100% top-level declarations used (14/14)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Identity>-----\n 92% expressions used (117/127)\n 30% boolean coverage (3/10)\n      33% guards (3/9), 4 always True, 2 always False\n       0% 'if' conditions (0/1), 1 always True\n     100% qualifiers (0/0)\n 83% alternatives used (15/18)\n100% local declarations used (2/2)\n 69% top-level declarations used (9/13)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Identity.Internal>-----\n100% expressions used (8/8)\n100% boolean coverage (0/0)\n     100% guards (0/0)\n     100% 'if' conditions (0/0)\n     100% qualifiers (0/0)\n100% alternatives used (0/0)\n100% local declarations used (1/1)\n 16% top-level declarations used (1/6)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Pack>-----\n 97% expressions used (398/410)\n 75% boolean coverage (3/4)\n      50% guards (1/2), 1 always True\n     100% 'if' conditions (2/2)\n     100% qualifiers (0/0)\n 73% alternatives used (17/23)\n100% local declarations used (30/30)\n 53% top-level declarations used (34/64)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Protocol>-----\n 85% expressions used (977/1138)\n 38% boolean coverage (23/60)\n      29% guards (12/41), 17 always True, 8 always False, 4 unevaluated\n      57% 'if' conditions (11/19), 1 always True, 7 always False\n     100% qualifiers (0/0)\n 67% alternatives used (88/131)\n100% local declarations used (38/38)\n 82% top-level declarations used (39/47)\n-----<module semantic-oracle-0.1.0.0-inplace/Core.Version>-----\n100% expressions used (1/1)\n100% boolean coverage (0/0)\n     100% guards (0/0)\n     100% 'if' conditions (0/0)\n     100% qualifiers (0/0)\n100% alternatives used (0/0)\n100% local declarations used (0/0)\n100% top-level declarations used (1/1)\n-----<module semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Calibration>-----\n 84% expressions used (351/416)\n 42% boolean coverage (11/26)\n      37% guards (6/16), 6 always True, 4 unevaluated\n      16% 'if' conditions (1/6), 5 always False\n     100% qualifiers (4/4)\n 65% alternatives used (28/43)\n100% local declarations used (22/22)\n 29% top-level declarations used (17/58)\n-----<module semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.PoolPredictions>-----\n 91% expressions used (654/714)\n 66% boolean coverage (12/18)\n      57% guards (4/7), 3 always True\n      40% 'if' conditions (2/5), 2 always True, 1 always False\n     100% qualifiers (6/6)\n 71% alternatives used (33/46)\n100% local declarations used (40/40)\n 95% top-level declarations used (21/22)\n-----<module semantic-oracle-0.1.0.0-inplace/Pack.Isoprax.Types>-----\n 94% expressions used (1234/1309)\n 62% boolean coverage (15/24)\n      42% guards (6/14), 6 always True, 1 always False, 1 unevaluated\n      88% 'if' conditions (8/9), 1 always False\n     100% qualifiers (1/1)\n 89% alternatives used (95/106)\n100% local declarations used (35/35)\n 52% top-level declarations used (89/169)\nHaskell expressions gate: 5318/5859 (90.77%), minimum 89%: PASS\nHaskell boolean gate: 90/193 (46.63%), minimum 34%: PASS\nAll test and coverage gates passed.\n",
-        "stdout_bytes": 24876,
-        "stdout_sha256": "0bfcd7a6e3117387a6c85cb4e69bd0224625ad8ba4a5eeeaea7fa27a111baa88"
+        "name": "test_and_coverage"
       }
-    ]
-  },
-  "validation_commit": "dcf3d1070186a3f936e17f5975622023c812fc2b"
+    ],
+    "mutations": {
+      "killed": 7,
+      "mutations": [
+        "canonical-result-comparison",
+        "request-binding",
+        "policy-digest-verification",
+        "policy-identity-binding",
+        "failure-state-priority",
+        "unsupported-protocol-rejection",
+        "internal-error-envelope"
+      ],
+      "outcomes": {
+        "canonical-result-comparison": "killed",
+        "failure-state-priority": "killed",
+        "internal-error-envelope": "killed",
+        "policy-digest-verification": "killed",
+        "policy-identity-binding": "killed",
+        "request-binding": "killed",
+        "unsupported-protocol-rejection": "killed"
+      },
+      "scope": "selected Python Core mutations only; no Haskell source mutations",
+      "score_percent": 100,
+      "total": 7
+    },
+    "tests": {
+      "certificate_integrity_tests": 18,
+      "exact_core_vectors_in_each_language": 57,
+      "haskell_suites": 7,
+      "independent_reference_tests": 7,
+      "m0_identity_vectors_in_each_language": 9,
+      "python_package_tests": 59,
+      "raw_parser_cases_in_each_language": 68,
+      "raw_parser_errors_in_each_language": 65,
+      "seeded_python_differential_requests": 96,
+      "selected_rfc8785_vectors_in_each_language": 1
+    }
+  }
 }

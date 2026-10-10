@@ -16,7 +16,7 @@ The current machine-readable record is
 [`assurance-certificate.json`](../assurance/assurance-certificate.json),
 format `semadmit-assurance-certificate/0.2`. It names a full source commit and
 tree, hashes the build locks, records the toolchain and exact build command
-templates, records the unverified Coverage run identity, and stores four
+invocations, records the unverified Coverage run identity, and stores four
 artifact digests. The writer creates the files from a temporary Git archive;
 it no longer accepts caller-supplied artifact files.
 
@@ -24,7 +24,11 @@ The offline verifier rebuilds from the externally supplied source revision,
 reruns all local gates, and compares the rebuilt results and artifact files.
 It passes only on the same recorded toolchain and build environment. This
 establishes tested source-to-artifact reproducibility for the listed Linux
-x86_64 artifacts. It does not authenticate the CI run or worker.
+x86_64 artifacts. The actual offline CLI rejected a Python wheel modified with
+arbitrary appended bytes. The verifier shares the source-build implementation
+with the writer. The local build has write and network isolation, but the host
+filesystem remains visible read-only. The CI identity is `recorded-unverified`;
+this does not authenticate the CI run or worker.
 
 | Area | Current result | Open limit |
 | --- | --- | --- |
@@ -118,7 +122,7 @@ independence cases are `indeterminate`.
 | Selector provenance | Experimental | `selector-provenance/0.1` remains Python-only. All 4 bounded independence cases remain `indeterminate`. No positive independence rule is supported by the current IsoPrax evidence. |
 | Python distribution | Ready for owner decision | The exact Python artifacts are reproducible on the tested host. An independent review and separate owner decision remain open. |
 | Haskell executable distribution | Blocked | A complete notice and provenance bundle for the linked dependencies and GHC runtime is not prepared or approved. Other hosts are not qualified. |
-| Certificate integrity | Blocked | Adversarial tests now reject missing logs, false counts, wrong workflow runs, and other tested failures. Artifact-to-source binding and offline certificate verification remain absent. |
+| Certificate integrity | Verified within tested scope | Certificate format 0.2 binds the source commit/tree and build inputs to clean-source output digests. Offline verification passes and rejects the tested real wheel substitution. CI identity is unauthenticated; verifier and writer share build code. |
 | Independent release approval | Open | No independent human has reviewed and approved the exact source, dependency notices, and distribution artifacts. Automated checks do not close this gate. |
 
 `VerificationStatus` remains separate from `AdmissionStatus`. An admissibility

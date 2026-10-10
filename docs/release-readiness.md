@@ -1,6 +1,6 @@
 # Release Readiness
 
-**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. The current artifact-binding result uses a clean-source rebuild and does not authenticate CI identity. See the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md), [trust-boundary review](trust-boundary-review.md), and [release assurance record](release-assurance.md).
+**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. Artifact verification passed for source commit `82ed0559d00a84f9970174e7d4c7610877dd10a7` and hosted Coverage run [38024659759](https://github.com/AbstractLogix/semadmit/actions/runs/38024659759). The clean-source rebuild does not authenticate CI identity. See the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md), [trust-boundary review](trust-boundary-review.md), and [release assurance record](release-assurance.md).
 
 ## Current Gate Matrix
 

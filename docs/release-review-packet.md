@@ -1,25 +1,18 @@
 # Independent Release Review Packet
 
-**Previous assurance implementation and validation commit:**
-`cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
+**Current PR:** [#12 — Bind assurance artifacts to source](https://github.com/AbstractLogix/semadmit/pull/12).
 
-**Independent Core assurance implementation and validation commit:**
-`47d55e1e7fa10348d4a39679add3590edfe8233b`.
+**Certificate source and validation commit:**
+`82ed0559d00a84f9970174e7d4c7610877dd10a7`.
 
-**Current assurance-integrity commit:**
-`dcf3d1070186a3f936e17f5975622023c812fc2b`.
+**Source tree:** `446c8caeeceaf941b3c981267166892d664c1f86`.
 
-**Current validation commit and hosted Coverage run:**
-`dcf3d1070186a3f936e17f5975622023c812fc2b`,
-<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>.
+**Hosted Coverage run:** [38024659759](https://github.com/AbstractLogix/semadmit/actions/runs/38024659759), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
 
-**Assurance PR #8 merge commit:**
-`e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
-
-The previous implementation commit contains the PR #8 assurance corrections.
-The new Core assurance implementation is the commit listed above. Review that
-commit, the current integrity commit, the machine-readable certificate, and
-the full PR #11 diff. This packet is not human approval.
+Review the full PR #12 diff and the machine-readable certificate. This packet
+is not human approval. The certificate is bound to source commit `82ed055…`;
+later documentation or certificate-record commits do not replace that build
+source.
 
 This packet also covers the independent Core assurance extension. Its exact
 implementation commit, corpus digests, local build hashes, and CI evidence are
@@ -35,7 +28,28 @@ hashes are in [`assurance-certificate.json`](../assurance/assurance-certificate.
 The [artifact provenance record](artifact-provenance-and-offline-verification.md)
 defines the trust model and reproduction command. The verifier rebuilds the
 artifacts from the externally supplied source revision and rejects mismatched
-bytes or results. The CI identity remains unauthenticated.
+bytes or results. An actual end-to-end run rejected a Python wheel after
+arbitrary bytes were appended while preserving its filename. The verifier
+shares build code with the writer, and the CI identity remains unauthenticated.
+
+## Current Artifact Digests
+
+Two clean-source builds on the recorded Linux x86_64 WSL2 host matched byte for
+byte. The toolchain is CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, uv 0.11.31,
+and Bubblewrap 0.6.1.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Haskell executable | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
+| Haskell source archive | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
+| Python wheel | `fc73f79beac938de49f60f184725aff31dca0bd696aeeb69b46e06a7a110708c` |
+| Python source archive | `0e0b9a223af03053bdb0017d7b8db757d4bdffbb86ff9b82a8a91fc19961d5ea` |
+
+The actual offline verifier passed for the four recorded artifacts. Its
+reproduction command is in the [provenance record](artifact-provenance-and-offline-verification.md).
+Negative tests cover replay, truncation, missing artifacts, changed source
+identity, altered results, and invalid provenance. The real CLI substitution
+test changed the Python wheel bytes and was rejected after rebuild.
 
 The stable Bouleusis pin remains
 `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The `semadmit/claim/0.1`
@@ -220,8 +234,8 @@ The dependency archive URLs and hashes are in
 - [ ] Review snapshot binding, guarded consumption, Measurement, and the
   incomplete parser/CLI cross-language cases as open gates.
 - [ ] Review the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md),
-  including the tested substitution, replay, truncation, result-tampering, and
-  provenance cases.
+  including exact artifacts, tested substitution, replay, truncation,
+  result-tampering, and provenance cases.
 - [ ] Record findings against the exact implementation commit in
   `assurance/assurance-certificate.json` and the pull request.
 - [ ] Obtain independent human approval before any release decision.

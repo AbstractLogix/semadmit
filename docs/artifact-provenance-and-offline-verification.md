@@ -19,12 +19,41 @@ recorded Python/GHC/Cabal/uv versions, the pinned dependency inputs, and the
 offline dependency caches. The repository certificate is not a signing key.
 Its declarations are checked against those external inputs and a new build.
 
+The local source build uses Bubblewrap with a read-only host filesystem,
+write access only to its build root and declared Cabal/uv caches, and no
+network namespace. Host files remain visible when readable. This is not a
+confidentiality boundary or a fully hermetic build.
+
 The builder exports the requested commit into a new temporary source tree. It
 runs the coverage, corpus, and mutation gates there. It then builds the Python
 wheel and normalized source archive and the Haskell executable and source
 archive. Cabal and uv run in offline mode. The build uses the host's installed
-toolchains and dependency caches. It is a clean-source rebuild, not a
-hermetic container build.
+toolchains and dependency caches. The verifier is a separate CLI and validates
+the certificate independently of its declarations, but it shares the source
+build implementation with the writer. A defect common to both commands can
+therefore remain undetected.
+
+The verified source commit is
+`82ed0559d00a84f9970174e7d4c7610877dd10a7` with tree
+`446c8caeeceaf941b3c981267166892d664c1f86`. The successful hosted Coverage
+run is [38024659759](https://github.com/AbstractLogix/semadmit/actions/runs/38024659759).
+The CI identity is recorded as `recorded-unverified`; the verifier cannot
+authenticate GitHub or the worker.
+
+Two clean-source builds on the recorded Linux x86_64 WSL2 host produced these
+matching artifacts:
+
+| Artifact | Mode | Size | SHA-256 |
+| --- | ---: | ---: | --- |
+| Haskell executable | 0755 | 20,763,832 | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
+| Haskell source archive | 0644 | 46,556 | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
+| Python wheel | 0644 | 29,770 | `fc73f79beac938de49f60f184725aff31dca0bd696aeeb69b46e06a7a110708c` |
+| Python source archive | 0644 | 37,272 | `0e0b9a223af03053bdb0017d7b8db757d4bdffbb86ff9b82a8a91fc19961d5ea` |
+
+Toolchain: CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, uv 0.11.31, and
+Bubblewrap 0.6.1. The artifact record stores the exact build and validation
+invocations, source/build-input hashes, dependency locks, environment, CI run
+record, artifact modes, sizes, and digests.
 
 ## GitHub attestations
 
@@ -88,7 +117,8 @@ The assurance test suite checks these cases:
 
 | Attack | Result |
 | --- | --- |
-| Replace a generated wheel with arbitrary caller bytes | Rejected by wheel structure and byte comparison. |
+| Replace the Python wheel with arbitrary appended caller bytes, keeping its filename | Rejected by the actual offline CLI after clean-source rebuild: `supplied artifact does not match the clean-source rebuild: python_wheel`. |
+| Run the writer with caller-selected artifact files | Not supported; the writer builds all four outputs from its source export. |
 | Replay a certificate against another expected revision | Rejected before rebuilding. |
 | Truncate the certificate JSON | Rejected during parsing. |
 | Omit an artifact path | Rejected. |
@@ -97,10 +127,13 @@ The assurance test suite checks these cases:
 | Mark provenance authenticated or change the CI source SHA | Rejected. |
 | Change a certificate artifact digest | Rejected against the clean-source output. |
 
-These are tested cases, not a claim that every certificate attack is
-prevented. In particular, unauthenticated CI metadata can only be checked for
-internal consistency offline. A trusted signature or authenticated
-attestation is required to establish who ran the CI workflow.
+The substitution case is an end-to-end CLI test using real build outputs. The
+other cases are negative verifier tests, not separate full rebuilds. These are
+tested cases, not a claim that every certificate attack is prevented. In
+particular, unauthenticated CI metadata can only be checked for internal
+consistency offline. A trusted signature or authenticated attestation is
+required to establish who ran the CI workflow. Reproducibility on one host does
+not authenticate the source build or prove correctness.
 
 ## Separate distribution assessment
 
