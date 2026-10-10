@@ -8,6 +8,7 @@ import json
 import unittest
 import copy
 import os
+import subprocess
 import stat
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -23,8 +24,10 @@ from assurance.source_build import (
     _run_sandboxed,
 )
 from assurance.verify_certificate import (
+    FORMAT,
     UNSUPPORTED_GUARANTEES,
     load_certificate,
+    main as verify_certificate_main,
     validate_certificate_record,
 )
 from assurance.write_certificate import (
@@ -252,6 +255,70 @@ class CertificateIntegrityChecks(unittest.TestCase):
             substituted.write_text("arbitrary bytes accepted by the old writer", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "does not match the clean-source rebuild"):
                 validate_certificate_record(certificate, source_revision, rebuilt, artifacts)
+
+    def test_offline_cli_reports_unknown_git_revision_without_traceback(self) -> None:
+        with TemporaryDirectory() as temporary:
+            certificate_path = Path(temporary) / "certificate.json"
+            revision = "a" * 40
+            certificate_path.write_text(
+                json.dumps({"format": FORMAT, "source": {"commit": revision}}),
+                encoding="utf-8",
+            )
+            args = [
+                "verify_certificate",
+                "--certificate",
+                str(certificate_path),
+                "--source-revision",
+                revision,
+                "--haskell-executable",
+                "/tmp/semantic-oracle",
+                "--haskell-source-archive",
+                "/tmp/semantic-oracle.tar.gz",
+                "--python-wheel",
+                "/tmp/semadmit.whl",
+                "--python-source-archive",
+                "/tmp/semadmit.tar.gz",
+            ]
+            stderr = io.StringIO()
+            with (
+                patch("sys.argv", args),
+                patch(
+                    "assurance.verify_certificate.build_source_revision",
+                    side_effect=subprocess.CalledProcessError(128, ["git", "rev-parse"]),
+                ),
+                redirect_stderr(stderr),
+            ):
+                self.assertEqual(verify_certificate_main(), 1)
+            self.assertIn("offline certificate verification failed", stderr.getvalue())
+            self.assertNotIn("Traceback", stderr.getvalue())
+
+    def test_offline_cli_rejects_null_source_without_traceback(self) -> None:
+        with TemporaryDirectory() as temporary:
+            certificate_path = Path(temporary) / "certificate.json"
+            certificate_path.write_text(
+                json.dumps({"format": FORMAT, "source": None}),
+                encoding="utf-8",
+            )
+            args = [
+                "verify_certificate",
+                "--certificate",
+                str(certificate_path),
+                "--source-revision",
+                "a" * 40,
+                "--haskell-executable",
+                "/tmp/semantic-oracle",
+                "--haskell-source-archive",
+                "/tmp/semantic-oracle.tar.gz",
+                "--python-wheel",
+                "/tmp/semadmit.whl",
+                "--python-source-archive",
+                "/tmp/semadmit.tar.gz",
+            ]
+            stderr = io.StringIO()
+            with patch("sys.argv", args), redirect_stderr(stderr):
+                self.assertEqual(verify_certificate_main(), 1)
+            self.assertIn("source revision does not match", stderr.getvalue())
+            self.assertNotIn("Traceback", stderr.getvalue())
 
     def test_offline_verifier_rejects_replayed_or_changed_source_identity(self) -> None:
         with TemporaryDirectory() as temporary:

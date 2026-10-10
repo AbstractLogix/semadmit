@@ -7,6 +7,7 @@ import hashlib
 import json
 import re
 import stat
+import subprocess
 import sys
 import tarfile
 import tempfile
@@ -215,7 +216,8 @@ def verify(
     certificate = load_certificate(certificate_path)
     if certificate.get("format") != FORMAT:
         raise ValueError("unsupported certificate format")
-    if certificate.get("source", {}).get("commit") != expected_revision:
+    source = certificate.get("source")
+    if not isinstance(source, dict) or source.get("commit") != expected_revision:
         raise ValueError("certificate source revision does not match the externally expected revision")
     with tempfile.TemporaryDirectory(prefix="semadmit-offline-verifier-") as temporary:
         rebuilt = build_source_revision(repo, expected_revision, Path(temporary) / "artifacts")
@@ -232,7 +234,15 @@ def main() -> int:
     artifacts = {name: getattr(args, destination) for name, destination in REQUIRED_ARTIFACT_ARGS.items()}
     try:
         verify(args.certificate, args.source_revision, artifacts)
-    except (OSError, ValueError, RuntimeError, KeyError, TypeError, tarfile.TarError) as error:
+    except (
+        OSError,
+        ValueError,
+        RuntimeError,
+        KeyError,
+        TypeError,
+        tarfile.TarError,
+        subprocess.CalledProcessError,
+    ) as error:
         print(f"offline certificate verification failed: {error}", file=sys.stderr)
         return 1
     print("offline certificate verification passed within clean-source rebuild scope")
