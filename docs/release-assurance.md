@@ -6,8 +6,39 @@
 `selector-provenance/0.1` pack remains experimental. These are separate
 qualification results.
 
-The [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
-adds the adversarial certificate results and current artifact build hashes.
+The [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md)
+contains the current certificate contract and command. The earlier records in
+this file describe historical assurance states.
+
+## Current Artifact Provenance Assessment
+
+The current machine-readable record is
+[`assurance-certificate.json`](../assurance/assurance-certificate.json),
+format `semadmit-assurance-certificate/0.2`. It names a full source commit and
+tree, hashes the build locks, records the toolchain and exact build command
+invocations, records the unverified Coverage run identity, and stores four
+artifact digests. The writer creates the files from a temporary Git archive;
+it no longer accepts caller-supplied artifact files.
+
+The offline verifier rebuilds from the externally supplied source revision,
+reruns all local gates, and compares the rebuilt results and artifact files.
+It passes only on the same recorded toolchain and build environment. This
+establishes tested source-to-artifact reproducibility for the listed Linux
+x86_64 artifacts. The actual offline CLI rejected a Python wheel modified with
+arbitrary appended bytes. The verifier shares the source-build implementation
+with the writer. The local build has write and network isolation, but the host
+filesystem remains visible read-only. The CI identity is `recorded-unverified`;
+this does not authenticate the CI run or worker. The refreshed certificate is
+for source `c801b42e954b1ac583a18b81c7f2a12189e12400` and hosted Coverage run
+`38026790271`.
+
+| Area | Current result | Open limit |
+| --- | --- | --- |
+| Certificate artifact binding | Verified within tested scope | Clean-source rebuild on the recorded host; no authenticated provenance. |
+| Offline verification | Pass | CI identity is internally checked but remains unauthenticated offline. |
+| Python distribution | Ready for owner review | No independent release approval or owner decision. |
+| Haskell distribution | Blocked | `rts` notice obligations and remaining dependency provenance are unresolved. |
+| Independent release approval | Absent | Human review of the exact source, dependency notices, and artifacts remains open. |
 
 ## PR #8 Baseline and Validation (Historical)
 
@@ -93,7 +124,7 @@ independence cases are `indeterminate`.
 | Selector provenance | Experimental | `selector-provenance/0.1` remains Python-only. All 4 bounded independence cases remain `indeterminate`. No positive independence rule is supported by the current IsoPrax evidence. |
 | Python distribution | Ready for owner decision | The exact Python artifacts are reproducible on the tested host. An independent review and separate owner decision remain open. |
 | Haskell executable distribution | Blocked | A complete notice and provenance bundle for the linked dependencies and GHC runtime is not prepared or approved. Other hosts are not qualified. |
-| Certificate integrity | Blocked | Adversarial tests now reject missing logs, false counts, wrong workflow runs, and other tested failures. Artifact-to-source binding and offline certificate verification remain absent. |
+| Certificate integrity | Verified within tested scope | Certificate format 0.2 binds the source commit/tree and build inputs to clean-source output digests. Offline verification passes and rejects the tested real wheel substitution. CI identity is unauthenticated; verifier and writer share build code. |
 | Independent release approval | Open | No independent human has reviewed and approved the exact source, dependency notices, and distribution artifacts. Automated checks do not close this gate. |
 
 `VerificationStatus` remains separate from `AdmissionStatus`. An admissibility
@@ -211,7 +242,7 @@ release builds on CI and other supported hosts remain open.
 | Broad Core conformance | 57 exact decision vectors, 9 identity vectors, one shared RFC vector, 68 raw parser cases (65 errors), and 7/7 selected Python mutation kills pass. | Qualify remaining parser precedence, error pointers, resource boundaries, and CLI behavior where they expose a real compatibility risk. | Partial |
 | Measurement | Existing tests pass. | Qualify a narrow contract and matching Python/Haskell behavior. | Open |
 | Downstream extension example | Neutral Core fixture exists. | Add and test an example after guarded consumption is available. | Open |
-| Certificate integrity | Executed gate logs and their hashes are recorded; tested fail-closed cases pass. | Add source-bound artifact verification and an offline certificate verifier. | Partial |
+| Certificate integrity | Format 0.2 binds source identity and build inputs to clean-source artifact digests; offline verification passes and the tested CLI substitution is rejected. | Authenticate CI provenance if the release threat model requires a trusted build identity. | Verified within tested scope |
 | Dependency redistribution notices | Hackage archive digests and declared licenses are recorded. The native ELF does not include `rts/js/md5.js`; the full linked-dependency notice bundle is not prepared. | Review the exact artifact notice bundle, GHC provenance limits, and any Closure-containing distribution separately. | Partial |
 | Reproducible builds | Python wheel and normalized sdist match across two clean trees with fixed `SOURCE_DATE_EPOCH`; Haskell executable and source archive also match across two clean trees. | Repeat release builds on any additional claimed target platforms. | Partial |
 | Independent release review | Reviewer packet is prepared. | A human who did not author the implementation must record findings against the exact source commit and artifacts. | Open |

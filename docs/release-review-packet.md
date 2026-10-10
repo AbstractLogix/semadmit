@@ -1,25 +1,18 @@
 # Independent Release Review Packet
 
-**Previous assurance implementation and validation commit:**
-`cad6943ce19bc4b0439cd85332ed632ee17f3a9f`.
+**Current PR:** [#12 — Bind assurance artifacts to source](https://github.com/AbstractLogix/semadmit/pull/12).
 
-**Independent Core assurance implementation and validation commit:**
-`47d55e1e7fa10348d4a39679add3590edfe8233b`.
+**Certificate source and validation commit:**
+`c801b42e954b1ac583a18b81c7f2a12189e12400`.
 
-**Current assurance-integrity commit:**
-`dcf3d1070186a3f936e17f5975622023c812fc2b`.
+**Source tree:** `98e6e254b68fe5c7371787a57da69291496f9edf`.
 
-**Current validation commit and hosted Coverage run:**
-`dcf3d1070186a3f936e17f5975622023c812fc2b`,
-<https://github.com/AbstractLogix/semadmit/actions/runs/38000152994>.
+**Hosted Coverage run:** [38026790271](https://github.com/AbstractLogix/semadmit/actions/runs/38026790271), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
 
-**Assurance PR #8 merge commit:**
-`e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
-
-The previous implementation commit contains the PR #8 assurance corrections.
-The new Core assurance implementation is the commit listed above. Review that
-commit, the current integrity commit, the machine-readable certificate, and
-the full PR #11 diff. This packet is not human approval.
+Review the full PR #12 diff and the machine-readable certificate. This packet
+is not human approval. The certificate is bound to source commit `c801b42…`;
+later documentation or certificate-record commits do not replace that build
+source.
 
 This packet also covers the independent Core assurance extension. Its exact
 implementation commit, corpus digests, local build hashes, and CI evidence are
@@ -28,18 +21,44 @@ That certificate identifies the source commit for the new assurance artifact.
 
 ## Current Final Assurance Assessment
 
-The current review baseline is PR #10 merge
-`e042aded9fd98d22aeb708337a26e9bbc9f2b7b8`, tree
-`c84d326ab07eacec88786df12081cf6442175982`. The stable Bouleusis pin remains
-`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
+The current artifact assurance uses certificate format
+`semadmit-assurance-certificate/0.2`. Its exact source revision, Git tree,
+locked inputs, toolchain, validation results, CI run record, and artifact
+hashes are in [`assurance-certificate.json`](../assurance/assurance-certificate.json).
+The [artifact provenance record](artifact-provenance-and-offline-verification.md)
+defines the trust model and reproduction command. The verifier rebuilds the
+artifacts from the externally supplied source revision and rejects mismatched
+bytes or results. An actual end-to-end run rejected a Python wheel after
+arbitrary bytes were appended while preserving its filename. The verifier
+shares build code with the writer, and the CI identity remains unauthenticated.
 
-Read the [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
-with this packet. It records the adversarial certificate cases, remaining Core
-parity gaps, separate Python and Haskell artifact assessments, exact build
-hashes, and the unresolved review and owner decisions. Its conclusion is that
-the certificate is not a signed attestation, Core parity is partial, Python
-distribution is ready for an owner decision, Haskell executable distribution
-is blocked, and independent release approval is absent.
+## Current Artifact Digests
+
+Two clean-source builds on the recorded Linux x86_64 WSL2 host matched byte for
+byte. The toolchain is CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, uv 0.11.31,
+and Bubblewrap 0.6.1.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Haskell executable | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
+| Haskell source archive | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
+| Python wheel | `a0f3b4d7967cbfe75e5f16c1334e24e597092c26bf9ea0d26ebd90dc57053e4e` |
+| Python source archive | `c19793aa20824acad3e4c7702ef787b9dd74d8c2c937ce73a1f75545e48aac30` |
+
+The actual offline verifier passed for the four recorded artifacts. Its
+reproduction command is in the [provenance record](artifact-provenance-and-offline-verification.md).
+Negative tests cover replay, truncation, missing artifacts, changed source
+identity, altered results, and invalid provenance. The real CLI substitution
+test changed the Python wheel bytes and was rejected after rebuild. The packet
+records the exact command and output; the substitution run is manual, while
+committed negative tests exercise record validation with fixtures.
+
+The stable Bouleusis pin remains
+`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The `semadmit/claim/0.1`
+qualification stays Python-only, and `selector-provenance/0.1` stays
+experimental. Core parity remains partial. Python is ready for owner review;
+Haskell distribution remains blocked on notice and dependency provenance
+review. Independent release approval is absent.
 
 ## Review Scope
 
@@ -93,10 +112,13 @@ uses the implementation available in the caller's process and does not bind
 the result to an immutable executable. The in-memory API cannot detect
 duplicate JSON keys after a caller has parsed and discarded them.
 
-The assurance certificate records execution logs and artifact hashes. It does
-not sign them, and it does not prove that supplied build artifacts came from
-the validation commit. The repository has no offline certificate verifier.
-The adversarial assessment lists these limits.
+Certificate format 0.2 records a clean-source rebuild, not a signed
+attestation. The writer builds artifacts from a full Git commit in a fresh
+temporary source tree. The offline verifier repeats the build, checks source
+identity and lock inputs, reruns the gates, and compares structure, file mode,
+size, and bytes. The CI run is recorded as `recorded-unverified`; offline
+verification cannot authenticate the run or the worker. The verifier does not
+prove scientific validity, general functional correctness, or claim truth.
 
 The independent Core reference does not use the production evaluator to
 compute expected results. The Haskell implementation consumes committed
@@ -213,9 +235,9 @@ The dependency archive URLs and hashes are in
   notice bundle.
 - [ ] Review snapshot binding, guarded consumption, Measurement, and the
   incomplete parser/CLI cross-language cases as open gates.
-- [ ] Review [the current assurance integrity assessment](assurance-integrity-assessment.md),
-  including the accepted arbitrary-artifact case and the lack of an offline
-  certificate verifier.
+- [ ] Review the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md),
+  including exact artifacts, tested substitution, replay, truncation,
+  result-tampering, and provenance cases.
 - [ ] Record findings against the exact implementation commit in
   `assurance/assurance-certificate.json` and the pull request.
 - [ ] Obtain independent human approval before any release decision.

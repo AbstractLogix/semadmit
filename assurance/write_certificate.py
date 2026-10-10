@@ -6,7 +6,6 @@ import argparse
 import ast
 import hashlib
 import json
-import platform
 import re
 import subprocess
 import sys
@@ -22,30 +21,8 @@ REQUIRED_CI_WORKFLOW_DATABASE_ID = 375788046
 MANDATORY_LOCAL_GATES = ("seeded_corpus", "source_mutation", "test_and_coverage")
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for block in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
-
-
-def tool_version(*command: str) -> str | None:
-    try:
-        return subprocess.run(
-            command,
-            cwd=ROOT,
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            check=True,
-        ).stdout.strip().splitlines()[0]
-    except (OSError, subprocess.CalledProcessError, IndexError):
-        return None
 
 
 def checked_gate(name: str, command: list[str]) -> tuple[str, dict[str, object]]:
@@ -260,129 +237,72 @@ def require_clean_validation_commit(validation_commit: str, implementation_commi
 
 
 def main() -> int:
+    from assurance.source_build import build_source_revision
+
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--implementation-commit", required=True)
-    parser.add_argument("--validation-commit", required=True)
+    parser.add_argument("--source-revision", required=True)
     parser.add_argument("--ci-run-url", required=True)
-    parser.add_argument("--haskell-executable", type=Path, required=True)
-    parser.add_argument("--haskell-sdist", type=Path, required=True)
-    parser.add_argument("--python-wheel", type=Path, required=True)
-    parser.add_argument("--python-sdist", type=Path, required=True)
-    parser.add_argument("--output", type=Path, default=ROOT / "assurance/assurance-certificate.json")
+    parser.add_argument("--artifacts-dir", type=Path, required=True)
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "assurance/assurance-certificate.json"
+    )
     args = parser.parse_args()
 
     try:
-        require_clean_validation_commit(args.validation_commit, args.implementation_commit)
-        executed_tests, mutation_results, gates = local_validation()
-        ci = hosted_ci(args.ci_run_url, args.validation_commit)
+        require_clean_validation_commit(args.source_revision, args.source_revision)
+        ci = hosted_ci(args.ci_run_url, args.source_revision)
+        evidence = build_source_revision(ROOT, args.source_revision, args.artifacts_dir)
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         print(f"certificate not written: {error}", file=sys.stderr)
         return 1
 
-    artifacts = {
-        "haskell_executable": args.haskell_executable,
-        "haskell_source_archive": args.haskell_sdist,
-        "python_wheel": args.python_wheel,
-        "python_source_archive": args.python_sdist,
-    }
-    if any(not path.is_file() or path.stat().st_size == 0 for path in artifacts.values()):
-        print("every build artifact path must name a non-empty file", file=sys.stderr)
+    run_id = re.search(r"/actions/runs/(\d+)", str(ci["run_url"]))
+    if run_id is None:
+        print("certificate not written: hosted CI run id is invalid", file=sys.stderr)
         return 1
-
     certificate = {
-        "format": "semadmit-assurance-certificate/0.1",
-        "implementation_commit": args.implementation_commit,
-        "validation_commit": args.validation_commit,
-        "research_artifact": {
-            "title": "Semadmit Core Conformance Oracle and Assurance Corpus",
-            "version": "0.1",
-            "permalink": f"https://github.com/AbstractLogix/semadmit/tree/{args.implementation_commit}",
-            "doi": None,
-            "peer_reviewed": False,
-        },
-        "protocol": "semantic-oracle/0.1",
-        "stable_claim_compatibility": {
-            "protocol": "semadmit/claim/0.1",
-            "bouleusis_pin": "de61aa87a5f4470fd64de33c926cff7f92cf8bd6",
+        "format": "semadmit-assurance-certificate/0.2",
+        "protocol_scope": {
+            "claim_protocol": "semadmit/claim/0.1",
             "claim_status": "qualified; Python-only semantics",
+            "bouleusis_pin": "de61aa87a5f4470fd64de33c926cff7f92cf8bd6",
+            "core_protocol": "semantic-oracle/0.1",
+            "selector_protocol": "selector-provenance/0.1",
+            "selector_status": "experimental; bounded independence outcomes remain indeterminate",
         },
-        "selector_provenance": {
-            "protocol": "selector-provenance/0.1",
-            "status": "experimental",
-            "independence_cases": "indeterminate",
+        "source": {
+            **evidence["source"],
+            "source_date_epoch": evidence["source_date_epoch"],
+            "locked_inputs_sha256": evidence["locked_inputs_sha256"],
+            "build_inputs_sha256": evidence["build_inputs_sha256"],
         },
-        "digests": {
-            "reference_oracle_sha256": sha256(ROOT / "assurance/reference_core.py"),
-            "corpus_generator_sha256": sha256(ROOT / "assurance/generate_corpus.py"),
-            "core_result_corpus_sha256": sha256(ROOT / "test/integration/vertical_slice/vectors.json"),
-            "parser_corpus_sha256": sha256(ROOT / "conformance/fixtures/protocol-cases.json"),
-            "identity_vectors_sha256": sha256(ROOT / "conformance/fixtures/m0-identity-vectors.json"),
-            "rfc8785_vectors_sha256": sha256(ROOT / "conformance/fixtures/rfc8785-vectors.json"),
+        "build": {
+            "toolchain": evidence["toolchain"],
+            "commands": evidence["commands"],
+            "environment": evidence["environment"],
+            "artifacts": evidence["artifacts"],
+            "provenance": {
+                "method": "clean-source-rebuild",
+                "authenticated": False,
+                "ci_execution_identity": {
+                    "authentication": "recorded-unverified",
+                    "run_id": run_id.group(1),
+                    "run_url": f"https://github.com/AbstractLogix/semadmit/actions/runs/{run_id.group(1)}",
+                    "head_sha": args.source_revision,
+                    "workflow_name": ci["workflow_name"],
+                    "workflow_database_id": ci["workflow_database_id"],
+                    "status": ci["status"],
+                },
+            },
         },
-        "toolchain": {
-            "python": platform.python_version(),
-            "ghc": tool_version("ghc", "--numeric-version"),
-            "cabal": tool_version("cabal", "--numeric-version"),
-            "uv": tool_version("uv", "--version"),
-            "platform": platform.platform(),
-        },
-        "executed_tests": executed_tests,
-        "source_mutation_results": mutation_results,
-        "language_parity": {
-            "shared": [
-                (
-                    f"{executed_tests['exact_core_vectors_in_each_language']} complete "
-                    "fixture/0.1/check result or error vectors"
-                ),
-                (
-                    f"{executed_tests['raw_parser_cases_in_each_language']} raw parser cases, "
-                    f"including {executed_tests['raw_parser_errors_in_each_language']} error envelopes"
-                ),
-                f"{executed_tests['m0_identity_vectors_in_each_language']} M0 canonical identity vectors",
-                f"{executed_tests['selected_rfc8785_vectors_in_each_language']} selected RFC 8785 property-order vectors",
-            ],
-            "python_only": [
-                "semadmit/claim/0.1 semantics",
-                "selector-provenance/0.1 semantics",
-                f"{executed_tests['seeded_python_differential_requests']} dynamic seeded differential requests",
-            ],
-            "reference_scope": "fixture/0.1/check and common safe-integer JSON profile",
-        },
-        "counterexamples": {
-            "count": 0,
-            "scope": "listed committed corpus and recorded test runs only",
-            "details": [],
-        },
-        "build_artifact_hashes_sha256": {
-            name: sha256(path.resolve()) for name, path in artifacts.items()
-        },
-        "build_artifact_sizes_bytes": {
-            name: path.stat().st_size for name, path in artifacts.items()
-        },
-        "validation": {
-            "local_full_validation": "passed",
-            "local_gates": gates,
-            "hosted_ci": ci,
-        },
+        "validation": evidence["validation"],
         "unsupported_guarantees": [
-            "build provenance beyond the recorded artifact byte hashes and toolchain; artifact source binding is not verified",
+            "authenticated CI identity or authenticated build provenance",
             "evidence authenticity or collector identity",
-            "evidence reliability",
-            "claim truth",
-            "all Core parser precedence and error-pointer combinations",
-            "all Core resource limits and CLI framing in cross-language parity",
-            "Haskell parity for claim, selector, Isoprax, or Measurement semantics",
-            "formal correctness, exploit resistance, or total defect detection",
-            "independent human release approval",
-            "release readiness or package publication authorization",
-        ],
-        "reproduction_commands": [
-            "python3 -m assurance.generate_corpus --check",
-            "python3 -m assurance.mutation_check",
-            "python3 scripts/check_coverage.py",
-            "cabal build exe:semantic-oracle",
-            "cabal sdist --output-directory=<output-dir>",
-            "uv build --out-dir <output-dir> clients/python",
+            "evidence reliability or claim truth",
+            "scientific validity or general functional correctness",
+            "complete Core parity or Haskell claim-pack semantics",
+            "independent human release approval or distribution authorization",
         ],
     }
     output = args.output if args.output.is_absolute() else ROOT / args.output
