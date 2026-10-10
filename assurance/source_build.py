@@ -469,6 +469,7 @@ def build_source_revision(
             validate_artifact_structure(name, generated_path, platform.machine())
             destination = output_dir / generated_path.name
             shutil.copy2(generated_path, destination)
+            destination.chmod(0o755 if name == "haskell_executable" else 0o644)
             records[name] = {
                 "filename": destination.name,
                 "sha256": _sha256(destination),
