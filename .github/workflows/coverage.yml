@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up GHC and Cabal
         uses: haskell-actions/setup@0cab6f57ca63e907d25895e0242c529282f1cdc8 # v2.4.7
