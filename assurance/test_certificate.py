@@ -180,7 +180,7 @@ class CertificateIntegrityChecks(unittest.TestCase):
             certificate, rebuilt, artifacts, source_revision = self._offline_fixture(Path(temporary))
             validate_certificate_record(certificate, source_revision, rebuilt, artifacts)
 
-    def test_isolated_build_hides_host_environment_and_blocks_host_writes(self) -> None:
+    def test_isolated_build_hides_host_environment_and_processes_and_blocks_host_writes(self) -> None:
         import shutil
         import sys
 
@@ -214,6 +214,16 @@ class CertificateIntegrityChecks(unittest.TestCase):
                 capture=True,
             )
             self.assertEqual(output.strip(), "<unset>")
+            process_output = _run_sandboxed(
+                [sys.executable, "-c", "import os; print(os.getpid())"],
+                cwd=source,
+                env=clean_env,
+                work=work,
+                cabal_cache=cabal_cache,
+                uv_cache=uv_cache,
+                capture=True,
+            )
+            self.assertNotEqual(int(process_output.strip()), os.getpid())
             host_path = work.parent / f"semadmit-sandbox-write-{work.name}"
             host_path.write_text("protected", encoding="utf-8")
             try:
