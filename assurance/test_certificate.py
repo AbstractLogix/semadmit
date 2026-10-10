@@ -181,8 +181,11 @@ class CertificateIntegrityChecks(unittest.TestCase):
             validate_certificate_record(certificate, source_revision, rebuilt, artifacts)
 
     def test_isolated_build_hides_host_environment_and_blocks_host_writes(self) -> None:
+        import shutil
         import sys
 
+        if shutil.which("bwrap") is None:
+            self.skipTest("bubblewrap is unavailable in this test environment")
         with TemporaryDirectory() as temporary:
             work = Path(temporary).resolve()
             source = work / "source"
