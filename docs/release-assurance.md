@@ -28,7 +28,9 @@ x86_64 artifacts. The actual offline CLI rejected a Python wheel modified with
 arbitrary appended bytes. The verifier shares the source-build implementation
 with the writer. The local build has write and network isolation, but the host
 filesystem remains visible read-only. The CI identity is `recorded-unverified`;
-this does not authenticate the CI run or worker.
+this does not authenticate the CI run or worker. The refreshed certificate is
+for source `c801b42e954b1ac583a18b81c7f2a12189e12400` and hosted Coverage run
+`38026790271`.
 
 | Area | Current result | Open limit |
 | --- | --- | --- |

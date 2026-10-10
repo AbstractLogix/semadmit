@@ -3,14 +3,14 @@
 **Current PR:** [#12 — Bind assurance artifacts to source](https://github.com/AbstractLogix/semadmit/pull/12).
 
 **Certificate source and validation commit:**
-`765228bc00d7f782f80c88cdc2e452b61db8771e`.
+`c801b42e954b1ac583a18b81c7f2a12189e12400`.
 
-**Source tree:** `2070b36ad2d43923b996621e4fd7f500bf0a897d`.
+**Source tree:** `98e6e254b68fe5c7371787a57da69291496f9edf`.
 
-**Hosted Coverage run:** [38025681059](https://github.com/AbstractLogix/semadmit/actions/runs/38025681059), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
+**Hosted Coverage run:** [38026790271](https://github.com/AbstractLogix/semadmit/actions/runs/38026790271), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
 
 Review the full PR #12 diff and the machine-readable certificate. This packet
-is not human approval. The certificate is bound to source commit `765228b…`;
+is not human approval. The certificate is bound to source commit `c801b42…`;
 later documentation or certificate-record commits do not replace that build
 source.
 
@@ -42,8 +42,8 @@ and Bubblewrap 0.6.1.
 | --- | --- |
 | Haskell executable | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
 | Haskell source archive | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
-| Python wheel | `9a76d49c81713d1feb50c1dd91aa384e416ad305da1a0b3e62b71e8cce5742cf` |
-| Python source archive | `0fcdd0fbe0cb30c25f2df6afc25da75e21360643f424a721ab9e938feae84612` |
+| Python wheel | `a0f3b4d7967cbfe75e5f16c1334e24e597092c26bf9ea0d26ebd90dc57053e4e` |
+| Python source archive | `c19793aa20824acad3e4c7702ef787b9dd74d8c2c937ce73a1f75545e48aac30` |
 
 The actual offline verifier passed for the four recorded artifacts. Its
 reproduction command is in the [provenance record](artifact-provenance-and-offline-verification.md).

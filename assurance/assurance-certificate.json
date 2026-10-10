@@ -16,13 +16,13 @@
       "python_source_archive": {
         "filename": "semadmit-0.1.0.dev0.tar.gz",
         "mode": 420,
-        "sha256": "0fcdd0fbe0cb30c25f2df6afc25da75e21360643f424a721ab9e938feae84612",
-        "size_bytes": 37271
+        "sha256": "c19793aa20824acad3e4c7702ef787b9dd74d8c2c937ce73a1f75545e48aac30",
+        "size_bytes": 37273
       },
       "python_wheel": {
         "filename": "semadmit-0.1.0.dev0-py3-none-any.whl",
         "mode": 420,
-        "sha256": "9a76d49c81713d1feb50c1dd91aa384e416ad305da1a0b3e62b71e8cce5742cf",
+        "sha256": "a0f3b4d7967cbfe75e5f16c1334e24e597092c26bf9ea0d26ebd90dc57053e4e",
         "size_bytes": 29770
       }
     },
@@ -66,7 +66,7 @@
           "--format=tar",
           "--output",
           "<build-root>/source.tar",
-          "765228bc00d7f782f80c88cdc2e452b61db8771e"
+          "c801b42e954b1ac583a18b81c7f2a12189e12400"
         ]
       ],
       "validation": [
@@ -84,7 +84,7 @@
       "LC_ALL": "C.UTF-8",
       "PATH": "/home/oscar/.cabal/bin:/home/oscar/.ghcup/bin:/home/oscar/Android/Sdk/platform-tools:/home/oscar/.cargo/bin:/home/oscar/.deno/bin:/home/oscar/.local/bin:/home/oscar/bin:/mnt/c/Users/abstr/.codex/tmp/arg0/codex-arg0jiGjkF:/mnt/c/Users/abstr/.codex/bin/wsl/d04c9d9044dd4815:/mnt/c/Users/abstr/.codex/bin/wsl/1a4f6f66dd2f3710:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python314/Scripts/:/mnt/c/Python314/:/mnt/c/Program Files/Microsoft/jdk-21.0.9.10-hotspot/bin:/mnt/c/Program Files/Microsoft/jdk-25.0.1.8-hotspot/bin:/mnt/c/Program Files/Microsoft/jdk-17.0.11.9-hotspot/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.4/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.4/libnvvp:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/Git/cmd:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/WireGuard/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.1.1/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/Program Files/PowerShell/7/:/Docker/host/bin:/mnt/c/Program Files/WSL/:/mnt/c/Users/abstr/.local/bin:/mnt/c/Users/abstr/AppData/Local/mesh-llm/bin:/mnt/c/Users/abstr/.grok/bin:/mnt/c/Users/abstr/AppData/Local/Programs/OpenAI/Codex/bin:/mnt/c/Users/abstr/AppData/Local/pnpm:/mnt/c/Users/abstr/.cargo/bin:/mnt/c/Users/abstr/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/abstr/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/abstr/.aftman/bin:/mnt/c/msys64/ucrt64/bin:/mnt/c/Users/abstr/go/bin:/mnt/c/Users/abstr/.dotnet/tools:/mnt/c/Users/abstr/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/abstr/AppData/Local/Programs/Ollama:/mnt/c/Users/abstr/AppData/Local/Python/bin:/mnt/c/Users/abstr/AppData/Roaming/npm:/mnt/c/Users/abstr/AppData/Local/PowerToys/DSCModules/:/mnt/c/Users/abstr/Downloads/goose-x86_64-pc-windows-msvc/goose-package:/snap/bin",
       "PYTHONHASHSEED": "0",
-      "SOURCE_DATE_EPOCH": "1791608040",
+      "SOURCE_DATE_EPOCH": "1791609196",
       "TMPDIR": "<build-root>/tmp",
       "TZ": "UTC",
       "UV_CACHE_DIR": "/home/oscar/.cache/uv",
@@ -95,9 +95,9 @@
       "authenticated": false,
       "ci_execution_identity": {
         "authentication": "recorded-unverified",
-        "head_sha": "765228bc00d7f782f80c88cdc2e452b61db8771e",
-        "run_id": "38025681059",
-        "run_url": "https://github.com/AbstractLogix/semadmit/actions/runs/38025681059",
+        "head_sha": "c801b42e954b1ac583a18b81c7f2a12189e12400",
+        "run_id": "38026790271",
+        "run_url": "https://github.com/AbstractLogix/semadmit/actions/runs/38026790271",
         "status": "passed",
         "workflow_database_id": 375788046,
         "workflow_name": "Coverage"
@@ -147,7 +147,7 @@
       "scripts/normalize_python_sdist.py": "1506293c2d4baaf3814ac6b5bc484631de06d7aa2181092a0b1c56463fc44427",
       "semantic-oracle.cabal": "b75f131beced23ab493ba1df76f7edfe3aee86475a9d7b33982db0d0aa292f70"
     },
-    "commit": "765228bc00d7f782f80c88cdc2e452b61db8771e",
+    "commit": "c801b42e954b1ac583a18b81c7f2a12189e12400",
     "locked_inputs_sha256": {
       "cabal.project": "57ed00ceb05ba6572869ae003ccf1715e7fd1a8ff78315f723ad7ae907714810",
       "cabal.project.freeze": "9d325355033734244fdea95c0c2ebb92d2c81a7e9e748c528efc0184c99122ba",
@@ -155,8 +155,8 @@
       "docs/dependency-provenance.json": "f96d655a6331656dc5e5bdf3b3fc7798e46e4d4a197897b3db98d063f75e4188",
       "semantic-oracle.cabal": "b75f131beced23ab493ba1df76f7edfe3aee86475a9d7b33982db0d0aa292f70"
     },
-    "source_date_epoch": 1791608040,
-    "tree": "2070b36ad2d43923b996621e4fd7f500bf0a897d"
+    "source_date_epoch": 1791609196,
+    "tree": "98e6e254b68fe5c7371787a57da69291496f9edf"
   },
   "unsupported_guarantees": [
     "authenticated CI identity or authenticated build provenance",
@@ -206,7 +206,7 @@
       "total": 7
     },
     "tests": {
-      "certificate_integrity_tests": 18,
+      "certificate_integrity_tests": 20,
       "exact_core_vectors_in_each_language": 57,
       "haskell_suites": 7,
       "independent_reference_tests": 7,

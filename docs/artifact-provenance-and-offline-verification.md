@@ -36,9 +36,9 @@ build implementation with the writer. A defect common to both commands can
 therefore remain undetected.
 
 The verified source commit is
-`765228bc00d7f782f80c88cdc2e452b61db8771e` with tree
-`2070b36ad2d43923b996621e4fd7f500bf0a897d`. The successful hosted Coverage
-run is [38025681059](https://github.com/AbstractLogix/semadmit/actions/runs/38025681059).
+`c801b42e954b1ac583a18b81c7f2a12189e12400` with tree
+`98e6e254b68fe5c7371787a57da69291496f9edf`. The successful hosted Coverage
+run is [38026790271](https://github.com/AbstractLogix/semadmit/actions/runs/38026790271).
 The CI identity is recorded as `recorded-unverified`; the verifier cannot
 authenticate GitHub or the worker.
 
@@ -49,8 +49,8 @@ matching artifacts:
 | --- | ---: | ---: | --- |
 | Haskell executable | 0755 | 20,763,832 | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
 | Haskell source archive | 0644 | 46,556 | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
-| Python wheel | 0644 | 29,770 | `9a76d49c81713d1feb50c1dd91aa384e416ad305da1a0b3e62b71e8cce5742cf` |
-| Python source archive | 0644 | 37,271 | `0fcdd0fbe0cb30c25f2df6afc25da75e21360643f424a721ab9e938feae84612` |
+| Python wheel | 0644 | 29,770 | `a0f3b4d7967cbfe75e5f16c1334e24e597092c26bf9ea0d26ebd90dc57053e4e` |
+| Python source archive | 0644 | 37,273 | `c19793aa20824acad3e4c7702ef787b9dd74d8c2c937ce73a1f75545e48aac30` |
 
 Toolchain: CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, uv 0.11.31, and
 Bubblewrap 0.6.1. The artifact record stores the exact build and validation
@@ -133,11 +133,29 @@ source-built artifacts.
 
 The substitution case is a manual end-to-end CLI run, not a committed CLI
 integration test. The other cases are verifier record-validation unit tests,
-not separate full rebuilds. This is tested evidence, not a claim that every
-certificate attack is prevented. Unauthenticated CI metadata can only be
-checked for internal consistency offline. A trusted signature or authenticated
-attestation is required to establish who ran the CI workflow. Reproducibility
-on one host does not authenticate the source build or prove correctness.
+not separate full rebuilds. The 20 certificate tests also check that an
+unknown Git revision and a null source record fail with a clean error. This is
+tested evidence, not a claim that every certificate attack is prevented.
+Unauthenticated CI metadata can only be checked for internal consistency
+offline. A trusted signature or authenticated attestation is required to
+establish who ran the CI workflow. Reproducibility on one host does not
+authenticate the source build or prove correctness.
+
+The recorded successful CLI verification used the four clean-source outputs
+for this certificate:
+
+```sh
+python3 -m assurance.verify_certificate \
+  --certificate assurance/assurance-certificate.json \
+  --source-revision c801b42e954b1ac583a18b81c7f2a12189e12400 \
+  --haskell-executable /tmp/semadmit-pr12-certified-c801b42/semantic-oracle \
+  --haskell-source-archive /tmp/semadmit-pr12-certified-c801b42/semantic-oracle-0.1.0.0.tar.gz \
+  --python-wheel /tmp/semadmit-pr12-certified-c801b42/semadmit-0.1.0.dev0-py3-none-any.whl \
+  --python-source-archive /tmp/semadmit-pr12-certified-c801b42/semadmit-0.1.0.dev0.tar.gz
+```
+
+It printed `offline certificate verification passed within clean-source rebuild scope`
+and reported that the CI identity is still unauthenticated.
 
 ### Recorded substitution run
 
@@ -146,7 +164,7 @@ the bytes `arbitrary caller supplied replacement` to the wheel. The verifier
 setup command was:
 
 ```sh
-python3 -c 'from pathlib import Path; import shutil; source = Path("/tmp/semadmit-pr12-certified-765228b"); target = Path("/tmp/semadmit-pr12-attack-765228b"); target.mkdir(exist_ok=True); names = ["semantic-oracle", "semantic-oracle-0.1.0.0.tar.gz", "semadmit-0.1.0.dev0-py3-none-any.whl", "semadmit-0.1.0.dev0.tar.gz"]; [shutil.copy2(source / name, target / name) for name in names]; wheel = target / "semadmit-0.1.0.dev0-py3-none-any.whl"; wheel.write_bytes(wheel.read_bytes() + b"arbitrary caller supplied replacement")'
+python3 -c 'from pathlib import Path; import shutil; source = Path("/tmp/semadmit-pr12-certified-c801b42"); target = Path("/tmp/semadmit-pr12-attack-c801b42"); target.mkdir(exist_ok=True); names = ["semantic-oracle", "semantic-oracle-0.1.0.0.tar.gz", "semadmit-0.1.0.dev0-py3-none-any.whl", "semadmit-0.1.0.dev0.tar.gz"]; [shutil.copy2(source / name, target / name) for name in names]; wheel = target / "semadmit-0.1.0.dev0-py3-none-any.whl"; wheel.write_bytes(wheel.read_bytes() + b"arbitrary caller supplied replacement")'
 ```
 
 The verifier command was:
@@ -154,11 +172,11 @@ The verifier command was:
 ```sh
 python3 -m assurance.verify_certificate \
   --certificate assurance/assurance-certificate.json \
-  --source-revision 765228bc00d7f782f80c88cdc2e452b61db8771e \
-  --haskell-executable /tmp/semadmit-pr12-attack-765228b/semantic-oracle \
-  --haskell-source-archive /tmp/semadmit-pr12-attack-765228b/semantic-oracle-0.1.0.0.tar.gz \
-  --python-wheel /tmp/semadmit-pr12-attack-765228b/semadmit-0.1.0.dev0-py3-none-any.whl \
-  --python-source-archive /tmp/semadmit-pr12-attack-765228b/semadmit-0.1.0.dev0.tar.gz
+  --source-revision c801b42e954b1ac583a18b81c7f2a12189e12400 \
+  --haskell-executable /tmp/semadmit-pr12-attack-c801b42/semantic-oracle \
+  --haskell-source-archive /tmp/semadmit-pr12-attack-c801b42/semantic-oracle-0.1.0.0.tar.gz \
+  --python-wheel /tmp/semadmit-pr12-attack-c801b42/semadmit-0.1.0.dev0-py3-none-any.whl \
+  --python-source-archive /tmp/semadmit-pr12-attack-c801b42/semadmit-0.1.0.dev0.tar.gz
 ```
 
 It exited with status 1 and printed:
