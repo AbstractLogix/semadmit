@@ -19,10 +19,12 @@ recorded Python/GHC/Cabal/uv versions, the pinned dependency inputs, and the
 offline dependency caches. The repository certificate is not a signing key.
 Its declarations are checked against those external inputs and a new build.
 
-The local source build uses Bubblewrap with a read-only host filesystem,
-write access only to its build root and declared Cabal/uv caches, and no
-network namespace. Host files remain visible when readable. This is not a
-confidentiality boundary or a fully hermetic build.
+The local source build uses Bubblewrap with a separate process and network
+namespace, a read-only host filesystem, and write access only to its build
+root and declared Cabal/uv caches. Host files remain visible when readable.
+This is not a confidentiality boundary or a fully hermetic build. The focused
+sandbox test confirms that the host test process is absent from the sandbox's
+`/proc` and that writes outside the build root fail.
 
 The builder exports the requested commit into a new temporary source tree. It
 runs the coverage, corpus, and mutation gates there. It then builds the Python
@@ -34,9 +36,9 @@ build implementation with the writer. A defect common to both commands can
 therefore remain undetected.
 
 The verified source commit is
-`82ed0559d00a84f9970174e7d4c7610877dd10a7` with tree
-`446c8caeeceaf941b3c981267166892d664c1f86`. The successful hosted Coverage
-run is [38024659759](https://github.com/AbstractLogix/semadmit/actions/runs/38024659759).
+`765228bc00d7f782f80c88cdc2e452b61db8771e` with tree
+`2070b36ad2d43923b996621e4fd7f500bf0a897d`. The successful hosted Coverage
+run is [38025681059](https://github.com/AbstractLogix/semadmit/actions/runs/38025681059).
 The CI identity is recorded as `recorded-unverified`; the verifier cannot
 authenticate GitHub or the worker.
 
@@ -47,8 +49,8 @@ matching artifacts:
 | --- | ---: | ---: | --- |
 | Haskell executable | 0755 | 20,763,832 | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
 | Haskell source archive | 0644 | 46,556 | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
-| Python wheel | 0644 | 29,770 | `fc73f79beac938de49f60f184725aff31dca0bd696aeeb69b46e06a7a110708c` |
-| Python source archive | 0644 | 37,272 | `0e0b9a223af03053bdb0017d7b8db757d4bdffbb86ff9b82a8a91fc19961d5ea` |
+| Python wheel | 0644 | 29,770 | `9a76d49c81713d1feb50c1dd91aa384e416ad305da1a0b3e62b71e8cce5742cf` |
+| Python source archive | 0644 | 37,271 | `0fcdd0fbe0cb30c25f2df6afc25da75e21360643f424a721ab9e938feae84612` |
 
 Toolchain: CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, uv 0.11.31, and
 Bubblewrap 0.6.1. The artifact record stores the exact build and validation
@@ -113,7 +115,9 @@ JSON keys and truncated JSON also fail.
 
 ## Tested attack cases
 
-The assurance test suite checks these cases:
+The committed assurance tests check the verifier's record-validation boundary
+with fixtures. The first row below is a separate end-to-end CLI run using real
+source-built artifacts.
 
 | Attack | Result |
 | --- | --- |
@@ -127,13 +131,41 @@ The assurance test suite checks these cases:
 | Mark provenance authenticated or change the CI source SHA | Rejected. |
 | Change a certificate artifact digest | Rejected against the clean-source output. |
 
-The substitution case is an end-to-end CLI test using real build outputs. The
-other cases are negative verifier tests, not separate full rebuilds. These are
-tested cases, not a claim that every certificate attack is prevented. In
-particular, unauthenticated CI metadata can only be checked for internal
-consistency offline. A trusted signature or authenticated attestation is
-required to establish who ran the CI workflow. Reproducibility on one host does
-not authenticate the source build or prove correctness.
+The substitution case is a manual end-to-end CLI run, not a committed CLI
+integration test. The other cases are verifier record-validation unit tests,
+not separate full rebuilds. This is tested evidence, not a claim that every
+certificate attack is prevented. Unauthenticated CI metadata can only be
+checked for internal consistency offline. A trusted signature or authenticated
+attestation is required to establish who ran the CI workflow. Reproducibility
+on one host does not authenticate the source build or prove correctness.
+
+### Recorded substitution run
+
+The setup copied the four valid artifacts to a second directory and appended
+the bytes `arbitrary caller supplied replacement` to the wheel. The verifier
+setup command was:
+
+```sh
+python3 -c 'from pathlib import Path; import shutil; source = Path("/tmp/semadmit-pr12-certified-765228b"); target = Path("/tmp/semadmit-pr12-attack-765228b"); target.mkdir(exist_ok=True); names = ["semantic-oracle", "semantic-oracle-0.1.0.0.tar.gz", "semadmit-0.1.0.dev0-py3-none-any.whl", "semadmit-0.1.0.dev0.tar.gz"]; [shutil.copy2(source / name, target / name) for name in names]; wheel = target / "semadmit-0.1.0.dev0-py3-none-any.whl"; wheel.write_bytes(wheel.read_bytes() + b"arbitrary caller supplied replacement")'
+```
+
+The verifier command was:
+
+```sh
+python3 -m assurance.verify_certificate \
+  --certificate assurance/assurance-certificate.json \
+  --source-revision 765228bc00d7f782f80c88cdc2e452b61db8771e \
+  --haskell-executable /tmp/semadmit-pr12-attack-765228b/semantic-oracle \
+  --haskell-source-archive /tmp/semadmit-pr12-attack-765228b/semantic-oracle-0.1.0.0.tar.gz \
+  --python-wheel /tmp/semadmit-pr12-attack-765228b/semadmit-0.1.0.dev0-py3-none-any.whl \
+  --python-source-archive /tmp/semadmit-pr12-attack-765228b/semadmit-0.1.0.dev0.tar.gz
+```
+
+It exited with status 1 and printed:
+
+```text
+offline certificate verification failed: supplied artifact does not match the clean-source rebuild: python_wheel
+```
 
 ## Separate distribution assessment
 

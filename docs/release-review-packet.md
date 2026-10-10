@@ -3,14 +3,14 @@
 **Current PR:** [#12 — Bind assurance artifacts to source](https://github.com/AbstractLogix/semadmit/pull/12).
 
 **Certificate source and validation commit:**
-`82ed0559d00a84f9970174e7d4c7610877dd10a7`.
+`765228bc00d7f782f80c88cdc2e452b61db8771e`.
 
-**Source tree:** `446c8caeeceaf941b3c981267166892d664c1f86`.
+**Source tree:** `2070b36ad2d43923b996621e4fd7f500bf0a897d`.
 
-**Hosted Coverage run:** [38024659759](https://github.com/AbstractLogix/semadmit/actions/runs/38024659759), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
+**Hosted Coverage run:** [38025681059](https://github.com/AbstractLogix/semadmit/actions/runs/38025681059), passed for the exact source commit above. The CI identity in the certificate remains unauthenticated.
 
 Review the full PR #12 diff and the machine-readable certificate. This packet
-is not human approval. The certificate is bound to source commit `82ed055…`;
+is not human approval. The certificate is bound to source commit `765228b…`;
 later documentation or certificate-record commits do not replace that build
 source.
 
@@ -42,14 +42,16 @@ and Bubblewrap 0.6.1.
 | --- | --- |
 | Haskell executable | `08a314a7dddd3ed49018740f3d5ac6edda80b97deea10d5e449854f521c2b700` |
 | Haskell source archive | `f8b7307e484d0be76f854a598c0c7c1f69652d21cd04aaf00652e48f328b38f4` |
-| Python wheel | `fc73f79beac938de49f60f184725aff31dca0bd696aeeb69b46e06a7a110708c` |
-| Python source archive | `0e0b9a223af03053bdb0017d7b8db757d4bdffbb86ff9b82a8a91fc19961d5ea` |
+| Python wheel | `9a76d49c81713d1feb50c1dd91aa384e416ad305da1a0b3e62b71e8cce5742cf` |
+| Python source archive | `0fcdd0fbe0cb30c25f2df6afc25da75e21360643f424a721ab9e938feae84612` |
 
 The actual offline verifier passed for the four recorded artifacts. Its
 reproduction command is in the [provenance record](artifact-provenance-and-offline-verification.md).
 Negative tests cover replay, truncation, missing artifacts, changed source
 identity, altered results, and invalid provenance. The real CLI substitution
-test changed the Python wheel bytes and was rejected after rebuild.
+test changed the Python wheel bytes and was rejected after rebuild. The packet
+records the exact command and output; the substitution run is manual, while
+committed negative tests exercise record validation with fixtures.
 
 The stable Bouleusis pin remains
 `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The `semadmit/claim/0.1`
