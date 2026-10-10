@@ -8,8 +8,8 @@
 | --- | --- | --- |
 | History and secret audit | **BLOCKED pending owner decisions** | No credential candidate was found. A personal author email is present in reachable commit metadata. A detailed downstream eligibility specification also needs owner classification before public disclosure. Neither item was rewritten. |
 | Source licensing | **READY** | Semadmit source declares Apache-2.0. This change adds the MIT notice for adapted Spec Kit material. Haskell binary notice work remains a separate distribution gate. |
-| Public documentation | **READY after quickstart validation** | README, contributor guidance, security guidance, and this report describe current scope and limits. The quickstart runs from the checkout. |
-| Clean checkout | **Pending final run** | Record the exact readiness commit and results after running the full local gate and quickstart from a clean checkout. |
+| Public documentation | **READY** | README, contributor guidance, security guidance, and this report describe current scope and limits. The quickstart passed from a clean checkout. |
+| Clean checkout | **PASS** | The full test gate, independent reference, mutation check, quickstart, and source builds passed from a clean checkout at `6db5f2e85b1666a57f851388c2e2ff97b3b413a9`. |
 | Public source release | **NO-GO pending owner decisions** | The owner must accept or remediate the author-email disclosure and decide whether the downstream contract detail may be public. No repository visibility change is made here. |
 | Python package publication | **Separate decision** | No package is published or approved by this report. |
 | Haskell binary publication | **Separate decision; blocked** | The existing dependency provenance and `rts` notice gates remain open. This does not block source-only access. |
@@ -136,15 +136,18 @@ GitHub documents [secret-scanning availability](https://docs.github.com/en/code-
 
 ## Validation record
 
-Fill this section with evidence from the exact readiness commit before merge:
+Validation ran in a fresh detached checkout at `6db5f2e85b1666a57f851388c2e2ff97b3b413a9` with CPython 3.13.14, GHC 9.14.1, Cabal 3.18.1.0, and uv 0.11.31.
 
-- Readiness commit: pending.
-- `python3 scripts/check_coverage.py`: pending.
-- `python3 -m unittest assurance.test_reference_core`: pending.
-- `python3 assurance/mutation_check.py`: pending.
-- README quickstart from a clean checkout: pending.
-- `uv build` using the public Python package index: pending.
-- `cabal build exe:semantic-oracle --offline` and dependency resolution: pending.
-- `git diff --check`: pending.
+- `python3 scripts/check_coverage.py`: **PASS**. All 59 Python package tests, 7 independent-reference tests, and 20 certificate tests passed. All 9 Python modules met the 100% executable-line threshold (1,679/1,679). All 7 Haskell test suites passed. Haskell coverage was 5,318/5,859 expressions (90.77%) and 90/193 boolean outcomes (46.63%).
+- `env PYTHONPATH=clients/python python3 -m unittest assurance.test_reference_core -v`: **PASS**, 7 tests.
+- `python3 assurance/mutation_check.py`: **PASS**, 7/7 selected Python Core mutations killed. This mutation check does not mutate Haskell source.
+- `env PYTHONPATH=clients/python python3 examples/claim_quickstart.py`: **PASS**. It showed the valid, invalid, and indeterminate outcomes; verification rejected the changed decision digest.
+- `env PYTHONPATH=clients/python python3 -m unittest clients.python.tests.test_claim_result_compatibility -v`: **PASS**, 4 tests. The fixture still pins `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
+- `uv build --index-url https://pypi.org/simple --out-dir /tmp/semadmit-public-audit/python-dist clients/python`: **PASS**. It built a source archive and wheel using the public PyPI index. The artifacts remain in a temporary directory and were not published.
+- `cabal test all --enable-coverage --test-show-details=direct --offline`: **PASS**, all 7 Haskell suites.
+- `cabal build exe:semantic-oracle --offline`: **PASS**. The locked Haskell dependency graph resolved from the local public Hackage cache without network access. The Python package has no runtime dependencies; its build used the public PyPI index for its build backend.
+- `git diff --check`: **PASS** before commit. The checkout was clean after validation.
+
+The readiness report was updated after this validation. That follow-up changes documentation only; no evaluator, protocol, fixture, or build-workflow code changed after the tested commit.
 
 These checks establish only the named local behavior. They do not establish general correctness, scientific validity, evidence authenticity, signed build provenance, cross-platform support, package approval, or binary approval.
