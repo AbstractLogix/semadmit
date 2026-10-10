@@ -185,7 +185,17 @@ class CertificateIntegrityChecks(unittest.TestCase):
         import sys
 
         if shutil.which("bwrap") is None:
-            self.skipTest("bubblewrap is unavailable in this test environment")
+            with patch("assurance.source_build.shutil.which", return_value=None):
+                with self.assertRaisesRegex(RuntimeError, "bubblewrap is required"):
+                    _run_sandboxed(
+                        [sys.executable, "-c", "pass"],
+                        cwd=Path.cwd(),
+                        env={},
+                        work=Path.cwd(),
+                        cabal_cache=Path.cwd(),
+                        uv_cache=Path.cwd(),
+                    )
+            return
         with TemporaryDirectory() as temporary:
             work = Path(temporary).resolve()
             source = work / "source"
