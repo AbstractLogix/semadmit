@@ -1,30 +1,29 @@
 # Release Readiness
 
-**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. This claim-contract qualification is separate from overall release readiness. See the [trust-boundary review](trust-boundary-review.md) for the guarantee matrix and the current [release assurance record](release-assurance.md) for fresh validation, detailed gates, and the reviewer packet.
+**Release status: NOT READY FOR RELEASE.** The frozen Bouleusis claim pin remains `de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The separate `selector-provenance/0.1` pack remains experimental and indeterminate for every bounded independence case. The current artifact-binding result uses a clean-source rebuild and does not authenticate CI identity. See the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md), [trust-boundary review](trust-boundary-review.md), and [release assurance record](release-assurance.md).
 
 ## Current Gate Matrix
 
-Previous assurance PR #8 merge commit: `e82c459c3de95f8a1adb0475feea70ba29aa77c0`.
-Independent Core implementation commit:
-`47d55e1e7fa10348d4a39679add3590edfe8233b`.
-Certificate validation commit:
-`40528b3ea6989cb9487c9c558fdb278b1567e9d9`.
-The independent Core assurance extension and its exact commits are recorded in
-[independent-assurance.md](independent-assurance.md) and its machine-readable
-certificate.
+Current source revision and clean-source artifact hashes are recorded in
+[`assurance-certificate.json`](../assurance/assurance-certificate.json). The
+certificate records an unverified CI identity and is checked by the offline
+rebuild command in the [provenance record](artifact-provenance-and-offline-verification.md).
 
 | Gate | Result | Scope |
 | --- | --- | --- |
-| Claim protocol | Qualified | Python verifier for `semadmit/claim/0.1`; this does not establish truth or source authenticity. |
+| Certificate artifact binding | Verified within tested scope | Artifacts are rebuilt from the externally selected full Git commit, tree, locks, and toolchain. This does not authenticate CI identity. |
+| Offline certificate verification | Pass | Verifier checks certificate structure, source identity, validation results, artifact structure, size, and exact bytes against a clean-source rebuild. |
+| Claim protocol | Qualified, Python-only | `semadmit/claim/0.1` remains qualified in Python; this does not establish truth or source authenticity. |
 | Core cross-language conformance | Qualified for named vectors only | 57 exact decision vectors, 9 identity vectors, one selected RFC 8785 vector, and 68 raw parser cases, including 65 error envelopes. Broader parser precedence, resource-boundary, and CLI parity remains partial. |
 | Claim semantics | Python-only | Haskell does not implement the claim pack; no claim-pack parity is claimed. |
 | Selector provenance | Experimental | Four bounded independence cases remain `indeterminate`; no positive independence rule is supported. |
-| Distribution readiness | No distribution approved | Haskell binaries still lack an approved `rts` Apache-2.0 notice set. A Python-only release needs its own artifact review and owner decision. Other hosts are not qualified. |
-| Independent release approval | Open | No independent human reviewer has approved the source and distribution evidence. |
+| Python distribution | Ready for owner review | Linux x86_64, CPython 3.13 toolchain only. No package is published or approved. |
+| Haskell distribution | Blocked | The `rts` Apache-2.0 notice set and remaining dependency provenance need review. Linux x86_64 only. |
+| Independent release approval | Absent | No independent human reviewer has approved the source and distribution evidence. |
 
-Do not publish until the dependency notice gap, other open gates, and owner
-release decision are addressed. Current open gates are listed in
-[release-assurance.md](release-assurance.md).
+Do not publish until the Haskell notice gap, remaining owner review, and
+release decision are addressed. A hash does not prove who built an artifact.
+The local verifier does not authenticate CI or replace independent review.
 
 ## Historical Validation Record: 49a772e
 

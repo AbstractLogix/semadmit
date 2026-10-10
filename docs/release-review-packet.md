@@ -28,18 +28,21 @@ That certificate identifies the source commit for the new assurance artifact.
 
 ## Current Final Assurance Assessment
 
-The current review baseline is PR #10 merge
-`e042aded9fd98d22aeb708337a26e9bbc9f2b7b8`, tree
-`c84d326ab07eacec88786df12081cf6442175982`. The stable Bouleusis pin remains
-`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`.
+The current artifact assurance uses certificate format
+`semadmit-assurance-certificate/0.2`. Its exact source revision, Git tree,
+locked inputs, toolchain, validation results, CI run record, and artifact
+hashes are in [`assurance-certificate.json`](../assurance/assurance-certificate.json).
+The [artifact provenance record](artifact-provenance-and-offline-verification.md)
+defines the trust model and reproduction command. The verifier rebuilds the
+artifacts from the externally supplied source revision and rejects mismatched
+bytes or results. The CI identity remains unauthenticated.
 
-Read the [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
-with this packet. It records the adversarial certificate cases, remaining Core
-parity gaps, separate Python and Haskell artifact assessments, exact build
-hashes, and the unresolved review and owner decisions. Its conclusion is that
-the certificate is not a signed attestation, Core parity is partial, Python
-distribution is ready for an owner decision, Haskell executable distribution
-is blocked, and independent release approval is absent.
+The stable Bouleusis pin remains
+`de61aa87a5f4470fd64de33c926cff7f92cf8bd6`. The `semadmit/claim/0.1`
+qualification stays Python-only, and `selector-provenance/0.1` stays
+experimental. Core parity remains partial. Python is ready for owner review;
+Haskell distribution remains blocked on notice and dependency provenance
+review. Independent release approval is absent.
 
 ## Review Scope
 
@@ -93,10 +96,13 @@ uses the implementation available in the caller's process and does not bind
 the result to an immutable executable. The in-memory API cannot detect
 duplicate JSON keys after a caller has parsed and discarded them.
 
-The assurance certificate records execution logs and artifact hashes. It does
-not sign them, and it does not prove that supplied build artifacts came from
-the validation commit. The repository has no offline certificate verifier.
-The adversarial assessment lists these limits.
+Certificate format 0.2 records a clean-source rebuild, not a signed
+attestation. The writer builds artifacts from a full Git commit in a fresh
+temporary source tree. The offline verifier repeats the build, checks source
+identity and lock inputs, reruns the gates, and compares structure, file mode,
+size, and bytes. The CI run is recorded as `recorded-unverified`; offline
+verification cannot authenticate the run or the worker. The verifier does not
+prove scientific validity, general functional correctness, or claim truth.
 
 The independent Core reference does not use the production evaluator to
 compute expected results. The Haskell implementation consumes committed
@@ -213,9 +219,9 @@ The dependency archive URLs and hashes are in
   notice bundle.
 - [ ] Review snapshot binding, guarded consumption, Measurement, and the
   incomplete parser/CLI cross-language cases as open gates.
-- [ ] Review [the current assurance integrity assessment](assurance-integrity-assessment.md),
-  including the accepted arbitrary-artifact case and the lack of an offline
-  certificate verifier.
+- [ ] Review the [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md),
+  including the tested substitution, replay, truncation, result-tampering, and
+  provenance cases.
 - [ ] Record findings against the exact implementation commit in
   `assurance/assurance-certificate.json` and the pull request.
 - [ ] Obtain independent human approval before any release decision.

@@ -6,8 +6,33 @@
 `selector-provenance/0.1` pack remains experimental. These are separate
 qualification results.
 
-The [final assurance integrity and distribution assessment](assurance-integrity-assessment.md)
-adds the adversarial certificate results and current artifact build hashes.
+The [artifact provenance and offline verification record](artifact-provenance-and-offline-verification.md)
+contains the current certificate contract and command. The earlier records in
+this file describe historical assurance states.
+
+## Current Artifact Provenance Assessment
+
+The current machine-readable record is
+[`assurance-certificate.json`](../assurance/assurance-certificate.json),
+format `semadmit-assurance-certificate/0.2`. It names a full source commit and
+tree, hashes the build locks, records the toolchain and exact build command
+templates, records the unverified Coverage run identity, and stores four
+artifact digests. The writer creates the files from a temporary Git archive;
+it no longer accepts caller-supplied artifact files.
+
+The offline verifier rebuilds from the externally supplied source revision,
+reruns all local gates, and compares the rebuilt results and artifact files.
+It passes only on the same recorded toolchain and build environment. This
+establishes tested source-to-artifact reproducibility for the listed Linux
+x86_64 artifacts. It does not authenticate the CI run or worker.
+
+| Area | Current result | Open limit |
+| --- | --- | --- |
+| Certificate artifact binding | Verified within tested scope | Clean-source rebuild on the recorded host; no authenticated provenance. |
+| Offline verification | Pass | CI identity is internally checked but remains unauthenticated offline. |
+| Python distribution | Ready for owner review | No independent release approval or owner decision. |
+| Haskell distribution | Blocked | `rts` notice obligations and remaining dependency provenance are unresolved. |
+| Independent release approval | Absent | Human review of the exact source, dependency notices, and artifacts remains open. |
 
 ## PR #8 Baseline and Validation (Historical)
 
