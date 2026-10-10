@@ -516,7 +516,7 @@ def build_source_revision(
                 "TZ": "UTC",
                 "UV_CACHE_DIR": str(uv_cache),
                 "UV_OFFLINE": "1",
-                "sandbox": "bubblewrap; all filesystem paths read-only except build root and declared Cabal/uv caches; network namespace disabled",
+                "sandbox": "bubblewrap write and network isolation; host filesystem remains visible read-only except build root and declared Cabal/uv caches; network namespace disabled",
             },
             "validation": validation,
             "artifacts": records,

@@ -201,19 +201,22 @@ class CertificateIntegrityChecks(unittest.TestCase):
                 capture=True,
             )
             self.assertEqual(output.strip(), "<unset>")
-            host_path = Path("/tmp/semadmit-sandbox-write-must-fail")
-            host_path.unlink(missing_ok=True)
-            with self.assertRaisesRegex(RuntimeError, "isolated command failed"):
-                _run_sandboxed(
-                    [sys.executable, "-c", f"open({str(host_path)!r}, 'w').close()"],
-                    cwd=source,
-                    env=clean_env,
-                    work=work,
-                    cabal_cache=cabal_cache,
-                    uv_cache=uv_cache,
-                    capture=True,
-                )
-            self.assertFalse(host_path.exists())
+            host_path = work.parent / f"semadmit-sandbox-write-{work.name}"
+            host_path.write_text("protected", encoding="utf-8")
+            try:
+                with self.assertRaisesRegex(RuntimeError, "isolated command failed"):
+                    _run_sandboxed(
+                        [sys.executable, "-c", f"open({str(host_path)!r}, 'w').write('changed')"],
+                        cwd=source,
+                        env=clean_env,
+                        work=work,
+                        cabal_cache=cabal_cache,
+                        uv_cache=uv_cache,
+                        capture=True,
+                    )
+                self.assertEqual(host_path.read_text(encoding="utf-8"), "protected")
+            finally:
+                host_path.unlink()
 
     def test_offline_verifier_rejects_arbitrary_artifact_substitution(self) -> None:
         with TemporaryDirectory() as temporary:
